@@ -51,6 +51,7 @@
 			this.numUD_b = new System.Windows.Forms.NumericUpDown();
 			this.numUD_a = new System.Windows.Forms.NumericUpDown();
 			this.Update_btn = new System.Windows.Forms.Button();
+			this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.formula_pic)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tBar_a)).BeginInit();
@@ -326,6 +327,7 @@
 		private System.Windows.Forms.NumericUpDown numUD_b;
 		private System.Windows.Forms.NumericUpDown numUD_a;
 		private System.Windows.Forms.Button Update_btn;
+		private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
