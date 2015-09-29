@@ -358,6 +358,9 @@ namespace R04522602許泰源Ass02
 		private void created_func_list_SelectedIndexChanged(object sender, EventArgs e){
 			int i = created_func_list.SelectedIndex;
 			if(i>=0){
+				foreach(Series s in Chart_func.Series)
+					s.BorderWidth = 1;
+				Chart_func.Series[created_func_list.SelectedIndex].BorderWidth = 2;
 				//Enable slected triangle function be adjust by trackbar and numericUpDown.
 				if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
 					triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
