@@ -361,7 +361,7 @@ namespace R04522602許泰源Ass02
 				//Highlight the selected line.
 				foreach(Series s in Chart_func.Series)
 					s.BorderWidth = 1;
-				Chart_func.Series[created_func_list.SelectedIndex].BorderWidth = 2;
+				Chart_func.Series[created_func_list.SelectedIndex].BorderWidth = 3;
 				//Enable slected triangle function be adjust by trackbar and numericUpDown.
 				if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
 					triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
