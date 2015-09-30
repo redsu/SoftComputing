@@ -652,11 +652,17 @@ namespace R04522602許泰源Ass02
 						double c, sigma;
 						c     = double.Parse(Box_a.Text);
 						sigma = double.Parse(Box_b.Text);
-						if (sigma < 0)
+						if (sigma < 0 || sigma > FuncObject.sRbound || c > FuncObject.Rbound){
+							Box_a.Text = tBar_c.Value.ToString();
+							Box_b.Text = tBar_a.Value.ToString();
 							MessageBox.Show("Bad argument!\n\u03C3 should be positive number!");
+						}
 						else{
 							FuncObject.SetParameter("c", c);
 							FuncObject.SetParameter("sigma", sigma);
+							MessageBox.Show(c.ToString());
+							tBar_c.Value = (int)c;
+							tBar_a.Value = (int)sigma;
 							FuncObject.Refresh(s);
 						}
 					}catch(Exception ex){
