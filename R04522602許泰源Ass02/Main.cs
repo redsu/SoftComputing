@@ -264,10 +264,15 @@ namespace R04522602許泰源Ass02
                     Box_c.Text     = "50.0";
 
 					tBar_a.Visible  = true;
-					numUD_a.Visible = true;
+                    tBar_b.Visible = false;
+                    tBar_c.Visible = false;
+                    numUD_a.Visible = true;
 					numUD_b.Visible = true;
+                    
 					tBar_a.Enabled  = false;
-					numUD_a.Enabled = false;
+                    tBar_b.Enabled  = false;
+                    tBar_c.Enabled  = false;
+                    numUD_a.Enabled = false;
 					numUD_b.Enabled = false;
 					
 					tBar_a.Minimum = 10;
@@ -284,6 +289,9 @@ namespace R04522602許泰源Ass02
                     label_b.Visible = true;
                     label_c.Visible = false;
 
+                    tBar_a.Visible = true;
+                    tBar_b.Visible = false;
+                    tBar_c.Visible = true;
                     Box_a.Visible   = true;
                     Box_b.Visible   = true;
                     Box_c.Visible   = false;
@@ -294,7 +302,8 @@ namespace R04522602許泰源Ass02
                     Box_a.Text     = "30.0";
                     Box_b.Text     = "5.0";
 
-					tBar_a.Visible  = false;
+					tBar_a.Visible  = true;
+
 					numUD_a.Visible = false;
 					numUD_b.Visible = false;
                     
@@ -320,8 +329,10 @@ namespace R04522602許泰源Ass02
                     Box_b.Text     = "5.0";
                     Box_c.Text     = "30.0";
 
-					tBar_a.Visible  = false;
-					numUD_a.Visible = false;
+                    tBar_a.Visible = false;
+                    tBar_b.Visible = false;
+                    tBar_c.Visible = false;
+                    numUD_a.Visible = false;
 					numUD_b.Visible = false;
 
                     formula_pic.Load("Resource/fml_b.PNG");
@@ -344,8 +355,10 @@ namespace R04522602許泰源Ass02
                     Box_a.Text     = "3.0";
                     Box_b.Text     = "30";
 
-					tBar_a.Visible  = false;
-					numUD_a.Visible = false;
+                    tBar_a.Visible = false;
+                    tBar_b.Visible = false;
+                    tBar_c.Visible = false;
+                    numUD_a.Visible = false;
 					numUD_b.Visible = false;
                     
                     formula_pic.Load("Resource/fml_s.PNG");
@@ -402,7 +415,21 @@ namespace R04522602許泰源Ass02
 					FuncTypSel.SelectedIndex = 1;
 					Box_a.Text = FuncObject.GetParameter("c").ToString();
                     Box_b.Text = FuncObject.GetParameter("sigma").ToString();
-				}
+                    tBar_a.Visible = true;
+                    tBar_b.Visible = false;
+                    tBar_c.Visible = true;
+                    tBar_a.Enabled = true;
+                    tBar_b.Enabled = false;
+                    tBar_c.Enabled = true;
+                    tBar_a.Minimum = (int)FuncObject.sLbound;
+                    tBar_a.Maximum = (int)FuncObject.sRbound;
+                    tBar_a.Value = (int)FuncObject.GetParameter("sigma");
+                    tBar_c.Minimum = (int)FuncObject.Lbound;
+                    tBar_c.Maximum = (int)FuncObject.Rbound;
+                    tBar_c.Value = (int)FuncObject.GetParameter("c");
+                    
+                    
+                }
 				else{
 					;
 				}
@@ -442,8 +469,21 @@ namespace R04522602許泰源Ass02
 					Series s = Chart_func.Series.FindByName(FuncObject.ToString());
 					FuncObject.Refresh(s);
 				}
-			}
-		}
+                if (typeof(gaussian_function).ToString() == created_func_list.Items[i].GetType().ToString()){
+                    gaussian_function FuncObject = created_func_list.Items[i] as gaussian_function;
+                    FuncObject.SetParameter("sigma", tBar_a.Value);
+                    Box_b.Text = tBar_a.Value.ToString();
+                    Series s = Chart_func.Series.FindByName(FuncObject.ToString());
+                    FuncObject.Refresh(s);
+                }
+            }
+            //Find the current Maximum/Minimum of all the visible function and adjust the scale.
+            FindBoundary();
+            Chart_func.ChartAreas[0].AxisX.Interval = (double)((int)(bound_r - bound_l) / 5);
+            Chart_func.ChartAreas[0].AxisX.Maximum = bound_r;
+            Chart_func.ChartAreas[0].AxisX.Minimum = bound_l;
+            Chart_func.ChartAreas[0].AxisX.Title = "X Axis";
+        }
 
 		private void FindBoundary(){
 			//Find the current Maximum/Minimum of all the visible function.
@@ -511,7 +551,25 @@ namespace R04522602許泰源Ass02
 			Chart_func.ChartAreas[0].AxisX.Title = "X Axis";
 		}
 
-		private void numUD_a_ValueChanged(object sender, EventArgs e){
+        private void tBar_c_Scroll(object sender, EventArgs e){
+            int i = created_func_list.SelectedIndex;
+            if (i >= 0){
+                if (typeof(gaussian_function).ToString() == created_func_list.Items[i].GetType().ToString()){
+                    gaussian_function FuncObject = created_func_list.Items[i] as gaussian_function;
+                    FuncObject.SetParameter("c", tBar_c.Value);
+                    Box_a.Text = tBar_c.Value.ToString();
+                    Series s = Chart_func.Series.FindByName(FuncObject.ToString());
+                    FuncObject.Refresh(s);
+                }
+            }
+            FindBoundary();
+            Chart_func.ChartAreas[0].AxisX.Interval = (double)((int)(bound_r - bound_l) / 5);
+            Chart_func.ChartAreas[0].AxisX.Maximum = bound_r;
+            Chart_func.ChartAreas[0].AxisX.Minimum = bound_l;
+            Chart_func.ChartAreas[0].AxisX.Title = "X Axis";
+        }
+
+        private void numUD_a_ValueChanged(object sender, EventArgs e){
 			tBar_a.Minimum = (int)numUD_a.Value;
 			//Enable slected triangle function be adjust by numericUpDown.
 			int i = created_func_list.SelectedIndex;

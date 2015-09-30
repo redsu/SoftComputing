@@ -11,9 +11,10 @@ namespace R04522602許泰源Ass02{
         private string function_name = "";
         private static int count = 0;
 		public bool visible;
-
-		//Constuctor that enable user to create function with customized function name.
-		//Unused in current version.
+        public double Lbound = 0, Rbound = 0;
+        public double sLbound = 0, sRbound = 0;
+        //Constuctor that enable user to create function with customized function name.
+        //Unused in current version.
         public gaussian_function(string function_name){
             parameters.Add("c", 30.0f);
             parameters.Add("sigma", 3.0f);
@@ -27,6 +28,10 @@ namespace R04522602許泰源Ass02{
             parameters.Add("sigma", sigma);            
             function_name = "gaussian_" + count.ToString() + "(x)";
 			visible = true;
+            Lbound = c - 4 * sigma;
+            Rbound = c + 4 * sigma;
+            sLbound = 0;
+            sRbound = 10 * sigma;
             count++;
         }
 
