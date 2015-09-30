@@ -279,7 +279,7 @@ namespace R04522602許泰源Ass02
 					tBar_a.Maximum = 50;					
 					tBar_a.Value   = 30;
 
-                    formula_pic.Load("Resource/fml_t.PNG");
+                    formula_pic.Load("../../Resource/fml_t.PNG");
                     formula_pic.SizeMode = PictureBoxSizeMode.Zoom;
 
                     break;
@@ -307,7 +307,7 @@ namespace R04522602許泰源Ass02
 					numUD_a.Visible = false;
 					numUD_b.Visible = false;
                     
-                    formula_pic.Load("Resource/fml_g.PNG");
+                    formula_pic.Load("../../Resource/fml_g.PNG");
                     formula_pic.SizeMode = PictureBoxSizeMode.Zoom;
 
                     break;
@@ -335,7 +335,7 @@ namespace R04522602許泰源Ass02
                     numUD_a.Visible = false;
 					numUD_b.Visible = false;
 
-                    formula_pic.Load("Resource/fml_b.PNG");
+                    formula_pic.Load("../../Resource/fml_b.PNG");
                     formula_pic.SizeMode = PictureBoxSizeMode.Zoom;
 
                     break;
@@ -361,7 +361,7 @@ namespace R04522602許泰源Ass02
                     numUD_a.Visible = false;
 					numUD_b.Visible = false;
                     
-                    formula_pic.Load("Resource/fml_s.PNG");
+                    formula_pic.Load("../../Resource/fml_s.PNG");
                     formula_pic.SizeMode = PictureBoxSizeMode.Zoom;
 
                     break;
