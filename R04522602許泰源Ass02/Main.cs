@@ -17,7 +17,8 @@ namespace R04522602許泰源Ass02
 		private const double INFINITY = 1e100, NEG_INFINITY = -1e100;
 		double bound_l = INFINITY, bound_r = NEG_INFINITY;
 		public Main(){
-            
+            //Series sss = new Series();
+			//sss.ChartArea = Chart_func.ChartAreas[0].Name;
             InitializeComponent();
 			//Set the properties of chart that enable the user zooming interface.
             Chart_func.ChartAreas[0].CursorX.IsUserEnabled = true;
