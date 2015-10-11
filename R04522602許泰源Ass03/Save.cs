@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace R04522602許泰源Ass02
+namespace R04522602許泰源Ass03
 {
     public partial class save_win : Form
     {
@@ -27,8 +27,8 @@ namespace R04522602許泰源Ass02
             }
             //Check the filename if it is exist.
             //If the filename is exist, require the user to rename it.
-            else if(System.IO.File.Exists(msg+".png")){
-                MessageBox.Show("The file "+msg+".png"+" is exist.\nPlease change another filename.", "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else if(System.IO.File.Exists(msg+".wmf")){
+                MessageBox.Show("The file "+msg+".wmf"+" is exist.\nPlease change another filename.", "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else{
                 this.Close();
@@ -37,7 +37,7 @@ namespace R04522602許泰源Ass02
         
         public string GetMsg(){
             //return filename with filename extension.
-            return msg+".png";
+            return msg+".wmf";
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData){

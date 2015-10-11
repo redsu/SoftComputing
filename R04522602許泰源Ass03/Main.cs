@@ -9,33 +9,28 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Drawing.Imaging;
 
-namespace R04522602許泰源Ass02
-{
-    public partial class Main : Form
-    {
+namespace R04522602許泰源Ass03{
+    public partial class Main : Form{
 		private const double INFINITY = 1e100, NEG_INFINITY = -1e100;
-		double bound_l = INFINITY, bound_r = NEG_INFINITY;
+		//double bound_l = INFINITY, bound_r = NEG_INFINITY;
+		
 		public Main(){
+			
+			
             //Series sss = new Series();
 			//sss.ChartArea = Chart_func.ChartAreas[0].Name;
             InitializeComponent();
-			//Set the properties of chart that enable the user zooming interface.
-            Chart_func.ChartAreas[0].CursorX.IsUserEnabled = true;
-            Chart_func.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
-            Chart_func.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+			
+			tree.CheckBoxes = true;
+			tree.HideSelection = false;
 
-			//Set the label style and format.
-            Chart_func.ChartAreas[0].AxisX.LabelStyle.Format = "###0.#";
-			Chart_func.ChartAreas[0].AxisY.LabelStyle.Format = "###0.#";
-			Chart_func.ChartAreas[0].AxisX.Title = "X Axis";
-			Chart_func.ChartAreas[0].AxisY.Title = "Y Axis";
-            
-            FuncTypSel.SelectedIndex = 0;
-			//Preset valid parameters for demo.
-            Box_a.Text     = "10.0";
-            Box_b.Text     = "30.0";
-            Box_c.Text     = "50.0";
+			Box_a.Enabled = false;
+			Box_b.Enabled = false;
+			Box_c.Enabled = false;
+
+			FuncTypSel.SelectedIndex = 0;
 
             //Change the language of exception messages into Engilsh.
             System.Threading.Thread.CurrentThread.CurrentCulture = 
@@ -43,11 +38,6 @@ namespace R04522602許泰源Ass02
 
             System.Threading.Thread.CurrentThread.CurrentUICulture = 
                                         new System.Globalization.CultureInfo("en-US");
-
-			//Set the range and interval of y axis
-			Chart_func.ChartAreas[0].AxisY.Maximum   = 1.25;
-			Chart_func.ChartAreas[0].AxisY.Minimum   = 0;
-			Chart_func.ChartAreas[0].AxisY.Interval  = 0.25;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
@@ -59,23 +49,17 @@ namespace R04522602許泰源Ass02
             return base.ProcessCmdKey(ref msg, keyData);
         }       
 
-        private void Delete_btn_Click(object sender, EventArgs e){
-			//Enable user to delete seleted function in listbox by delete button.
-            Series s = Chart_func.Series.FindByName(created_func_list.Text);
-            if(created_func_list.Text != ""){
-                Chart_func.Series.Remove(s);
-                created_func_list.Items.RemoveAt(created_func_list.SelectedIndex);
-            }
-        }
-
         private void save_btn_Click(object sender, EventArgs e){
             //If "Save" button is clicked, create a save form.
+			//Metafile f = new Metafile("test");
             save_win save = new save_win();
             DialogResult dr = save.ShowDialog();
             //Get the filename.
             string sv_name = save.GetMsg();
             //Save the file of the current image by the filename.
-            Chart_func.SaveImage(sv_name,System.Drawing.Imaging.ImageFormat.Png);
+			//f = Chart_func.Images.
+			
+            Chart_func.SaveImage(sv_name,System.Drawing.Imaging.ImageFormat.Wmf);
         }
 
         private void user_guide_btn_Click(object sender, EventArgs e){
@@ -89,643 +73,376 @@ namespace R04522602許泰源Ass02
             //Activate KeyPreview.
             this.KeyPreview = true;
 	    }
-
-        private void create_func_Click(object sender, EventArgs e){
-			//Enable user to create new function by Create button.
-			//The function type can be selected by Combobox
-            switch (FuncTypSel.SelectedIndex){
-                case 0:
-                    // Triangular function
-                    try{
-                        double a, b, c;
-                        a = double.Parse(Box_a.Text);
-                        b = double.Parse(Box_b.Text);
-                        c = double.Parse(Box_c.Text);
-                        if (b < a || c < b){
-                            MessageBox.Show("Please enter valid numbers that c > b > a","Bad argument!");
-                        }
-                        else{
-                            triangle_function triObject = new triangle_function(a, b, c);
-                            created_func_list.Items.Add(triObject);
-                            triObject.Draw(Chart_func);
-                        }
-                    }catch(Exception ex){
-                        //When an exception is thrown, show the error message.
-                        string caption = "ERROR";
-                        MessageBox.Show(ex.Message + "\nPlease Enter Numbers Only.", caption);
-                    }          
-                    break;
-                case 1:
-                    // Gaussian function
-                    try{//Catch bad arguments like characters, space, and etc.
-                        double c, sigma;
-                        c     = double.Parse(Box_a.Text);
-                        sigma = double.Parse(Box_b.Text);
-                        if (sigma < 0)
-                            MessageBox.Show("Bad argument!\n\u03C3 should be positive number!");
-                        else{
-                            gaussian_function gauObject = new gaussian_function(c, sigma);
-                            created_func_list.Items.Add(gauObject);
-                            gauObject.Draw(Chart_func);
-                        }
-                    }catch(Exception ex){
-                        //When an exception is thrown, show the error message.
-                        string caption = "ERROR";
-                        MessageBox.Show(ex.Message + "\nPlease Enter Numbers Only.", caption);
-                    }                    
-                    break;
-                case 2:
-					//Bell function
-                    try{//Catch bad arguments like characters, space, and etc.
-                        double a, b, c;
-                        a = double.Parse(Box_a.Text);
-                        b = double.Parse(Box_b.Text);
-                        c = double.Parse(Box_c.Text);
-                        if (a == 0)
-                            MessageBox.Show("Parameter a  shouldn't be zero.","Bad argument!");
-                        else{
-                            bell_function bellObject = new bell_function(a, b, c);
-                            created_func_list.Items.Add(bellObject);
-                            bellObject.Draw(Chart_func);
-                        }
-                    }catch(Exception ex){
-                        //When an exception is thrown, show the error message.
-                        string caption = "ERROR";
-                        MessageBox.Show(ex.Message + "\nPlease Enter Numbers Only.", caption);
-                    }
-                    break;
-                case 3:
-					//Sigmoidal function
-                    try{
-                        double Slope, CrossoverPoint;
-                        Slope          = double.Parse(Box_a.Text);
-                        CrossoverPoint = double.Parse(Box_b.Text);
-                        sigmoidal_function sigObject = new sigmoidal_function(Slope, CrossoverPoint);
-                        created_func_list.Items.Add(sigObject);
-                        sigObject.Draw(Chart_func);
-                    }catch(Exception ex){
-                        //When an exception is thrown, show the error message.
-                        string caption = "ERROR";
-                        MessageBox.Show(ex.Message + "\nPlease Enter Numbers Only.", caption);
-                    }
-                    break;
-            }
-			//Find the current Maximum/Minimum of all the visible function and adjust the scale.
-            FindBoundary();
-			Chart_func.ChartAreas[0].AxisX.Interval = (double)((int)(bound_r-bound_l)/5);
-			Chart_func.ChartAreas[0].AxisX.Maximum  = bound_r;
-			Chart_func.ChartAreas[0].AxisX.Minimum  = bound_l;
-			Chart_func.ChartAreas[0].AxisX.Title = "X Axis";
-        }
-
-        
-        private void created_func_DoubleClick(object sender, EventArgs e){
-            Series s = Chart_func.Series.FindByName(created_func_list.Text);
-			int i = created_func_list.SelectedIndex;
-				
-            if(created_func_list.Text!="" && i>=0){
-				if(s.Enabled){
-					if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-						triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
-						FuncObject.visible = false;
-					}
-					if(typeof(gaussian_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-						gaussian_function FuncObject = created_func_list.Items[i] as gaussian_function;
-						FuncObject.visible = false;
-					}
-					if(typeof(bell_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-						bell_function FuncObject = created_func_list.Items[i] as bell_function;
-						FuncObject.visible = false;
-					}
-					if(typeof(sigmoidal_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-						sigmoidal_function FuncObject = created_func_list.Items[i] as sigmoidal_function;
-						FuncObject.visible = false;
-					}
-				}
-				else{
-					if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-						triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
-						FuncObject.visible = true;
-						FuncObject.Refresh(s);
-					}
-					if(typeof(gaussian_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-						gaussian_function FuncObject = created_func_list.Items[i] as gaussian_function;
-						FuncObject.visible = true;
-						FuncObject.Refresh(s);
-					}
-					if(typeof(bell_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-						bell_function FuncObject = created_func_list.Items[i] as bell_function;
-						FuncObject.visible = true;
-						FuncObject.Refresh(s);
-					}
-					if(typeof(sigmoidal_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-						sigmoidal_function FuncObject = created_func_list.Items[i] as sigmoidal_function;
-						FuncObject.visible = true;
-						FuncObject.Refresh(s);
-					}
-				}
-				s.Enabled = !s.Enabled;
-			}
-			//Find the current Maximum/Minimum of all the visible function and adjust the scale.
-			FindBoundary();
-			Chart_func.ChartAreas[0].AxisX.Interval = (double)((int)(bound_r-bound_l)/5);
-			Chart_func.ChartAreas[0].AxisX.Maximum  = bound_r;
-			Chart_func.ChartAreas[0].AxisX.Minimum  = bound_l;
-			Chart_func.ChartAreas[0].AxisX.Title    = "X Axis";
-			//MessageBox.Show(Chart_func.ChartAreas[0].AxisX.Interval.ToString());
-        }
-
-        private void color_dia_btn_Click(object sender, EventArgs e){
-            Series s = Chart_func.Series.FindByName(created_func_list.Text);
-			if(created_func_list.Text != "")
-				if(color_dialog.ShowDialog() == DialogResult.OK){                
-					if(created_func_list.Text != "")
-						s.Color = color_dialog.Color;
-				}
-        }
-
-        private void FuncTypSel_SelectedIndexChanged(object sender, EventArgs e){
-            switch (FuncTypSel.SelectedIndex){
-                case 0:
-                    // Triangular function
-                    label_a.Visible = true;
-                    label_b.Visible = true;
+		
+		private void FuncTypSel_SelectedIndexChanged(object sender, EventArgs e){
+			switch(FuncTypSel.SelectedIndex){
+				case 0:
                     label_c.Visible = true;
+					tbar_c.Visible  = true;
+					Box_c.Visible   = true;
 
-                    Box_a.Visible   = true;
-                    Box_b.Visible   = true;
-                    Box_c.Visible   = true;
+					tbar_a.Enabled = 
+					tbar_b.Enabled = 
+					tbar_c.Enabled = false;
 
                     label_a.Text = "Left";
                     label_b.Text = "Turning";
                     label_c.Text = "Right";
 
-                    Box_a.Text     = "10.0";
-                    Box_b.Text     = "30.0";
-                    Box_c.Text     = "50.0";
-
-					tBar_a.Visible  = true;
-                    tBar_b.Visible = false;
-                    tBar_c.Visible = false;
-                    numUD_a.Visible = true;
-					numUD_b.Visible = true;
-                    
-					tBar_a.Enabled  = false;
-                    tBar_b.Enabled  = false;
-                    tBar_c.Enabled  = false;
-                    numUD_a.Enabled = false;
-					numUD_b.Enabled = false;
-					
-					tBar_a.Minimum = 10;
-					tBar_a.Maximum = 50;					
-					tBar_a.Value   = 30;
-
-                    formula_pic.Load("../../Resource/fml_t.PNG");
-                    formula_pic.SizeMode = PictureBoxSizeMode.Zoom;
-
-                    break;
-                case 1:
-                    // Gaussian function
-                    label_a.Visible = true;
-                    label_b.Visible = true;
+					break;
+				case 1:
                     label_c.Visible = false;
-
-                    tBar_a.Visible = true;
-                    tBar_b.Visible = false;
-                    tBar_c.Visible = true;
-                    Box_a.Visible   = true;
-                    Box_b.Visible   = true;
+					tbar_c.Visible  = false;
                     Box_c.Visible   = false;
+
+					tbar_a.Enabled = 
+					tbar_b.Enabled = 
+					tbar_c.Enabled = false;
 
                     label_a.Text = "Mean";
                     label_b.Text = "Std";
 
-                    Box_a.Text     = "30.0";
-                    Box_b.Text     = "5.0";
-
-					tBar_a.Visible  = true;
-
-					numUD_a.Visible = false;
-					numUD_b.Visible = false;
-                    
-                    formula_pic.Load("../../Resource/fml_g.PNG");
-                    formula_pic.SizeMode = PictureBoxSizeMode.Zoom;
-
-                    break;
-                case 2:
-                    // Bell function
-                    label_a.Visible = true;
-                    label_b.Visible = true;
+					break;
+				case 2:
                     label_c.Visible = true;
-                    
-                    Box_a.Visible   = true;
-                    Box_b.Visible   = true;
+                    tbar_c.Visible  = true;
                     Box_c.Visible   = true;
+
+					tbar_a.Enabled = 
+					tbar_b.Enabled = 
+					tbar_c.Enabled = false;
 
                     label_a.Text = "Half-width";
                     label_b.Text = "Slope";
                     label_c.Text = "Center";
 
-                    Box_a.Text     = "3.0";
-                    Box_b.Text     = "5.0";
-                    Box_c.Text     = "30.0";
+					break;
+				case 3:
+					label_c.Visible = false;
+					tbar_c.Visible  = false;
+                    Box_c.Visible   = false;
 
-                    tBar_a.Visible = false;
-                    tBar_b.Visible = false;
-                    tBar_c.Visible = false;
-                    numUD_a.Visible = false;
-					numUD_b.Visible = false;
-
-                    formula_pic.Load("../../Resource/fml_b.PNG");
-                    formula_pic.SizeMode = PictureBoxSizeMode.Zoom;
-
-                    break;
-                case 3:
-                    // Sigmoidal function
-                    label_a.Visible   = true;
-                    label_b.Visible   = true;
-                    label_c.Visible   = false;
-                    
-                    Box_a.Visible     = true;
-                    Box_b.Visible     = true;
-                    Box_c.Visible     = false;                    
+					tbar_a.Enabled = 
+					tbar_b.Enabled = 
+					tbar_c.Enabled = false;
 
                     label_a.Text = "Slope";
                     label_b.Text = "X-Point";
 
-                    Box_a.Text     = "3.0";
-                    Box_b.Text     = "30";
+					break;
+			}
+		}
 
-                    tBar_a.Visible = false;
-                    tBar_b.Visible = false;
-                    tBar_c.Visible = false;
-                    numUD_a.Visible = false;
-					numUD_b.Visible = false;
-                    
-                    formula_pic.Load("../../Resource/fml_s.PNG");
-                    formula_pic.SizeMode = PictureBoxSizeMode.Zoom;
+		private void universe_btn_Click(object sender, EventArgs e){
+			if(uni_name.Text != "Name" && uni_name.Text != ""){
+				Universe u = new Universe(Chart_func, uni_name.Text);
+				TreeNode tn = new TreeNode( u.name );
+				tn.Tag = u;
+				tn.Checked = true;
+				tree.Nodes.Add(tn);
+				tree.SelectedNode = tn;
+				uni_name.Text = "Name";
+			}
+			else{
+				Universe u = new Universe(Chart_func);
+				TreeNode tn = new TreeNode( u.name );
+				tn.Tag = u;
+				tn.Checked = true;
+				tree.Nodes.Add(tn);
+				tree.SelectedNode = tn;
+			}
+		}
 
-                    break;
-            }
-        }
+		private void fs_btn_Click(object sender, EventArgs e){
+			FuzzySet fs = null;
+            Universe u;
+			if(tree.SelectedNode.Tag is Universe){
+				u = (Universe) tree.SelectedNode.Tag;
 
-		private void created_func_list_SelectedIndexChanged(object sender, EventArgs e){
-			int i = created_func_list.SelectedIndex;
-			if(i>=0){
-				foreach(Series s in Chart_func.Series)
-					s.BorderWidth = 1;
-				Chart_func.Series[created_func_list.SelectedIndex].BorderWidth = 2;
-				//Enable slected triangle function be adjust by trackbar and numericUpDown.
-				if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
-					tBar_a.Minimum = ((int)FuncObject.GetParameter("Left"));
+				switch (FuncTypSel.SelectedIndex){
+					case 0:
+						fs = new triangle_function(u);
+						break;
+
+					case 1:
+						fs = new gaussian_function(u);
+						break;
+
+					case 2:
+						fs = new bell_function(u);
+						break;
+
+					case 3:
+						fs = new sigmoidal_function(u);
+						break;
+				}
+				if(fs!=null){
+					TreeNode tn = new TreeNode(fs.GetName());
+					tn.Tag = fs;
+					tn.Checked = true;
+					tree.SelectedNode.Nodes.Add(tn);
+					tree.SelectedNode.Expand();
+					tree.SelectedNode = tn;
+				}
+			}
+		}
+
+		private void tree_AfterSelect(object sender, TreeViewEventArgs e){
+			if(e.Node.Level == 1){
+				foreach(TreeNode t in tree.Nodes){
+					foreach(TreeNode tn in t.Nodes){
+						if(tn.Tag is triangle_function){
+							triangle_function f = tn.Tag as triangle_function;
+							f.SetWidth(1);
+						}
+						if(tn.Tag is gaussian_function){
+							gaussian_function f = tn.Tag as gaussian_function;
+							f.SetWidth(1);
+						}
+						if(tn.Tag is bell_function){
+							bell_function f = tn.Tag as bell_function;
+							f.SetWidth(1);
+						}
+						if(tn.Tag is sigmoidal_function){
+							sigmoidal_function f = tn.Tag as sigmoidal_function;
+							f.SetWidth(1);
+						}
+					}
+				}
+
+				if(e.Node.Tag is triangle_function){
+					triangle_function f = e.Node.Tag as triangle_function;
+					Universe u = e.Node.Parent.Tag as Universe;
+
+					f.SetWidth(2);
+					tbar_a.Enabled =
+					tbar_b.Enabled =
+					tbar_c.Enabled = true;
 					
-					tBar_a.Maximum = ((int)FuncObject.GetParameter("Right"));
-					tBar_a.Value    = (int)FuncObject.GetParameter("Middle");
+					tbar_a.Minimum = (int)u.xMin;
+					tbar_a.Maximum = (int)u.xMax;
+					tbar_b.Minimum = (int)u.xMin;
+					tbar_b.Maximum = (int)u.xMax;
+					tbar_c.Minimum = (int)u.xMin;
+					tbar_c.Maximum = (int)u.xMax;
 					
-					numUD_a.Maximum = (int)FuncObject.GetParameter("Middle");
+					tbar_a.Value = (int)f.GetParameter("Left");
+					tbar_b.Value = (int)f.GetParameter("Middle");
+					tbar_c.Value = (int)f.GetParameter("Right");
+				}
+				else if(e.Node.Tag is gaussian_function){
+					gaussian_function f = e.Node.Tag as gaussian_function;
+					Universe u = e.Node.Parent.Tag as Universe;
+
+					f.SetWidth(2);
+					tbar_a.Enabled =
+					tbar_b.Enabled = true;
+					tbar_c.Enabled = false;
+					tbar_c.Visible = false;
 					
-					numUD_a.Minimum = (int)FuncObject.Lbound;
-					numUD_a.Value   = ((int)FuncObject.GetParameter("Left"));
-					numUD_b.Maximum = (int)FuncObject.Rbound;
-					numUD_b.Value   = ((int)FuncObject.GetParameter("Right"));
-					numUD_b.Minimum = (int)FuncObject.GetParameter("Middle");
-
-					FuncTypSel.SelectedIndex = 0;
-
-					Box_a.Text = FuncObject.GetParameter("Left").ToString();
-					Box_b.Text = FuncObject.GetParameter("Middle").ToString();
-					Box_c.Text = FuncObject.GetParameter("Right").ToString();
-
-					tBar_a.Visible  = true;
-					numUD_a.Visible = true;
-					numUD_b.Visible = true;
-
-					tBar_a.Enabled  = true;
-					numUD_a.Enabled = true;
-					numUD_b.Enabled = true;
+					tbar_a.Minimum = (int)u.xMin;
+					tbar_a.Maximum = (int)u.xMax;
+					tbar_b.Minimum = (int)u.xMin;
+					tbar_b.Maximum = (int)u.xMax;
+					
+					tbar_a.Value = (int)f.GetParameter("mean");
+					tbar_b.Value = (int)f.GetParameter("sigma");
 				}
-				else{
-					tBar_a.Visible  = false;
-					numUD_a.Visible = false;
-					numUD_b.Visible = false;
-				}
+				else if(e.Node.Tag is bell_function){
+					bell_function f = e.Node.Tag as bell_function;
+					Universe u = e.Node.Parent.Tag as Universe;
 
-				if(typeof(gaussian_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					gaussian_function FuncObject = created_func_list.Items[i] as gaussian_function;
-					FuncTypSel.SelectedIndex = 1;
-					Box_a.Text = FuncObject.GetParameter("c").ToString();
-                    Box_b.Text = FuncObject.GetParameter("sigma").ToString();
-                    tBar_a.Visible = true;
-                    tBar_b.Visible = false;
-                    tBar_c.Visible = true;
-                    tBar_a.Enabled = true;
-                    tBar_b.Enabled = false;
-                    tBar_c.Enabled = true;
-                    tBar_a.Minimum = (int)FuncObject.sLbound;
-                    tBar_a.Maximum = (int)FuncObject.sRbound;
-                    tBar_a.Value = (int)FuncObject.GetParameter("sigma");
-                    tBar_c.Minimum = (int)FuncObject.Lbound;
-                    tBar_c.Maximum = (int)FuncObject.Rbound;
-                    tBar_c.Value = (int)FuncObject.GetParameter("c");
-                    
-                    
-                }
-				else{
-					;
+					f.SetWidth(2);
+					tbar_a.Enabled =
+					tbar_b.Enabled =
+					tbar_c.Enabled = true;
+					
+					tbar_a.Minimum = (int)u.xMin;
+					tbar_a.Maximum = (int)u.xMax;
+					tbar_b.Minimum = (int)u.xMin;
+					tbar_b.Maximum = (int)u.xMax;
+					tbar_c.Minimum = (int)u.xMin;
+					tbar_c.Maximum = (int)u.xMax;
+					
+					tbar_a.Value = (int)f.GetParameter("Half-width");
+					tbar_b.Value = (int)f.GetParameter("Slope");
+					tbar_c.Value = (int)f.GetParameter("Center");
 				}
+				else if(e.Node.Tag is sigmoidal_function){
+					sigmoidal_function f = e.Node.Tag as sigmoidal_function;
+					Universe u = e.Node.Parent.Tag as Universe;
 
-				if(typeof(bell_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					bell_function FuncObject = created_func_list.Items[i] as bell_function;
-					FuncTypSel.SelectedIndex = 2;
-					Box_a.Text = FuncObject.GetParameter("Half-width").ToString();
-                    Box_b.Text = FuncObject.GetParameter("Slope").ToString();
-					Box_c.Text = FuncObject.GetParameter("Center").ToString();
+					f.SetWidth(2);
+					tbar_a.Enabled =
+					tbar_b.Enabled = true;
+					tbar_c.Enabled = false;
+					tbar_c.Visible = false;
+					
+					tbar_a.Minimum = -100;
+					tbar_a.Maximum = 100;
+					tbar_b.Minimum = (int)u.xMin;
+					tbar_b.Maximum = (int)u.xMax;
+					
+					tbar_a.Value = (int)f.GetParameter("Slope");
+					tbar_b.Value = (int)f.GetParameter("CrossoverPoint");
 				}
-				else{
-					;
-				}
-
-				if(typeof(sigmoidal_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					sigmoidal_function FuncObject = created_func_list.Items[i] as sigmoidal_function;
-					FuncTypSel.SelectedIndex = 3;
-					Box_a.Text = FuncObject.GetParameter("Slope").ToString();
-                    Box_b.Text = FuncObject.GetParameter("CrossoverPoint").ToString();
-				}
-				else{
-					;
-				}
+			}
+			else{
+				tbar_a.Enabled =
+				tbar_b.Enabled =
+				tbar_c.Enabled = false;
 			}
 		}
 
-		private void tBar_a_Scroll(object sender, EventArgs e){
-			int i = created_func_list.SelectedIndex;
-			//Enable slected triangle function be adjust by trackbar.
-			if(i>=0){
-				if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
-					FuncObject.SetParameter("Middle", tBar_a.Value);
-					Box_b.Text =  tBar_a.Value.ToString();
-
-					Series s = Chart_func.Series.FindByName(FuncObject.ToString());
-					FuncObject.Refresh(s);
-				}
-                if (typeof(gaussian_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-                    gaussian_function FuncObject = created_func_list.Items[i] as gaussian_function;
-                    FuncObject.SetParameter("sigma", tBar_a.Value);
-                    Box_b.Text = tBar_a.Value.ToString();
-                    Series s = Chart_func.Series.FindByName(FuncObject.ToString());
-                    FuncObject.Refresh(s);
-                }
-            }
-            //Find the current Maximum/Minimum of all the visible function and adjust the scale.
-            FindBoundary();
-            Chart_func.ChartAreas[0].AxisX.Interval = (double)((int)(bound_r - bound_l) / 5);
-            Chart_func.ChartAreas[0].AxisX.Maximum = bound_r;
-            Chart_func.ChartAreas[0].AxisX.Minimum = bound_l;
-            Chart_func.ChartAreas[0].AxisX.Title = "X Axis";
-        }
-
-		private void FindBoundary(){
-			//Find the current Maximum/Minimum of all the visible function.
-			double bound_l = INFINITY, bound_r = NEG_INFINITY;
-			bound_l = INFINITY;
-			bound_r = NEG_INFINITY;
-			for(int i=0; i<created_func_list.Items.Count; i++){
-				if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
-					if(FuncObject.visible){
-						bound_l = FuncObject.GetLeftBound() < bound_l ? FuncObject.GetLeftBound() : bound_l;
-						bound_r = FuncObject.GetRightBound() > bound_r ? FuncObject.GetRightBound() : bound_r;
-					}
-				}
-				if(typeof(gaussian_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					gaussian_function FuncObject = created_func_list.Items[i] as gaussian_function;
-					if(FuncObject.visible){
-						bound_l = FuncObject.GetLeftBound() < bound_l ? FuncObject.GetLeftBound() : bound_l;
-						bound_r = FuncObject.GetRightBound() > bound_r ? FuncObject.GetRightBound() : bound_r;
-					}
-				}
-				if(typeof(bell_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					bell_function FuncObject = created_func_list.Items[i] as bell_function;
-					if(FuncObject.visible){
-						bound_l = FuncObject.GetLeftBound() < bound_l ? FuncObject.GetLeftBound() : bound_l;
-						bound_r = FuncObject.GetRightBound() > bound_r ? FuncObject.GetRightBound() : bound_r;
-					}
-				}
-				if(typeof(sigmoidal_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					sigmoidal_function FuncObject = created_func_list.Items[i] as sigmoidal_function;
-					if(FuncObject.visible){
-						bound_l = FuncObject.GetLeftBound() < bound_l ? FuncObject.GetLeftBound() : bound_l;
-						bound_r = FuncObject.GetRightBound() > bound_r ? FuncObject.GetRightBound() : bound_r;
-					}
-				}
-			}
-			this.bound_l = bound_l;
-			this.bound_r = bound_r;
-		}
-
-		private void numUD_b_ValueChanged(object sender, EventArgs e){
-			tBar_a.Maximum = (int)numUD_b.Value;
-			//Enable slected triangle function be adjust by numericUpDown.
-			int i = created_func_list.SelectedIndex;
-			if(i>=0){
-				if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
-					FuncObject.SetParameter("Right", tBar_a.Maximum);
-					if(tBar_a.Maximum <= tBar_a.Value){
-						tBar_a.Value = tBar_a.Maximum;
-						Box_b.Text = tBar_a.Maximum.ToString();
-						FuncObject.SetParameter("Middle", tBar_a.Maximum);
-					}
-					Box_c.Text = numUD_b.Value.ToString();
-
-					Series s = Chart_func.Series.FindByName(FuncObject.ToString());
-					FuncObject.Refresh(s);
-				}
-			}
-			//Find the current Maximum/Minimum of all the visible function and adjust the scale.
-			FindBoundary();
-			Chart_func.ChartAreas[0].AxisX.Interval = (double)((int)(bound_r-bound_l)/5);
-			Chart_func.ChartAreas[0].AxisX.Maximum  = bound_r;
-			Chart_func.ChartAreas[0].AxisX.Minimum  = bound_l;
-			Chart_func.ChartAreas[0].AxisX.Title = "X Axis";
-		}
-
-        private void tBar_c_Scroll(object sender, EventArgs e){
-            int i = created_func_list.SelectedIndex;
-            if (i >= 0){
-                if (typeof(gaussian_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-                    gaussian_function FuncObject = created_func_list.Items[i] as gaussian_function;
-                    FuncObject.SetParameter("c", tBar_c.Value);
-                    Box_a.Text = tBar_c.Value.ToString();
-                    Series s = Chart_func.Series.FindByName(FuncObject.ToString());
-                    FuncObject.Refresh(s);
-                }
-            }
-            FindBoundary();
-            Chart_func.ChartAreas[0].AxisX.Interval = (double)((int)(bound_r - bound_l) / 5);
-            Chart_func.ChartAreas[0].AxisX.Maximum = bound_r;
-            Chart_func.ChartAreas[0].AxisX.Minimum = bound_l;
-            Chart_func.ChartAreas[0].AxisX.Title = "X Axis";
-        }
-
-        private void numUD_a_ValueChanged(object sender, EventArgs e){
-			tBar_a.Minimum = (int)numUD_a.Value;
-			//Enable slected triangle function be adjust by numericUpDown.
-			int i = created_func_list.SelectedIndex;
-			if(i>=0){
-				if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
-					FuncObject.SetParameter("Left", tBar_a.Minimum);
-					if(tBar_a.Minimum >= tBar_a.Value){
-						tBar_a.Value = tBar_a.Minimum;
-						Box_b.Text = tBar_a.Minimum.ToString();
-						FuncObject.SetParameter("Middle", tBar_a.Minimum);
-					}
-					Box_a.Text = numUD_a.Value.ToString();
-					Series s = Chart_func.Series.FindByName(FuncObject.ToString());
-					FuncObject.Refresh(s);
-				}
-			}
-			//Find the current Maximum/Minimum of all the visible function and adjust the scale.
-			FindBoundary();
-			Chart_func.ChartAreas[0].AxisX.Interval = (double)((int)(bound_r-bound_l)/5);
-			Chart_func.ChartAreas[0].AxisX.Maximum  = bound_r;
-			Chart_func.ChartAreas[0].AxisX.Minimum  = bound_l;
-			Chart_func.ChartAreas[0].AxisX.Title = "X Axis";
-		}
-
-		private void Update_btn_Click(object sender, EventArgs e){
-			Series s = Chart_func.Series.FindByName(created_func_list.Text);
-			int i = created_func_list.SelectedIndex;
-			if(created_func_list.Text != ""){
-				if(typeof(triangle_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					triangle_function FuncObject = created_func_list.Items[i] as triangle_function;
-					// Triangular function
-					try{
-						double a, b, c;
-						a = double.Parse(Box_a.Text);
-						b = double.Parse(Box_b.Text);
-						c = double.Parse(Box_c.Text);
-						if (b < a || c < b){
-							MessageBox.Show("Please enter valid numbers that c > b > a","Bad argument!");
+		private void tree_AfterChecked(object sender, TreeViewEventArgs e){
+			if(e.Action != TreeViewAction.Unknown)
+				foreach(TreeNode t in tree.Nodes){
+					if(t.Tag is Universe){
+						Universe u = t.Tag as Universe;
+						if(t.Checked){
+							u.hostChart.ChartAreas[u.name].Visible = true;
+							foreach(TreeNode tn in t.Nodes){
+								if(tn.Tag is triangle_function){
+									triangle_function f = tn.Tag as triangle_function;
+									if(tn.Checked)
+										u.hostChart.Series.FindByName(f.GetName()).Enabled = true;
+									else
+										u.hostChart.Series.FindByName(f.GetName()).Enabled = false;
+								}
+								if(tn.Tag is gaussian_function){
+									gaussian_function f = tn.Tag as gaussian_function;
+									if(tn.Checked)
+										u.hostChart.Series.FindByName(f.GetName()).Enabled = true;
+									else
+										u.hostChart.Series.FindByName(f.GetName()).Enabled = false;
+								}
+								if(tn.Tag is bell_function){
+									bell_function f = tn.Tag as bell_function;
+									if(tn.Checked)
+										u.hostChart.Series.FindByName(f.GetName()).Enabled = true;
+									else
+										u.hostChart.Series.FindByName(f.GetName()).Enabled = false;
+								}
+								if(tn.Tag is sigmoidal_function){
+									sigmoidal_function f = tn.Tag as sigmoidal_function;
+									if(tn.Checked)
+										u.hostChart.Series.FindByName(f.GetName()).Enabled = true;
+									else
+										u.hostChart.Series.FindByName(f.GetName()).Enabled = false;
+								}
+							}
 						}
 						else{
-							//triangle_function triObject = new triangle_function(a, b, c);
-							FuncObject.SetParameter("Left", a);
-							FuncObject.SetParameter("Middle", b);
-							FuncObject.SetParameter("Right", c);
-							tBar_a.Minimum = ((int)FuncObject.GetParameter("Left"));
-					
-							tBar_a.Maximum = ((int)FuncObject.GetParameter("Right"));
-							tBar_a.Value    = (int)FuncObject.GetParameter("Middle");
-					
-							numUD_a.Maximum = (int)FuncObject.GetParameter("Middle");
-					
-							numUD_a.Minimum = (int)FuncObject.Lbound;
-							numUD_a.Value   = ((int)FuncObject.GetParameter("Left"));
-							numUD_b.Maximum = (int)FuncObject.Rbound;
-							numUD_b.Value   = ((int)FuncObject.GetParameter("Right"));
-							numUD_b.Minimum = (int)FuncObject.GetParameter("Middle");
-
-							FuncTypSel.SelectedIndex = 0;
-
-							Box_a.Text = FuncObject.GetParameter("Left").ToString();
-							Box_b.Text = FuncObject.GetParameter("Middle").ToString();
-							Box_c.Text = FuncObject.GetParameter("Right").ToString();
-							FuncObject.Refresh(s);
+							u.hostChart.ChartAreas[u.name].Visible = false;
 						}
-					}catch(Exception ex){
-						//When an exception is thrown, show the error message.
-						string caption = "ERROR";
-						MessageBox.Show(ex.Message + "\nPlease Enter Numbers Only.", caption);
 					}
 				}
-				else{
-					;
-				}
+		}
 
-				if(typeof(gaussian_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					gaussian_function FuncObject = created_func_list.Items[i] as gaussian_function;
-					// Gaussian function
-					try{//Catch bad arguments like characters, space, and etc.
-						double c, sigma;
-						c     = double.Parse(Box_a.Text);
-						sigma = double.Parse(Box_b.Text);
-						if (sigma < 0 || sigma > FuncObject.sRbound || c > FuncObject.Rbound){
-							Box_a.Text = tBar_c.Value.ToString();
-							Box_b.Text = tBar_a.Value.ToString();
-							MessageBox.Show("Bad argument!\n\u03C3 should be positive number!");
-						}
-						else{
-							FuncObject.SetParameter("c", c);
-							FuncObject.SetParameter("sigma", sigma);
-							MessageBox.Show(c.ToString());
-							tBar_c.Value = (int)c;
-							tBar_a.Value = (int)sigma;
-							FuncObject.Refresh(s);
-						}
-					}catch(Exception ex){
-						//When an exception is thrown, show the error message.
-						string caption = "ERROR";
-						MessageBox.Show(ex.Message + "\nPlease Enter Numbers Only.", caption);
-					}
+		private void tbar_a_Scroll(object sender, EventArgs e){
+			if(tree.SelectedNode.Tag is triangle_function){
+				triangle_function f = tree.SelectedNode.Tag as triangle_function;
+				if(tbar_a.Value<=tbar_b.Value){
+					f.SetParameter("Left", tbar_a.Value);
 				}
 				else{
-					;
+					tbar_a.Value = tbar_b.Value;
 				}
+				f.Refresh();
+			}
+			else if(tree.SelectedNode.Tag is gaussian_function){
+				gaussian_function f = tree.SelectedNode.Tag as gaussian_function;
+				f.SetParameter("mean", tbar_a.Value);
+				f.Refresh();
+			}
+			else if(tree.SelectedNode.Tag is bell_function){
+				bell_function f = tree.SelectedNode.Tag as bell_function;
+				f.SetParameter("Half-width", tbar_a.Value);
+				f.Refresh();
+			}
+			else if(tree.SelectedNode.Tag is sigmoidal_function){
+				sigmoidal_function f = tree.SelectedNode.Tag as sigmoidal_function;
+				f.SetParameter("Slope", (double)(tbar_a.Value)/10);
+				f.Refresh();
+			}
+			
+		}
 
-				if(typeof(bell_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					bell_function FuncObject = created_func_list.Items[i] as bell_function;
-					//Bell function
-					try{//Catch bad arguments like characters, space, and etc.
-						double a, b, c;
-						a = double.Parse(Box_a.Text);
-						b = double.Parse(Box_b.Text);
-						c = double.Parse(Box_c.Text);
-						if (a == 0)
-							MessageBox.Show("Parameter a  shouldn't be zero.","Bad argument!");
-						else{
-							FuncObject.SetParameter("Half-width", a);
-							FuncObject.SetParameter("Slope", b);
-							FuncObject.SetParameter("Center", c);
-							FuncObject.Refresh(s);
-						}
-					}catch(Exception ex){
-						//When an exception is thrown, show the error message.
-						string caption = "ERROR";
-						MessageBox.Show(ex.Message + "\nPlease Enter Numbers Only.", caption);
-					}
+		private void tbar_b_Scroll(object sender, EventArgs e){
+			if(tree.SelectedNode.Tag is triangle_function){
+				triangle_function f = tree.SelectedNode.Tag as triangle_function;
+				if(tbar_b.Value<=tbar_c.Value&&tbar_b.Value>=tbar_a.Value){
+					f.SetParameter("Middle", tbar_b.Value);
+					f.Refresh();
 				}
-				else{
-					;
+				else if(tbar_b.Value>=tbar_c.Value){
+					tbar_b.Value=tbar_c.Value;
 				}
+				else if(tbar_b.Value<=tbar_a.Value){
+					tbar_b.Value=tbar_a.Value;
+				}
+				f.Refresh();
+			}
+			else if(tree.SelectedNode.Tag is gaussian_function){
+				gaussian_function f = tree.SelectedNode.Tag as gaussian_function;
+				f.SetParameter("sigma", tbar_b.Value);
+				f.Refresh();
+			}
+			else if(tree.SelectedNode.Tag is bell_function){
+				bell_function f = tree.SelectedNode.Tag as bell_function;
+				f.SetParameter("Slope", tbar_b.Value);
+				f.Refresh();
+			}
+			else if(tree.SelectedNode.Tag is sigmoidal_function){
+				sigmoidal_function f = tree.SelectedNode.Tag as sigmoidal_function;
+				f.SetParameter("CrossoverPoint", tbar_b.Value);
+				f.Refresh();
+			}
+		}
 
-				if(typeof(sigmoidal_function).ToString() == created_func_list.Items[i].GetType().ToString()){
-					sigmoidal_function FuncObject = created_func_list.Items[i] as sigmoidal_function;
-					//Sigmoidal function
-					try{
-						double Slope, CrossoverPoint;
-						Slope          = double.Parse(Box_a.Text);
-						CrossoverPoint = double.Parse(Box_b.Text);
-						FuncObject.SetParameter("Slope", Slope);
-						FuncObject.SetParameter("CrossoverPoint", CrossoverPoint);
-						FuncObject.Refresh(s);
-					}catch(Exception ex){
-						//When an exception is thrown, show the error message.
-						string caption = "ERROR";
-						MessageBox.Show(ex.Message + "\nPlease Enter Numbers Only.", caption);
-					}
+		private void tbar_c_Scroll(object sender, EventArgs e){
+			if(tree.SelectedNode.Tag is triangle_function){
+				triangle_function f = tree.SelectedNode.Tag as triangle_function;
+				if(tbar_c.Value>=tbar_b.Value){
+					f.SetParameter("Right", tbar_c.Value);
+					f.Refresh();
 				}
 				else{
-					;
+					tbar_c.Value = tbar_b.Value;
 				}
 			}
-			FindBoundary();
-			Chart_func.ChartAreas[0].AxisX.Interval = (double)((int)(bound_r-bound_l)/5);
-			Chart_func.ChartAreas[0].AxisX.Maximum  = bound_r;
-			Chart_func.ChartAreas[0].AxisX.Minimum  = bound_l;
+			else if(tree.SelectedNode.Tag is bell_function){
+				bell_function f = tree.SelectedNode.Tag as bell_function;
+				f.SetParameter("Center", tbar_c.Value);
+				f.Refresh();
+			}
 		}
+
+		private void del_btn_Click(object sender, EventArgs e){
+			if(tree.SelectedNode != null){
+				if(tree.SelectedNode.Tag is Universe){
+					Universe u = tree.SelectedNode.Tag as Universe;
+					Chart_func.ChartAreas[u.name].Visible = false;
+					tree.SelectedNode.Remove();
+				}
+				else if(tree.SelectedNode.Tag is triangle_function){
+					triangle_function f = tree.SelectedNode.Tag as triangle_function;
+					Universe u = tree.SelectedNode.Parent.Tag as Universe;
+					u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.GetName()));
+					tree.SelectedNode.Remove();
+				}
+				else if(tree.SelectedNode.Tag is gaussian_function){
+
+				}
+				else if(tree.SelectedNode.Tag is bell_function){
+
+				}
+				else if(tree.SelectedNode.Tag is sigmoidal_function){
+
+				}
+			}
+		}
+
+		
     }
 }
