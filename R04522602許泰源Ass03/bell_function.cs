@@ -10,8 +10,7 @@ namespace R04522602許泰源Ass03{
         private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
 
-        //Constuctor that enable user to create function with customized function name.
-		//Unused in current version.
+        //Constuctor
 		public bell_function(Universe u) : base(u){
 			name = "Bell" + count++.ToString();
 			double hw, slope, center;
@@ -19,10 +18,7 @@ namespace R04522602許泰源Ass03{
 			hw = 1.5f;
 			slope = 5.0f;
 	
-            series = new Series(name);
-            series.ChartType = SeriesChartType.Line;
-            u.hostChart.Series.Add(series);
-            series.ChartArea = u.area.Name;
+            series.Name = name;
 
 			parameters.Add("Half-width", hw);
             parameters.Add("Slope", slope);

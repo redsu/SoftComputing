@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="bell_function.cs" />
     <Compile Include="FuzzySet.cs" />
+    <Compile Include="Rename.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rename.Designer.cs">
+      <DependentUpon>Rename.cs</DependentUpon>
+    </Compile>
     <Compile Include="sigmoidal_function.cs" />
     <Compile Include="triangle_function.cs" />
     <Compile Include="gaussian_function.cs" />
@@ -79,6 +85,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Rename.resx">
+      <DependentUpon>Rename.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Save.resx">
       <DependentUpon>Save.cs</DependentUpon>
     </EmbeddedResource>

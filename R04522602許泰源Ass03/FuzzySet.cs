@@ -17,7 +17,11 @@ namespace R04522602許泰源Ass03{
         }
 
         public FuzzySet( Universe u ){
-            theUniverse = u;			
+            theUniverse = u;
+			series = new Series();
+			series.ChartType = SeriesChartType.Line;
+            u.hostChart.Series.Add(series);
+            series.ChartArea = u.area.Name;
         }
 
         protected virtual double GetFunctionValue(double x){

@@ -163,8 +163,9 @@
 			this.tree.Name = "tree";
 			this.tree.Size = new System.Drawing.Size(421, 183);
 			this.tree.TabIndex = 44;
-			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 			this.tree.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterChecked);
+			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
+			this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_DoubleClick);
 			// 
 			// FuncTypSel
 			// 
@@ -210,7 +211,7 @@
 			this.uni_name.Name = "uni_name";
 			this.uni_name.Size = new System.Drawing.Size(90, 22);
 			this.uni_name.TabIndex = 47;
-			this.uni_name.Text = "Name";
+			this.uni_name.Text = "X1";
 			// 
 			// uni_max
 			// 
@@ -218,7 +219,7 @@
 			this.uni_max.Name = "uni_max";
 			this.uni_max.Size = new System.Drawing.Size(90, 22);
 			this.uni_max.TabIndex = 48;
-			this.uni_max.Text = "Max";
+			this.uni_max.Text = "10.0";
 			// 
 			// uni_min
 			// 
@@ -226,7 +227,7 @@
 			this.uni_min.Name = "uni_min";
 			this.uni_min.Size = new System.Drawing.Size(90, 22);
 			this.uni_min.TabIndex = 49;
-			this.uni_min.Text = "Min";
+			this.uni_min.Text = "0.0";
 			// 
 			// label1
 			// 
@@ -274,7 +275,7 @@
 			this.uni_inc.Name = "uni_inc";
 			this.uni_inc.Size = new System.Drawing.Size(90, 22);
 			this.uni_inc.TabIndex = 54;
-			this.uni_inc.Text = "Increment";
+			this.uni_inc.Text = "0.1";
 			// 
 			// tbar_a
 			// 

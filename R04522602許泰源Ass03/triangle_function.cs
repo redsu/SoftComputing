@@ -10,8 +10,7 @@ namespace R04522602許泰源Ass03{
         private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
 
-		//Constuctor that enable user to create function with customized function name.
-		//Unused in current version.
+		//Constuctor
         public triangle_function(Universe u) : base(u){
 			name = "Triangle" + count++.ToString();
 			double left, middle, right;
@@ -23,11 +22,8 @@ namespace R04522602許泰源Ass03{
 			left   = (double)((int)left);
 			right  = (double)((int)right);
 
-            series = new Series(name);
-            series.ChartType = SeriesChartType.Line;
-            u.hostChart.Series.Add(series);
-            series.ChartArea = u.area.Name;
-
+            //series = new Series(name);
+			series.Name = name;
 			parameters.Add("Left", left);
             parameters.Add("Middle", middle);
             parameters.Add("Right", right);

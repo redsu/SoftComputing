@@ -10,18 +10,14 @@ namespace R04522602許泰源Ass03{
         private Dictionary<string, double> parameters = new Dictionary<string,double>();
 		private static int count = 1;
 
-		//Constuctor that enable user to create function with customized function name.
-		//Unused in current version.
+		//Constuctor
         public sigmoidal_function(Universe u) : base(u){
 			name = "Sigmoidal" + count++.ToString();
 			double slope, crossoverpt;
 			slope = 3.0f;
 			crossoverpt = theUniverse.xMin + rnd.NextDouble()*(theUniverse.xMax-theUniverse.xMin);
 
-            series = new Series(name);
-            series.ChartType = SeriesChartType.Line;
-            u.hostChart.Series.Add(series);
-            series.ChartArea = u.area.Name;
+            series.Name = name;
 
 			parameters.Add("Slope", slope);
             parameters.Add("CrossoverPoint", crossoverpt);

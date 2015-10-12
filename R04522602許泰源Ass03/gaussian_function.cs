@@ -9,25 +9,19 @@ namespace R04522602許泰源Ass03{
     class gaussian_function : FuzzySet{
         private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
-        //Constuctor that enable user to create function with customized function name.
-        //Unused in current version.
+        //Constuctor
         public gaussian_function(Universe u) : base(u){
 			double mean, sigma;
 			mean = theUniverse.xMin + rnd.NextDouble() * (theUniverse.xMax - theUniverse.xMin);
 			sigma = 2.0f;
 			name = "Gaussian" + count++.ToString();
 
-            series = new Series(name);
-            series.ChartType = SeriesChartType.Line;
-            u.hostChart.Series.Add(series);
-            series.ChartArea = u.area.Name;
+            series.Name = name;;
 
-            parameters.Add("mean", mean);
+			parameters.Add("mean", mean);
             parameters.Add("sigma", sigma);
             UpdateSeriesPoints();
 		}
-
-
 
 		//override ToString() in order to show self-defined function name in listbox.
         public override string ToString(){

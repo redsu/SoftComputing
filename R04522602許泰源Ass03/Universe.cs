@@ -41,5 +41,26 @@ namespace R04522602許泰源Ass03{
 			Interval = (xMax-xMin)/500;
             c.ChartAreas.Add(area);
         }
+
+		public Universe( Chart c , string name, double min, double max){
+            hostChart = c;
+            this.name = name;
+            area = new ChartArea(name);
+			xMax = max;
+			xMin = min;
+            area.AxisX.Minimum = xMin;
+            area.AxisX.Maximum = xMax;
+            area.AxisX.Title = this.name;
+            area.AxisX.Enabled = AxisEnabled.True;
+			area.AxisY.Minimum = 0.0f;
+			area.AxisY.Maximum = 1.25f;
+			Interval = (xMax-xMin)/500;
+            c.ChartAreas.Add(area);
+			count++;
+        }
+
+		public int GetCount(){
+			return count;
+		}
 	}
 }
