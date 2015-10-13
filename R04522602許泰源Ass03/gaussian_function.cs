@@ -7,13 +7,15 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace R04522602許泰源Ass03{
     class gaussian_function : FuzzySet{
-        private Dictionary<string, double> parameters = new Dictionary<string,double>();
+        //private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
         //Constuctor
         public gaussian_function(Universe u) : base(u){
 			double mean, sigma;
-			mean = theUniverse.xMin + rnd.NextDouble() * (theUniverse.xMax - theUniverse.xMin);
+			mean = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax - theUniverse.Xmin);
 			sigma = 2.0f;
+			mean = (int)mean;
+			sigma = (int) sigma;
 			name = "Gaussian" + count++.ToString();
 
             series.Name = name;;
@@ -53,6 +55,24 @@ namespace R04522602許泰源Ass03{
 		//Set Parameter of the function.
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
+		}
+
+		public double Mean{
+			get{
+				return parameters["mean"];
+			}
+			set{
+				parameters["mean"] = value;
+			}
+		}
+
+		public double Std{
+			get{
+				return parameters["sigma"];
+			}
+			set{
+				parameters["sigma"] = value;
+			}
 		}
     }
 }

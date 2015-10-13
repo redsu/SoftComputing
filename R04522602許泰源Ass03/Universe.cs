@@ -9,7 +9,7 @@ namespace R04522602許泰源Ass03{
 	public class Universe{
 		static int count = 1;
 		public string name;
-		public double xMin = 0.0, xMax = 10.0, Interval;
+		double xMin = 0.0, xMax = 10.0, interval;
         public ChartArea area;
         public Chart hostChart;
 
@@ -24,7 +24,7 @@ namespace R04522602許泰源Ass03{
             area.AxisX.Enabled = AxisEnabled.True;
 			area.AxisY.Minimum = 0.0f;
 			area.AxisY.Maximum = 1.25f;
-			Interval = (xMax-xMin)/500;
+			interval = (xMax-xMin)/500;
             c.ChartAreas.Add(area);
         }
 
@@ -38,12 +38,12 @@ namespace R04522602許泰源Ass03{
             area.AxisX.Enabled = AxisEnabled.True;
 			area.AxisY.Minimum = 0.0f;
 			area.AxisY.Maximum = 1.25f;
-			Interval = (xMax-xMin)/500;
+			interval = (xMax-xMin)/500;
             c.ChartAreas.Add(area);
         }
 
 		public Universe( Chart c , string name, double min, double max){
-            hostChart = c;
+			hostChart = c;
             this.name = name;
             area = new ChartArea(name);
 			xMax = max;
@@ -54,13 +54,39 @@ namespace R04522602許泰源Ass03{
             area.AxisX.Enabled = AxisEnabled.True;
 			area.AxisY.Minimum = 0.0f;
 			area.AxisY.Maximum = 1.25f;
-			Interval = (xMax-xMin)/500;
+			interval = (xMax-xMin)/500;
             c.ChartAreas.Add(area);
 			count++;
         }
 
 		public int GetCount(){
 			return count;
+		}
+
+		
+
+		public double Xmin{
+			get{
+				return xMin;
+			}
+			set{
+				if(value < xMax)
+					xMin = value;
+			}
+		}
+		public double Xmax{
+			get{
+				return xMax;
+			}
+			set{
+				if(value > xMin)
+					xMax = value;
+			}
+		}
+		public double Interval{
+			get{
+				return interval;
+			}
 		}
 	}
 }

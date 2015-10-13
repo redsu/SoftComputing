@@ -91,6 +91,7 @@
     <EmbeddedResource Include="Save.resx">
       <DependentUpon>Save.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -7,16 +7,16 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace R04522602許泰源Ass03{
     class triangle_function : FuzzySet{
-        private Dictionary<string, double> parameters = new Dictionary<string,double>();
+        //private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
 
 		//Constuctor
         public triangle_function(Universe u) : base(u){
 			name = "Triangle" + count++.ToString();
 			double left, middle, right;
-			middle = theUniverse.xMin + rnd.NextDouble() * (theUniverse.xMax-theUniverse.xMin);
-			left = theUniverse.xMin + rnd.NextDouble() * (middle-theUniverse.xMin);
-			right = middle + rnd.NextDouble() * (theUniverse.xMax-middle);
+			middle = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax-theUniverse.Xmin);
+			left = theUniverse.Xmin + rnd.NextDouble() * (middle-theUniverse.Xmin);
+			right = middle + rnd.NextDouble() * (theUniverse.Xmax-middle);
 
 			middle = (double)((int)middle);
 			left   = (double)((int)left);
@@ -70,6 +70,36 @@ namespace R04522602許泰源Ass03{
 		//Set Parameter of the function.
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
+		}
+
+		public double Left{
+			get{
+				return parameters["Left"];
+			}
+			set{
+				if(parameters["Left"]<=parameters["Middle"])
+					parameters["Left"] = value;
+			}
+		}
+
+		public double Right{
+			get{
+				return parameters["Right"];
+			}
+			set{
+				if(parameters["Right"]>=parameters["Middle"])
+					parameters["Right"] = value;
+			}
+		}
+
+		public double Middle{
+			get{
+				return parameters["Middle"];
+			}
+			set{
+				if(parameters["Left"]<=parameters["Middle"]&&parameters["Right"]>=parameters["Middle"])
+					parameters["Middle"] = value;
+			}
 		}
     }
 }

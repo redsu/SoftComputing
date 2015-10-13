@@ -25,7 +25,7 @@ namespace R04522602許泰源Ass03{
 			Box_a.Enabled = false;
 			Box_b.Enabled = false;
 			Box_c.Enabled = false;
-
+			
 			FuncTypSel.SelectedIndex = 0;
 
             //Change the language of exception messages into Engilsh.
@@ -196,32 +196,32 @@ namespace R04522602許泰源Ass03{
 
 		//if a line was selected, change the width of line and the object show on the panel
 		private void tree_AfterSelect(object sender, TreeViewEventArgs e){
-			if(e.Node.Level == 1){
-				foreach(TreeNode t in tree.Nodes){
-					foreach(TreeNode tn in t.Nodes){
-						if(tn.Tag is triangle_function){
-							triangle_function f = tn.Tag as triangle_function;
-							f.SetWidth(1);
-						}
-						if(tn.Tag is gaussian_function){
-							gaussian_function f = tn.Tag as gaussian_function;
-							f.SetWidth(1);
-						}
-						if(tn.Tag is bell_function){
-							bell_function f = tn.Tag as bell_function;
-							f.SetWidth(1);
-						}
-						if(tn.Tag is sigmoidal_function){
-							sigmoidal_function f = tn.Tag as sigmoidal_function;
-							f.SetWidth(1);
-						}
+			foreach(TreeNode t in tree.Nodes){
+				foreach(TreeNode tn in t.Nodes){
+					if(tn.Tag is triangle_function){
+						triangle_function f = tn.Tag as triangle_function;
+						f.SetWidth(1);
+					}
+					if(tn.Tag is gaussian_function){
+						gaussian_function f = tn.Tag as gaussian_function;
+						f.SetWidth(1);
+					}
+					if(tn.Tag is bell_function){
+						bell_function f = tn.Tag as bell_function;
+						f.SetWidth(1);
+					}
+					if(tn.Tag is sigmoidal_function){
+						sigmoidal_function f = tn.Tag as sigmoidal_function;
+						f.SetWidth(1);
 					}
 				}
-
+			}
+			if(e.Node.Level == 1){
 				if(e.Node.Tag is triangle_function){
 					triangle_function f = e.Node.Tag as triangle_function;
 					Universe u = e.Node.Parent.Tag as Universe;
-
+					propertyGrid1.SelectedObject = f;
+					propertyGrid1.Refresh();
 					f.SetWidth(2);
 					label_c.Visible = true;
 					tbar_c.Visible  = true;
@@ -235,12 +235,12 @@ namespace R04522602許泰源Ass03{
                     label_b.Text = "Turning";
                     label_c.Text = "Right";
 
-					tbar_a.Minimum = (int)u.xMin;
-					tbar_a.Maximum = (int)u.xMax;
-					tbar_b.Minimum = (int)u.xMin;
-					tbar_b.Maximum = (int)u.xMax;
-					tbar_c.Minimum = (int)u.xMin;
-					tbar_c.Maximum = (int)u.xMax;
+					tbar_a.Minimum = (int)u.Xmin;
+					tbar_a.Maximum = (int)u.Xmax;
+					tbar_b.Minimum = (int)u.Xmin;
+					tbar_b.Maximum = (int)u.Xmax;
+					tbar_c.Minimum = (int)u.Xmin;
+					tbar_c.Maximum = (int)u.Xmax;
 					
 					tbar_a.Value = (int)f.GetParameter("Left");
 					tbar_b.Value = (int)f.GetParameter("Middle");
@@ -253,7 +253,8 @@ namespace R04522602許泰源Ass03{
 				else if(e.Node.Tag is gaussian_function){
 					gaussian_function f = e.Node.Tag as gaussian_function;
 					Universe u = e.Node.Parent.Tag as Universe;
-
+					propertyGrid1.SelectedObject = f;
+					propertyGrid1.Refresh();
 					f.SetWidth(2);
 					label_c.Visible = false;
 					tbar_c.Visible  = false;
@@ -266,10 +267,10 @@ namespace R04522602許泰源Ass03{
                     label_a.Text = "Mean";
                     label_b.Text = "Std";
 					
-					tbar_a.Minimum = (int)u.xMin;
-					tbar_a.Maximum = (int)u.xMax;
-					tbar_b.Minimum = (int)u.xMin;
-					tbar_b.Maximum = (int)u.xMax;
+					tbar_a.Minimum = (int)u.Xmin;
+					tbar_a.Maximum = (int)u.Xmax;
+					tbar_b.Minimum = (int)u.Xmin;
+					tbar_b.Maximum = (int)u.Xmax;
 					
 					tbar_a.Value = (int)f.GetParameter("mean");
 					tbar_b.Value = (int)f.GetParameter("sigma");
@@ -280,7 +281,8 @@ namespace R04522602許泰源Ass03{
 				else if(e.Node.Tag is bell_function){
 					bell_function f = e.Node.Tag as bell_function;
 					Universe u = e.Node.Parent.Tag as Universe;
-
+					propertyGrid1.SelectedObject = f;
+					propertyGrid1.Refresh();
 					f.SetWidth(2);
 					label_c.Visible = true;
                     tbar_c.Visible  = true;
@@ -294,12 +296,12 @@ namespace R04522602許泰源Ass03{
                     label_b.Text = "Slope";
                     label_c.Text = "Center";
 					
-					tbar_a.Minimum = (int)u.xMin;
-					tbar_a.Maximum = (int)u.xMax;
-					tbar_b.Minimum = (int)u.xMin;
-					tbar_b.Maximum = (int)u.xMax;
-					tbar_c.Minimum = (int)u.xMin;
-					tbar_c.Maximum = (int)u.xMax;
+					tbar_a.Minimum = (int)u.Xmin;
+					tbar_a.Maximum = (int)u.Xmax;
+					tbar_b.Minimum = (int)u.Xmin;
+					tbar_b.Maximum = (int)u.Xmax;
+					tbar_c.Minimum = (int)u.Xmin;
+					tbar_c.Maximum = (int)u.Xmax;
 					
 					tbar_a.Value = (int)f.GetParameter("Half-width");
 					tbar_b.Value = (int)f.GetParameter("Slope");
@@ -312,7 +314,8 @@ namespace R04522602許泰源Ass03{
 				else if(e.Node.Tag is sigmoidal_function){
 					sigmoidal_function f = e.Node.Tag as sigmoidal_function;
 					Universe u = e.Node.Parent.Tag as Universe;
-
+					propertyGrid1.SelectedObject = f;
+					propertyGrid1.Refresh();
 					f.SetWidth(2);
 					label_c.Visible = false;
 					tbar_c.Visible  = false;
@@ -327,8 +330,8 @@ namespace R04522602許泰源Ass03{
 					
 					tbar_a.Minimum = -1000;
 					tbar_a.Maximum = 1000;
-					tbar_b.Minimum = (int)u.xMin;
-					tbar_b.Maximum = (int)u.xMax;
+					tbar_b.Minimum = (int)u.Xmin;
+					tbar_b.Maximum = (int)u.Xmax;
 					
 					tbar_a.Value = (int)f.GetParameter("Slope");
 					tbar_b.Value = (int)f.GetParameter("CrossoverPoint");
@@ -390,6 +393,7 @@ namespace R04522602許泰源Ass03{
 		}
 		//adjust parameter a
 		private void tbar_a_Scroll(object sender, EventArgs e){
+			propertyGrid1.Refresh();
 			if(tree.SelectedNode.Tag is triangle_function){
 				triangle_function f = tree.SelectedNode.Tag as triangle_function;
 				if(tbar_a.Value<=tbar_b.Value){
@@ -424,6 +428,7 @@ namespace R04522602許泰源Ass03{
 		}
 		//adjust parameter b
 		private void tbar_b_Scroll(object sender, EventArgs e){
+			propertyGrid1.Refresh();
 			if(tree.SelectedNode.Tag is triangle_function){
 				triangle_function f = tree.SelectedNode.Tag as triangle_function;
 				if(tbar_b.Value<=tbar_c.Value&&tbar_b.Value>=tbar_a.Value){
@@ -462,6 +467,7 @@ namespace R04522602許泰源Ass03{
 		}
 		//adjust parameter c
 		private void tbar_c_Scroll(object sender, EventArgs e){
+			propertyGrid1.Refresh();
 			if(tree.SelectedNode.Tag is triangle_function){
 				triangle_function f = tree.SelectedNode.Tag as triangle_function;
 				if(tbar_c.Value>=tbar_b.Value){

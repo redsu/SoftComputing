@@ -7,7 +7,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace R04522602許泰源Ass03{
     class sigmoidal_function : FuzzySet{
-        private Dictionary<string, double> parameters = new Dictionary<string,double>();
+        //private Dictionary<string, double> parameters = new Dictionary<string,double>();
 		private static int count = 1;
 
 		//Constuctor
@@ -15,7 +15,7 @@ namespace R04522602許泰源Ass03{
 			name = "Sigmoidal" + count++.ToString();
 			double slope, crossoverpt;
 			slope = 3.0f;
-			crossoverpt = theUniverse.xMin + rnd.NextDouble()*(theUniverse.xMax-theUniverse.xMin);
+			crossoverpt = theUniverse.Xmin + rnd.NextDouble()*(theUniverse.Xmax-theUniverse.Xmin);
 
             series.Name = name;
 

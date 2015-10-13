@@ -7,14 +7,14 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace R04522602許泰源Ass03{
     class bell_function : FuzzySet{
-        private Dictionary<string, double> parameters = new Dictionary<string,double>();
+
         private static int count = 1;
 
         //Constuctor
 		public bell_function(Universe u) : base(u){
 			name = "Bell" + count++.ToString();
 			double hw, slope, center;
-			center = theUniverse.xMin + rnd.NextDouble()*(theUniverse.xMax-theUniverse.xMin);
+			center = theUniverse.Xmin + rnd.NextDouble()*(theUniverse.Xmax-theUniverse.Xmin);
 			hw = 1.5f;
 			slope = 5.0f;
 	

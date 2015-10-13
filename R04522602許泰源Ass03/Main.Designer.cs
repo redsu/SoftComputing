@@ -56,6 +56,7 @@
 			this.tbar_b = new System.Windows.Forms.TrackBar();
 			this.tbar_c = new System.Windows.Forms.TrackBar();
 			this.del_btn = new System.Windows.Forms.Button();
+			this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tbar_a)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tbar_b)).BeginInit();
@@ -161,7 +162,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.tree.Location = new System.Drawing.Point(14, 317);
 			this.tree.Name = "tree";
-			this.tree.Size = new System.Drawing.Size(421, 183);
+			this.tree.Size = new System.Drawing.Size(285, 183);
 			this.tree.TabIndex = 44;
 			this.tree.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterChecked);
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
@@ -312,12 +313,20 @@
 			this.del_btn.UseVisualStyleBackColor = true;
 			this.del_btn.Click += new System.EventHandler(this.del_btn_Click);
 			// 
+			// propertyGrid1
+			// 
+			this.propertyGrid1.Location = new System.Drawing.Point(305, 317);
+			this.propertyGrid1.Name = "propertyGrid1";
+			this.propertyGrid1.Size = new System.Drawing.Size(158, 183);
+			this.propertyGrid1.TabIndex = 59;
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(827, 512);
+			this.Controls.Add(this.propertyGrid1);
 			this.Controls.Add(this.del_btn);
 			this.Controls.Add(this.fs_btn);
 			this.Controls.Add(this.user_guide_btn);
@@ -387,6 +396,7 @@
 		private System.Windows.Forms.TrackBar tbar_b;
 		private System.Windows.Forms.TrackBar tbar_c;
 		private System.Windows.Forms.Button del_btn;
+		private System.Windows.Forms.PropertyGrid propertyGrid1;
     }
 }
 

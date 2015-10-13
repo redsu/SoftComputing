@@ -9,7 +9,7 @@ namespace R04522602許泰源Ass03{
         protected static Random rnd = new Random(unchecked(DateTime.Now.Ticks.GetHashCode()));
 
         protected string name;
-        protected double[] parameterValues;
+        protected Dictionary<string, double> parameters = new Dictionary<string,double>();
         protected Universe theUniverse;
         protected Series series;
 
@@ -30,7 +30,7 @@ namespace R04522602許泰源Ass03{
 
         protected void UpdateSeriesPoints(){
             series.Points.Clear();
-            for (double x = theUniverse.xMin; x <= theUniverse.xMax; x = x + theUniverse.Interval){
+            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
                 double y = GetFunctionValue( x );
                 series.Points.AddXY(x, y);
             }
