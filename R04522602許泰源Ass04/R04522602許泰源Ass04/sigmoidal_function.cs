@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
-
+using System.ComponentModel;
 namespace R04522602許泰源Ass03{
     class sigmoidal_function : FuzzySet{
         //private Dictionary<string, double> parameters = new Dictionary<string,double>();
@@ -13,6 +13,7 @@ namespace R04522602許泰源Ass03{
 		//Constuctor
         public sigmoidal_function(Universe u) : base(u){
 			name = "Sigmoidal" + count++.ToString();
+			tmp_name = name;
 			double slope, crossoverpt;
 			slope = 3.0f;
 			crossoverpt = theUniverse.Xmin + rnd.NextDouble()*(theUniverse.Xmax-theUniverse.Xmin);
@@ -53,6 +54,26 @@ namespace R04522602許泰源Ass03{
 		//Set Parameter of the function.
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
+		}
+		[Category("Parameters")]
+		public double Slope{
+			get{
+				return parameters["Slope"];
+			}
+			set{
+				parameters["Slope"] = value;
+				UpdateSeriesPoints();
+			}
+		}
+		[Category("Parameters")]
+		public double CrossoverPoint{
+			get{
+				return parameters["CrossoverPoint"];
+			}
+			set{
+				parameters["CrossoverPoint"] = value;
+				UpdateSeriesPoints();
+			}
 		}
     }
 }

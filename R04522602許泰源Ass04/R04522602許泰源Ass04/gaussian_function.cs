@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
-
+using System.ComponentModel;
 namespace R04522602許泰源Ass03{
     class gaussian_function : FuzzySet{
         //private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
         //Constuctor
         public gaussian_function(Universe u) : base(u){
+			
+			name = "Gaussian" + count++.ToString();
+			tmp_name = name;
 			double mean, sigma;
 			mean = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax - theUniverse.Xmin);
 			sigma = 2.0f;
 			mean = (int)mean;
 			sigma = (int) sigma;
-			name = "Gaussian" + count++.ToString();
-
-            series.Name = name;;
-
+            series.Name = name;
 			parameters.Add("mean", mean);
             parameters.Add("sigma", sigma);
             UpdateSeriesPoints();
@@ -56,22 +56,24 @@ namespace R04522602許泰源Ass03{
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
 		}
-
+		[Category("Parameters")]
 		public double Mean{
 			get{
 				return parameters["mean"];
 			}
 			set{
 				parameters["mean"] = value;
+				UpdateSeriesPoints();
 			}
 		}
-
+		[Category("Parameters")]
 		public double Std{
 			get{
 				return parameters["sigma"];
 			}
 			set{
 				parameters["sigma"] = value;
+				UpdateSeriesPoints();
 			}
 		}
     }
