@@ -14,7 +14,21 @@ using System.Drawing.Imaging;
 namespace R04522602許泰源Ass03{
     public partial class Main : Form{
 		private const double INFINITY = 1e100, NEG_INFINITY = -1e100;
-		
+		private DataPoint selectedDataPoint = null;
+		private HitTestResult hitResult = null;
+		private enum Control_Point : int{
+			tri_L = 0,
+			tri_M = 1,
+			tri_R = 2,
+			gau_M = 3,
+			gau_S = 4,
+			bel_C = 5,
+			bel_W = 6,
+			bel_S = 7,
+			sig_C = 8,
+			sig_S = 9
+		}
+		private int Ctrl_Pt = -1;
 		public Main(){
 			
 			InitializeComponent();
@@ -214,7 +228,7 @@ namespace R04522602許泰源Ass03{
 			
 		}
 		//use checkbox to control 'visible' property of universe and fuzzysets
-		private void tree_AfterChecked(object sender, TreeViewEventArgs e){
+		/*private void tree_AfterChecked(object sender, TreeViewEventArgs e){
 			if(e.Action != TreeViewAction.Unknown)
 				foreach(TreeNode t in tree.Nodes){
 					if(t.Tag is Universe){
@@ -275,7 +289,7 @@ namespace R04522602許泰源Ass03{
 						}
 					}
 				}
-		}
+		}*/
 		
 
 		//delete selected node
@@ -445,5 +459,153 @@ namespace R04522602許泰源Ass03{
 				}
 			}
 		}
+
+		private void Chart_func_MouseDown(object sender, MouseEventArgs e){
+			hitResult = Chart_func.HitTest( e.X, e.Y );
+
+			// Initialize currently selected data point
+			selectedDataPoint = null;
+			if( hitResult.ChartElementType == ChartElementType.DataPoint ){
+				selectedDataPoint = (DataPoint)hitResult.Object;
+				// Show point value as label
+				//selectedDataPoint.IsValueShownAsLabel = true;
+
+				// Mouse coordinates should not be outside of the chart 
+				int coordinatey = e.Y;
+				if(coordinatey < 0)
+					coordinatey = 0;
+				if(coordinatey > Chart_func.Size.Height - 1)
+					coordinatey = Chart_func.Size.Height - 1;
+
+				int coordinatex = e.X;
+				if(coordinatex < 0)
+					coordinatex = 0;
+				if(coordinatex > Chart_func.Size.Width - 1)
+					coordinatex = Chart_func.Size.Width - 1;
+
+				// Calculate new Y value from current cursor position
+				double yValue = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisY.PixelPositionToValue(coordinatey);
+				double xValue = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.PixelPositionToValue(coordinatex);
+				yValue = Math.Min(yValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisY.Maximum);
+				yValue = Math.Max(yValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisY.Minimum);
+				xValue = Math.Min(xValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum);
+				xValue = Math.Max(xValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum);
+
+				foreach(TreeNode tn0 in tree.Nodes){
+					foreach(TreeNode tn1 in tn0.Nodes){
+						foreach(TreeNode tn2 in tn1.Nodes){
+							Universe u = tn1.Tag as Universe;
+							if(tn2.Tag is triangle_function){
+								triangle_function f = tn2.Tag as triangle_function;
+								if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
+									double max, min;
+									max = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum;
+									min = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum;
+									tree.SelectedNode = tn2;
+									if(Math.Abs(xValue-f.Left)<0.05 && Math.Abs(yValue-0.0)<0.05){
+										Ctrl_Pt = (int)Control_Point.tri_L;
+									}
+									else if(Math.Abs(xValue-f.Middle)<0.05 || Math.Abs(xValue-1.0)<0.05){
+										Ctrl_Pt = (int)Control_Point.tri_M;
+									}
+									else if(Math.Abs(xValue-f.Right)<0.05 || Math.Abs(xValue-0.0)<0.05){
+										Ctrl_Pt = (int)Control_Point.tri_R;
+									}
+									else{
+										Ctrl_Pt = -1;
+									}
+								};
+							}
+							else if(tn2.Tag is gaussian_function){
+								gaussian_function f = tn2.Tag as gaussian_function;
+								if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
+									double max, min;
+									max = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum;
+									min = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum;
+									tree.SelectedNode = tn2;
+									if(Math.Abs(xValue-f.Mean)<0.05 && Math.Abs(yValue-1.0f)<0.05){
+										Ctrl_Pt = (int)Control_Point.gau_M;
+									}
+									else if(Math.Abs(xValue-((max-min)*0.25+f.Mean))<0.05 || Math.Abs(xValue-(-(max-min)*0.25+f.Mean))<0.05){
+										Ctrl_Pt = (int)Control_Point.gau_S;
+									}
+									else{
+										Ctrl_Pt = -1;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		private void Chart_func_MouseMove(object sender, MouseEventArgs e){
+			
+			
+			// Check if data point selected
+			if(selectedDataPoint != null){
+				// Mouse coordinates should not be outside of the chart 
+				int coordinatey = e.Y;
+				if(coordinatey < 0)
+					coordinatey = 0;
+				if(coordinatey > Chart_func.Size.Height - 1)
+					coordinatey = Chart_func.Size.Height - 1;
+
+				int coordinatex = e.X;
+				if(coordinatex < 0)
+					coordinatex = 0;
+				if(coordinatex > Chart_func.Size.Width - 1)
+					coordinatex = Chart_func.Size.Width - 1;
+
+				// Calculate new Y value from current cursor position
+				double yValue = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisY.PixelPositionToValue(coordinatey);
+				double xValue = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.PixelPositionToValue(coordinatex);
+				yValue = Math.Min(yValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisY.Maximum);
+				yValue = Math.Max(yValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisY.Minimum);
+				xValue = Math.Min(xValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum);
+				xValue = Math.Max(xValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum);
+			    if(tree.SelectedNode.Tag is triangle_function){
+					triangle_function f = tree.SelectedNode.Tag as triangle_function;
+					if(Ctrl_Pt==(int)Control_Point.tri_L){
+						f.Left = xValue;
+					}
+					else if(Ctrl_Pt==(int)Control_Point.tri_M){
+						f.Middle = xValue;
+					}
+					else if(Ctrl_Pt==(int)Control_Point.tri_R){
+						f.Right = xValue;
+					}
+				}
+				else if(tree.SelectedNode.Tag is gaussian_function){
+					gaussian_function f = tree.SelectedNode.Tag as gaussian_function;
+					if(Ctrl_Pt==(int)Control_Point.gau_S){
+						f.Std = Math.Abs(xValue-f.Mean);
+					}
+					else if(Ctrl_Pt==(int)Control_Point.gau_M){
+						f.Mean = xValue;
+					}
+				}
+				
+				//label2.Text = f.Mean.ToString();
+				// Update selected point Y value
+				//selectedDataPoint.YValues[0] = yValue;
+				
+
+				// Invalidate chart
+				Chart_func.Invalidate();
+			}
+		}
+
+		private void Chart_func_MouseUp(object sender, MouseEventArgs e){
+			selectedDataPoint = null;
+			propertyGrid.Refresh();
+		}
+
+		private void Chart_func_MouseHover(object sender, EventArgs e)
+		{
+			Chart_func.Cursor = Cursors.Hand;
+		}
+
     }
 }

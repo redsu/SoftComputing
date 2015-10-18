@@ -30,6 +30,19 @@ namespace R04522602許泰源Ass03{
             parameters.Add("Right", right);
 
 			UpdateSeriesPoints();
+
+			int num_pt = series.Points.Count;
+			for(int i=1; i<num_pt-1; i++){
+				if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
+					series.Points[i].MarkerStyle = MarkerStyle.Square;
+				if(series.Points[i].YValues[0]>0 && series.Points[i+1].YValues[0]==0)
+					series.Points[i+1].MarkerStyle = MarkerStyle.Square;
+				if(series.Points[i].YValues[0]>series.Points[i-1].YValues[0] && series.Points[i].YValues[0]>series.Points[i+1].YValues[0]){
+					series.Points[i].MarkerStyle = MarkerStyle.Circle;
+					series.Points[i].YValues[0] = 1.0;
+				}
+			}
+
         }
 
 		//Constuctor required all parameters.
@@ -46,13 +59,15 @@ namespace R04522602許泰源Ass03{
             c = parameters["Right"];
             
             if(x <= a)
-                y = 0.0f;
-            else if (x >= a && x <= b)
+                y = 0.0;
+            else if (x >= a && x < b)
                 y = (x - a) / (b - a);
-            else if (x >= b && x <= c)
+			else if (x == b)
+				y = 1.0;
+            else if (x > b && x <= c)
                 y = (c - x) / (c - b);
             else
-                y = 0.0f;
+                y = 0.0;
 
             return y;
         }
@@ -78,9 +93,20 @@ namespace R04522602許泰源Ass03{
 				return parameters["Left"];
 			}
 			set{
-				if(value<=parameters["Middle"]){
+				if(value<parameters["Middle"]){
 					parameters["Left"] = value;
 					UpdateSeriesPoints();
+					int num_pt = series.Points.Count;
+					for(int i=1; i<num_pt-1; i++){
+						if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
+							series.Points[i].MarkerStyle = MarkerStyle.Square;
+						if(series.Points[i].YValues[0]>0 && series.Points[i+1].YValues[0]==0)
+							series.Points[i+1].MarkerStyle = MarkerStyle.Square;
+						if(series.Points[i].YValues[0]>series.Points[i-1].YValues[0] && series.Points[i].YValues[0]>series.Points[i+1].YValues[0]){
+							series.Points[i].MarkerStyle = MarkerStyle.Circle;
+							series.Points[i].YValues[0] = 1.0;
+						}
+					}
 				}
 			}
 		}
@@ -90,9 +116,26 @@ namespace R04522602許泰源Ass03{
 				return parameters["Right"];
 			}
 			set{
-				if(value>=parameters["Middle"]){
+				if(value>parameters["Middle"]){
 					parameters["Right"] = value;
 					UpdateSeriesPoints();
+					int num_pt = series.Points.Count;
+					for(int i=1; i<num_pt-1; i++){
+						if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
+							series.Points[i].MarkerStyle = MarkerStyle.Square;
+						if(series.Points[i].YValues[0]>0 && series.Points[i+1].YValues[0]==0)
+							series.Points[i+1].MarkerStyle = MarkerStyle.Square;
+						if(series.Points[i].YValues[0]>series.Points[i-1].YValues[0] && series.Points[i].YValues[0]>series.Points[i+1].YValues[0]){
+							series.Points[i].MarkerStyle = MarkerStyle.Circle;
+							series.Points[i].YValues[0] = 1.0;
+						}
+					}
+					/*
+					series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
+					if(num_pt_R<series.Points.Count)
+						series.Points[num_pt_R].MarkerStyle = MarkerStyle.Square;
+					if(num_pt_L>0)*/
+						
 				}
 			}
 		}
@@ -102,9 +145,20 @@ namespace R04522602許泰源Ass03{
 				return parameters["Middle"];
 			}
 			set{
-				if(parameters["Left"]<=value&&parameters["Right"]>=value){
+				if(parameters["Left"]<value&&parameters["Right"]>value){
 					parameters["Middle"] = value;
 					UpdateSeriesPoints();
+					int num_pt = series.Points.Count;
+					for(int i=1; i<num_pt-1; i++){
+						if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
+							series.Points[i].MarkerStyle = MarkerStyle.Square;
+						if(series.Points[i].YValues[0]>0 && series.Points[i+1].YValues[0]==0)
+							series.Points[i+1].MarkerStyle = MarkerStyle.Square;
+						if(series.Points[i].YValues[0]>series.Points[i-1].YValues[0] && series.Points[i].YValues[0]>series.Points[i+1].YValues[0]){
+							series.Points[i].MarkerStyle = MarkerStyle.Circle;
+							series.Points[i].YValues[0] = 1.0;
+						}
+					}
 				}
 			}
 		}

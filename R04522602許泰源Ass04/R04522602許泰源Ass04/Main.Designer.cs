@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
 			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
 			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
@@ -54,14 +54,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Chart_func.BackColor = System.Drawing.Color.MistyRose;
 			this.Chart_func.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalRight;
-			legend15.Name = "Legend1";
-			this.Chart_func.Legends.Add(legend15);
+			legend1.Name = "Legend1";
+			this.Chart_func.Legends.Add(legend1);
 			this.Chart_func.Location = new System.Drawing.Point(505, 14);
-			this.Chart_func.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
 			this.Chart_func.Size = new System.Drawing.Size(400, 534);
 			this.Chart_func.TabIndex = 4;
 			this.Chart_func.Text = "Chart";
+			this.Chart_func.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Chart_func_MouseDown);
+			this.Chart_func.MouseHover += new System.EventHandler(this.Chart_func_MouseHover);
+			this.Chart_func.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Chart_func_MouseMove);
+			this.Chart_func.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Chart_func_MouseUp);
 			// 
 			// save_btn
 			// 

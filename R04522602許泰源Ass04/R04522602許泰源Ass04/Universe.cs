@@ -20,12 +20,12 @@ namespace R04522602許泰源Ass03{
             name = "X" + count++.ToString();
 			tmp_name = name;
             area = new ChartArea(name);
-            area.AxisX.Minimum = 0.0f;
-            area.AxisX.Maximum = 10.0f;
+            area.AxisX.Minimum = 0.0;
+            area.AxisX.Maximum = 10.0;
             area.AxisX.Title = name;
             area.AxisX.Enabled = AxisEnabled.True;
-			area.AxisY.Minimum = 0.0f;
-			area.AxisY.Maximum = 1.25f;
+			area.AxisY.Minimum = -0.1;
+			area.AxisY.Maximum = 1.20;
 			interval = (area.AxisX.Maximum-area.AxisX.Minimum)/500;
             c.ChartAreas.Add(area);
         }
@@ -39,7 +39,7 @@ namespace R04522602許泰源Ass03{
             area.AxisX.Maximum = 10.0f;
             area.AxisX.Title = this.name;
             area.AxisX.Enabled = AxisEnabled.True;
-			area.AxisY.Minimum = 0.0f;
+			area.AxisY.Minimum = -0.1f;
 			area.AxisY.Maximum = 1.25f;
 			interval = (area.AxisX.Maximum-area.AxisX.Minimum)/500;
             c.ChartAreas.Add(area);
@@ -56,9 +56,10 @@ namespace R04522602許泰源Ass03{
             area.AxisX.Maximum = area.AxisX.Maximum;
             area.AxisX.Title = this.name;
             area.AxisX.Enabled = AxisEnabled.True;
-			area.AxisY.Minimum = 0.0f;
+			area.AxisY.Minimum = -0.1f;
 			area.AxisY.Maximum = 1.25f;
-			this.interval = (area.AxisX.Maximum-area.AxisX.Minimum)/500;
+			//this.interval = (area.AxisX.Maximum-area.AxisX.Minimum)/500;
+			this.interval = 0.1;
             c.ChartAreas.Add(area);
 			count++;
         }

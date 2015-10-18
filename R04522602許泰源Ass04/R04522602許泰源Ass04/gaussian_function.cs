@@ -15,7 +15,7 @@ namespace R04522602許泰源Ass03{
 			name = "Gaussian" + count++.ToString();
 			tmp_name = name;
 			double mean, sigma;
-			mean = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax - theUniverse.Xmin);
+			mean = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax-theUniverse.Xmin);
 			sigma = 2.0f;
 			mean = (int)mean;
 			sigma = (int) sigma;
@@ -23,6 +23,13 @@ namespace R04522602許泰源Ass03{
 			parameters.Add("mean", mean);
             parameters.Add("sigma", sigma);
             UpdateSeriesPoints();
+			int num_pt = series.Points.Count;
+			int num_pt_M = (int)((double)num_pt * (parameters["mean"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
+			series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
+			if(num_pt_M+num_pt/4<series.Points.Count)
+				series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
+			if(num_pt_M-num_pt/4>0)
+				series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
 		}
 
 		//override ToString() in order to show self-defined function name in listbox.
@@ -34,8 +41,8 @@ namespace R04522602許泰源Ass03{
         protected override double GetFunctionValue(double x){
             double y = 0.0f;
             double c, sigma;
-            c = parameters["mean"];
-            sigma = parameters["sigma"];
+            c = Mean;
+            sigma = Std;
             
             y = Math.Exp(-Math.Pow((x - c), 2.0f)/(2.0f * Math.Pow(sigma, 2.0f)));
             
@@ -64,6 +71,13 @@ namespace R04522602許泰源Ass03{
 			set{
 				parameters["mean"] = value;
 				UpdateSeriesPoints();
+				int num_pt = series.Points.Count;
+				int num_pt_M = (int)((double)num_pt * (Mean - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
+				series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
+				if(num_pt_M+num_pt/4<series.Points.Count)
+					series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
+				if(num_pt_M-num_pt/4>0)
+					series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
 			}
 		}
 		[Category("Parameters")]
@@ -72,8 +86,17 @@ namespace R04522602許泰源Ass03{
 				return parameters["sigma"];
 			}
 			set{
-				parameters["sigma"] = value;
-				UpdateSeriesPoints();
+				if(value >= 0){
+					parameters["sigma"] = value;
+					UpdateSeriesPoints();
+					int num_pt = series.Points.Count;
+					int num_pt_M = (int)((double)num_pt * (Mean - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
+					series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
+					if(num_pt_M+num_pt/4<series.Points.Count)
+						series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
+					if(num_pt_M-num_pt/4>0)
+						series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
+				}
 			}
 		}
     }
