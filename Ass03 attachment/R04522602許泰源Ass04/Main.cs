@@ -83,7 +83,24 @@ namespace R04522602許泰源Ass03{
 		
 		//control the object show when FuncTypSel changed
 		private void FuncTypSel_SelectedIndexChanged(object sender, EventArgs e){
-			;
+			switch(FuncTypSel.SelectedIndex){
+				case 0:
+                    
+
+					break;
+				case 1:
+                    
+
+					break;
+				case 2:
+                    
+
+					break;
+				case 3:
+					
+
+					break;
+			}
 		}
 
 		//add universe
@@ -130,11 +147,9 @@ namespace R04522602許泰源Ass03{
 						case 3:
 							fs = new sigmoidal_function(u);
 							break;
-
 						case 4:
 							fs = new SMF(u);
 							break;
-
 						case 5:
 							fs = new PI(u);
 							break;
@@ -304,15 +319,7 @@ namespace R04522602許泰源Ass03{
 						if(tn.Tag is sigmoidal_function){
 							sigmoidal_function f = tn.Tag as sigmoidal_function;
 							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						}
-						if(tn.Tag is SMF){
-							SMF f = tn.Tag as SMF;
-							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						}
-						if(tn.Tag is PI){
-							PI f = tn.Tag as PI;
-							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						}
+						}						
 					}
 					Chart_func.ChartAreas[u.tmp_name].Visible = false;
 					tree.SelectedNode.Remove();
@@ -339,22 +346,12 @@ namespace R04522602許泰源Ass03{
 						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						tree.SelectedNode.Remove();
 					}
-					else if(tree.SelectedNode.Tag is SMF){
-						SMF f = tree.SelectedNode.Tag as SMF;					
-						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						tree.SelectedNode.Remove();
-					}
-					else if(tree.SelectedNode.Tag is PI){
-						PI f = tree.SelectedNode.Tag as PI;					
-						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						tree.SelectedNode.Remove();
-					}
 				}
 			}
 		}
 
 		//Change the name show on the tag of the tree
-		private void propertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e){
+		private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e){
 			if (e.ChangedItem.Label == "Name"){
 				tree.SelectedNode.Text = e.ChangedItem.Value.ToString();
 				if(tree.SelectedNode.Level == 1){
@@ -398,7 +395,7 @@ namespace R04522602許泰源Ass03{
             }
 		}
 
-		//Double Click to control 'visible' property of universe and fuzzysets
+		//Double Click to Rename universe	
 		private void tree_DoubleClick(object sender, TreeNodeMouseClickEventArgs e){
 			Universe u;
 			if(tree.SelectedNode != null){
@@ -469,7 +466,6 @@ namespace R04522602許泰源Ass03{
 			}
 		}
 
-		//When mouse_down, catch the line and control point on it clicked
 		private void Chart_func_MouseDown(object sender, MouseEventArgs e){
 			hitResult = Chart_func.HitTest( e.X, e.Y );
 
@@ -544,32 +540,15 @@ namespace R04522602許泰源Ass03{
 									}
 								}
 							}
-							else if(tn2.Tag is bell_function){
-								bell_function f = tn2.Tag as bell_function;
-								if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
-									double max, min;
-									max = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum;
-									min = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum;
-									tree.SelectedNode = tn2;
-									if(Math.Abs(xValue-f.Center)<0.05 && Math.Abs(yValue-1.0f)<0.05){
-										Ctrl_Pt = (int)Control_Point.bel_C;
-									}
-									else if(Math.Abs(xValue-((max-min)*0.25+f.Center))<0.05 || Math.Abs(xValue-(-(max-min)*0.25+f.Center))<0.05){
-										Ctrl_Pt = (int)Control_Point.bel_S;
-									}
-									else{
-										Ctrl_Pt = -1;
-									}
-								}
-							}
 						}
 					}
 				}
 			}
 		}
 
-		//When mouse_move, update the parameter with the corresponding control point
-		private void Chart_func_MouseMove(object sender, MouseEventArgs e){			
+		private void Chart_func_MouseMove(object sender, MouseEventArgs e){
+			
+			
 			// Check if data point selected
 			if(selectedDataPoint != null){
 				// Mouse coordinates should not be outside of the chart 
@@ -613,28 +592,24 @@ namespace R04522602許泰源Ass03{
 						f.Mean = xValue;
 					}
 				}
-				else if(tree.SelectedNode.Tag is bell_function){
-					bell_function f = tree.SelectedNode.Tag as bell_function;
-					if(Ctrl_Pt==(int)Control_Point.bel_S){
-						f.Slope = Math.Abs(xValue-f.Center);
-					}
-					else if(Ctrl_Pt==(int)Control_Point.bel_C){
-						f.Center = xValue;
-					}
-				}
+				
+				//label2.Text = f.Mean.ToString();
+				// Update selected point Y value
+				//selectedDataPoint.YValues[0] = yValue;
+				
+
 				// Invalidate chart
 				Chart_func.Invalidate();
 			}
 		}
 
-		//When mouse_up, release the seleted line and control point
 		private void Chart_func_MouseUp(object sender, MouseEventArgs e){
 			selectedDataPoint = null;
 			propertyGrid.Refresh();
 		}
 
-		//When the cursor hover in the area of Chart_func, change its style to a hand
-		private void Chart_func_MouseHover(object sender, EventArgs e){
+		private void Chart_func_MouseHover(object sender, EventArgs e)
+		{
 			Chart_func.Cursor = Cursors.Hand;
 		}
 

@@ -24,7 +24,7 @@ namespace R04522602許泰源Ass03{
             parameters.Add("CrossoverPoint", crossoverpt);
 
 			UpdateSeriesPoints();
-			/*int num_pt = series.Points.Count;
+			int num_pt = series.Points.Count;
 			int num_pt_M = (int)((double)num_pt * (crossoverpt - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
 				
 			for(int i=0; i<num_pt-1; i++){
@@ -36,7 +36,7 @@ namespace R04522602許泰源Ass03{
 					series.Points[i].MarkerStyle = MarkerStyle.Square;
 				if(series.Points[i].YValues[0]==0.5)
 					series.Points[i].MarkerStyle = MarkerStyle.Circle;
-			}*/
+			}
 
         }
 		

@@ -28,15 +28,7 @@ namespace R04522602許泰源Ass03{
 			UpdateSeriesPoints();
 			int num_pt = series.Points.Count;
 			int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-			for(int i=1; i<num_pt-1; i++)
-				if(series.Points[i].YValues[0]==1&&series.Points[i].XValue==Center){
-					series.Points[i].MarkerStyle = MarkerStyle.Circle;
-					break;
-				}
-			if(num_pt_M+num_pt/4<series.Points.Count)
-				series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
-			if(num_pt_M-num_pt/4>0)
-				series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
+			series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
         }
 		
 		//override ToString() in order to show self-defined function name in listbox.
@@ -91,15 +83,7 @@ namespace R04522602許泰源Ass03{
 				UpdateSeriesPoints();
 				int num_pt = series.Points.Count;
 				int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-				for(int i=1; i<num_pt-1; i++)
-					if(series.Points[i].YValues[0]==1&&series.Points[i].XValue==Center){
-						series.Points[i].MarkerStyle = MarkerStyle.Circle;
-						break;
-					}
-				if(num_pt_M+num_pt/4<series.Points.Count)
-					series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
-				if(num_pt_M-num_pt/4>0)
-					series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
+				series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
 			}
 		}
 		[Category("Parameters")]
@@ -110,17 +94,6 @@ namespace R04522602許泰源Ass03{
 			set{
 				parameters["Slope"] = value;
 				UpdateSeriesPoints();
-				int num_pt = series.Points.Count;
-				int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-				for(int i=1; i<num_pt-1; i++)
-					if(series.Points[i].YValues[0]==1&&series.Points[i].XValue==Center){
-						series.Points[i].MarkerStyle = MarkerStyle.Circle;
-						break;
-					}
-				if(num_pt_M+num_pt/4<series.Points.Count)
-					series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
-				if(num_pt_M-num_pt/4>0)
-					series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
 			}
 		}
 		[Category("Parameters")]
@@ -131,17 +104,6 @@ namespace R04522602許泰源Ass03{
 			set{
 				parameters["Center"] = value;
 				UpdateSeriesPoints();
-				int num_pt = series.Points.Count;
-				int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-				for(int i=1; i<num_pt-1; i++)
-					if(series.Points[i].YValues[0]==1&&series.Points[i].XValue==Center){
-						series.Points[i].MarkerStyle = MarkerStyle.Circle;
-						break;
-					}
-				if(num_pt_M+num_pt/4<series.Points.Count)
-					series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
-				if(num_pt_M-num_pt/4>0)
-					series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
 			}
 		}
     }

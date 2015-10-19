@@ -49,8 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="bell_function.cs" />
-    <Compile Include="FuzzySet.cs" />
     <Compile Include="PI.cs" />
+    <Compile Include="FuzzySet.cs" />
     <Compile Include="Rename.cs">
       <SubType>Form</SubType>
     </Compile>

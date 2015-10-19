@@ -25,11 +25,7 @@ namespace R04522602許泰源Ass03{
             UpdateSeriesPoints();
 			int num_pt = series.Points.Count;
 			int num_pt_M = (int)((double)num_pt * (parameters["mean"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-			for(int i=1; i<num_pt-1; i++)
-				if(series.Points[i].YValues[0]==1){
-					series.Points[i].MarkerStyle = MarkerStyle.Circle;
-					break;
-				}
+			series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
 			if(num_pt_M+num_pt/4<series.Points.Count)
 				series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
 			if(num_pt_M-num_pt/4>0)
@@ -88,11 +84,7 @@ namespace R04522602許泰源Ass03{
 				UpdateSeriesPoints();
 				int num_pt = series.Points.Count;
 				int num_pt_M = (int)((double)num_pt * (Mean - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-				for(int i=1; i<num_pt-1; i++)
-					if(series.Points[i].YValues[0]==1){
-						series.Points[i].MarkerStyle = MarkerStyle.Circle;
-						break;
-					}
+				series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
 				if(num_pt_M+num_pt/4<series.Points.Count)
 					series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
 				if(num_pt_M-num_pt/4>0)
@@ -110,11 +102,7 @@ namespace R04522602許泰源Ass03{
 					UpdateSeriesPoints();
 					int num_pt = series.Points.Count;
 					int num_pt_M = (int)((double)num_pt * (Mean - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-					for(int i=1; i<num_pt-1; i++)
-					if(series.Points[i].YValues[0]==1){
-						series.Points[i].MarkerStyle = MarkerStyle.Circle;
-						break;
-					}
+					series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
 					if(num_pt_M+num_pt/4<series.Points.Count)
 						series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
 					if(num_pt_M-num_pt/4>0)
