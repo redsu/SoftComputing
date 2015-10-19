@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
 			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
 			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
@@ -44,6 +44,7 @@
 			this.del_btn = new System.Windows.Forms.Button();
 			this.propertyGrid = new System.Windows.Forms.PropertyGrid();
 			this.sel_name = new System.Windows.Forms.Label();
+			this.tip = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -54,8 +55,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Chart_func.BackColor = System.Drawing.Color.MistyRose;
 			this.Chart_func.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalRight;
-			legend1.Name = "Legend1";
-			this.Chart_func.Legends.Add(legend1);
+			legend5.Name = "Legend1";
+			this.Chart_func.Legends.Add(legend5);
 			this.Chart_func.Location = new System.Drawing.Point(505, 14);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
@@ -200,6 +201,11 @@
 			this.sel_name.Text = "NAME";
 			this.sel_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
+			// tip
+			// 
+			this.tip.IsBalloon = true;
+			this.tip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -241,6 +247,7 @@
 		private System.Windows.Forms.PropertyGrid propertyGrid;
 		private System.Windows.Forms.ImageList imageList;
 		private System.Windows.Forms.Label sel_name;
+		private System.Windows.Forms.ToolTip tip;
     }
 }
 

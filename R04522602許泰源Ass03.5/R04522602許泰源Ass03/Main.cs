@@ -42,8 +42,11 @@ namespace R04522602許泰源Ass03{
 			
 			tree.SelectedNode = tree.Nodes[0];
 			FuncTypSel.SelectedIndex = 0;
-
-            //Change the language of exception messages into Engilsh.
+			
+			tip.ToolTipTitle = "操作提示";
+			tip.SetToolTip(this.Chart_func,"點拉線圖上的控制點，\n即時調整曲線參數。");
+			tip.ToolTipIcon = ToolTipIcon.Info;
+			//Change the language of exception messages into Engilsh.
             System.Threading.Thread.CurrentThread.CurrentCulture = 
                                         new System.Globalization.CultureInfo("en-US");
 
@@ -641,7 +644,7 @@ namespace R04522602許泰源Ass03{
 		//When the cursor hover in the area of Chart_func, change its style to a hand
 		private void Chart_func_MouseHover(object sender, EventArgs e){
 			Chart_func.Cursor = Cursors.Hand;
+			
 		}
-
     }
 }
