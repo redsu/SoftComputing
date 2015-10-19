@@ -48,6 +48,7 @@ namespace R04522602許泰源Ass03{
         }
 
 		//Refresh the data existed in both listbox and chart if any parameters changed.
+		//Unused now
 		public void Refresh(){            
             UpdateSeriesPoints();
         }
@@ -62,14 +63,7 @@ namespace R04522602許泰源Ass03{
 			parameters[NameOfParameter] = Parameter;
 		}
 
-		protected override void UpdateSeriesPoints(){
-            series.Points.Clear();
-            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
-                double y = GetFunctionValue( x );
-                series.Points.AddXY(x, y);
-            }
-        }
-
+		//Category the parameters
 		[Category("Parameters")]
 		public double L{
 			get{

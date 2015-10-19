@@ -16,6 +16,8 @@ namespace R04522602許泰源Ass03{
 		private const double INFINITY = 1e100, NEG_INFINITY = -1e100;
 		private DataPoint selectedDataPoint = null;
 		private HitTestResult hitResult = null;
+
+		//Definition of tags of different control points
 		private enum Control_Point : int{
 			tri_L = 0,
 			tri_M = 1,
@@ -28,7 +30,9 @@ namespace R04522602許泰源Ass03{
 			sig_C = 8,
 			sig_S = 9
 		}
+		//Control Point Flag
 		private int Ctrl_Pt = -1;
+		
 		public Main(){
 			
 			InitializeComponent();
@@ -218,6 +222,7 @@ namespace R04522602許泰源Ass03{
 			}
 			
 		}
+		//Deleted because of appearance
 		//use checkbox to control 'visible' property of universe and fuzzysets
 		/*private void tree_AfterChecked(object sender, TreeViewEventArgs e){
 			if(e.Action != TreeViewAction.Unknown)

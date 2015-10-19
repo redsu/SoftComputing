@@ -30,6 +30,8 @@ namespace R04522602許泰源Ass03{
             c.ChartAreas.Add(area);
         }
 
+
+		/*Constructor unused
 		public Universe( Chart c , string name){
             hostChart = c;
             this.name = name;
@@ -63,12 +65,12 @@ namespace R04522602許泰源Ass03{
             c.ChartAreas.Add(area);
 			count++;
         }
-
+		*/
 		public int GetCount(){
 			return count;
 		}
 
-		
+		//Category the parameters
 		[Category("Parameters")]
 		public double Xmin{
 			get{

@@ -72,6 +72,7 @@ namespace R04522602許泰源Ass03{
 
 		
 		//Refresh the data existed in both listbox and chart if any parameters changed.
+		//Unused now
 		public void Refresh(){            
             UpdateSeriesPoints();
         }

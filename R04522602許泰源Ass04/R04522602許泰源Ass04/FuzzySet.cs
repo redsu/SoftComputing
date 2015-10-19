@@ -16,7 +16,7 @@ namespace R04522602許泰源Ass03{
 
         public FuzzySet(){
         }
-
+		//Contructor
         public FuzzySet( Universe u ){
             theUniverse = u;
 			theUniverse.ParameterChanged += theUniverse_ParameterChanged;
@@ -25,15 +25,15 @@ namespace R04522602許泰源Ass03{
             u.hostChart.Series.Add(series);
             series.ChartArea = u.area.Name;
         }
-
+		//Virtual function can be override by new definition
         protected virtual double GetFunctionValue(double x){
             return 0.0;
         }
-
+		//Update all points in series
 		void theUniverse_ParameterChanged(object sender, EventArgs e){
             UpdateSeriesPoints();
         }
-
+		//Virtual function can be override by new definition if needed
         protected virtual void UpdateSeriesPoints(){
             series.Points.Clear();
             for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
@@ -41,6 +41,7 @@ namespace R04522602許泰源Ass03{
                 series.Points.AddXY(x, y);
             }
         }
+		//Category the parameters
 		[Category("Design")]
 		public string Name{
             get {
@@ -50,7 +51,7 @@ namespace R04522602許泰源Ass03{
 				name = value;
 			}
         }
-		
+		//Set the width of line in series
 		public void SetWidth(int w){
 			series.BorderWidth = w;
 		}

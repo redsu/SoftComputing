@@ -56,6 +56,7 @@ namespace R04522602許泰源Ass03{
         }
 		
 		//Refresh the data existed in both listbox and chart if any parameters changed.
+		//Unused now
 		public void Refresh(){            
             UpdateSeriesPoints();
         }
@@ -69,7 +70,7 @@ namespace R04522602許泰源Ass03{
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
 		}
-
+		//Override the previous definition to make sure there always exist a point (CrossoverPoint, 0.5)
 		protected override void UpdateSeriesPoints(){
 			series.Points.Clear();
             for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
@@ -79,7 +80,7 @@ namespace R04522602許泰源Ass03{
 					series.Points.AddXY(CrossoverPoint, 0.5);
             }
 		}
-
+		//Category the parameters
 		[Category("Parameters")]
 		public double Slope{
 			get{
