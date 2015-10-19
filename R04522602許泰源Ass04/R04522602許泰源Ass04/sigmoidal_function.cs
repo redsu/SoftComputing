@@ -24,6 +24,20 @@ namespace R04522602許泰源Ass03{
             parameters.Add("CrossoverPoint", crossoverpt);
 
 			UpdateSeriesPoints();
+			int num_pt = series.Points.Count;
+			int num_pt_M = (int)((double)num_pt * (crossoverpt - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
+				
+			for(int i=0; i<num_pt-1; i++){
+				if(series.Points[i].YValues[0]<=0.999999 && series.Points[i+1].YValues[0]>=0.999999)
+					series.Points[i].MarkerStyle = MarkerStyle.Square;
+			}
+			for(int i=0; i<num_pt-1; i++){
+				if(series.Points[i].YValues[0]<=0.000001 && series.Points[i+1].YValues[0]>=0.000001)
+					series.Points[i].MarkerStyle = MarkerStyle.Square;
+				if(series.Points[i].YValues[0]==0.5)
+					series.Points[i].MarkerStyle = MarkerStyle.Circle;
+			}
+
         }
 		
 		//override ToString() in order to show self-defined function name in listbox.
@@ -55,6 +69,17 @@ namespace R04522602許泰源Ass03{
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
 		}
+
+		protected override void UpdateSeriesPoints(){
+			series.Points.Clear();
+            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
+                double y = GetFunctionValue( x );
+				series.Points.AddXY(x, y);
+				if(x<=CrossoverPoint && x+theUniverse.Interval>=CrossoverPoint)
+					series.Points.AddXY(CrossoverPoint, 0.5);
+            }
+		}
+
 		[Category("Parameters")]
 		public double Slope{
 			get{

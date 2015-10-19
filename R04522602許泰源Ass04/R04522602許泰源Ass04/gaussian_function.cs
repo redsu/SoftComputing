@@ -63,6 +63,17 @@ namespace R04522602許泰源Ass03{
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
 		}
+
+		protected override void UpdateSeriesPoints(){
+            series.Points.Clear();
+            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
+                double y = GetFunctionValue( x );
+                series.Points.AddXY(x, y);
+				if(x<=Mean && x+theUniverse.Interval>=Mean)
+					series.Points.AddXY(Mean, 1.0);
+            }
+        }
+
 		[Category("Parameters")]
 		public double Mean{
 			get{

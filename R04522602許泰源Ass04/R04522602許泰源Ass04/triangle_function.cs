@@ -14,16 +14,14 @@ namespace R04522602許泰源Ass03{
         public triangle_function(Universe u) : base(u){
 			name = "Triangle" + count++.ToString();
 			tmp_name = name;
-			double left, middle, right;
+			double left = theUniverse.Xmax, middle, right = theUniverse.Xmin;
 			middle = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax-theUniverse.Xmin);
-			left = theUniverse.Xmin + rnd.NextDouble() * (middle-theUniverse.Xmin);
-			right = middle + rnd.NextDouble() * (theUniverse.Xmax-middle);
+			while(middle <= left)
+				left = theUniverse.Xmin + rnd.NextDouble() * (middle-theUniverse.Xmin);
+			while(middle >= right)
+				right = middle + rnd.NextDouble() * (theUniverse.Xmax-middle);
 
-			middle = (double)((int)middle);
-			left   = (double)((int)left);
-			right  = (double)((int)right);
-
-            //series = new Series(name);
+			//series = new Series(name);
 			series.Name = name;
 			parameters.Add("Left", left);
             parameters.Add("Middle", middle);
@@ -86,6 +84,15 @@ namespace R04522602許泰源Ass03{
 		//Set Parameter of the function.
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
+		}
+		protected override void UpdateSeriesPoints(){
+			series.Points.Clear();
+            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
+                double y = GetFunctionValue( x );
+				series.Points.AddXY(x, y);
+				if(x<Middle && x+theUniverse.Interval>Middle)
+					series.Points.AddXY(Middle, 1.0);
+            }
 		}
 		[Category("Parameters")]
 		public double Left{

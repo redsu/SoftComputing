@@ -26,6 +26,9 @@ namespace R04522602許泰源Ass03{
             parameters.Add("Center", center);
 
 			UpdateSeriesPoints();
+			int num_pt = series.Points.Count;
+			int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
+			series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
         }
 		
 		//override ToString() in order to show self-defined function name in listbox.
@@ -56,6 +59,16 @@ namespace R04522602許泰源Ass03{
 			return parameters[NameOfParameter];
 		}
 
+		protected override void UpdateSeriesPoints(){
+            series.Points.Clear();
+            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
+                double y = GetFunctionValue( x );
+                series.Points.AddXY(x, y);
+				if(x<=Center && x+theUniverse.Interval>=Center)
+					series.Points.AddXY(Center, 1.0);
+            }
+        }
+
 		//Set Parameter of the function.
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
@@ -68,6 +81,9 @@ namespace R04522602許泰源Ass03{
 			set{
 				parameters["Half-width"] = value;
 				UpdateSeriesPoints();
+				int num_pt = series.Points.Count;
+				int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
+				series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
 			}
 		}
 		[Category("Parameters")]

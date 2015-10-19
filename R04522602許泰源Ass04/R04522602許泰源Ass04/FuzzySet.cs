@@ -34,7 +34,7 @@ namespace R04522602許泰源Ass03{
             UpdateSeriesPoints();
         }
 
-        protected void UpdateSeriesPoints(){
+        protected virtual void UpdateSeriesPoints(){
             series.Points.Clear();
             for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
                 double y = GetFunctionValue( x );
