@@ -71,6 +71,7 @@
     <Compile Include="Save.Designer.cs">
       <DependentUpon>Save.cs</DependentUpon>
     </Compile>
+    <Compile Include="UnaryOperator.cs" />
     <Compile Include="Universe.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

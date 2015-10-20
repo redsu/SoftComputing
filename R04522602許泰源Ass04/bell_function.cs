@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace R04522602許泰源Ass03{
+namespace R04522602許泰源Ass04{
     class bell_function : FuzzySet{
 
         private static int count = 1;
