@@ -1,0 +1,13 @@
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\bin\Debug\R04522602許泰源Ass02.exe.config
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\bin\Debug\R04522602許泰源Ass02.exe
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\bin\Debug\R04522602許泰源Ass02.pdb
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\obj\Debug\R04522602許泰源Ass02.csprojResolveAssemblyReference.cache
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\obj\Debug\R04522602許泰源Ass02.Main.resources
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\obj\Debug\R04522602許泰源Ass02.Properties.Resources.resources
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\obj\Debug\R04522602許泰源Ass02.save_win.resources
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\obj\Debug\R04522602許泰源Ass02.csproj.GenerateResource.Cache
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\obj\Debug\R04522602許泰源Ass02.exe
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass02\obj\Debug\R04522602許泰源Ass02.pdb
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass03\bin\Debug\R04522602許泰源Ass02.exe.config
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass03\obj\Debug\R04522602許泰源Ass02.exe
+C:\Users\Ted\Documents\Visual Studio 2012\Projects\SoftComputing\R04522602許泰源Ass03\obj\Debug\R04522602許泰源Ass02.pdb

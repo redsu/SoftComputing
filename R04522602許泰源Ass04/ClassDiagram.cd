@@ -1,45 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="R04522602許泰源Ass03.Universe" Collapsed="true">
+  <Class Name="R04522602許泰源Ass04.Universe" Collapsed="true">
     <Position X="1.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAABIAAAAAgAAgEAAAAAAAAAAAAAIE=</HashCode>
+      <HashCode>AAQAACAADAAAAAAABIAAAASAAAAEAAAAAAAAAQAAAIE=</HashCode>
       <FileName>Universe.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="R04522602許泰源Ass03.FuzzySet" Collapsed="true">
+  <Class Name="R04522602許泰源Ass04.FuzzySet" Collapsed="true">
     <Position X="3.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAQAAAAAAAAAAAAAAAAACAAAEAAAAAAAhAAAABAw=</HashCode>
+      <HashCode>AAAEAQAABAAAAAAAAAAAAAQCAAAEAAAAAAABBACAAAw=</HashCode>
       <FileName>FuzzySet.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="R04522602許泰源Ass03.gaussian_function">
+  <Class Name="R04522602許泰源Ass04.gaussian_function">
     <Position X="4.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAABAAAAEBAAAAAAAAAABAAAAAAAAAACAAAg=</HashCode>
+      <HashCode>AAAQAAAAAABAAAAEBAAAAAACIAABAAAEAAAAAAAAAAg=</HashCode>
       <FileName>gaussian_function.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="R04522602許泰源Ass03.bell_function">
+  <Class Name="R04522602許泰源Ass04.bell_function">
     <Position X="6" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAABAAAAEBAAAAAAAAAABAAAAAAAAAACAAAg=</HashCode>
+      <HashCode>AAAQAAAAAABAAAAEBAAAAAACAAABAAAAAAAAAAAIBEg=</HashCode>
       <FileName>bell_function.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="R04522602許泰源Ass03.sigmoidal_function">
+  <Class Name="R04522602許泰源Ass04.sigmoidal_function">
     <Position X="2.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAABAAAAEBAAAAAAAAAABAAAAAAAAAACAAAg=</HashCode>
+      <HashCode>AAAQAAAAAABAAAAEBAAAAAACAAABAACAAAAAAAAAAEg=</HashCode>
       <FileName>sigmoidal_function.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="R04522602許泰源Ass03.triangle_function">
+  <Class Name="R04522602許泰源Ass04.triangle_function">
     <Position X="0.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAABAAAAEBAAAAAAAAAABAAAAAAAAAACAAAg=</HashCode>
+      <HashCode>AAAQAAAAAABAAAAEBAAAAAACAAABAAAACACQAAAAAAg=</HashCode>
       <FileName>triangle_function.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="R04522602許泰源Ass04.UnaryOperator" Collapsed="true">
+    <Position X="8" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UnaryOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="R04522602許泰源Ass04.NegateOperator">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NegateOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Microsoft JhengHei" Size="9" />

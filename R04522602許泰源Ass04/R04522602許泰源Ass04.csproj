@@ -32,6 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
@@ -48,6 +50,8 @@
   <ItemGroup>
     <Compile Include="bell_function.cs" />
     <Compile Include="FuzzySet.cs" />
+    <Compile Include="NegateOperator.cs" />
+    <Compile Include="PI.cs" />
     <Compile Include="Rename.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +59,7 @@
       <DependentUpon>Rename.cs</DependentUpon>
     </Compile>
     <Compile Include="sigmoidal_function.cs" />
+    <Compile Include="SMF.cs" />
     <Compile Include="triangle_function.cs" />
     <Compile Include="gaussian_function.cs" />
     <Compile Include="Main.cs">
@@ -71,6 +76,7 @@
     <Compile Include="Save.Designer.cs">
       <DependentUpon>Save.cs</DependentUpon>
     </Compile>
+    <Compile Include="UnaryOperatedFuzzySet.cs" />
     <Compile Include="UnaryOperator.cs" />
     <Compile Include="Universe.cs" />
     <EmbeddedResource Include="Main.resx">
@@ -93,7 +99,6 @@
       <DependentUpon>Save.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
