@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
-			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
+			System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
+			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
 			this.Chart_func = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.save_btn = new System.Windows.Forms.Button();
@@ -45,6 +45,8 @@
 			this.propertyGrid = new System.Windows.Forms.PropertyGrid();
 			this.sel_name = new System.Windows.Forms.Label();
 			this.tip = new System.Windows.Forms.ToolTip(this.components);
+			this.us_btn = new System.Windows.Forms.Button();
+			this.OpTypSel = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -55,8 +57,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Chart_func.BackColor = System.Drawing.Color.MistyRose;
 			this.Chart_func.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalRight;
-			legend5.Name = "Legend1";
-			this.Chart_func.Legends.Add(legend5);
+			legend4.Name = "Legend1";
+			this.Chart_func.Legends.Add(legend4);
 			this.Chart_func.Location = new System.Drawing.Point(505, 14);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
@@ -70,10 +72,10 @@
 			// 
 			// save_btn
 			// 
-			this.save_btn.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.save_btn.Location = new System.Drawing.Point(297, 132);
+			this.save_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.save_btn.Location = new System.Drawing.Point(379, 169);
 			this.save_btn.Name = "save_btn";
-			this.save_btn.Size = new System.Drawing.Size(154, 37);
+			this.save_btn.Size = new System.Drawing.Size(111, 27);
 			this.save_btn.TabIndex = 15;
 			this.save_btn.Text = "Save";
 			this.save_btn.UseVisualStyleBackColor = true;
@@ -81,10 +83,10 @@
 			// 
 			// user_guide_btn
 			// 
-			this.user_guide_btn.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.user_guide_btn.Location = new System.Drawing.Point(297, 218);
+			this.user_guide_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.user_guide_btn.Location = new System.Drawing.Point(379, 235);
 			this.user_guide_btn.Name = "user_guide_btn";
-			this.user_guide_btn.Size = new System.Drawing.Size(154, 37);
+			this.user_guide_btn.Size = new System.Drawing.Size(111, 27);
 			this.user_guide_btn.TabIndex = 16;
 			this.user_guide_btn.Text = "User Guide";
 			this.user_guide_btn.UseVisualStyleBackColor = true;
@@ -98,17 +100,17 @@
 			this.tree.ImageList = this.imageList;
 			this.tree.Location = new System.Drawing.Point(14, 89);
 			this.tree.Name = "tree";
-			treeNode1.ImageIndex = 1;
-			treeNode1.Name = "node_in";
-			treeNode1.SelectedImageIndex = 0;
-			treeNode1.Text = "InputUniverses";
-			treeNode2.ImageIndex = 3;
-			treeNode2.Name = "node_out";
-			treeNode2.SelectedImageIndex = 2;
-			treeNode2.Text = "OutputUniverses";
+			treeNode3.ImageIndex = 1;
+			treeNode3.Name = "node_in";
+			treeNode3.SelectedImageIndex = 0;
+			treeNode3.Text = "InputUniverses";
+			treeNode4.ImageIndex = 3;
+			treeNode4.Name = "node_out";
+			treeNode4.SelectedImageIndex = 2;
+			treeNode4.Text = "OutputUniverses";
 			this.tree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
+            treeNode3,
+            treeNode4});
 			this.tree.SelectedImageIndex = 0;
 			this.tree.Size = new System.Drawing.Size(230, 459);
 			this.tree.TabIndex = 44;
@@ -159,10 +161,10 @@
 			// 
 			// fs_btn
 			// 
-			this.fs_btn.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.fs_btn.Location = new System.Drawing.Point(297, 89);
+			this.fs_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.fs_btn.Location = new System.Drawing.Point(297, 71);
 			this.fs_btn.Name = "fs_btn";
-			this.fs_btn.Size = new System.Drawing.Size(154, 37);
+			this.fs_btn.Size = new System.Drawing.Size(111, 27);
 			this.fs_btn.TabIndex = 46;
 			this.fs_btn.Text = "Add Fuzzy Set";
 			this.fs_btn.UseVisualStyleBackColor = true;
@@ -170,10 +172,10 @@
 			// 
 			// del_btn
 			// 
-			this.del_btn.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.del_btn.Location = new System.Drawing.Point(297, 175);
+			this.del_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.del_btn.Location = new System.Drawing.Point(379, 202);
 			this.del_btn.Name = "del_btn";
-			this.del_btn.Size = new System.Drawing.Size(154, 37);
+			this.del_btn.Size = new System.Drawing.Size(111, 27);
 			this.del_btn.TabIndex = 58;
 			this.del_btn.Text = "Delete";
 			this.del_btn.UseVisualStyleBackColor = true;
@@ -181,6 +183,7 @@
 			// 
 			// propertyGrid
 			// 
+			this.propertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
 			this.propertyGrid.Location = new System.Drawing.Point(250, 322);
 			this.propertyGrid.Name = "propertyGrid";
 			this.propertyGrid.Size = new System.Drawing.Size(249, 226);
@@ -206,12 +209,38 @@
 			this.tip.IsBalloon = true;
 			this.tip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
 			// 
+			// us_btn
+			// 
+			this.us_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.us_btn.Location = new System.Drawing.Point(297, 136);
+			this.us_btn.Name = "us_btn";
+			this.us_btn.Size = new System.Drawing.Size(111, 27);
+			this.us_btn.TabIndex = 61;
+			this.us_btn.Text = "Add Unary Set";
+			this.us_btn.UseVisualStyleBackColor = true;
+			this.us_btn.Click += new System.EventHandler(this.us_btn_Click);
+			// 
+			// OpTypSel
+			// 
+			this.OpTypSel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.OpTypSel.FormattingEnabled = true;
+			this.OpTypSel.ImeMode = System.Windows.Forms.ImeMode.On;
+			this.OpTypSel.Items.AddRange(new object[] {
+            "NegateOperator",
+            "ConcentrationOperator"});
+			this.OpTypSel.Location = new System.Drawing.Point(297, 108);
+			this.OpTypSel.Name = "OpTypSel";
+			this.OpTypSel.Size = new System.Drawing.Size(154, 22);
+			this.OpTypSel.TabIndex = 62;
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(917, 560);
+			this.Controls.Add(this.OpTypSel);
+			this.Controls.Add(this.us_btn);
 			this.Controls.Add(this.sel_name);
 			this.Controls.Add(this.propertyGrid);
 			this.Controls.Add(this.del_btn);
@@ -248,6 +277,8 @@
 		private System.Windows.Forms.ImageList imageList;
 		private System.Windows.Forms.Label sel_name;
 		private System.Windows.Forms.ToolTip tip;
-    }
+		private System.Windows.Forms.Button us_btn;
+		private System.Windows.Forms.ComboBox OpTypSel;
+	}
 }
 

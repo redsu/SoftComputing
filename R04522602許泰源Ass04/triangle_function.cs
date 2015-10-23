@@ -28,7 +28,7 @@ namespace R04522602許泰源Ass04{
             parameters.Add("Right", right);
 
 			UpdateSeriesPoints();
-
+			
 			int num_pt = series.Points.Count;
 			for(int i=1; i<num_pt-1; i++){
 				if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
@@ -48,8 +48,8 @@ namespace R04522602許泰源Ass04{
             return name;
         }
 
-		//Get function value of given x.
-        protected override double GetFunctionValue(double x){
+        //Get function value of given x.
+        public override double GetFunctionValue(double x){
             double y = 0.0f;
             double a, b, c;
             a = parameters["Left"];
@@ -60,7 +60,7 @@ namespace R04522602許泰源Ass04{
                 y = 0.0;
             else if (x >= a && x < b)
                 y = (x - a) / (b - a);
-			else if (x == b)
+			else if (Math.Abs(x-b)<=theUniverse.Interval/2)
 				y = 1.0;
             else if (x > b && x <= c)
                 y = (c - x) / (c - b);
@@ -86,7 +86,7 @@ namespace R04522602許泰源Ass04{
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
 		}
-		protected override void UpdateSeriesPoints(){
+		/*protected override void UpdateSeriesPoints(){
 			series.Points.Clear();
             for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
                 double y = GetFunctionValue( x );
@@ -94,7 +94,7 @@ namespace R04522602許泰源Ass04{
 				if(x<Middle && x+theUniverse.Interval>Middle)
 					series.Points.AddXY(Middle, 1.0);
             }
-		}
+		}*/
 		[Category("Parameters")]
 		public double Left{
 			get{
@@ -105,6 +105,7 @@ namespace R04522602許泰源Ass04{
 					parameters["Left"] = value;
 					UpdateSeriesPoints();
 					int num_pt = series.Points.Count;
+					DataPoint ut = new DataPoint();
 					for(int i=1; i<num_pt-1; i++){
 						if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
 							series.Points[i].MarkerStyle = MarkerStyle.Square;
@@ -115,6 +116,11 @@ namespace R04522602許泰源Ass04{
 							series.Points[i].YValues[0] = 1.0;
 						}
 					}
+					
+					ut.XValue = 5;
+					ut.YValues[0] = 1;
+					series.Points.Add(ut);
+					series.Sort(PointSortOrder.Ascending, "X");
 				}
 			}
 		}

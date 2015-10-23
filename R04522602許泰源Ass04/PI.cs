@@ -28,8 +28,8 @@ namespace R04522602許泰源Ass04{
             return name;
         }
 
-		//Get function value of given x.
-        protected override double GetFunctionValue(double x){
+        //Get function value of given x.
+        public override double GetFunctionValue(double x){
             double y = 0.0f;
 
             if(x<=C-A)

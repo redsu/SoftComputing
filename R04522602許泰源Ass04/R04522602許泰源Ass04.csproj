@@ -33,7 +33,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
@@ -49,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="bell_function.cs" />
+    <Compile Include="ConcentrationOperator.cs" />
     <Compile Include="FuzzySet.cs" />
     <Compile Include="NegateOperator.cs" />
     <Compile Include="PI.cs" />

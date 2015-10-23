@@ -42,6 +42,7 @@ namespace R04522602許泰源Ass04{
 			
 			tree.SelectedNode = tree.Nodes[0];
 			FuncTypSel.SelectedIndex = 0;
+			OpTypSel.SelectedIndex = 0;
 			
 			tip.ToolTipTitle = "操作提示";
 			tip.SetToolTip(this.Chart_func,"點拉線圖上的控制點，\n即時調整曲線參數。");
@@ -639,6 +640,30 @@ namespace R04522602許泰源Ass04{
 		private void Chart_func_MouseUp(object sender, MouseEventArgs e){
 			selectedDataPoint = null;
 			propertyGrid.Refresh();
+		}
+
+		private void us_btn_Click(object sender, EventArgs e){
+			FuzzySet operand = null;
+            UnaryOperator op = null;
+            FuzzySet fs=null;
+
+            operand = (FuzzySet)tree.SelectedNode.Tag;
+            switch (OpTypSel.SelectedIndex)
+            {
+                case 0: // Not
+                    op = new NegateOperator();
+                    break;
+                case 1: // Con
+                    op = new ConcentrationOperator();
+                    break;
+            }
+            fs = new UnaryOperatedFuzzySet(operand, op);
+
+            TreeNode tn = new TreeNode(fs.Name);
+            tn.Tag = fs;
+            tn.ImageIndex = tn.SelectedImageIndex = 1;
+
+            tree.SelectedNode.Parent.Nodes.Add(tn);
 		}
 
 		//When the cursor hover in the area of Chart_func, change its style to a hand
