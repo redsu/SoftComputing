@@ -13,6 +13,7 @@ namespace R04522602許泰源Ass04{
         protected Dictionary<string, double> parameters = new Dictionary<string, double>();
         protected Universe theUniverse;
         protected Series series;
+		protected DataPoint[] breakpoints;
 
         public FuzzySet() {
         }
@@ -29,9 +30,17 @@ namespace R04522602許泰源Ass04{
             series.ChartArea = u.area.Name;
         }
 
+		[Browsable(false)]
         public Universe TheUniverse {
             get {
                 return theUniverse;
+            }
+        }
+
+		[Browsable(false)]
+        public DataPoint[] BP{
+            get {
+                return breakpoints;
             }
         }
 
@@ -50,13 +59,61 @@ namespace R04522602許泰源Ass04{
             UpdateSeriesPoints();
         }
         		//Virtual function can be override by new definition if needed
-        protected virtual void UpdateSeriesPoints(){
+        protected void UpdateSeriesPoints(){
             series.Points.Clear();
             for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
                 double y = GetFunctionValue( x );
                 series.Points.AddXY(x, y);
             }
+			if(breakpoints!=null)
+				if(breakpoints.Length!=0){
+					foreach(DataPoint pt in breakpoints){
+						if(pt != null)
+							series.Points.AddXY(pt.XValue, pt.YValues[0]);
+					}
+				}
+			series.Sort(PointSortOrder.Ascending, "X");
+			
         }
+
+		[Browsable(false)]
+		public bool Enchant{
+			set{
+				if(value){
+					series.BorderWidth = 2;
+					
+					if(breakpoints!=null)
+						foreach(DataPoint pt in breakpoints){
+							if(pt!=null)
+								for(int i=0; i<series.Points.Count; i++){
+									if(pt.XValue == series.Points[i].XValue &&
+										pt.YValues[0] == series.Points[i].YValues[0]){
+										series.Points[i].MarkerSize = 10;
+										series.Points[i].MarkerStyle = MarkerStyle.Circle;
+										break;
+									}
+								}
+						}
+
+				}
+				else{
+					series.BorderWidth = 1;
+					if(breakpoints!=null)
+						foreach(DataPoint pt in breakpoints){
+							if(pt!=null)
+								for(int i=0; i<series.Points.Count; i++){
+									if(pt.XValue == series.Points[i].XValue &&
+										pt.YValues[0] == series.Points[i].YValues[0]){
+										series.Points[i].MarkerSize = 10;
+										series.Points[i].MarkerStyle = MarkerStyle.None;
+										break;
+									}
+								}
+						}
+				}
+			}
+		}
+
 		//Category the parameters
 		[Category("Design")]
 		public string Name{
@@ -70,6 +127,10 @@ namespace R04522602許泰源Ass04{
 		//Set the width of line in series
 		public void SetWidth(int w){
 			series.BorderWidth = w;
+		}
+
+		protected virtual void Update_BP(){
+			;
 		}
     }
 }

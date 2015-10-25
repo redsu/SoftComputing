@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace R04522602許泰源Ass04{
 	class UnaryOperatedFuzzySet : FuzzySet{
@@ -14,11 +15,20 @@ namespace R04522602許泰源Ass04{
             theOperator = o;
             name = theOperator.Name + theFuzzySet.Name;
             theFuzzySet.ParameterChanged += theFuzzySet_ParameterChanged;
-
+			
+			if(theFuzzySet.BP != null){
+				breakpoints = new DataPoint[theFuzzySet.BP.Length];
+				if(breakpoints!=null)
+					for(int i=0; i<breakpoints.Length; i++){
+						if(this.theFuzzySet.BP[i]!=null)
+							breakpoints[i] = new DataPoint(this.theFuzzySet.BP[i].XValue, GetFunctionValue(this.theFuzzySet.BP[i].XValue));
+					}
+			}
             UpdateSeriesPoints();
         }
 
         void theFuzzySet_ParameterChanged(object sender, EventArgs e){
+			Update_BP();
             UpdateSeriesPoints();
             TriggerEvent();
         }
@@ -27,5 +37,14 @@ namespace R04522602許泰源Ass04{
             originalValue = theFuzzySet.GetFunctionValue(x);
             return theOperator.calculateFinalValue(originalValue);
         }
+		protected override void Update_BP(){
+			if(breakpoints != null)
+				for(int i=0; i<breakpoints.Length; i++){
+					if(theFuzzySet.BP[i]!=null){
+						breakpoints[i].XValue = this.theFuzzySet.BP[i].XValue;
+						breakpoints[i].YValues[0] = GetFunctionValue(this.theFuzzySet.BP[i].XValue);
+					}
+				}
+		}
     }
 }

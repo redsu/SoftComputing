@@ -124,27 +124,27 @@ namespace R04522602許泰源Ass04{
 
 					switch (FuncTypSel.SelectedIndex){
 						case 0:
-							fs = new triangle_function(u);
+							fs = new triangle_fuzzy_set(u);
 							break;
 
 						case 1:
-							fs = new gaussian_function(u);
+							fs = new gaussian_fuzzy_set(u);
 							break;
 
 						case 2:
-							fs = new bell_function(u);
+							fs = new bell_fuzzy_set(u);
 							break;
 
 						case 3:
-							fs = new sigmoidal_function(u);
+							fs = new sigmoidal_fuzzy_set(u);
 							break;
 
 						case 4:
-							fs = new SMF(u);
+							fs = new S_fuzzy_set(u);
 							break;
 
 						case 5:
-							fs = new PI(u);
+							fs = new PI_fuzzy_set(u);
 							break;
 					}
 					if(fs!=null){
@@ -165,21 +165,21 @@ namespace R04522602許泰源Ass04{
 			foreach(TreeNode tn0 in tree.Nodes){
 				foreach(TreeNode tn1 in tn0.Nodes){
 					foreach(TreeNode tn2 in tn1.Nodes){
-						if(tn2.Tag is triangle_function){
-							triangle_function f = tn2.Tag as triangle_function;
-							f.SetWidth(1);
+						if(tn2.Tag is triangle_fuzzy_set){
+							triangle_fuzzy_set f = tn2.Tag as triangle_fuzzy_set;
+							f.Enchant = false;
 						}
-						if(tn2.Tag is gaussian_function){
-							gaussian_function f = tn2.Tag as gaussian_function;
-							f.SetWidth(1);
+						if(tn2.Tag is gaussian_fuzzy_set){
+							gaussian_fuzzy_set f = tn2.Tag as gaussian_fuzzy_set;
+							f.Enchant = false;
 						}
-						if(tn2.Tag is bell_function){
-							bell_function f = tn2.Tag as bell_function;
-							f.SetWidth(1);
+						if(tn2.Tag is bell_fuzzy_set){
+							bell_fuzzy_set f = tn2.Tag as bell_fuzzy_set;
+							f.Enchant = false;
 						}
-						if(tn2.Tag is sigmoidal_function){
-							sigmoidal_function f = tn2.Tag as sigmoidal_function;
-							f.SetWidth(1);
+						if(tn2.Tag is sigmoidal_fuzzy_set){
+							sigmoidal_fuzzy_set f = tn2.Tag as sigmoidal_fuzzy_set;
+							f.Enchant = false;
 						}
 					}
 				}
@@ -203,94 +203,30 @@ namespace R04522602許泰源Ass04{
 				sel_name.Text = "Universe:" + tree.SelectedNode.Text;
 			}
 			else if(tree.SelectedNode.Level == 2){
-				if(tree.SelectedNode.Tag is triangle_function){
-					triangle_function f = tree.SelectedNode.Tag as triangle_function;
+				((FuzzySet)tree.SelectedNode.Tag).Enchant = true;
+				if(tree.SelectedNode.Tag is triangle_fuzzy_set){
+					triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;
 					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					f.SetWidth(2);
+					f.Enchant = true;
 				}
-				else if(tree.SelectedNode.Tag is gaussian_function){
-					gaussian_function f = tree.SelectedNode.Tag as gaussian_function;
+				else if(tree.SelectedNode.Tag is gaussian_fuzzy_set){
+					gaussian_fuzzy_set f = tree.SelectedNode.Tag as gaussian_fuzzy_set;
 					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					f.SetWidth(2);
+					f.Enchant = true;
 				}
-				else if(tree.SelectedNode.Tag is bell_function){
-					bell_function f = tree.SelectedNode.Tag as bell_function;
+				else if(tree.SelectedNode.Tag is bell_fuzzy_set){
+					bell_fuzzy_set f = tree.SelectedNode.Tag as bell_fuzzy_set;
 					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					f.SetWidth(2);
+					f.Enchant = true;
 				}
-				else if(tree.SelectedNode.Tag is sigmoidal_function){
-					sigmoidal_function f = tree.SelectedNode.Tag as sigmoidal_function;
+				else if(tree.SelectedNode.Tag is sigmoidal_fuzzy_set){
+					sigmoidal_fuzzy_set f = tree.SelectedNode.Tag as sigmoidal_fuzzy_set;
 					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					f.SetWidth(2);
+					f.Enchant = true;
 				}
 			}
 			
 		}
-		//Deleted because of appearance
-		//use checkbox to control 'visible' property of universe and fuzzysets
-		/*private void tree_AfterChecked(object sender, TreeViewEventArgs e){
-			if(e.Action != TreeViewAction.Unknown)
-				foreach(TreeNode t in tree.Nodes){
-					if(t.Tag is Universe){
-						Universe u = t.Tag as Universe;
-						if(t.Checked){
-							u.hostChart.ChartAreas[u.tmp_name].Visible = true;
-							foreach(TreeNode tn in t.Nodes){
-								if(tn.Tag is triangle_function){
-									triangle_function f = tn.Tag as triangle_function;
-									if(tn.Checked)
-										u.hostChart.Series[f.tmp_name].Enabled = true;
-									else
-										u.hostChart.Series[f.tmp_name].Enabled = false;
-								}
-								if(tn.Tag is gaussian_function){
-									gaussian_function f = tn.Tag as gaussian_function;
-									if(tn.Checked)
-										u.hostChart.Series[f.tmp_name].Enabled = true;
-									else
-										u.hostChart.Series[f.tmp_name].Enabled = false;
-								}
-								if(tn.Tag is bell_function){
-									bell_function f = tn.Tag as bell_function;
-									if(tn.Checked)
-										u.hostChart.Series[f.tmp_name].Enabled = true;
-									else
-										u.hostChart.Series[f.tmp_name].Enabled = false;
-								}
-								if(tn.Tag is sigmoidal_function){
-									sigmoidal_function f = tn.Tag as sigmoidal_function;
-									if(tn.Checked)
-										u.hostChart.Series[f.tmp_name].Enabled = true;
-									else
-										u.hostChart.Series[f.tmp_name].Enabled = false;
-								}
-							}
-						}
-						else{
-							u.hostChart.ChartAreas[u.tmp_name].Visible = false;
-							foreach(TreeNode tn in t.Nodes){
-								if(tn.Tag is triangle_function){
-									triangle_function f = tn.Tag as triangle_function;
-									u.hostChart.Series[f.tmp_name].Enabled = false;
-								}
-								if(tn.Tag is gaussian_function){
-									gaussian_function f = tn.Tag as gaussian_function;
-									u.hostChart.Series[f.tmp_name].Enabled = false;
-								}
-								if(tn.Tag is bell_function){
-									bell_function f = tn.Tag as bell_function;
-									u.hostChart.Series[f.tmp_name].Enabled = false;
-								}
-								if(tn.Tag is sigmoidal_function){
-									sigmoidal_function f = tn.Tag as sigmoidal_function;
-									u.hostChart.Series[f.tmp_name].Enabled = false;
-								}
-							}
-						}
-					}
-				}
-		}*/
-		
 
 		//delete selected node
 		private void del_btn_Click(object sender, EventArgs e){
@@ -298,28 +234,28 @@ namespace R04522602許泰源Ass04{
 				if(tree.SelectedNode.Tag is Universe){
 					Universe u = tree.SelectedNode.Tag as Universe;
 					foreach(TreeNode tn in tree.SelectedNode.Nodes){
-						if(tn.Tag is triangle_function){
-							triangle_function f = tn.Tag as triangle_function;
+						if(tn.Tag is triangle_fuzzy_set){
+							triangle_fuzzy_set f = tn.Tag as triangle_fuzzy_set;
 							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						}
-						if(tn.Tag is gaussian_function){
-							gaussian_function f = tn.Tag as gaussian_function;
+						if(tn.Tag is gaussian_fuzzy_set){
+							gaussian_fuzzy_set f = tn.Tag as gaussian_fuzzy_set;
 							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						}
-						if(tn.Tag is bell_function){
-							bell_function f = tn.Tag as bell_function;
+						if(tn.Tag is bell_fuzzy_set){
+							bell_fuzzy_set f = tn.Tag as bell_fuzzy_set;
 							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						}
-						if(tn.Tag is sigmoidal_function){
-							sigmoidal_function f = tn.Tag as sigmoidal_function;
+						if(tn.Tag is sigmoidal_fuzzy_set){
+							sigmoidal_fuzzy_set f = tn.Tag as sigmoidal_fuzzy_set;
 							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						}
-						if(tn.Tag is SMF){
-							SMF f = tn.Tag as SMF;
+						if(tn.Tag is S_fuzzy_set){
+							S_fuzzy_set f = tn.Tag as S_fuzzy_set;
 							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						}
-						if(tn.Tag is PI){
-							PI f = tn.Tag as PI;
+						if(tn.Tag is PI_fuzzy_set){
+							PI_fuzzy_set f = tn.Tag as PI_fuzzy_set;
 							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						}
 					}
@@ -328,33 +264,33 @@ namespace R04522602許泰源Ass04{
 				}
 				else{
 					Universe u = tree.SelectedNode.Parent.Tag as Universe;
-					if(tree.SelectedNode.Tag is triangle_function){
-						triangle_function f = tree.SelectedNode.Tag as triangle_function;					
+					if(tree.SelectedNode.Tag is triangle_fuzzy_set){
+						triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;					
 						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						tree.SelectedNode.Remove();
 					}
-					else if(tree.SelectedNode.Tag is gaussian_function){
-						gaussian_function f = tree.SelectedNode.Tag as gaussian_function;					
+					else if(tree.SelectedNode.Tag is gaussian_fuzzy_set){
+						gaussian_fuzzy_set f = tree.SelectedNode.Tag as gaussian_fuzzy_set;					
 						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						tree.SelectedNode.Remove();
 					}
-					else if(tree.SelectedNode.Tag is bell_function){
-						bell_function f = tree.SelectedNode.Tag as bell_function;					
+					else if(tree.SelectedNode.Tag is bell_fuzzy_set){
+						bell_fuzzy_set f = tree.SelectedNode.Tag as bell_fuzzy_set;					
 						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						tree.SelectedNode.Remove();
 					}
-					else if(tree.SelectedNode.Tag is sigmoidal_function){
-						sigmoidal_function f = tree.SelectedNode.Tag as sigmoidal_function;					
+					else if(tree.SelectedNode.Tag is sigmoidal_fuzzy_set){
+						sigmoidal_fuzzy_set f = tree.SelectedNode.Tag as sigmoidal_fuzzy_set;					
 						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						tree.SelectedNode.Remove();
 					}
-					else if(tree.SelectedNode.Tag is SMF){
-						SMF f = tree.SelectedNode.Tag as SMF;					
+					else if(tree.SelectedNode.Tag is S_fuzzy_set){
+						S_fuzzy_set f = tree.SelectedNode.Tag as S_fuzzy_set;					
 						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						tree.SelectedNode.Remove();
 					}
-					else if(tree.SelectedNode.Tag is PI){
-						PI f = tree.SelectedNode.Tag as PI;					
+					else if(tree.SelectedNode.Tag is PI_fuzzy_set){
+						PI_fuzzy_set f = tree.SelectedNode.Tag as PI_fuzzy_set;					
 						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 						tree.SelectedNode.Remove();
 					}
@@ -364,6 +300,8 @@ namespace R04522602許泰源Ass04{
 
 		//Change the name show on the tag of the tree
 		private void propertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e){
+			if(tree.SelectedNode.Tag is FuzzySet)
+				((FuzzySet)tree.SelectedNode.Tag).Enchant = true;
 			if (e.ChangedItem.Label == "Name"){
 				tree.SelectedNode.Text = e.ChangedItem.Value.ToString();
 				if(tree.SelectedNode.Level == 1){
@@ -375,29 +313,36 @@ namespace R04522602許泰源Ass04{
 				}
 				else if(tree.SelectedNode.Level == 2){
 					Universe u = tree.SelectedNode.Parent.Tag as Universe;
-					if(tree.SelectedNode.Tag is triangle_function){
-						triangle_function f = tree.SelectedNode.Tag as triangle_function;					
+					if(tree.SelectedNode.Tag is triangle_fuzzy_set){
+						triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;					
 						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
 						u.hostChart.Series[f.tmp_name].Name = f.Name;
 						f.tmp_name = f.Name;
 						sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
 					}
-					else if(tree.SelectedNode.Tag is gaussian_function){
-						gaussian_function f = tree.SelectedNode.Tag as gaussian_function;					
+					else if(tree.SelectedNode.Tag is gaussian_fuzzy_set){
+						gaussian_fuzzy_set f = tree.SelectedNode.Tag as gaussian_fuzzy_set;					
 						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
 						u.hostChart.Series[f.tmp_name].Name = f.Name;
 						f.tmp_name = f.Name;
 						sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
 					}
-					else if(tree.SelectedNode.Tag is bell_function){
-						bell_function f = tree.SelectedNode.Tag as bell_function;					
+					else if(tree.SelectedNode.Tag is bell_fuzzy_set){
+						bell_fuzzy_set f = tree.SelectedNode.Tag as bell_fuzzy_set;					
 						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
 						u.hostChart.Series[f.tmp_name].Name = f.Name;
 						f.tmp_name = f.Name;
 						sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
 					}
-					else if(tree.SelectedNode.Tag is sigmoidal_function){
-						sigmoidal_function f = tree.SelectedNode.Tag as sigmoidal_function;					
+					else if(tree.SelectedNode.Tag is sigmoidal_fuzzy_set){
+						sigmoidal_fuzzy_set f = tree.SelectedNode.Tag as sigmoidal_fuzzy_set;					
+						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
+						u.hostChart.Series[f.tmp_name].Name = f.Name;
+						f.tmp_name = f.Name;
+						sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
+					}
+					else if(tree.SelectedNode.Tag is S_fuzzy_set){
+						S_fuzzy_set f = tree.SelectedNode.Tag as S_fuzzy_set;					
 						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
 						u.hostChart.Series[f.tmp_name].Name = f.Name;
 						f.tmp_name = f.Name;
@@ -416,20 +361,20 @@ namespace R04522602許泰源Ass04{
 					if(u.hostChart.ChartAreas[u.Name].Visible){
 						u.hostChart.ChartAreas[u.Name].Visible = false;
 						foreach(TreeNode tn in tree.SelectedNode.Nodes){
-							if(tn.Tag is triangle_function){
-								triangle_function f = tn.Tag as triangle_function;
+							if(tn.Tag is triangle_fuzzy_set){
+								triangle_fuzzy_set f = tn.Tag as triangle_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = false;
 							}
-							if(tn.Tag is gaussian_function){
-								gaussian_function f = tn.Tag as gaussian_function;
+							if(tn.Tag is gaussian_fuzzy_set){
+								gaussian_fuzzy_set f = tn.Tag as gaussian_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = false;
 							}
-							if(tn.Tag is bell_function){
-								bell_function f = tn.Tag as bell_function;
+							if(tn.Tag is bell_fuzzy_set){
+								bell_fuzzy_set f = tn.Tag as bell_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = false;
 							}
-							if(tn.Tag is sigmoidal_function){
-								sigmoidal_function f = tn.Tag as sigmoidal_function;
+							if(tn.Tag is sigmoidal_fuzzy_set){
+								sigmoidal_fuzzy_set f = tn.Tag as sigmoidal_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = false;
 							}
 						}
@@ -437,20 +382,20 @@ namespace R04522602許泰源Ass04{
 					else{
 						u.hostChart.ChartAreas[u.Name].Visible = true;
 						foreach(TreeNode tn in tree.SelectedNode.Nodes){
-							if(tn.Tag is triangle_function){
-								triangle_function f = tn.Tag as triangle_function;
+							if(tn.Tag is triangle_fuzzy_set){
+								triangle_fuzzy_set f = tn.Tag as triangle_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = true;
 							}
-							if(tn.Tag is gaussian_function){
-								gaussian_function f = tn.Tag as gaussian_function;
+							if(tn.Tag is gaussian_fuzzy_set){
+								gaussian_fuzzy_set f = tn.Tag as gaussian_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = true;
 							}
-							if(tn.Tag is bell_function){
-								bell_function f = tn.Tag as bell_function;
+							if(tn.Tag is bell_fuzzy_set){
+								bell_fuzzy_set f = tn.Tag as bell_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = true;
 							}
-							if(tn.Tag is sigmoidal_function){
-								sigmoidal_function f = tn.Tag as sigmoidal_function;
+							if(tn.Tag is sigmoidal_fuzzy_set){
+								sigmoidal_fuzzy_set f = tn.Tag as sigmoidal_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = true;
 							}
 						}
@@ -458,20 +403,20 @@ namespace R04522602許泰源Ass04{
 				}
 				else if(tree.SelectedNode.Level==2){
 					u = tree.SelectedNode.Parent.Tag as Universe;
-					if(tree.SelectedNode.Tag is triangle_function){
-						triangle_function f = tree.SelectedNode.Tag as triangle_function;
+					if(tree.SelectedNode.Tag is triangle_fuzzy_set){
+						triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;
 						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
 					}
-					if(tree.SelectedNode.Tag is gaussian_function){
-						gaussian_function f = tree.SelectedNode.Tag as gaussian_function;
+					if(tree.SelectedNode.Tag is gaussian_fuzzy_set){
+						gaussian_fuzzy_set f = tree.SelectedNode.Tag as gaussian_fuzzy_set;
 						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
 					}
-					if(tree.SelectedNode.Tag is bell_function){
-						bell_function f = tree.SelectedNode.Tag as bell_function;
+					if(tree.SelectedNode.Tag is bell_fuzzy_set){
+						bell_fuzzy_set f = tree.SelectedNode.Tag as bell_fuzzy_set;
 						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
 					}
-					if(tree.SelectedNode.Tag is sigmoidal_function){
-						sigmoidal_function f = tree.SelectedNode.Tag as sigmoidal_function;
+					if(tree.SelectedNode.Tag is sigmoidal_fuzzy_set){
+						sigmoidal_fuzzy_set f = tree.SelectedNode.Tag as sigmoidal_fuzzy_set;
 						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
 					}
 				}
@@ -501,7 +446,7 @@ namespace R04522602許泰源Ass04{
 					coordinatex = 0;
 				if(coordinatex > Chart_func.Size.Width - 1)
 					coordinatex = Chart_func.Size.Width - 1;
-
+				
 				// Calculate new Y value from current cursor position
 				double yValue = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisY.PixelPositionToValue(coordinatey);
 				double xValue = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.PixelPositionToValue(coordinatex);
@@ -514,60 +459,63 @@ namespace R04522602許泰源Ass04{
 					foreach(TreeNode tn1 in tn0.Nodes){
 						foreach(TreeNode tn2 in tn1.Nodes){
 							Universe u = tn1.Tag as Universe;
-							if(tn2.Tag is triangle_function){
-								triangle_function f = tn2.Tag as triangle_function;
-								if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
-									double max, min;
-									max = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum;
-									min = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum;
-									tree.SelectedNode = tn2;
-									if(Math.Abs(xValue-f.Left)<0.05 && Math.Abs(yValue-0.0)<0.05){
-										Ctrl_Pt = (int)Control_Point.tri_L;
-									}
-									else if(Math.Abs(xValue-f.Middle)<0.05 || Math.Abs(xValue-1.0)<0.05){
-										Ctrl_Pt = (int)Control_Point.tri_M;
-									}
-									else if(Math.Abs(xValue-f.Right)<0.05 || Math.Abs(xValue-0.0)<0.05){
-										Ctrl_Pt = (int)Control_Point.tri_R;
-									}
-									else{
-										Ctrl_Pt = -1;
-									}
-								};
-							}
-							else if(tn2.Tag is gaussian_function){
-								gaussian_function f = tn2.Tag as gaussian_function;
-								if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
-									double max, min;
-									max = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum;
-									min = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum;
-									tree.SelectedNode = tn2;
-									if(Math.Abs(xValue-f.Mean)<0.05 && Math.Abs(yValue-1.0f)<0.05){
-										Ctrl_Pt = (int)Control_Point.gau_M;
-									}
-									else if(Math.Abs(xValue-((max-min)*0.25+f.Mean))<0.05 || Math.Abs(xValue-(-(max-min)*0.25+f.Mean))<0.05){
-										Ctrl_Pt = (int)Control_Point.gau_S;
-									}
-									else{
-										Ctrl_Pt = -1;
+							if(tn2.Tag.ToString() == hitResult.Series.Name){
+								((FuzzySet)tn2.Tag).Enchant = true;
+								if(tn2.Tag is triangle_fuzzy_set){
+									triangle_fuzzy_set f = tn2.Tag as triangle_fuzzy_set;
+									if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
+										double max, min;
+										max = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum;
+										min = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum;
+										tree.SelectedNode = tn2;
+										if(Math.Abs(xValue-f.Left)<0.05 && Math.Abs(yValue-0.0)<0.05){
+											Ctrl_Pt = (int)Control_Point.tri_L;
+										}
+										else if(Math.Abs(xValue-f.Middle)<0.05 || Math.Abs(xValue-1.0)<0.05){
+											Ctrl_Pt = (int)Control_Point.tri_M;
+										}
+										else if(Math.Abs(xValue-f.Right)<0.05 || Math.Abs(xValue-0.0)<0.05){
+											Ctrl_Pt = (int)Control_Point.tri_R;
+										}
+										else{
+											Ctrl_Pt = -1;
+										}
+									};
+								}
+								else if(tn2.Tag is gaussian_fuzzy_set){
+									gaussian_fuzzy_set f = tn2.Tag as gaussian_fuzzy_set;
+									if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
+										double max, min;
+										max = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum;
+										min = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum;
+										tree.SelectedNode = tn2;
+										if(Math.Abs(xValue-f.Mean)<0.05 && Math.Abs(yValue-1.0f)<0.05){
+											Ctrl_Pt = (int)Control_Point.gau_M;
+										}
+										else if(Math.Abs(xValue-((max-min)*0.25+f.Mean))<0.05 || Math.Abs(xValue-(-(max-min)*0.25+f.Mean))<0.05){
+											Ctrl_Pt = (int)Control_Point.gau_S;
+										}
+										else{
+											Ctrl_Pt = -1;
+										}
 									}
 								}
-							}
-							else if(tn2.Tag is bell_function){
-								bell_function f = tn2.Tag as bell_function;
-								if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
-									double max, min;
-									max = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum;
-									min = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum;
-									tree.SelectedNode = tn2;
-									if(Math.Abs(xValue-f.Center)<0.05 && Math.Abs(yValue-1.0f)<0.05){
-										Ctrl_Pt = (int)Control_Point.bel_C;
-									}
-									else if(Math.Abs(xValue-((max-min)*0.25+f.Center))<0.05 || Math.Abs(xValue-(-(max-min)*0.25+f.Center))<0.05){
-										Ctrl_Pt = (int)Control_Point.bel_S;
-									}
-									else{
-										Ctrl_Pt = -1;
+								else if(tn2.Tag is bell_fuzzy_set){
+									bell_fuzzy_set f = tn2.Tag as bell_fuzzy_set;
+									if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
+										double max, min;
+										max = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum;
+										min = Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum;
+										tree.SelectedNode = tn2;
+										if(Math.Abs(xValue-f.Center)<0.05 && Math.Abs(yValue-1.0f)<0.05){
+											Ctrl_Pt = (int)Control_Point.bel_C;
+										}
+										else if(Math.Abs(xValue-((max-min)*0.25+f.Center))<0.05 || Math.Abs(xValue-(-(max-min)*0.25+f.Center))<0.05){
+											Ctrl_Pt = (int)Control_Point.bel_S;
+										}
+										else{
+											Ctrl_Pt = -1;
+										}
 									}
 								}
 							}
@@ -601,8 +549,11 @@ namespace R04522602許泰源Ass04{
 				yValue = Math.Max(yValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisY.Minimum);
 				xValue = Math.Min(xValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Maximum);
 				xValue = Math.Max(xValue, Chart_func.ChartAreas[hitResult.ChartArea.Name].AxisX.Minimum);
-			    if(tree.SelectedNode.Tag is triangle_function){
-					triangle_function f = tree.SelectedNode.Tag as triangle_function;
+
+				
+
+			    if(tree.SelectedNode.Tag is triangle_fuzzy_set){
+					triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;
 					if(Ctrl_Pt==(int)Control_Point.tri_L){
 						f.Left = xValue;
 					}
@@ -613,8 +564,8 @@ namespace R04522602許泰源Ass04{
 						f.Right = xValue;
 					}
 				}
-				else if(tree.SelectedNode.Tag is gaussian_function){
-					gaussian_function f = tree.SelectedNode.Tag as gaussian_function;
+				else if(tree.SelectedNode.Tag is gaussian_fuzzy_set){
+					gaussian_fuzzy_set f = tree.SelectedNode.Tag as gaussian_fuzzy_set;
 					if(Ctrl_Pt==(int)Control_Point.gau_S){
 						f.Std = Math.Abs(xValue-f.Mean);
 					}
@@ -622,8 +573,8 @@ namespace R04522602許泰源Ass04{
 						f.Mean = xValue;
 					}
 				}
-				else if(tree.SelectedNode.Tag is bell_function){
-					bell_function f = tree.SelectedNode.Tag as bell_function;
+				else if(tree.SelectedNode.Tag is bell_fuzzy_set){
+					bell_fuzzy_set f = tree.SelectedNode.Tag as bell_fuzzy_set;
 					if(Ctrl_Pt==(int)Control_Point.bel_S){
 						f.Slope = Math.Abs(xValue-f.Center);
 					}
@@ -633,6 +584,7 @@ namespace R04522602許泰源Ass04{
 				}
 				// Invalidate chart
 				Chart_func.Invalidate();
+				((FuzzySet)tree.SelectedNode.Tag).Enchant = true;
 			}
 		}
 

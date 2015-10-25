@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.ComponentModel;
 namespace R04522602許泰源Ass04{
-    class sigmoidal_function : FuzzySet{
+    class sigmoidal_fuzzy_set : FuzzySet{
         //private Dictionary<string, double> parameters = new Dictionary<string,double>();
 		private static int count = 1;
 
 		//Constuctor
-        public sigmoidal_function(Universe u) : base(u){
+        public sigmoidal_fuzzy_set(Universe u) : base(u){
 			name = "Sigmoidal" + count++.ToString();
 			tmp_name = name;
 			double slope, crossoverpt;
@@ -22,6 +22,16 @@ namespace R04522602許泰源Ass04{
 
 			parameters.Add("Slope", slope);
             parameters.Add("CrossoverPoint", crossoverpt);
+
+			double p1, p2;
+			
+			breakpoints = new DataPoint[3];
+			breakpoints[0] = new DataPoint(crossoverpt, GetFunctionValue(crossoverpt));
+
+			p1 = crossoverpt + (theUniverse.Xmax - theUniverse.Xmin)/4;
+			breakpoints[1] = new DataPoint(p1, GetFunctionValue(p1));
+			p2 = crossoverpt - (theUniverse.Xmax - theUniverse.Xmin)/4;
+			breakpoints[2] = new DataPoint(p2, GetFunctionValue(p2));
 
 			UpdateSeriesPoints();
 			/*int num_pt = series.Points.Count;
@@ -71,7 +81,7 @@ namespace R04522602許泰源Ass04{
 			parameters[NameOfParameter] = Parameter;
 		}
 		//Override the previous definition to make sure there always exist a point (CrossoverPoint, 0.5)
-		protected override void UpdateSeriesPoints(){
+		/*protected override void UpdateSeriesPoints(){
 			series.Points.Clear();
             for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
                 double y = GetFunctionValue( x );
@@ -79,7 +89,7 @@ namespace R04522602許泰源Ass04{
 				if(x<=CrossoverPoint && x+theUniverse.Interval>=CrossoverPoint)
 					series.Points.AddXY(CrossoverPoint, 0.5);
             }
-		}
+		}*/
 		//Category the parameters
 		[Category("Parameters")]
 		public double Slope{
@@ -88,7 +98,15 @@ namespace R04522602許泰源Ass04{
 			}
 			set{
 				parameters["Slope"] = value;
+				double p1, p2;
+
+				p1 = CrossoverPoint + (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[1] = new DataPoint(p1, GetFunctionValue(p1));
+				p2 = CrossoverPoint - (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[2] = new DataPoint(p2, GetFunctionValue(p2));
+
 				UpdateSeriesPoints();
+				TriggerEvent();
 			}
 		}
 		[Category("Parameters")]
@@ -98,7 +116,16 @@ namespace R04522602許泰源Ass04{
 			}
 			set{
 				parameters["CrossoverPoint"] = value;
+				breakpoints[0].XValue = value;
+				double p1, p2;
+
+				p1 = CrossoverPoint + (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[1] = new DataPoint(p1, GetFunctionValue(p1));
+				p2 = CrossoverPoint - (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[2] = new DataPoint(p2, GetFunctionValue(p2));
+
 				UpdateSeriesPoints();
+				TriggerEvent();
 			}
 		}
     }

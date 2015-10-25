@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.ComponentModel;
 namespace R04522602許泰源Ass04{
-    class triangle_function : FuzzySet{
+    class triangle_fuzzy_set : FuzzySet{
         //private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
 
 		//Constuctor
-        public triangle_function(Universe u) : base(u){
+        public triangle_fuzzy_set(Universe u) : base(u){
 			name = "Triangle" + count++.ToString();
 			tmp_name = name;
 			double left = theUniverse.Xmax, middle, right = theUniverse.Xmin;
@@ -26,21 +26,14 @@ namespace R04522602許泰源Ass04{
 			parameters.Add("Left", left);
             parameters.Add("Middle", middle);
             parameters.Add("Right", right);
+			
+			breakpoints = new DataPoint[3];
+
+			breakpoints[0] = new DataPoint(left, 0.0);
+			breakpoints[1] = new DataPoint(middle, 1.0);
+			breakpoints[2] = new DataPoint(right, 0.0);
 
 			UpdateSeriesPoints();
-			
-			int num_pt = series.Points.Count;
-			for(int i=1; i<num_pt-1; i++){
-				if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
-					series.Points[i].MarkerStyle = MarkerStyle.Square;
-				if(series.Points[i].YValues[0]>0 && series.Points[i+1].YValues[0]==0)
-					series.Points[i+1].MarkerStyle = MarkerStyle.Square;
-				if(series.Points[i].YValues[0]>series.Points[i-1].YValues[0] && series.Points[i].YValues[0]>series.Points[i+1].YValues[0]){
-					series.Points[i].MarkerStyle = MarkerStyle.Circle;
-					series.Points[i].YValues[0] = 1.0;
-				}
-			}
-
         }
 
 		//Constuctor required all parameters.
@@ -48,9 +41,11 @@ namespace R04522602許泰源Ass04{
             return name;
         }
 
+		
+
         //Get function value of given x.
         public override double GetFunctionValue(double x){
-            double y = 0.0f;
+            double y = 0.0;
             double a, b, c;
             a = parameters["Left"];
             b = parameters["Middle"];
@@ -60,9 +55,9 @@ namespace R04522602許泰源Ass04{
                 y = 0.0;
             else if (x >= a && x < b)
                 y = (x - a) / (b - a);
-			else if (Math.Abs(x-b)<=theUniverse.Interval/2)
-				y = 1.0;
-            else if (x > b && x <= c)
+			/*else if (x >= b)
+				y = 1.0;*/
+            else if (x >= b && x <= c)
                 y = (c - x) / (c - b);
             else
                 y = 0.0;
@@ -103,24 +98,9 @@ namespace R04522602許泰源Ass04{
 			set{
 				if(value<parameters["Middle"]){
 					parameters["Left"] = value;
+					breakpoints[0].XValue = value;
 					UpdateSeriesPoints();
-					int num_pt = series.Points.Count;
-					DataPoint ut = new DataPoint();
-					for(int i=1; i<num_pt-1; i++){
-						if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
-							series.Points[i].MarkerStyle = MarkerStyle.Square;
-						if(series.Points[i].YValues[0]>0 && series.Points[i+1].YValues[0]==0)
-							series.Points[i+1].MarkerStyle = MarkerStyle.Square;
-						if(series.Points[i].YValues[0]>series.Points[i-1].YValues[0] && series.Points[i].YValues[0]>series.Points[i+1].YValues[0]){
-							series.Points[i].MarkerStyle = MarkerStyle.Circle;
-							series.Points[i].YValues[0] = 1.0;
-						}
-					}
-					
-					ut.XValue = 5;
-					ut.YValues[0] = 1;
-					series.Points.Add(ut);
-					series.Sort(PointSortOrder.Ascending, "X");
+					TriggerEvent();
 				}
 			}
 		}
@@ -132,24 +112,9 @@ namespace R04522602許泰源Ass04{
 			set{
 				if(value>parameters["Middle"]){
 					parameters["Right"] = value;
+					breakpoints[2].XValue = value;
 					UpdateSeriesPoints();
-					int num_pt = series.Points.Count;
-					for(int i=1; i<num_pt-1; i++){
-						if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
-							series.Points[i].MarkerStyle = MarkerStyle.Square;
-						if(series.Points[i].YValues[0]>0 && series.Points[i+1].YValues[0]==0)
-							series.Points[i+1].MarkerStyle = MarkerStyle.Square;
-						if(series.Points[i].YValues[0]>series.Points[i-1].YValues[0] && series.Points[i].YValues[0]>series.Points[i+1].YValues[0]){
-							series.Points[i].MarkerStyle = MarkerStyle.Circle;
-							series.Points[i].YValues[0] = 1.0;
-						}
-					}
-					/*
-					series.Points[num_pt_M].MarkerStyle = MarkerStyle.Circle;
-					if(num_pt_R<series.Points.Count)
-						series.Points[num_pt_R].MarkerStyle = MarkerStyle.Square;
-					if(num_pt_L>0)*/
-						
+					TriggerEvent();
 				}
 			}
 		}
@@ -161,18 +126,9 @@ namespace R04522602許泰源Ass04{
 			set{
 				if(parameters["Left"]<value&&parameters["Right"]>value){
 					parameters["Middle"] = value;
+					breakpoints[1].XValue = value;
 					UpdateSeriesPoints();
-					int num_pt = series.Points.Count;
-					for(int i=1; i<num_pt-1; i++){
-						if(series.Points[i].YValues[0]==0 && series.Points[i+1].YValues[0]>0)
-							series.Points[i].MarkerStyle = MarkerStyle.Square;
-						if(series.Points[i].YValues[0]>0 && series.Points[i+1].YValues[0]==0)
-							series.Points[i+1].MarkerStyle = MarkerStyle.Square;
-						if(series.Points[i].YValues[0]>series.Points[i-1].YValues[0] && series.Points[i].YValues[0]>series.Points[i+1].YValues[0]){
-							series.Points[i].MarkerStyle = MarkerStyle.Circle;
-							series.Points[i].YValues[0] = 1.0;
-						}
-					}
+					TriggerEvent();
 				}
 			}
 		}

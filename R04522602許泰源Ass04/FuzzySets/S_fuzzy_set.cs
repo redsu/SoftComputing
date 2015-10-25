@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 namespace R04522602許泰源Ass04{
-	class SMF : FuzzySet{
+	class S_fuzzy_set : FuzzySet{
 		//private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
         //Constuctor
-        public SMF(Universe u) : base(u){
+        public S_fuzzy_set(Universe u) : base(u){
 			
 			name = "SMF" + count++.ToString();
 			tmp_name = name;
@@ -70,8 +70,11 @@ namespace R04522602許泰源Ass04{
 				return parameters["l"];
 			}
 			set{
-				parameters["l"] = value;
-				UpdateSeriesPoints();
+				if(value<R){
+					parameters["l"] = value;
+					UpdateSeriesPoints();
+					TriggerEvent();
+				}
 			}
 		}
 		[Category("Parameters")]
@@ -80,9 +83,10 @@ namespace R04522602許泰源Ass04{
 				return parameters["r"];
 			}
 			set{
-				if(value >= 0){
+				if(value>L){
 					parameters["r"] = value;
 					UpdateSeriesPoints();
+					TriggerEvent();
 				}
 			}
 		}

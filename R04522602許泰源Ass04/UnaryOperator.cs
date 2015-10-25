@@ -18,8 +18,6 @@ namespace R04522602許泰源Ass04{
 
         public virtual double calculateFinalValue(double x){
 			return 0.0;
-		}
-
-        
+		}        
     }
 }

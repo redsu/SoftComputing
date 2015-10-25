@@ -26,46 +26,10 @@ namespace R04522602許泰源Ass04{
             area.AxisX.Enabled = AxisEnabled.True;
 			area.AxisY.Minimum = -0.1;
 			area.AxisY.Maximum = 1.20;
-			interval = (area.AxisX.Maximum-area.AxisX.Minimum)/500;
+			interval = 0.1;
             c.ChartAreas.Add(area);
         }
 
-
-		/*Constructor unused
-		public Universe( Chart c , string name){
-            hostChart = c;
-            this.name = name;
-			tmp_name = name;
-            area = new ChartArea(name);
-            area.AxisX.Minimum = 0.0f;
-            area.AxisX.Maximum = 10.0f;
-            area.AxisX.Title = this.name;
-            area.AxisX.Enabled = AxisEnabled.True;
-			area.AxisY.Minimum = -0.1f;
-			area.AxisY.Maximum = 1.25f;
-			interval = (area.AxisX.Maximum-area.AxisX.Minimum)/500;
-            c.ChartAreas.Add(area);
-        }
-
-		public Universe( Chart c , string name, double min, double max){
-			hostChart = c;
-            this.name = name;
-			tmp_name = name;
-            area = new ChartArea(name);
-			area.AxisX.Maximum = max;
-			area.AxisX.Minimum = min;
-            area.AxisX.Minimum = area.AxisX.Minimum;
-            area.AxisX.Maximum = area.AxisX.Maximum;
-            area.AxisX.Title = this.name;
-            area.AxisX.Enabled = AxisEnabled.True;
-			area.AxisY.Minimum = -0.1f;
-			area.AxisY.Maximum = 1.25f;
-			//this.interval = (area.AxisX.Maximum-area.AxisX.Minimum)/500;
-			this.interval = 0.1;
-            c.ChartAreas.Add(area);
-			count++;
-        }
-		*/
 		public int GetCount(){
 			return count;
 		}
@@ -101,7 +65,7 @@ namespace R04522602許泰源Ass04{
 				return interval;
 			}
 			set{
-				if(value > 0 && value < (area.AxisX.Maximum-area.AxisX.Minimum)/100.0f && value >= (area.AxisX.Maximum-area.AxisX.Minimum)/1000.0f){
+				if(value > 0 && value <= (area.AxisX.Maximum-area.AxisX.Minimum)/100.0f && value >= (area.AxisX.Maximum-area.AxisX.Minimum)/1000.0f){
 					interval = value;
 					if( ParameterChanged != null ) ParameterChanged(this, null);
 				}

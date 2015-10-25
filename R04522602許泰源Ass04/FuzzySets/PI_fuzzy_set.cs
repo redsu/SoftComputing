@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 namespace R04522602許泰源Ass04{
-	class PI : FuzzySet{
+	class PI_fuzzy_set : FuzzySet{
 		//private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
         //Constuctor
-        public PI(Universe u) : base(u){
+        public PI_fuzzy_set(Universe u) : base(u){
 			
 			name = "PI" + count++.ToString();
 			tmp_name = name;
@@ -73,6 +73,7 @@ namespace R04522602許泰源Ass04{
 			set{
 				parameters["c"] = value;
 				UpdateSeriesPoints();
+				TriggerEvent();
 			}
 		}
 		[Category("Parameters")]
@@ -84,6 +85,7 @@ namespace R04522602許泰源Ass04{
 				if(value >= 0){
 					parameters["a"] = value;
 					UpdateSeriesPoints();
+					TriggerEvent();
 				}
 			}
 		}

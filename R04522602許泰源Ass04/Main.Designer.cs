@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
-			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
+			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
 			this.Chart_func = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.save_btn = new System.Windows.Forms.Button();
@@ -57,12 +57,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Chart_func.BackColor = System.Drawing.Color.MistyRose;
 			this.Chart_func.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalRight;
-			legend4.Name = "Legend1";
-			this.Chart_func.Legends.Add(legend4);
+			legend1.Name = "Legend1";
+			this.Chart_func.Legends.Add(legend1);
 			this.Chart_func.Location = new System.Drawing.Point(505, 14);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
-			this.Chart_func.Size = new System.Drawing.Size(400, 534);
+			this.Chart_func.Size = new System.Drawing.Size(400, 553);
 			this.Chart_func.TabIndex = 4;
 			this.Chart_func.Text = "Chart";
 			this.Chart_func.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Chart_func_MouseDown);
@@ -100,19 +100,19 @@
 			this.tree.ImageList = this.imageList;
 			this.tree.Location = new System.Drawing.Point(14, 89);
 			this.tree.Name = "tree";
-			treeNode3.ImageIndex = 1;
-			treeNode3.Name = "node_in";
-			treeNode3.SelectedImageIndex = 0;
-			treeNode3.Text = "InputUniverses";
-			treeNode4.ImageIndex = 3;
-			treeNode4.Name = "node_out";
-			treeNode4.SelectedImageIndex = 2;
-			treeNode4.Text = "OutputUniverses";
+			treeNode1.ImageIndex = 1;
+			treeNode1.Name = "node_in";
+			treeNode1.SelectedImageIndex = 0;
+			treeNode1.Text = "InputUniverses";
+			treeNode2.ImageIndex = 3;
+			treeNode2.Name = "node_out";
+			treeNode2.SelectedImageIndex = 2;
+			treeNode2.Text = "OutputUniverses";
 			this.tree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
+            treeNode1,
+            treeNode2});
 			this.tree.SelectedImageIndex = 0;
-			this.tree.Size = new System.Drawing.Size(230, 459);
+			this.tree.Size = new System.Drawing.Size(230, 478);
 			this.tree.TabIndex = 44;
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 			this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_DoubleClick);
@@ -186,7 +186,7 @@
 			this.propertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
 			this.propertyGrid.Location = new System.Drawing.Point(250, 322);
 			this.propertyGrid.Name = "propertyGrid";
-			this.propertyGrid.Size = new System.Drawing.Size(249, 226);
+			this.propertyGrid.Size = new System.Drawing.Size(249, 245);
 			this.propertyGrid.TabIndex = 59;
 			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
 			// 
@@ -238,7 +238,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.ClientSize = new System.Drawing.Size(917, 560);
+			this.ClientSize = new System.Drawing.Size(917, 579);
 			this.Controls.Add(this.OpTypSel);
 			this.Controls.Add(this.us_btn);
 			this.Controls.Add(this.sel_name);

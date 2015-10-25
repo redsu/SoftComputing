@@ -47,21 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bell_function.cs" />
+    <Compile Include="FuzzySets\bell_fuzzy_set.cs" />
     <Compile Include="ConcentrationOperator.cs" />
-    <Compile Include="FuzzySet.cs" />
+    <Compile Include="FuzzySets\FuzzySet.cs" />
+    <Compile Include="FuzzySets\gaussian_fuzzy_set.cs" />
     <Compile Include="NegateOperator.cs" />
-    <Compile Include="PI.cs" />
+    <Compile Include="FuzzySets\PI_fuzzy_set.cs" />
     <Compile Include="Rename.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Rename.Designer.cs">
       <DependentUpon>Rename.cs</DependentUpon>
     </Compile>
-    <Compile Include="sigmoidal_function.cs" />
-    <Compile Include="SMF.cs" />
-    <Compile Include="triangle_function.cs" />
-    <Compile Include="gaussian_function.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +73,9 @@
     <Compile Include="Save.Designer.cs">
       <DependentUpon>Save.cs</DependentUpon>
     </Compile>
+    <Compile Include="FuzzySets\sigmoidal_fuzzy_set.cs" />
+    <Compile Include="FuzzySets\S_fuzzy_set.cs" />
+    <Compile Include="FuzzySets\triangle_fuzzy_set.cs" />
     <Compile Include="UnaryOperatedFuzzySet.cs" />
     <Compile Include="UnaryOperator.cs" />
     <Compile Include="Universe.cs" />

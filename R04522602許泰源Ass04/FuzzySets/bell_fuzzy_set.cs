@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.ComponentModel;
 namespace R04522602許泰源Ass04{
-    class bell_function : FuzzySet{
+    class bell_fuzzy_set : FuzzySet{
 
         private static int count = 1;
 
         //Constuctor
-		public bell_function(Universe u) : base(u){
+		public bell_fuzzy_set(Universe u) : base(u){
 			name = "Bell" + count++.ToString();
 			tmp_name = name;
 			double hw, slope, center;
@@ -25,18 +25,17 @@ namespace R04522602許泰源Ass04{
             parameters.Add("Slope", slope);
             parameters.Add("Center", center);
 
+			double p1, p2;
+			
+			breakpoints = new DataPoint[3];
+			breakpoints[0] = new DataPoint(center, GetFunctionValue(center));
+
+			p1 = center + (theUniverse.Xmax - theUniverse.Xmin)/4;
+			breakpoints[1] = new DataPoint(p1, GetFunctionValue(p1));
+			p2 = center - (theUniverse.Xmax - theUniverse.Xmin)/4;
+			breakpoints[2] = new DataPoint(p2, GetFunctionValue(p2));
+
 			UpdateSeriesPoints();
-			int num_pt = series.Points.Count;
-			int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-			for(int i=1; i<num_pt-1; i++)
-				if(series.Points[i].YValues[0]==1&&series.Points[i].XValue==Center){
-					series.Points[i].MarkerStyle = MarkerStyle.Circle;
-					break;
-				}
-			if(num_pt_M+num_pt/4<series.Points.Count)
-				series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
-			if(num_pt_M-num_pt/4>0)
-				series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
         }
 		
 		//override ToString() in order to show self-defined function name in listbox.
@@ -69,7 +68,7 @@ namespace R04522602許泰源Ass04{
 		}
 
 		//Override the previous definition to make sure there always exist a point (Center, 1.0)
-		protected override void UpdateSeriesPoints(){
+		/*protected override void UpdateSeriesPoints(){
             series.Points.Clear();
             for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
                 double y = GetFunctionValue( x );
@@ -77,7 +76,7 @@ namespace R04522602許泰源Ass04{
 				if(x<=Center && x+theUniverse.Interval>=Center)
 					series.Points.AddXY(Center, 1.0);
             }
-        }
+        }*/
 
 		//Set Parameter of the function.
 		public void SetParameter(string NameOfParameter, double Parameter){
@@ -92,18 +91,17 @@ namespace R04522602許泰源Ass04{
 			}
 			set{
 				parameters["Half-width"] = value;
+
+				double p1, p2;
+
+				p1 = Center + (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[1] = new DataPoint(p1, GetFunctionValue(p1));
+
+				p2 = Center - (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[2] = new DataPoint(p2, GetFunctionValue(p2));
+
 				UpdateSeriesPoints();
-				int num_pt = series.Points.Count;
-				int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-				for(int i=1; i<num_pt-1; i++)
-					if(series.Points[i].YValues[0]==1&&series.Points[i].XValue==Center){
-						series.Points[i].MarkerStyle = MarkerStyle.Circle;
-						break;
-					}
-				if(num_pt_M+num_pt/4<series.Points.Count)
-					series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
-				if(num_pt_M-num_pt/4>0)
-					series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
+				TriggerEvent();
 			}
 		}
 		[Category("Parameters")]
@@ -113,18 +111,17 @@ namespace R04522602許泰源Ass04{
 			}
 			set{
 				parameters["Slope"] = value;
+
+				double p1, p2;
+
+				p1 = Center + (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[1] = new DataPoint(p1, GetFunctionValue(p1));
+
+				p2 = Center - (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[2] = new DataPoint(p2, GetFunctionValue(p2));
+
 				UpdateSeriesPoints();
-				int num_pt = series.Points.Count;
-				int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-				for(int i=1; i<num_pt-1; i++)
-					if(series.Points[i].YValues[0]==1&&series.Points[i].XValue==Center){
-						series.Points[i].MarkerStyle = MarkerStyle.Circle;
-						break;
-					}
-				if(num_pt_M+num_pt/4<series.Points.Count)
-					series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
-				if(num_pt_M-num_pt/4>0)
-					series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
+				TriggerEvent();
 			}
 		}
 		[Category("Parameters")]
@@ -134,18 +131,17 @@ namespace R04522602許泰源Ass04{
 			}
 			set{
 				parameters["Center"] = value;
+				breakpoints[0].XValue = value;
+				double p1, p2;
+
+				p1 = value + (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[1] = new DataPoint(p1, GetFunctionValue(p1));
+
+				p2 = value - (theUniverse.Xmax - theUniverse.Xmin)/4;
+				breakpoints[2] = new DataPoint(p2, GetFunctionValue(p2));
+
 				UpdateSeriesPoints();
-				int num_pt = series.Points.Count;
-				int num_pt_M = (int)((double)num_pt * (parameters["Center"] - theUniverse.Xmin) / (theUniverse.Xmax-theUniverse.Xmin));
-				for(int i=1; i<num_pt-1; i++)
-					if(series.Points[i].YValues[0]==1&&series.Points[i].XValue==Center){
-						series.Points[i].MarkerStyle = MarkerStyle.Circle;
-						break;
-					}
-				if(num_pt_M+num_pt/4<series.Points.Count)
-					series.Points[num_pt_M+num_pt/4].MarkerStyle = MarkerStyle.Square;
-				if(num_pt_M-num_pt/4>0)
-					series.Points[num_pt_M-num_pt/4].MarkerStyle = MarkerStyle.Square;
+				TriggerEvent();
 			}
 		}
     }
