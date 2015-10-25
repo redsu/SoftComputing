@@ -9,13 +9,13 @@ namespace R04522602許泰源Ass04{
 	class UnaryOperatedFuzzySet : FuzzySet{
 		UnaryOperator theOperator;
 		FuzzySet theFuzzySet;
-
+		static int count = 1;
         public UnaryOperatedFuzzySet(FuzzySet f, UnaryOperator o) : base(f.TheUniverse){
             theFuzzySet = f;
             theOperator = o;
-            name = theOperator.Name + theFuzzySet.Name;
+            name = theOperator.Name + theFuzzySet.Name + count++.ToString();
             theFuzzySet.ParameterChanged += theFuzzySet_ParameterChanged;
-			
+			series.Name = name;
 			if(theFuzzySet.BP != null){
 				breakpoints = new DataPoint[theFuzzySet.BP.Length];
 				if(breakpoints!=null)
@@ -45,6 +45,10 @@ namespace R04522602許泰源Ass04{
 						breakpoints[i].YValues[0] = GetFunctionValue(this.theFuzzySet.BP[i].XValue);
 					}
 				}
+		}
+
+		public override string ToString(){
+			return name;
 		}
     }
 }

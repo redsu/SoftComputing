@@ -165,22 +165,7 @@ namespace R04522602許泰源Ass04{
 			foreach(TreeNode tn0 in tree.Nodes){
 				foreach(TreeNode tn1 in tn0.Nodes){
 					foreach(TreeNode tn2 in tn1.Nodes){
-						if(tn2.Tag is triangle_fuzzy_set){
-							triangle_fuzzy_set f = tn2.Tag as triangle_fuzzy_set;
-							f.Enchant = false;
-						}
-						if(tn2.Tag is gaussian_fuzzy_set){
-							gaussian_fuzzy_set f = tn2.Tag as gaussian_fuzzy_set;
-							f.Enchant = false;
-						}
-						if(tn2.Tag is bell_fuzzy_set){
-							bell_fuzzy_set f = tn2.Tag as bell_fuzzy_set;
-							f.Enchant = false;
-						}
-						if(tn2.Tag is sigmoidal_fuzzy_set){
-							sigmoidal_fuzzy_set f = tn2.Tag as sigmoidal_fuzzy_set;
-							f.Enchant = false;
-						}
+						((FuzzySet)tn2.Tag).Enchant = false;
 					}
 				}
 			}
@@ -194,6 +179,11 @@ namespace R04522602許泰源Ass04{
 				fs_btn.Enabled = true;
 			else
 				fs_btn.Enabled = false;
+
+			if(tree.SelectedNode.Tag is FuzzySet)
+				us_btn.Enabled = true;
+			else
+				us_btn.Enabled = false;
 			
 			propertyGrid.SelectedObject = tree.SelectedNode.Tag;
 
@@ -204,26 +194,7 @@ namespace R04522602許泰源Ass04{
 			}
 			else if(tree.SelectedNode.Level == 2){
 				((FuzzySet)tree.SelectedNode.Tag).Enchant = true;
-				if(tree.SelectedNode.Tag is triangle_fuzzy_set){
-					triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;
-					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					f.Enchant = true;
-				}
-				else if(tree.SelectedNode.Tag is gaussian_fuzzy_set){
-					gaussian_fuzzy_set f = tree.SelectedNode.Tag as gaussian_fuzzy_set;
-					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					f.Enchant = true;
-				}
-				else if(tree.SelectedNode.Tag is bell_fuzzy_set){
-					bell_fuzzy_set f = tree.SelectedNode.Tag as bell_fuzzy_set;
-					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					f.Enchant = true;
-				}
-				else if(tree.SelectedNode.Tag is sigmoidal_fuzzy_set){
-					sigmoidal_fuzzy_set f = tree.SelectedNode.Tag as sigmoidal_fuzzy_set;
-					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					f.Enchant = true;
-				}
+				sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
 			}
 			
 		}
@@ -461,6 +432,7 @@ namespace R04522602許泰源Ass04{
 							Universe u = tn1.Tag as Universe;
 							if(tn2.Tag.ToString() == hitResult.Series.Name){
 								((FuzzySet)tn2.Tag).Enchant = true;
+								tree.SelectedNode = tn2;
 								if(tn2.Tag is triangle_fuzzy_set){
 									triangle_fuzzy_set f = tn2.Tag as triangle_fuzzy_set;
 									if( f.Name == hitResult.Series.Name && u.Name == hitResult.ChartArea.AxisX.Title){
@@ -597,7 +569,7 @@ namespace R04522602許泰源Ass04{
 		private void us_btn_Click(object sender, EventArgs e){
 			FuzzySet operand = null;
             UnaryOperator op = null;
-            FuzzySet fs=null;
+            FuzzySet fs = null;
 
             operand = (FuzzySet)tree.SelectedNode.Tag;
             switch (OpTypSel.SelectedIndex)
@@ -607,6 +579,18 @@ namespace R04522602許泰源Ass04{
                     break;
                 case 1: // Con
                     op = new ConcentrationOperator();
+                    break;
+				case 2: // Con
+                    op = new CutOperator();
+                    break;
+				case 3: // Con
+                    op = new ScaleOperator();
+                    break;
+				case 4: // Con
+                    op = new YagerComplement();
+					break;
+				case 5: // Con
+                    op = new SugenoComplement();
                     break;
             }
             fs = new UnaryOperatedFuzzySet(operand, op);

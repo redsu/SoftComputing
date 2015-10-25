@@ -47,12 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Operator\CutOperator.cs" />
     <Compile Include="FuzzySets\bell_fuzzy_set.cs" />
-    <Compile Include="ConcentrationOperator.cs" />
     <Compile Include="FuzzySets\FuzzySet.cs" />
     <Compile Include="FuzzySets\gaussian_fuzzy_set.cs" />
-    <Compile Include="NegateOperator.cs" />
+    <Compile Include="Operator\ConcentrationOperator.cs" />
+    <Compile Include="Operator\NegateOperator.cs" />
     <Compile Include="FuzzySets\PI_fuzzy_set.cs" />
+    <Compile Include="Operator\ScaleOperator.cs" />
+    <Compile Include="Operator\SugenoComplement.cs" />
+    <Compile Include="Operator\YagerComplement.cs" />
     <Compile Include="Rename.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,7 +81,7 @@
     <Compile Include="FuzzySets\S_fuzzy_set.cs" />
     <Compile Include="FuzzySets\triangle_fuzzy_set.cs" />
     <Compile Include="UnaryOperatedFuzzySet.cs" />
-    <Compile Include="UnaryOperator.cs" />
+    <Compile Include="Operator\UnaryOperator.cs" />
     <Compile Include="Universe.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

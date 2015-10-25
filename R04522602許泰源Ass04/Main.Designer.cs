@@ -227,7 +227,16 @@
 			this.OpTypSel.ImeMode = System.Windows.Forms.ImeMode.On;
 			this.OpTypSel.Items.AddRange(new object[] {
             "NegateOperator",
-            "ConcentrationOperator"});
+            "ConcentrationOperator",
+            "CutOperator",
+            "ScaleOperator",
+            "YagerComplement",
+            "SugenoComplement",
+            "Dialate",
+            "MoreOrLess",
+            "Extremely",
+            "Intensify",
+            "Diminish"});
 			this.OpTypSel.Location = new System.Drawing.Point(297, 108);
 			this.OpTypSel.Name = "OpTypSel";
 			this.OpTypSel.Size = new System.Drawing.Size(154, 22);
