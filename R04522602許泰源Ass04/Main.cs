@@ -592,6 +592,21 @@ namespace R04522602許泰源Ass04{
 				case 5: // Con
                     op = new SugenoComplement();
                     break;
+				case 6: // Con
+                    op = new DilateOperator();
+                    break;
+				case 7: // Con
+                    op = new MoreOrLess();
+                    break;
+				case 8: // Con
+                    op = new Extremely();
+                    break;
+				case 9: // Con
+                    op = new Intensify();
+                    break;
+				case 10: // Con
+                    op = new Diminish();
+                    break;
             }
             fs = new UnaryOperatedFuzzySet(operand, op);
 

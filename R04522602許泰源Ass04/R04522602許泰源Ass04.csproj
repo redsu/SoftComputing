@@ -47,6 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Operator\Diminish.cs" />
+    <Compile Include="Operator\Extremely.cs" />
+    <Compile Include="Operator\Intensify.cs" />
+    <Compile Include="Operator\MoreOrLess.cs" />
+    <Compile Include="Operator\DilateOperator.cs" />
     <Compile Include="Operator\CutOperator.cs" />
     <Compile Include="FuzzySets\bell_fuzzy_set.cs" />
     <Compile Include="FuzzySets\FuzzySet.cs" />
