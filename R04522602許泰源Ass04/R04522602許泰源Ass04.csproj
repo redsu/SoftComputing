@@ -47,6 +47,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BOperator\BinaryOperator.cs" />
+    <Compile Include="BinaryOperatedFuzzySet.cs" />
+    <Compile Include="BOperator\AlgebraicProduct.cs" />
+    <Compile Include="BOperator\BoundedProduct.cs" />
+    <Compile Include="BOperator\AlgebraicSum.cs" />
+    <Compile Include="BOperator\BoundedSum.cs" />
+    <Compile Include="BOperator\DombiSNorm.cs" />
+    <Compile Include="BOperator\DombiTNorm.cs" />
+    <Compile Include="BOperator\SugenoSNorm.cs" />
+    <Compile Include="BOperator\SugenoTNorm.cs" />
+    <Compile Include="BOperator\FrankSNorm.cs" />
+    <Compile Include="BOperator\FrankTNorm.cs" />
+    <Compile Include="BOperator\HamacherSNorm.cs" />
+    <Compile Include="BOperator\HamacherTNorm.cs" />
+    <Compile Include="BOperator\DuboisPradeSNorm.cs" />
+    <Compile Include="BOperator\DuboisPradeTNorm.cs" />
+    <Compile Include="BOperator\DrasticSum.cs" />
+    <Compile Include="BOperator\DrasticProduct.cs" />
+    <Compile Include="BOperator\UnionOperator.cs" />
+    <Compile Include="BOperator\IntersectOperator.cs" />
     <Compile Include="Operator\Diminish.cs" />
     <Compile Include="Operator\Extremely.cs" />
     <Compile Include="Operator\Intensify.cs" />

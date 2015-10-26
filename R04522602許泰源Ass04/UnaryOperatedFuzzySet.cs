@@ -15,6 +15,7 @@ namespace R04522602許泰源Ass04{
             theOperator = o;
             name = theOperator.Name + theFuzzySet.Name + count++.ToString();
             theFuzzySet.ParameterChanged += theFuzzySet_ParameterChanged;
+			
 			series.Name = name;
 			if(theFuzzySet.BP != null){
 				breakpoints = new DataPoint[theFuzzySet.BP.Length];

@@ -43,6 +43,7 @@ namespace R04522602許泰源Ass04{
 			tree.SelectedNode = tree.Nodes[0];
 			FuncTypSel.SelectedIndex = 0;
 			OpTypSel.SelectedIndex = 0;
+			BOpTypSel.SelectedIndex = 0;
 			
 			tip.ToolTipTitle = "操作提示";
 			tip.SetToolTip(this.Chart_func,"點拉線圖上的控制點，\n即時調整曲線參數。");
@@ -180,10 +181,14 @@ namespace R04522602許泰源Ass04{
 			else
 				fs_btn.Enabled = false;
 
-			if(tree.SelectedNode.Tag is FuzzySet)
+			if(tree.SelectedNode.Tag is FuzzySet){
 				us_btn.Enabled = true;
-			else
+				bs_btn.Enabled = true;
+			}
+			else{
 				us_btn.Enabled = false;
+				bs_btn.Enabled = false;
+			}
 			
 			propertyGrid.SelectedObject = tree.SelectedNode.Tag;
 
@@ -572,8 +577,7 @@ namespace R04522602許泰源Ass04{
             FuzzySet fs = null;
 
             operand = (FuzzySet)tree.SelectedNode.Tag;
-            switch (OpTypSel.SelectedIndex)
-            {
+            switch (OpTypSel.SelectedIndex){
                 case 0: // Not
                     op = new NegateOperator();
                     break;
@@ -612,7 +616,8 @@ namespace R04522602許泰源Ass04{
 
             TreeNode tn = new TreeNode(fs.Name);
             tn.Tag = fs;
-            tn.ImageIndex = tn.SelectedImageIndex = 1;
+            tn.ImageIndex = 7;
+			tn.SelectedImageIndex = 6;
 
             tree.SelectedNode.Parent.Nodes.Add(tn);
 		}
@@ -622,5 +627,106 @@ namespace R04522602許泰源Ass04{
 			Chart_func.Cursor = Cursors.Hand;
 			
 		}
+
+		private void FirstFuzzySet_Click(object sender, EventArgs e){
+			if(tree.SelectedNode.Tag != SecondFuzzySet.Tag){
+				FirstFuzzySet.Tag = tree.SelectedNode.Tag;
+				FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+			}
+			else{
+				MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+			}
+		}
+
+		private void SecondFuzzySet_Click(object sender, EventArgs e){
+			if(tree.SelectedNode.Tag != FirstFuzzySet.Tag){
+				SecondFuzzySet.Tag = tree.SelectedNode.Tag;
+				SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+			}
+			else{
+				MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+			}
+		}
+
+		private void Cancel_btn_Click(object sender, EventArgs e){
+			FirstFuzzySet.Tag = null;
+			SecondFuzzySet.Tag = null;
+			FirstFuzzySet.Text = "Click to Assign 1st Fuzzy Set";
+			SecondFuzzySet.Text = "Click to Assign 2nd Fuzzy Set";
+		}
+
+		private void bs_btn_Click(object sender, EventArgs e){
+			if(FirstFuzzySet.Tag != null && SecondFuzzySet.Tag != null){
+				FuzzySet One = (FuzzySet)FirstFuzzySet.Tag;
+				FuzzySet Two = (FuzzySet)SecondFuzzySet.Tag;
+				FuzzySet fs = null;
+				BinaryOperator op = null;
+				switch(BOpTypSel.SelectedIndex){
+					case 0:
+						op = new IntersectOperator();
+						break;
+					case 1:
+						op = new UnionOperator();
+						break;
+					case 2:
+						op = new AlgebraicProduct();
+						break;
+					case 3:
+						op = new BoundedProduct();
+						break;
+					case 4:
+						op = new DrasticProduct();
+						break;
+					case 5:
+						op = new AlgebraicSum();
+						break;
+					case 6:
+						op = new BoundedSum();
+						break;
+					case 7:
+						op = new DrasticSum();
+						break;
+					case 8:
+						op = new DuboisPradeTNorm();
+						break;
+					case 9:
+						op = new DuboisPradeSNorm();
+						break;
+					case 10:
+						op = new HamacherTNorm();
+						break;
+					case 11:
+						op = new HamacherSNorm();
+						break;
+					case 12:
+						op = new FrankTNorm();
+						break;
+					case 13:
+						op = new FrankSNorm();
+						break;
+					case 14:
+						op = new SugenoTNorm();
+						break;
+					case 15:
+						op = new SugenoSNorm();
+						break;
+					case 16:
+						op = new DombiTNorm();
+						break;
+					case 17:
+						op = new DombiSNorm();
+						break;
+				}
+				fs = new BinaryOperatedFuzzySet(One, Two, op);
+				TreeNode tn = new TreeNode(fs.Name);
+				tn.Tag = fs;
+				tn.ImageIndex = 7;
+				tn.SelectedImageIndex = 6;
+
+				tree.SelectedNode.Parent.Nodes.Add(tn);
+			}
+
+		}
+
     }
 }

@@ -47,6 +47,11 @@
 			this.tip = new System.Windows.Forms.ToolTip(this.components);
 			this.us_btn = new System.Windows.Forms.Button();
 			this.OpTypSel = new System.Windows.Forms.ComboBox();
+			this.BOpTypSel = new System.Windows.Forms.ComboBox();
+			this.bs_btn = new System.Windows.Forms.Button();
+			this.FirstFuzzySet = new System.Windows.Forms.Label();
+			this.SecondFuzzySet = new System.Windows.Forms.Label();
+			this.Cancel_btn = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -73,7 +78,7 @@
 			// save_btn
 			// 
 			this.save_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.save_btn.Location = new System.Drawing.Point(379, 169);
+			this.save_btn.Location = new System.Drawing.Point(414, 2);
 			this.save_btn.Name = "save_btn";
 			this.save_btn.Size = new System.Drawing.Size(111, 27);
 			this.save_btn.TabIndex = 15;
@@ -84,7 +89,7 @@
 			// user_guide_btn
 			// 
 			this.user_guide_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.user_guide_btn.Location = new System.Drawing.Point(379, 235);
+			this.user_guide_btn.Location = new System.Drawing.Point(414, 68);
 			this.user_guide_btn.Name = "user_guide_btn";
 			this.user_guide_btn.Size = new System.Drawing.Size(111, 27);
 			this.user_guide_btn.TabIndex = 16;
@@ -142,7 +147,7 @@
             "Sigmoidal Function",
             "SMF",
             "PI"});
-			this.FuncTypSel.Location = new System.Drawing.Point(297, 43);
+			this.FuncTypSel.Location = new System.Drawing.Point(254, 2);
 			this.FuncTypSel.Name = "FuncTypSel";
 			this.FuncTypSel.Size = new System.Drawing.Size(154, 22);
 			this.FuncTypSel.TabIndex = 27;
@@ -162,18 +167,18 @@
 			// fs_btn
 			// 
 			this.fs_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.fs_btn.Location = new System.Drawing.Point(297, 71);
+			this.fs_btn.Location = new System.Drawing.Point(254, 30);
 			this.fs_btn.Name = "fs_btn";
 			this.fs_btn.Size = new System.Drawing.Size(111, 27);
 			this.fs_btn.TabIndex = 46;
-			this.fs_btn.Text = "Add Fuzzy Set";
+			this.fs_btn.Text = "Add FuzzySet";
 			this.fs_btn.UseVisualStyleBackColor = true;
 			this.fs_btn.Click += new System.EventHandler(this.fs_btn_Click);
 			// 
 			// del_btn
 			// 
 			this.del_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.del_btn.Location = new System.Drawing.Point(379, 202);
+			this.del_btn.Location = new System.Drawing.Point(414, 35);
 			this.del_btn.Name = "del_btn";
 			this.del_btn.Size = new System.Drawing.Size(111, 27);
 			this.del_btn.TabIndex = 58;
@@ -212,11 +217,11 @@
 			// us_btn
 			// 
 			this.us_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.us_btn.Location = new System.Drawing.Point(297, 136);
+			this.us_btn.Location = new System.Drawing.Point(254, 95);
 			this.us_btn.Name = "us_btn";
 			this.us_btn.Size = new System.Drawing.Size(111, 27);
 			this.us_btn.TabIndex = 61;
-			this.us_btn.Text = "Add Unary Set";
+			this.us_btn.Text = "Add FuzzySet";
 			this.us_btn.UseVisualStyleBackColor = true;
 			this.us_btn.Click += new System.EventHandler(this.us_btn_Click);
 			// 
@@ -237,10 +242,90 @@
             "Extremely",
             "Intensify",
             "Diminish"});
-			this.OpTypSel.Location = new System.Drawing.Point(297, 108);
+			this.OpTypSel.Location = new System.Drawing.Point(254, 67);
 			this.OpTypSel.Name = "OpTypSel";
 			this.OpTypSel.Size = new System.Drawing.Size(154, 22);
 			this.OpTypSel.TabIndex = 62;
+			// 
+			// BOpTypSel
+			// 
+			this.BOpTypSel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.BOpTypSel.FormattingEnabled = true;
+			this.BOpTypSel.ImeMode = System.Windows.Forms.ImeMode.On;
+			this.BOpTypSel.Items.AddRange(new object[] {
+            "IntersetOperator",
+            "UnionOperator",
+            "AlgebraicProduct",
+            "BoundedProduct",
+            "DrasticProduct",
+            "AlgebraicSum",
+            "BoundedSum",
+            "DrasticSum",
+            "DuboisPradeTNorm",
+            "DuboisPradeSNorm",
+            "HamacherTNorm",
+            "HamacherSNorm",
+            "FrankTNorm",
+            "FrankSNorm",
+            "SugenoTNorm",
+            "SugenoSNorm",
+            "DombiTNorm",
+            "DombiSNorm"});
+			this.BOpTypSel.Location = new System.Drawing.Point(254, 128);
+			this.BOpTypSel.Name = "BOpTypSel";
+			this.BOpTypSel.Size = new System.Drawing.Size(154, 22);
+			this.BOpTypSel.TabIndex = 64;
+			// 
+			// bs_btn
+			// 
+			this.bs_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.bs_btn.Location = new System.Drawing.Point(254, 156);
+			this.bs_btn.Name = "bs_btn";
+			this.bs_btn.Size = new System.Drawing.Size(111, 27);
+			this.bs_btn.TabIndex = 63;
+			this.bs_btn.Text = "Add FuzzySet";
+			this.bs_btn.UseVisualStyleBackColor = true;
+			this.bs_btn.Click += new System.EventHandler(this.bs_btn_Click);
+			// 
+			// FirstFuzzySet
+			// 
+			this.FirstFuzzySet.BackColor = System.Drawing.SystemColors.ControlDark;
+			this.FirstFuzzySet.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.FirstFuzzySet.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.FirstFuzzySet.ForeColor = System.Drawing.SystemColors.HotTrack;
+			this.FirstFuzzySet.Location = new System.Drawing.Point(258, 203);
+			this.FirstFuzzySet.Name = "FirstFuzzySet";
+			this.FirstFuzzySet.Size = new System.Drawing.Size(173, 23);
+			this.FirstFuzzySet.TabIndex = 65;
+			this.FirstFuzzySet.Text = "Click to Assign 1st Fuzzy Set";
+			this.FirstFuzzySet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.FirstFuzzySet.Click += new System.EventHandler(this.FirstFuzzySet_Click);
+			// 
+			// SecondFuzzySet
+			// 
+			this.SecondFuzzySet.BackColor = System.Drawing.SystemColors.ControlDark;
+			this.SecondFuzzySet.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.SecondFuzzySet.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.SecondFuzzySet.ForeColor = System.Drawing.SystemColors.HotTrack;
+			this.SecondFuzzySet.Location = new System.Drawing.Point(258, 229);
+			this.SecondFuzzySet.Name = "SecondFuzzySet";
+			this.SecondFuzzySet.Size = new System.Drawing.Size(173, 23);
+			this.SecondFuzzySet.TabIndex = 66;
+			this.SecondFuzzySet.Text = "Click to Assign 2nd Fuzzy Set";
+			this.SecondFuzzySet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.SecondFuzzySet.Click += new System.EventHandler(this.SecondFuzzySet_Click);
+			// 
+			// Cancel_btn
+			// 
+			this.Cancel_btn.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Cancel_btn.ForeColor = System.Drawing.Color.Brown;
+			this.Cancel_btn.Location = new System.Drawing.Point(437, 203);
+			this.Cancel_btn.Name = "Cancel_btn";
+			this.Cancel_btn.Size = new System.Drawing.Size(50, 49);
+			this.Cancel_btn.TabIndex = 67;
+			this.Cancel_btn.Text = "X";
+			this.Cancel_btn.UseVisualStyleBackColor = true;
+			this.Cancel_btn.Click += new System.EventHandler(this.Cancel_btn_Click);
 			// 
 			// Main
 			// 
@@ -248,6 +333,11 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(917, 579);
+			this.Controls.Add(this.Cancel_btn);
+			this.Controls.Add(this.SecondFuzzySet);
+			this.Controls.Add(this.FirstFuzzySet);
+			this.Controls.Add(this.BOpTypSel);
+			this.Controls.Add(this.bs_btn);
 			this.Controls.Add(this.OpTypSel);
 			this.Controls.Add(this.us_btn);
 			this.Controls.Add(this.sel_name);
@@ -288,6 +378,11 @@
 		private System.Windows.Forms.ToolTip tip;
 		private System.Windows.Forms.Button us_btn;
 		private System.Windows.Forms.ComboBox OpTypSel;
+		private System.Windows.Forms.ComboBox BOpTypSel;
+		private System.Windows.Forms.Button bs_btn;
+		private System.Windows.Forms.Label FirstFuzzySet;
+		private System.Windows.Forms.Label SecondFuzzySet;
+		private System.Windows.Forms.Button Cancel_btn;
 	}
 }
 
