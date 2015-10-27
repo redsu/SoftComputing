@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.ComponentModel;
-namespace R04522602許泰源Ass05{
+namespace R04522602許泰源Ass04{
     public class FuzzySet {
         protected static Random rnd = new Random(unchecked(DateTime.Now.Ticks.GetHashCode()));
 

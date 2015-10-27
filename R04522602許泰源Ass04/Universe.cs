@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.ComponentModel;
-namespace R04522602許泰源Ass05{
+namespace R04522602許泰源Ass04{
 	public class Universe{
 		static int count = 1;
 		protected string name;

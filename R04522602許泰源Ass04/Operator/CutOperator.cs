@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-namespace R04522602許泰源Ass05{
+namespace R04522602許泰源Ass04{
 	class CutOperator : UnaryOperator{
 		double[] parameters;
 		public CutOperator() {

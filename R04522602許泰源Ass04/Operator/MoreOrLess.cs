@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace R04522602許泰源Ass05{
+namespace R04522602許泰源Ass04{
 	class MoreOrLess : UnaryOperator{
 		public MoreOrLess() {
 			name = "MoreOrLess";

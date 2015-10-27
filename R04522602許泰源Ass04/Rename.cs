@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace R04522602許泰源Ass05{
+namespace R04522602許泰源Ass04{
 	public partial class Rename : Form{
 		private string rename;
 		public Rename(){
