@@ -61,7 +61,8 @@ namespace R04522602許泰源Ass04{
         void theUniverse_ParameterChanged(object sender, EventArgs e){
             UpdateSeriesPoints();
         }
-        		//Virtual function can be override by new definition if needed
+        
+		//Virtual function can be override by new definition if needed
         protected void UpdateSeriesPoints(){
             series.Points.Clear();
             for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
