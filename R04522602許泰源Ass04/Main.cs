@@ -571,13 +571,16 @@ namespace R04522602許泰源Ass04{
 		}
 
 		private void FirstFuzzySet_Click(object sender, EventArgs e){
-			if(tree.SelectedNode.Tag != SecondFuzzySet.Tag){
-				FirstFuzzySet.Tag = tree.SelectedNode.Tag;
-				FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
-			}
-			else{
-				MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-			}
+			if(tree.SelectedNode.Level > 1)
+				if(tree.SelectedNode.Tag != SecondFuzzySet.Tag){
+					FirstFuzzySet.Tag = tree.SelectedNode.Tag;
+					FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+				}
+				else{
+					MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				}
+			else
+				MessageBox.Show(string.Format("The selected fuzzy set {0} is invalid set.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 
 			if(FirstFuzzySet.Tag != null && SecondFuzzySet.Tag !=null)
 				bs_btn.Enabled = true;
@@ -586,14 +589,16 @@ namespace R04522602許泰源Ass04{
 		}
 
 		private void SecondFuzzySet_Click(object sender, EventArgs e){
-			
-			if(tree.SelectedNode.Tag != FirstFuzzySet.Tag){
-				SecondFuzzySet.Tag = tree.SelectedNode.Tag;
-				SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
-			}
-			else{
-				MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-			}
+			if(tree.SelectedNode.Level > 1)
+				if(tree.SelectedNode.Tag != FirstFuzzySet.Tag){
+					SecondFuzzySet.Tag = tree.SelectedNode.Tag;
+					SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+				}
+				else{
+					MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				}
+			else
+				MessageBox.Show(string.Format("The selected fuzzy set {0} is invalid set.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 
 			if(FirstFuzzySet.Tag != null && SecondFuzzySet.Tag !=null)
 				bs_btn.Enabled = true;
