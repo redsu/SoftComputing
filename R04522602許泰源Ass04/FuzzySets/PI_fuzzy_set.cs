@@ -11,7 +11,7 @@ namespace R04522602許泰源Ass04{
         //Constuctor
         public PI_fuzzy_set(Universe u) : base(u){
 			
-			name = "PI" + count++.ToString();
+			name = "PiFuzzySet" + count++.ToString();
 			tmp_name = name;
 			double C, A;
 			C = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax-theUniverse.Xmin);

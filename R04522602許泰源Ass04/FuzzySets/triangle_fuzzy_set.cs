@@ -81,15 +81,7 @@ namespace R04522602許泰源Ass04{
 		public void SetParameter(string NameOfParameter, double Parameter){
 			parameters[NameOfParameter] = Parameter;
 		}
-		/*protected override void UpdateSeriesPoints(){
-			series.Points.Clear();
-            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
-                double y = GetFunctionValue( x );
-				series.Points.AddXY(x, y);
-				if(x<Middle && x+theUniverse.Interval>Middle)
-					series.Points.AddXY(Middle, 1.0);
-            }
-		}*/
+
 		[Category("Parameters")]
 		public double Left{
 			get{

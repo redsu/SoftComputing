@@ -15,7 +15,8 @@ namespace R04522602許泰源Ass04{
             theOperator = o;
             name = theOperator.Name + theFuzzySet.Name + count++.ToString();
             theFuzzySet.ParameterChanged += theFuzzySet_ParameterChanged;
-			
+			theFuzzySet.NameChanged += theFuzzySet_NameChanged;
+
 			series.Name = name;
 			if(theFuzzySet.BP != null){
 				breakpoints = new DataPoint[theFuzzySet.BP.Length];
@@ -33,6 +34,11 @@ namespace R04522602許泰源Ass04{
             UpdateSeriesPoints();
             TriggerEvent();
         }
+
+		void theFuzzySet_NameChanged(object sender, EventArgs e){
+            name = theOperator.Name + theFuzzySet.Name;
+        }
+
         public override double GetFunctionValue(double x){
             double originalValue;
             originalValue = theFuzzySet.GetFunctionValue(x);

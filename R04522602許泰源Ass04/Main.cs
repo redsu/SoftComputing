@@ -98,7 +98,22 @@ namespace R04522602許泰源Ass04{
 		//add universe
 		private void universe_btn_Click(object sender, EventArgs e){
 			Universe u;
-			if(tree.SelectedNode.Level == 0){
+			if(tree.SelectedNode.Level == 0 && tree.SelectedNode.Name == "node_in"){
+				try{
+						u = new Universe(Chart_func);
+						TreeNode tn = new TreeNode( u.Name );
+						tn.Tag = u;
+						tn.Checked = true;
+						//tree.Nodes.Add(tn);
+						tree.SelectedNode.Nodes.Add(tn);
+						tree.SelectedNode.Expand();
+						tn.SelectedImageIndex = 4;
+						tn.ImageIndex = 5;
+				}catch{
+					MessageBox.Show("Invalid Parameters or Name!!");
+				}
+			}
+			else if(tree.SelectedNode.Level == 0 && tree.SelectedNode.Name == "node_out" && tree.SelectedNode.Nodes.Count==0){
 				try{
 						u = new Universe(Chart_func);
 						TreeNode tn = new TreeNode( u.Name );
@@ -206,70 +221,21 @@ namespace R04522602許泰源Ass04{
 
 		//delete selected node
 		private void del_btn_Click(object sender, EventArgs e){
-			if(tree.SelectedNode != null){
+			if(tree.SelectedNode != null && tree.SelectedNode.Level > 0){
 				if(tree.SelectedNode.Tag is Universe){
 					Universe u = tree.SelectedNode.Tag as Universe;
 					foreach(TreeNode tn in tree.SelectedNode.Nodes){
-						if(tn.Tag is triangle_fuzzy_set){
-							triangle_fuzzy_set f = tn.Tag as triangle_fuzzy_set;
-							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						}
-						if(tn.Tag is gaussian_fuzzy_set){
-							gaussian_fuzzy_set f = tn.Tag as gaussian_fuzzy_set;
-							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						}
-						if(tn.Tag is bell_fuzzy_set){
-							bell_fuzzy_set f = tn.Tag as bell_fuzzy_set;
-							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						}
-						if(tn.Tag is sigmoidal_fuzzy_set){
-							sigmoidal_fuzzy_set f = tn.Tag as sigmoidal_fuzzy_set;
-							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						}
-						if(tn.Tag is S_fuzzy_set){
-							S_fuzzy_set f = tn.Tag as S_fuzzy_set;
-							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						}
-						if(tn.Tag is PI_fuzzy_set){
-							PI_fuzzy_set f = tn.Tag as PI_fuzzy_set;
-							u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						}
+						FuzzySet f = (FuzzySet)tn.Tag;
+						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 					}
 					Chart_func.ChartAreas[u.tmp_name].Visible = false;
 					tree.SelectedNode.Remove();
 				}
 				else{
 					Universe u = tree.SelectedNode.Parent.Tag as Universe;
-					if(tree.SelectedNode.Tag is triangle_fuzzy_set){
-						triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;					
-						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						tree.SelectedNode.Remove();
-					}
-					else if(tree.SelectedNode.Tag is gaussian_fuzzy_set){
-						gaussian_fuzzy_set f = tree.SelectedNode.Tag as gaussian_fuzzy_set;					
-						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						tree.SelectedNode.Remove();
-					}
-					else if(tree.SelectedNode.Tag is bell_fuzzy_set){
-						bell_fuzzy_set f = tree.SelectedNode.Tag as bell_fuzzy_set;					
-						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						tree.SelectedNode.Remove();
-					}
-					else if(tree.SelectedNode.Tag is sigmoidal_fuzzy_set){
-						sigmoidal_fuzzy_set f = tree.SelectedNode.Tag as sigmoidal_fuzzy_set;					
-						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						tree.SelectedNode.Remove();
-					}
-					else if(tree.SelectedNode.Tag is S_fuzzy_set){
-						S_fuzzy_set f = tree.SelectedNode.Tag as S_fuzzy_set;					
-						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						tree.SelectedNode.Remove();
-					}
-					else if(tree.SelectedNode.Tag is PI_fuzzy_set){
-						PI_fuzzy_set f = tree.SelectedNode.Tag as PI_fuzzy_set;					
-						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
-						tree.SelectedNode.Remove();
-					}
+					FuzzySet f = tree.SelectedNode.Tag as FuzzySet;					
+					u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
+					tree.SelectedNode.Remove();
 				}
 			}
 		}
@@ -289,41 +255,11 @@ namespace R04522602許泰源Ass04{
 				}
 				else if(tree.SelectedNode.Level == 2){
 					Universe u = tree.SelectedNode.Parent.Tag as Universe;
-					if(tree.SelectedNode.Tag is triangle_fuzzy_set){
-						triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;					
-						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
-						u.hostChart.Series[f.tmp_name].Name = f.Name;
-						f.tmp_name = f.Name;
-						sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					}
-					else if(tree.SelectedNode.Tag is gaussian_fuzzy_set){
-						gaussian_fuzzy_set f = tree.SelectedNode.Tag as gaussian_fuzzy_set;					
-						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
-						u.hostChart.Series[f.tmp_name].Name = f.Name;
-						f.tmp_name = f.Name;
-						sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					}
-					else if(tree.SelectedNode.Tag is bell_fuzzy_set){
-						bell_fuzzy_set f = tree.SelectedNode.Tag as bell_fuzzy_set;					
-						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
-						u.hostChart.Series[f.tmp_name].Name = f.Name;
-						f.tmp_name = f.Name;
-						sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					}
-					else if(tree.SelectedNode.Tag is sigmoidal_fuzzy_set){
-						sigmoidal_fuzzy_set f = tree.SelectedNode.Tag as sigmoidal_fuzzy_set;					
-						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
-						u.hostChart.Series[f.tmp_name].Name = f.Name;
-						f.tmp_name = f.Name;
-						sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					}
-					else if(tree.SelectedNode.Tag is S_fuzzy_set){
-						S_fuzzy_set f = tree.SelectedNode.Tag as S_fuzzy_set;					
-						u.hostChart.Series[f.tmp_name].LegendText = f.Name;
-						u.hostChart.Series[f.tmp_name].Name = f.Name;
-						f.tmp_name = f.Name;
-						sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
-					}
+					FuzzySet f = tree.SelectedNode.Tag as FuzzySet;					
+					u.hostChart.Series[f.tmp_name].LegendText = f.Name;
+					u.hostChart.Series[f.tmp_name].Name = f.Name;
+					f.tmp_name = f.Name;
+					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
 				}
             }
 		}
@@ -725,6 +661,16 @@ namespace R04522602許泰源Ass04{
 
 				tree.SelectedNode.Parent.Nodes.Add(tn);
 			}
+
+		}
+
+		private void groupBox2_Enter(object sender, EventArgs e)
+		{
+
+		}
+
+		private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+		{
 
 		}
 

@@ -19,6 +19,7 @@ namespace R04522602許泰源Ass04{
         }
 
         public event EventHandler ParameterChanged;
+		public event EventHandler NameChanged;
 
         //Contructor
         public FuzzySet(Universe u) {
@@ -52,6 +53,8 @@ namespace R04522602許泰源Ass04{
         protected void TriggerEvent(){
             if (ParameterChanged != null)
                 ParameterChanged(this, null);
+			if (NameChanged != null)
+                NameChanged(this, null);
         }    
 
         //Update all points in series
@@ -122,6 +125,7 @@ namespace R04522602許泰源Ass04{
 			}
             set {
 				name = value;
+				TriggerEvent();
 			}
         }
 		//Set the width of line in series
