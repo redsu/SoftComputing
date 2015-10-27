@@ -42,3 +42,14 @@ C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass04\obj\Debug\R04522602�
 C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass04\obj\Debug\R04522602許泰源Ass04.csproj.GenerateResource.Cache
 C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass04\bin\Debug\R04522602許泰源Ass04.exe
 C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass04\bin\Debug\R04522602許泰源Ass04.pdb
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\bin\Debug\R04522602許泰源Ass04.exe.config
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\obj\Debug\R04522602許泰源Ass04.exe
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\obj\Debug\R04522602許泰源Ass04.pdb
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\bin\Debug\R04522602許泰源Ass04.exe
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\bin\Debug\R04522602許泰源Ass04.pdb
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\obj\Debug\R04522602許泰源Ass04.csprojResolveAssemblyReference.cache
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\obj\Debug\R04522602許泰源Ass05.Main.resources
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\obj\Debug\R04522602許泰源Ass04.Properties.Resources.resources
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\obj\Debug\R04522602許泰源Ass05.Rename.resources
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\obj\Debug\R04522602許泰源Ass05.save_win.resources
+C:\Users\Ted\Desktop\SoftComputing\R04522602許泰源Ass05\obj\Debug\R04522602許泰源Ass04.csproj.GenerateResource.Cache
