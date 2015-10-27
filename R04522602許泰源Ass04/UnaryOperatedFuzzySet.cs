@@ -39,7 +39,7 @@ namespace R04522602許泰源Ass04{
             name = theOperator.Name + theFuzzySet.Name;
         }
 
-        public override double GetFunctionValue(double x){
+		 public override double GetFunctionValue(double x){
             double originalValue;
             originalValue = theFuzzySet.GetFunctionValue(x);
             return theOperator.calculateFinalValue(originalValue);

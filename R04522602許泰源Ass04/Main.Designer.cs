@@ -442,7 +442,6 @@
 			this.groupBox2.TabIndex = 70;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Binary Operated Fuzzy Set";
-			this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
 			// 
 			// label3
 			// 
@@ -473,7 +472,6 @@
 			// sC01.Panel1
 			// 
 			this.sC01.Panel1.Controls.Add(this.sC02);
-			this.sC01.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
 			// 
 			// sC01.Panel2
 			// 

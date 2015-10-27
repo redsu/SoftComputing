@@ -198,12 +198,15 @@ namespace R04522602許泰源Ass04{
 
 			if(tree.SelectedNode.Tag is FuzzySet){
 				us_btn.Enabled = true;
-				bs_btn.Enabled = true;
 			}
 			else{
 				us_btn.Enabled = false;
-				bs_btn.Enabled = false;
 			}
+
+			if(FirstFuzzySet.Tag != null && SecondFuzzySet.Tag !=null)
+				bs_btn.Enabled = true;
+			else
+				bs_btn.Enabled = false;
 			
 			propertyGrid.SelectedObject = tree.SelectedNode.Tag;
 
@@ -507,6 +510,8 @@ namespace R04522602許泰源Ass04{
 			propertyGrid.Refresh();
 		}
 
+		
+
 		private void us_btn_Click(object sender, EventArgs e){
 			FuzzySet operand = null;
             UnaryOperator op = null;
@@ -515,40 +520,41 @@ namespace R04522602許泰源Ass04{
             operand = (FuzzySet)tree.SelectedNode.Tag;
             switch (OpTypSel.SelectedIndex){
                 case 0: // Not
-                    op = new NegateOperator();
+					fs = ~operand;
                     break;
                 case 1: // Con
                     op = new ConcentrationOperator();
                     break;
-				case 2: // Con
+				case 2: // Cut
                     op = new CutOperator();
                     break;
-				case 3: // Con
+				case 3: // Scale
                     op = new ScaleOperator();
                     break;
-				case 4: // Con
+				case 4: // Yager
                     op = new YagerComplement();
 					break;
-				case 5: // Con
+				case 5: // Sugeno
                     op = new SugenoComplement();
                     break;
-				case 6: // Con
+				case 6: // Dilate
                     op = new DilateOperator();
                     break;
-				case 7: // Con
+				case 7: // MoreOrLess
                     op = new MoreOrLess();
                     break;
-				case 8: // Con
+				case 8: // Extremely
                     op = new Extremely();
                     break;
-				case 9: // Con
+				case 9: // Intensify
                     op = new Intensify();
                     break;
-				case 10: // Con
+				case 10: // Diminish
                     op = new Diminish();
                     break;
             }
-            fs = new UnaryOperatedFuzzySet(operand, op);
+			if(OpTypSel.SelectedIndex>0)
+				fs = new UnaryOperatedFuzzySet(operand, op);
 
             TreeNode tn = new TreeNode(fs.Name);
             tn.Tag = fs;
@@ -572,9 +578,15 @@ namespace R04522602許泰源Ass04{
 			else{
 				MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 			}
+
+			if(FirstFuzzySet.Tag != null && SecondFuzzySet.Tag !=null)
+				bs_btn.Enabled = true;
+			else
+				bs_btn.Enabled = false;
 		}
 
 		private void SecondFuzzySet_Click(object sender, EventArgs e){
+			
 			if(tree.SelectedNode.Tag != FirstFuzzySet.Tag){
 				SecondFuzzySet.Tag = tree.SelectedNode.Tag;
 				SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
@@ -582,6 +594,11 @@ namespace R04522602許泰源Ass04{
 			else{
 				MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 			}
+
+			if(FirstFuzzySet.Tag != null && SecondFuzzySet.Tag !=null)
+				bs_btn.Enabled = true;
+			else
+				bs_btn.Enabled = false;
 		}
 
 		private void Cancel_btn_Click(object sender, EventArgs e){
@@ -598,14 +615,14 @@ namespace R04522602許泰源Ass04{
 				FuzzySet fs = null;
 				BinaryOperator op = null;
 				switch(BOpTypSel.SelectedIndex){
-					case 0:
-						op = new IntersectOperator();
+					case 0: //Intersect
+						fs = One&Two;
 						break;
-					case 1:
-						op = new UnionOperator();
+					case 1: //Union
+						fs = One|Two;
 						break;
-					case 2:
-						op = new AlgebraicProduct();
+					case 2: //AlgebraicProduct
+						fs = One*Two;
 						break;
 					case 3:
 						op = new BoundedProduct();
@@ -653,7 +670,8 @@ namespace R04522602許泰源Ass04{
 						op = new DombiSNorm();
 						break;
 				}
-				fs = new BinaryOperatedFuzzySet(One, Two, op);
+				if(BOpTypSel.SelectedIndex > 2)
+					fs = new BinaryOperatedFuzzySet(One, Two, op);
 				TreeNode tn = new TreeNode(fs.Name);
 				tn.Tag = fs;
 				tn.ImageIndex = 7;
@@ -663,16 +681,5 @@ namespace R04522602許泰源Ass04{
 			}
 
 		}
-
-		private void groupBox2_Enter(object sender, EventArgs e)
-		{
-
-		}
-
-		private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
     }
 }
