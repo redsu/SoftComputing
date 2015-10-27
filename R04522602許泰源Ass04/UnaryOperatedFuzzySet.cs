@@ -46,6 +46,7 @@ namespace R04522602許泰源Ass04{
             return theOperator.calculateFinalValue(originalValue);
         }
 		
+		//Update breakpoints
 		protected override void Update_BP(){
 			if(breakpoints != null)
 				for(int i=0; i<breakpoints.Length; i++){

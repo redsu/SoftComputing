@@ -11,6 +11,7 @@ namespace R04522602許泰源Ass04{
 		FuzzySet OperandOne;
 		FuzzySet OperandTwo;
 		static int count = 1;
+		//Constructor
         public BinaryOperatedFuzzySet(FuzzySet f, FuzzySet g, BinaryOperator o) : base(f.TheUniverse){
             
 			if(f.TheUniverse != g.TheUniverse){
@@ -19,8 +20,6 @@ namespace R04522602許泰源Ass04{
 			
 			OperandOne = f;
 			OperandTwo = g;
-
-			
 
             theOperator = o;
             name = OperandOne.Name + theOperator.Name + OperandTwo.Name + count++.ToString();
@@ -53,9 +52,12 @@ namespace R04522602許泰源Ass04{
             UpdateSeriesPoints();
             TriggerEvent();
         }
+
         public override double GetFunctionValue(double x){
             return theOperator.calculateFinalValue(OperandOne.GetFunctionValue(x), OperandTwo.GetFunctionValue(x));
         }
+
+		//Update breakpoints
 		protected override void Update_BP(){
 			if(breakpoints != null){
 				for(int i=0; i<OperandOne.BP.Length; i++){

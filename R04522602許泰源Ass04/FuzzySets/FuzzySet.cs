@@ -80,6 +80,7 @@ namespace R04522602許泰源Ass04{
 			
         }
 
+		//Highlight the selected line
 		[Browsable(false)]
 		public bool Enchant{
 			set{
