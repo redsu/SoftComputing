@@ -11,7 +11,7 @@ using System.Diagnostics;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Drawing.Imaging;
 
-namespace R04522602許泰源Ass04{
+namespace R04522602許泰源Ass05{
     public partial class Main : Form{
 		private const double INFINITY = 1e100, NEG_INFINITY = -1e100;
 		private DataPoint selectedDataPoint = null;

@@ -1,4 +1,4 @@
-﻿namespace R04522602許泰源Ass04
+﻿namespace R04522602許泰源Ass05
 {
 	partial class Rename
 	{

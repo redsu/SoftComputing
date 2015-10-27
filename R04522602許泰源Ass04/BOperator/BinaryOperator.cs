@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-namespace R04522602許泰源Ass04{
+namespace R04522602許泰源Ass05{
 	public class BinaryOperator{
 		protected static Random rnd = new Random(unchecked(DateTime.Now.Ticks.GetHashCode()));
 		protected string name;

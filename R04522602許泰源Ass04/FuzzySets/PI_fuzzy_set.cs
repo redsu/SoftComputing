@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-namespace R04522602許泰源Ass04{
+namespace R04522602許泰源Ass05{
 	class PI_fuzzy_set : FuzzySet{
 		//private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
