@@ -130,7 +130,7 @@ namespace R04522602許泰源Ass04{
 			}
 		}
 
-		//add fuzzy sets
+		//add unary fuzzy set
 		private void fs_btn_Click(object sender, EventArgs e){
 			FuzzySet fs = null;
             Universe u;
@@ -263,6 +263,27 @@ namespace R04522602許泰源Ass04{
 					u.hostChart.Series[f.tmp_name].Name = f.Name;
 					f.tmp_name = f.Name;
 					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
+				}
+				if(FirstFuzzySet.Tag != null)
+					if(FirstFuzzySet.Text != (FirstFuzzySet.Tag.ToString()))
+						FirstFuzzySet.Text = (FirstFuzzySet.Tag.ToString());
+				if(SecondFuzzySet.Tag != null)
+					if(SecondFuzzySet.Text != (SecondFuzzySet.Tag.ToString()))
+						SecondFuzzySet.Text = (SecondFuzzySet.Tag.ToString());
+
+				foreach (TreeNode treeNode in this.tree.Nodes){
+					foreach (TreeNode treeNode2 in treeNode.Nodes){
+						foreach (TreeNode treeNode3 in treeNode2.Nodes){
+							if(treeNode3.Text != ((FuzzySet)treeNode3.Tag).Name){
+								treeNode3.Text = ((FuzzySet)treeNode3.Tag).Name;
+								Universe u = treeNode2.Tag as Universe;
+								FuzzySet f = treeNode3.Tag as FuzzySet;					
+								u.hostChart.Series[f.tmp_name].LegendText = f.Name;
+								u.hostChart.Series[f.tmp_name].Name = f.Name;
+								f.tmp_name = f.Name;
+							}
+						}
+					}
 				}
             }
 		}
@@ -510,8 +531,7 @@ namespace R04522602許泰源Ass04{
 			propertyGrid.Refresh();
 		}
 
-		
-
+		//Add binary fuzzy set
 		private void us_btn_Click(object sender, EventArgs e){
 			FuzzySet operand = null;
             UnaryOperator op = null;
@@ -570,6 +590,7 @@ namespace R04522602許泰源Ass04{
 			
 		}
 
+		//Select first fuzzyset
 		private void FirstFuzzySet_Click(object sender, EventArgs e){
 			if(tree.SelectedNode.Level > 1)
 				if(tree.SelectedNode.Tag != SecondFuzzySet.Tag){
@@ -588,6 +609,7 @@ namespace R04522602許泰源Ass04{
 				bs_btn.Enabled = false;
 		}
 
+		//Select second fuzzyset
 		private void SecondFuzzySet_Click(object sender, EventArgs e){
 			if(tree.SelectedNode.Level > 1)
 				if(tree.SelectedNode.Tag != FirstFuzzySet.Tag){
@@ -629,52 +651,53 @@ namespace R04522602許泰源Ass04{
 					case 2: //AlgebraicProduct
 						fs = One*Two;
 						break;
-					case 3:
+					case 3: //BoundedProduct
 						op = new BoundedProduct();
 						break;
-					case 4:
+					case 4: //DrasticProduct
 						op = new DrasticProduct();
 						break;
-					case 5:
+					case 5: //AlgebraicSum
 						op = new AlgebraicSum();
 						break;
-					case 6:
+					case 6: //BoundedSum
 						op = new BoundedSum();
 						break;
-					case 7:
+					case 7: //DrasticSum
 						op = new DrasticSum();
 						break;
-					case 8:
+					case 8: //DuboisPradeTNorm
 						op = new DuboisPradeTNorm();
 						break;
-					case 9:
+					case 9: //DuboisPradeSNorm
 						op = new DuboisPradeSNorm();
 						break;
-					case 10:
+					case 10: //HamacherTNorm
 						op = new HamacherTNorm();
 						break;
-					case 11:
+					case 11: //HamacherSNorm
 						op = new HamacherSNorm();
 						break;
-					case 12:
+					case 12: //FrankTNorm
 						op = new FrankTNorm();
 						break;
-					case 13:
+					case 13: //FrankSNorm
 						op = new FrankSNorm();
 						break;
-					case 14:
+					case 14: //SugenoTNorm
 						op = new SugenoTNorm();
 						break;
-					case 15:
+					case 15: //SugenoSNorm
 						op = new SugenoSNorm();
 						break;
-					case 16:
+					case 16: //DombiTNorm
 						op = new DombiTNorm();
 						break;
-					case 17:
+					case 17: //DombiSNorm
 						op = new DombiSNorm();
 						break;
 				}
+
 				if(BOpTypSel.SelectedIndex > 2)
 					fs = new BinaryOperatedFuzzySet(One, Two, op);
 				TreeNode tn = new TreeNode(fs.Name);

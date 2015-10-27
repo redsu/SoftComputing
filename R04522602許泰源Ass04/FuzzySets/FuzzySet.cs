@@ -31,30 +31,6 @@ namespace R04522602許泰源Ass04{
             series.ChartArea = u.area.Name;
         }
 
-		public static FuzzySet operator ~(FuzzySet f){
-			UnaryOperator op = new NegateOperator();
-			UnaryOperatedFuzzySet fs = new UnaryOperatedFuzzySet(f, op);
-			return fs;
-		}
-
-		public static FuzzySet operator &(FuzzySet f, FuzzySet g){
-			BinaryOperator op = new IntersectOperator();
-			BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(f, g, op);
-			return fs;
-		}
-
-		public static FuzzySet operator |(FuzzySet f, FuzzySet g){
-			BinaryOperator op = new UnionOperator();
-			BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(f, g, op);
-			return fs;
-		}
-
-		public static FuzzySet operator *(FuzzySet f, FuzzySet g){
-			BinaryOperator op = new AlgebraicProduct();
-			BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(f, g, op);
-			return fs;
-		}
-
 		[Browsable(false)]
         public Universe TheUniverse {
             get {
@@ -159,6 +135,31 @@ namespace R04522602許泰源Ass04{
 
 		protected virtual void Update_BP(){
 			;
+		}
+
+		//Operator Overloading
+		public static FuzzySet operator ~(FuzzySet f){
+			UnaryOperator op = new NegateOperator();
+			UnaryOperatedFuzzySet fs = new UnaryOperatedFuzzySet(f, op);
+			return fs;
+		}
+
+		public static FuzzySet operator &(FuzzySet f, FuzzySet g){
+			BinaryOperator op = new IntersectOperator();
+			BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(f, g, op);
+			return fs;
+		}
+
+		public static FuzzySet operator |(FuzzySet f, FuzzySet g){
+			BinaryOperator op = new UnionOperator();
+			BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(f, g, op);
+			return fs;
+		}
+
+		public static FuzzySet operator *(FuzzySet f, FuzzySet g){
+			BinaryOperator op = new AlgebraicProduct();
+			BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(f, g, op);
+			return fs;
 		}
     }
 }
