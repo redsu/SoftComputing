@@ -396,7 +396,6 @@ namespace R04522602許泰源Ass05{
 						foreach(TreeNode tn2 in tn1.Nodes){
 							Universe u = tn1.Tag as Universe;
 							if(tn2.Tag.ToString() == hitResult.Series.Name){
-								((FuzzySet)tn2.Tag).Enchant = true;
 								tree.SelectedNode = tn2;
 								if(tn2.Tag is triangle_fuzzy_set){
 									triangle_fuzzy_set f = tn2.Tag as triangle_fuzzy_set;

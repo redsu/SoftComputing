@@ -87,7 +87,7 @@
 			this.Chart_func.Location = new System.Drawing.Point(8, 7);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
-			this.Chart_func.Size = new System.Drawing.Size(459, 645);
+			this.Chart_func.Size = new System.Drawing.Size(459, 668);
 			this.Chart_func.TabIndex = 4;
 			this.Chart_func.Text = "Chart";
 			this.Chart_func.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Chart_func_MouseDown);
@@ -97,11 +97,12 @@
 			// 
 			// save_btn
 			// 
-			this.save_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.save_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.save_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.save_btn.Location = new System.Drawing.Point(138, 314);
+			this.save_btn.Location = new System.Drawing.Point(10, 314);
 			this.save_btn.Name = "save_btn";
-			this.save_btn.Size = new System.Drawing.Size(118, 27);
+			this.save_btn.Size = new System.Drawing.Size(247, 27);
 			this.save_btn.TabIndex = 15;
 			this.save_btn.Text = "Save";
 			this.save_btn.UseVisualStyleBackColor = true;
@@ -109,11 +110,12 @@
 			// 
 			// user_guide_btn
 			// 
-			this.user_guide_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.user_guide_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.user_guide_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.user_guide_btn.Location = new System.Drawing.Point(138, 347);
+			this.user_guide_btn.Location = new System.Drawing.Point(10, 380);
 			this.user_guide_btn.Name = "user_guide_btn";
-			this.user_guide_btn.Size = new System.Drawing.Size(118, 27);
+			this.user_guide_btn.Size = new System.Drawing.Size(247, 27);
 			this.user_guide_btn.TabIndex = 16;
 			this.user_guide_btn.Text = "User Guide";
 			this.user_guide_btn.UseVisualStyleBackColor = true;
@@ -140,7 +142,7 @@
             treeNode1,
             treeNode2});
 			this.tree.SelectedImageIndex = 0;
-			this.tree.Size = new System.Drawing.Size(229, 606);
+			this.tree.Size = new System.Drawing.Size(228, 629);
 			this.tree.TabIndex = 44;
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 			this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_DoubleClick);
@@ -174,7 +176,7 @@
             "PiFuzzySet"});
 			this.FuncTypSel.Location = new System.Drawing.Point(6, 39);
 			this.FuncTypSel.Name = "FuncTypSel";
-			this.FuncTypSel.Size = new System.Drawing.Size(154, 22);
+			this.FuncTypSel.Size = new System.Drawing.Size(155, 22);
 			this.FuncTypSel.TabIndex = 27;
 			this.FuncTypSel.SelectedIndexChanged += new System.EventHandler(this.FuncTypSel_SelectedIndexChanged);
 			// 
@@ -185,7 +187,7 @@
 			this.universe_btn.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.universe_btn.Location = new System.Drawing.Point(12, 7);
 			this.universe_btn.Name = "universe_btn";
-			this.universe_btn.Size = new System.Drawing.Size(229, 37);
+			this.universe_btn.Size = new System.Drawing.Size(228, 37);
 			this.universe_btn.TabIndex = 45;
 			this.universe_btn.Text = "Create Universe";
 			this.universe_btn.UseVisualStyleBackColor = true;
@@ -196,7 +198,7 @@
 			this.fs_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.fs_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.fs_btn.ForeColor = System.Drawing.Color.Black;
-			this.fs_btn.Location = new System.Drawing.Point(166, 28);
+			this.fs_btn.Location = new System.Drawing.Point(167, 28);
 			this.fs_btn.Name = "fs_btn";
 			this.fs_btn.Size = new System.Drawing.Size(74, 40);
 			this.fs_btn.TabIndex = 46;
@@ -206,10 +208,12 @@
 			// 
 			// del_btn
 			// 
+			this.del_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.del_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.del_btn.Location = new System.Drawing.Point(10, 314);
+			this.del_btn.Location = new System.Drawing.Point(10, 347);
 			this.del_btn.Name = "del_btn";
-			this.del_btn.Size = new System.Drawing.Size(120, 27);
+			this.del_btn.Size = new System.Drawing.Size(249, 27);
 			this.del_btn.TabIndex = 58;
 			this.del_btn.Text = "Delete";
 			this.del_btn.UseVisualStyleBackColor = true;
@@ -221,9 +225,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.propertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-			this.propertyGrid.Location = new System.Drawing.Point(10, 420);
+			this.propertyGrid.Location = new System.Drawing.Point(10, 452);
 			this.propertyGrid.Name = "propertyGrid";
-			this.propertyGrid.Size = new System.Drawing.Size(249, 232);
+			this.propertyGrid.Size = new System.Drawing.Size(250, 223);
 			this.propertyGrid.TabIndex = 59;
 			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
 			// 
@@ -236,9 +240,9 @@
 			this.sel_name.Cursor = System.Windows.Forms.Cursors.Default;
 			this.sel_name.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.sel_name.ForeColor = System.Drawing.Color.Lime;
-			this.sel_name.Location = new System.Drawing.Point(7, 379);
+			this.sel_name.Location = new System.Drawing.Point(7, 411);
 			this.sel_name.Name = "sel_name";
-			this.sel_name.Size = new System.Drawing.Size(249, 38);
+			this.sel_name.Size = new System.Drawing.Size(250, 38);
 			this.sel_name.TabIndex = 60;
 			this.sel_name.Text = "NAME";
 			this.sel_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -253,7 +257,7 @@
 			this.us_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.us_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.us_btn.ForeColor = System.Drawing.Color.Black;
-			this.us_btn.Location = new System.Drawing.Point(166, 24);
+			this.us_btn.Location = new System.Drawing.Point(167, 24);
 			this.us_btn.Name = "us_btn";
 			this.us_btn.Size = new System.Drawing.Size(74, 40);
 			this.us_btn.TabIndex = 61;
@@ -282,7 +286,7 @@
             "Diminish"});
 			this.OpTypSel.Location = new System.Drawing.Point(6, 35);
 			this.OpTypSel.Name = "OpTypSel";
-			this.OpTypSel.Size = new System.Drawing.Size(154, 22);
+			this.OpTypSel.Size = new System.Drawing.Size(155, 22);
 			this.OpTypSel.TabIndex = 62;
 			// 
 			// BOpTypSel
@@ -313,7 +317,7 @@
             "DombiSNorm"});
 			this.BOpTypSel.Location = new System.Drawing.Point(6, 35);
 			this.BOpTypSel.Name = "BOpTypSel";
-			this.BOpTypSel.Size = new System.Drawing.Size(154, 22);
+			this.BOpTypSel.Size = new System.Drawing.Size(155, 22);
 			this.BOpTypSel.TabIndex = 64;
 			// 
 			// bs_btn
@@ -321,7 +325,7 @@
 			this.bs_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.bs_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.bs_btn.ForeColor = System.Drawing.Color.Black;
-			this.bs_btn.Location = new System.Drawing.Point(166, 21);
+			this.bs_btn.Location = new System.Drawing.Point(167, 21);
 			this.bs_btn.Name = "bs_btn";
 			this.bs_btn.Size = new System.Drawing.Size(74, 40);
 			this.bs_btn.TabIndex = 63;
@@ -339,7 +343,7 @@
 			this.FirstFuzzySet.ForeColor = System.Drawing.SystemColors.HotTrack;
 			this.FirstFuzzySet.Location = new System.Drawing.Point(6, 83);
 			this.FirstFuzzySet.Name = "FirstFuzzySet";
-			this.FirstFuzzySet.Size = new System.Drawing.Size(173, 23);
+			this.FirstFuzzySet.Size = new System.Drawing.Size(174, 23);
 			this.FirstFuzzySet.TabIndex = 65;
 			this.FirstFuzzySet.Text = "Click to Assign 1st Fuzzy Set";
 			this.FirstFuzzySet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -355,7 +359,7 @@
 			this.SecondFuzzySet.ForeColor = System.Drawing.SystemColors.HotTrack;
 			this.SecondFuzzySet.Location = new System.Drawing.Point(6, 109);
 			this.SecondFuzzySet.Name = "SecondFuzzySet";
-			this.SecondFuzzySet.Size = new System.Drawing.Size(173, 23);
+			this.SecondFuzzySet.Size = new System.Drawing.Size(174, 23);
 			this.SecondFuzzySet.TabIndex = 66;
 			this.SecondFuzzySet.Text = "Click to Assign 2nd Fuzzy Set";
 			this.SecondFuzzySet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -366,7 +370,7 @@
 			this.Cancel_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.Cancel_btn.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Cancel_btn.ForeColor = System.Drawing.Color.Brown;
-			this.Cancel_btn.Location = new System.Drawing.Point(185, 83);
+			this.Cancel_btn.Location = new System.Drawing.Point(186, 83);
 			this.Cancel_btn.Name = "Cancel_btn";
 			this.Cancel_btn.Size = new System.Drawing.Size(50, 49);
 			this.Cancel_btn.TabIndex = 67;
@@ -384,7 +388,7 @@
 			this.PrimFuzzy.ForeColor = System.Drawing.Color.Navy;
 			this.PrimFuzzy.Location = new System.Drawing.Point(10, 7);
 			this.PrimFuzzy.Name = "PrimFuzzy";
-			this.PrimFuzzy.Size = new System.Drawing.Size(246, 76);
+			this.PrimFuzzy.Size = new System.Drawing.Size(247, 76);
 			this.PrimFuzzy.TabIndex = 68;
 			this.PrimFuzzy.TabStop = false;
 			this.PrimFuzzy.Text = "Primary Fuzzy Set";
@@ -409,7 +413,7 @@
 			this.groupBox1.ForeColor = System.Drawing.Color.Navy;
 			this.groupBox1.Location = new System.Drawing.Point(10, 89);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(246, 71);
+			this.groupBox1.Size = new System.Drawing.Size(247, 71);
 			this.groupBox1.TabIndex = 69;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Unary Operated Fuzzy Set";
@@ -438,7 +442,7 @@
 			this.groupBox2.ForeColor = System.Drawing.Color.Navy;
 			this.groupBox2.Location = new System.Drawing.Point(10, 166);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(246, 142);
+			this.groupBox2.Size = new System.Drawing.Size(247, 142);
 			this.groupBox2.TabIndex = 70;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Binary Operated Fuzzy Set";
@@ -465,6 +469,7 @@
 			// 
 			// sC01
 			// 
+			this.sC01.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.sC01.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.sC01.Location = new System.Drawing.Point(0, 0);
 			this.sC01.Name = "sC01";
@@ -475,8 +480,9 @@
 			// 
 			// sC01.Panel2
 			// 
+			this.sC01.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC01.Panel2.Controls.Add(this.Chart_func);
-			this.sC01.Size = new System.Drawing.Size(998, 661);
+			this.sC01.Size = new System.Drawing.Size(998, 684);
 			this.sC01.SplitterDistance = 518;
 			this.sC01.TabIndex = 71;
 			// 
@@ -488,11 +494,13 @@
 			// 
 			// sC02.Panel1
 			// 
+			this.sC02.Panel1.BackColor = System.Drawing.SystemColors.Control;
 			this.sC02.Panel1.Controls.Add(this.universe_btn);
 			this.sC02.Panel1.Controls.Add(this.tree);
 			// 
 			// sC02.Panel2
 			// 
+			this.sC02.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC02.Panel2.Controls.Add(this.PrimFuzzy);
 			this.sC02.Panel2.Controls.Add(this.groupBox2);
 			this.sC02.Panel2.Controls.Add(this.save_btn);
@@ -501,16 +509,16 @@
 			this.sC02.Panel2.Controls.Add(this.del_btn);
 			this.sC02.Panel2.Controls.Add(this.sel_name);
 			this.sC02.Panel2.Controls.Add(this.propertyGrid);
-			this.sC02.Size = new System.Drawing.Size(518, 661);
-			this.sC02.SplitterDistance = 248;
+			this.sC02.Size = new System.Drawing.Size(518, 684);
+			this.sC02.SplitterDistance = 247;
 			this.sC02.TabIndex = 0;
 			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.ClientSize = new System.Drawing.Size(998, 661);
+			this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+			this.ClientSize = new System.Drawing.Size(998, 684);
 			this.Controls.Add(this.sC01);
 			this.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

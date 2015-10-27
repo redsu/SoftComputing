@@ -163,5 +163,11 @@ namespace R04522602許泰源Ass05{
 			BinaryOperatedFuzzySet fs = new BinaryOperatedFuzzySet(f, g, op);
 			return fs;
 		}
+
+		public static FuzzySet operator -(FuzzySet f, double alpha){
+			UnaryOperator op = new CutOperator(alpha);
+			UnaryOperatedFuzzySet fs = new UnaryOperatedFuzzySet(f, op);
+			return fs;
+		}
     }
 }
