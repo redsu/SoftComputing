@@ -236,7 +236,15 @@ namespace R04522602許泰源Ass04{
 				}
 				else{
 					Universe u = tree.SelectedNode.Parent.Tag as Universe;
-					FuzzySet f = tree.SelectedNode.Tag as FuzzySet;					
+					FuzzySet f = tree.SelectedNode.Tag as FuzzySet;
+					if(FirstFuzzySet.Tag == tree.SelectedNode.Tag){
+						FirstFuzzySet.Tag = null;
+						FirstFuzzySet.Text = "Click to Assign 1st Fuzzy Set";
+					}
+					if(SecondFuzzySet.Tag == tree.SelectedNode.Tag){
+						SecondFuzzySet.Tag = null;
+						SecondFuzzySet.Text = "Click to Assign 2nd Fuzzy Set";
+					}
 					u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 					tree.SelectedNode.Remove();
 				}
