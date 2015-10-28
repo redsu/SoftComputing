@@ -16,7 +16,7 @@ namespace R04522602許泰源Ass04{
 		private const double INFINITY = 1e100, NEG_INFINITY = -1e100;
 		private DataPoint selectedDataPoint = null;
 		private HitTestResult hitResult = null;
-
+		
 		//Definition of tags of different control points
 		private enum Control_Point : int{
 			tri_L = 0,
@@ -594,8 +594,17 @@ namespace R04522602許泰源Ass04{
 		private void FirstFuzzySet_Click(object sender, EventArgs e){
 			if(tree.SelectedNode.Level > 1)
 				if(tree.SelectedNode.Tag != SecondFuzzySet.Tag){
-					FirstFuzzySet.Tag = tree.SelectedNode.Tag;
-					FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+					if(SecondFuzzySet.Tag==null){
+						FirstFuzzySet.Tag = tree.SelectedNode.Tag;
+						FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+					}
+					else if(((FuzzySet)tree.SelectedNode.Tag).TheUniverse == ((FuzzySet)SecondFuzzySet.Tag).TheUniverse){
+						FirstFuzzySet.Tag = tree.SelectedNode.Tag;
+						FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+					}
+					else{
+						MessageBox.Show(string.Format("Two fussy set operands are not defined in the same universe for binary operation."), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+					}
 				}
 				else{
 					MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
@@ -613,8 +622,17 @@ namespace R04522602許泰源Ass04{
 		private void SecondFuzzySet_Click(object sender, EventArgs e){
 			if(tree.SelectedNode.Level > 1)
 				if(tree.SelectedNode.Tag != FirstFuzzySet.Tag){
-					SecondFuzzySet.Tag = tree.SelectedNode.Tag;
-					SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+					if(FirstFuzzySet.Tag==null){
+						SecondFuzzySet.Tag = tree.SelectedNode.Tag;
+						SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+					}
+					else if(((FuzzySet)tree.SelectedNode.Tag).TheUniverse == ((FuzzySet)FirstFuzzySet.Tag).TheUniverse){
+						SecondFuzzySet.Tag = tree.SelectedNode.Tag;
+						SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+					}
+					else{
+						MessageBox.Show(string.Format("Two fussy set operands are not defined in the same universe for binary operation."), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+					}
 				}
 				else{
 					MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
@@ -708,6 +726,13 @@ namespace R04522602許泰源Ass04{
 				tree.SelectedNode.Parent.Nodes.Add(tn);
 			}
 
+		}
+
+		private void area_btn_Click(object sender, EventArgs e){
+			if(tree.SelectedNode.Level>1){
+				FuzzySet fs = (FuzzySet)tree.SelectedNode.Tag;
+				fs.set_style();
+			}
 		}
     }
 }

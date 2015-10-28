@@ -14,9 +14,9 @@ namespace R04522602許泰源Ass04{
 		//Constructor
         public BinaryOperatedFuzzySet(FuzzySet f, FuzzySet g, BinaryOperator o) : base(f.TheUniverse){
             
-			if(f.TheUniverse != g.TheUniverse){
+			/*if(f.TheUniverse != g.TheUniverse){
 				throw new Exception("Two fussy set operands are not defined in the same universe for binary operation.");
-			}
+			}*/
 			
 			OperandOne = f;
 			OperandTwo = g;
