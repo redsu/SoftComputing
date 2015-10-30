@@ -305,6 +305,9 @@ namespace R04522602許泰源Ass04{
 					if(u.hostChart.ChartAreas[u.Name].Visible){
 						u.hostChart.ChartAreas[u.Name].Visible = false;
 						foreach(TreeNode tn in tree.SelectedNode.Nodes){
+							FuzzySet f = (FuzzySet)tn.Tag;
+							u.hostChart.Series.FindByName(f.Name).Enabled = false;
+							/*
 							if(tn.Tag is triangle_fuzzy_set){
 								triangle_fuzzy_set f = tn.Tag as triangle_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = false;
@@ -320,12 +323,17 @@ namespace R04522602許泰源Ass04{
 							if(tn.Tag is sigmoidal_fuzzy_set){
 								sigmoidal_fuzzy_set f = tn.Tag as sigmoidal_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = false;
-							}
+							}*/
 						}
 					}
 					else{
 						u.hostChart.ChartAreas[u.Name].Visible = true;
+
+						
 						foreach(TreeNode tn in tree.SelectedNode.Nodes){
+							FuzzySet f = (FuzzySet)tn.Tag;
+							u.hostChart.Series.FindByName(f.Name).Enabled = false;
+							/*
 							if(tn.Tag is triangle_fuzzy_set){
 								triangle_fuzzy_set f = tn.Tag as triangle_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = true;
@@ -341,13 +349,15 @@ namespace R04522602許泰源Ass04{
 							if(tn.Tag is sigmoidal_fuzzy_set){
 								sigmoidal_fuzzy_set f = tn.Tag as sigmoidal_fuzzy_set;
 								u.hostChart.Series.FindByName(f.Name).Enabled = true;
-							}
+							}*/
 						}
 					}
 				}
 				else if(tree.SelectedNode.Level==2){
 					u = tree.SelectedNode.Parent.Tag as Universe;
-					if(tree.SelectedNode.Tag is triangle_fuzzy_set){
+					FuzzySet f = (FuzzySet)tree.SelectedNode.Tag;
+					u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
+					/*if(tree.SelectedNode.Tag is triangle_fuzzy_set){
 						triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;
 						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
 					}
@@ -362,7 +372,7 @@ namespace R04522602許泰源Ass04{
 					if(tree.SelectedNode.Tag is sigmoidal_fuzzy_set){
 						sigmoidal_fuzzy_set f = tree.SelectedNode.Tag as sigmoidal_fuzzy_set;
 						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
-					}
+					}*/
 				}
 			}
 		}
