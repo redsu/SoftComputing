@@ -127,5 +127,11 @@ namespace R04522602許泰源Ass05{
 				TriggerEvent();
 			}
 		}
+		[Browsable(false)]
+		public double MaxDegree{
+			get{
+				return 1.0;
+			}
+		}
     }
 }

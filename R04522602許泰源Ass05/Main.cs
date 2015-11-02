@@ -46,7 +46,8 @@ namespace R04522602許泰源Ass05{
 			FuncTypSel.SelectedIndex = 0;
 			OpTypSel.SelectedIndex = 0;
 			BOpTypSel.SelectedIndex = 0;
-			
+			inf_btn.Enabled = false;
+
 			tip.ToolTipTitle = "操作提示";
 			tip.SetToolTip(this.Chart_func,"點拉線圖上的控制點，\n即時調整曲線參數。");
 			tip.ToolTipIcon = ToolTipIcon.Info;
@@ -728,7 +729,8 @@ namespace R04522602許泰源Ass05{
 					
 					if (ifthenrules.SelectedRows.Count > 0)
 						ifthenrules.Rows.RemoveAt(ifthenrules.SelectedRows.Count-1);
-						//ifthenrules.Rows.RemoveAt(ifthenrules.SelectedRows[0].Index);
+					if(ifthenrules.RowCount==0)
+						inf_btn.Enabled = false	;
 				}
 			}
 		}
@@ -765,6 +767,8 @@ namespace R04522602許泰源Ass05{
 		private void add_rules_Click(object sender, EventArgs e){
 			if(ifthenrules.ColumnCount > 0)
 				ifthenrules.Rows.Add();
+			if(ifthenrules.RowCount>0)
+				inf_btn.Enabled = true;
 		}
 
 		List<IfThenFuzzyRule> allRules = new List<IfThenFuzzyRule>();

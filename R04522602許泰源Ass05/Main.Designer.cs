@@ -109,7 +109,7 @@
 			this.Chart_func.Location = new System.Drawing.Point(8, 7);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
-			this.Chart_func.Size = new System.Drawing.Size(459, 645);
+			this.Chart_func.Size = new System.Drawing.Size(455, 645);
 			this.Chart_func.TabIndex = 4;
 			this.Chart_func.Text = "Chart";
 			this.Chart_func.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Chart_func_MouseDown);
@@ -160,7 +160,7 @@
             treeNode1,
             treeNode2});
 			this.tree.SelectedImageIndex = 0;
-			this.tree.Size = new System.Drawing.Size(228, 236);
+			this.tree.Size = new System.Drawing.Size(229, 236);
 			this.tree.TabIndex = 44;
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 			this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_DoubleClick);
@@ -242,20 +242,22 @@
 			this.propertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
 			this.propertyGrid.Location = new System.Drawing.Point(11, 56);
 			this.propertyGrid.Name = "propertyGrid";
-			this.propertyGrid.Size = new System.Drawing.Size(250, 232);
+			this.propertyGrid.Size = new System.Drawing.Size(253, 232);
 			this.propertyGrid.TabIndex = 59;
 			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
 			// 
 			// sel_name
 			// 
 			this.sel_name.AccessibleRole = System.Windows.Forms.AccessibleRole.IpAddress;
+			this.sel_name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.sel_name.BackColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.sel_name.Cursor = System.Windows.Forms.Cursors.Default;
 			this.sel_name.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.sel_name.ForeColor = System.Drawing.Color.Lime;
 			this.sel_name.Location = new System.Drawing.Point(11, 6);
 			this.sel_name.Name = "sel_name";
-			this.sel_name.Size = new System.Drawing.Size(250, 38);
+			this.sel_name.Size = new System.Drawing.Size(253, 38);
 			this.sel_name.TabIndex = 60;
 			this.sel_name.Text = "NAME";
 			this.sel_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -489,7 +491,7 @@
 			this.sC01.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC01.Panel2.Controls.Add(this.Chart_func);
 			this.sC01.Size = new System.Drawing.Size(998, 661);
-			this.sC01.SplitterDistance = 518;
+			this.sC01.SplitterDistance = 522;
 			this.sC01.TabIndex = 71;
 			// 
 			// sC03
@@ -507,7 +509,7 @@
 			// 
 			this.sC03.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC03.Panel2.Controls.Add(this.tab);
-			this.sC03.Size = new System.Drawing.Size(518, 661);
+			this.sC03.Size = new System.Drawing.Size(522, 661);
 			this.sC03.SplitterDistance = 297;
 			this.sC03.TabIndex = 72;
 			// 
@@ -528,8 +530,8 @@
 			this.sC02.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC02.Panel2.Controls.Add(this.sel_name);
 			this.sC02.Panel2.Controls.Add(this.propertyGrid);
-			this.sC02.Size = new System.Drawing.Size(518, 297);
-			this.sC02.SplitterDistance = 247;
+			this.sC02.Size = new System.Drawing.Size(522, 297);
+			this.sC02.SplitterDistance = 248;
 			this.sC02.TabIndex = 0;
 			// 
 			// tab
@@ -543,7 +545,7 @@
 			this.tab.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
 			this.tab.Name = "tab";
 			this.tab.SelectedIndex = 0;
-			this.tab.Size = new System.Drawing.Size(519, 360);
+			this.tab.Size = new System.Drawing.Size(523, 360);
 			this.tab.TabIndex = 5;
 			// 
 			// Page01
@@ -588,7 +590,7 @@
 			this.Page02.Location = new System.Drawing.Point(4, 23);
 			this.Page02.Name = "Page02";
 			this.Page02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page02.Size = new System.Drawing.Size(511, 333);
+			this.Page02.Size = new System.Drawing.Size(515, 333);
 			this.Page02.TabIndex = 1;
 			this.Page02.Text = "If-Then Rules";
 			// 
@@ -663,26 +665,30 @@
 			// conditions
 			// 
 			this.conditions.AllowUserToAddRows = false;
+			this.conditions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.conditions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.conditions.Location = new System.Drawing.Point(10, 217);
 			this.conditions.Name = "conditions";
 			this.conditions.ReadOnly = true;
 			this.conditions.RowTemplate.Height = 24;
 			this.conditions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.conditions.Size = new System.Drawing.Size(495, 112);
+			this.conditions.Size = new System.Drawing.Size(499, 112);
 			this.conditions.TabIndex = 0;
 			this.conditions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.conditions_CellClick);
 			// 
 			// ifthenrules
 			// 
 			this.ifthenrules.AllowUserToAddRows = false;
+			this.ifthenrules.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.ifthenrules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.ifthenrules.Location = new System.Drawing.Point(10, 41);
 			this.ifthenrules.Name = "ifthenrules";
 			this.ifthenrules.ReadOnly = true;
 			this.ifthenrules.RowTemplate.Height = 24;
 			this.ifthenrules.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.ifthenrules.Size = new System.Drawing.Size(495, 125);
+			this.ifthenrules.Size = new System.Drawing.Size(499, 125);
 			this.ifthenrules.TabIndex = 0;
 			this.ifthenrules.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ifthenrules_CellClick);
 			// 

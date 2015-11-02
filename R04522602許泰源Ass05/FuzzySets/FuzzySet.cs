@@ -28,6 +28,7 @@ namespace R04522602許泰源Ass05{
             series.ChartType = SeriesChartType.Line;
             //u.hostChart.Series.Add(series);
             series.ChartArea = u.area.Name;
+			series.Legend = theUniverse.Name;
         }
 
 		[Browsable(false)]

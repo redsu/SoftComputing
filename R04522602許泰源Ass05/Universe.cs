@@ -16,9 +16,13 @@ namespace R04522602許泰源Ass05{
         // consturctor
         public Universe( Chart c ){
             hostChart = c;
+			
             name = "X" + count++.ToString();
+			
+			
             area = new ChartArea(name);
-            area.AxisX.Minimum = 0.0;
+            
+			area.AxisX.Minimum = 0.0;
             area.AxisX.Maximum = 10.0;
             area.AxisX.Title = name;
             area.AxisX.Enabled = AxisEnabled.True;
@@ -26,6 +30,8 @@ namespace R04522602許泰源Ass05{
 			area.AxisY.Maximum = 1.20;
 			interval = 0.1;
             c.ChartAreas.Add(area);
+			hostChart.Legends.Add(new Legend(name));
+			hostChart.Legends[name].DockedToChartArea = name; 
         }
 
 		public int GetCount(){
