@@ -9,12 +9,11 @@ namespace R04522602許泰源Ass05{
         protected static Random rnd = new Random(unchecked(DateTime.Now.Ticks.GetHashCode()));
 
         protected string name;
-        public string tmp_name;
         protected Dictionary<string, double> parameters = new Dictionary<string, double>();
         protected Universe theUniverse;
         protected Series series;
 		protected DataPoint[] breakpoints;
-
+		protected bool ctype_toggle = true;
         public FuzzySet() {
         }
 
@@ -27,7 +26,7 @@ namespace R04522602許泰源Ass05{
             theUniverse.ParameterChanged += theUniverse_ParameterChanged;
             series = new Series();
             series.ChartType = SeriesChartType.Line;
-            u.hostChart.Series.Add(series);
+            //u.hostChart.Series.Add(series);
             series.ChartArea = u.area.Name;
         }
 
@@ -53,10 +52,11 @@ namespace R04522602許泰源Ass05{
         protected void TriggerEvent(){
             if (ParameterChanged != null)
                 ParameterChanged(this, null);
+        }
+		protected void TriggerEvent_name(){
 			if (NameChanged != null)
                 NameChanged(this, null);
-        }    
-
+        }
         //Update all points in series
         void theUniverse_ParameterChanged(object sender, EventArgs e){
             UpdateSeriesPoints();
@@ -126,8 +126,11 @@ namespace R04522602許泰源Ass05{
 				return name;
 			}
             set {
-				name = value;
-				TriggerEvent();
+				if(theUniverse.hostChart.Series.IsUniqueName(value)){
+					name = value;
+					series.Name = name;
+					TriggerEvent_name();
+				}
 			}
         }
 		//Set the width of line in series
@@ -142,6 +145,18 @@ namespace R04522602許泰源Ass05{
 		//Operator Overloading
 		public static FuzzySet operator ~(FuzzySet f){
 			UnaryOperator op = new NegateOperator();
+			UnaryOperatedFuzzySet fs = new UnaryOperatedFuzzySet(f, op);
+			return fs;
+		}
+
+		public static FuzzySet operator -(double alpha, FuzzySet f){
+			UnaryOperator op = new CutOperator(alpha);
+			UnaryOperatedFuzzySet fs = new UnaryOperatedFuzzySet(f, op);
+			return fs;
+		}
+
+		public static FuzzySet operator *(double alpha, FuzzySet f){
+			UnaryOperator op = new ScaleOperator(alpha);
 			UnaryOperatedFuzzySet fs = new UnaryOperatedFuzzySet(f, op);
 			return fs;
 		}
@@ -164,10 +179,37 @@ namespace R04522602許泰源Ass05{
 			return fs;
 		}
 
-		public static FuzzySet operator -(FuzzySet f, double alpha){
-			UnaryOperator op = new CutOperator(alpha);
-			UnaryOperatedFuzzySet fs = new UnaryOperatedFuzzySet(f, op);
-			return fs;
+		
+
+		public void set_style(){
+			if(ctype_toggle)
+				series.ChartType = SeriesChartType.Area;
+			else
+				series.ChartType = SeriesChartType.Spline;
+
+			ctype_toggle = !ctype_toggle;
+		}
+
+		[Browsable(false)]
+		public double MaxDegree{
+			get{
+				return series.Points.FindMaxByValue("Y1").YValues[0];
+			}
+		}
+
+		[Browsable(false)]
+		public bool Display{
+			set{
+				if(value){
+					theUniverse.hostChart.Series.Add(series);
+					series.ChartArea = theUniverse.Name;
+				}
+				else{
+					theUniverse.hostChart.Series.Remove(series);
+					series.ChartArea = "";
+					series.Legend = "";
+				}
+			}
 		}
     }
 }

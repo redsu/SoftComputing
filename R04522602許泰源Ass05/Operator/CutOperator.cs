@@ -13,7 +13,7 @@ namespace R04522602許泰源Ass05{
 			parameters[0] = rnd.NextDouble();
 		}
 
-		public CutOperator(double alpha){
+		public CutOperator(double alpha) {
 			name = "Cut";
 			parameters = new double[1];
 			parameters[0] = alpha;

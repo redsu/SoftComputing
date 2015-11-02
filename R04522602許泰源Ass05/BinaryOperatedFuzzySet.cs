@@ -14,16 +14,15 @@ namespace R04522602許泰源Ass05{
 		//Constructor
         public BinaryOperatedFuzzySet(FuzzySet f, FuzzySet g, BinaryOperator o) : base(f.TheUniverse){
             
-			if(f.TheUniverse != g.TheUniverse){
+			/*if(f.TheUniverse != g.TheUniverse){
 				throw new Exception("Two fussy set operands are not defined in the same universe for binary operation.");
-			}
+			}*/
 			
 			OperandOne = f;
 			OperandTwo = g;
 
             theOperator = o;
             name = OperandOne.Name + theOperator.Name + OperandTwo.Name + count++.ToString();
-
             OperandOne.ParameterChanged += theFuzzySet_ParameterChanged;
 			OperandTwo.ParameterChanged += theFuzzySet_ParameterChanged;
 
@@ -31,7 +30,7 @@ namespace R04522602許泰源Ass05{
 			OperandTwo.ParameterChanged += theFuzzySet_ParameterChanged;
 
 			series.Name = name;
-			if(OperandOne.BP != null || OperandTwo.BP != null){
+			if(OperandOne.BP != null && OperandTwo.BP != null){
 				breakpoints = new DataPoint[OperandOne.BP.Length + OperandTwo.BP.Length];
 				if(breakpoints!=null){
 					for(int i=0; i<OperandOne.BP.Length; i++){

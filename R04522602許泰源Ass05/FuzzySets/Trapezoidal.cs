@@ -6,31 +6,43 @@ using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.ComponentModel;
 namespace R04522602許泰源Ass05{
-    class triangle_fuzzy_set : FuzzySet{
+    class Trapezoidal : FuzzySet{
         //private Dictionary<string, double> parameters = new Dictionary<string,double>();
         private static int count = 1;
 
 		//Constuctor
-        public triangle_fuzzy_set(Universe u) : base(u){
-			name = "Triangle" + count++.ToString();
-			double left = theUniverse.Xmax, middle, right = theUniverse.Xmin;
+        public Trapezoidal(Universe u) : base(u){
+			name = "Trapezoidal" + count++.ToString();
+			double left = theUniverse.Xmax, right = theUniverse.Xmin;
+			double middle;
+			double leftcorner, rightcorner;
 			middle = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax-theUniverse.Xmin);
+			rightcorner = left;
+			leftcorner = right;
 			while(middle <= left)
-				left = theUniverse.Xmin + rnd.NextDouble() * (middle-theUniverse.Xmin);
+				left = theUniverse.Xmin + rnd.NextDouble() * (right-theUniverse.Xmin);
 			while(middle >= right)
 				right = middle + rnd.NextDouble() * (theUniverse.Xmax-middle);
+			
+			while(middle <= leftcorner || leftcorner <= left)
+				leftcorner = theUniverse.Xmin + rnd.NextDouble() * (right-theUniverse.Xmin);
+
+			while(middle >= rightcorner || rightcorner >= right)
+				rightcorner = theUniverse.Xmin + rnd.NextDouble() * (right-theUniverse.Xmin);
 
 			//series = new Series(name);
 			series.Name = name;
 			parameters.Add("Left", left);
-            parameters.Add("Middle", middle);
-            parameters.Add("Right", right);
+            parameters.Add("Left Corner", leftcorner);
+            parameters.Add("Right Corner", rightcorner);
+			parameters.Add("Right", right);
 			
-			breakpoints = new DataPoint[3];
+			breakpoints = new DataPoint[4];
 
 			breakpoints[0] = new DataPoint(left, 0.0);
-			breakpoints[1] = new DataPoint(middle, 1.0);
-			breakpoints[2] = new DataPoint(right, 0.0);
+			breakpoints[1] = new DataPoint(leftcorner, 1.0);
+			breakpoints[2] = new DataPoint(rightcorner, 1.0);
+			breakpoints[3] = new DataPoint(right, 0.0);
 
 			UpdateSeriesPoints();
         }
@@ -45,19 +57,19 @@ namespace R04522602許泰源Ass05{
         //Get function value of given x.
         public override double GetFunctionValue(double x){
             double y = 0.0;
-            double a, b, c;
-            a = parameters["Left"];
-            b = parameters["Middle"];
-            c = parameters["Right"];
-            
+            double a, b, c, d;
+            a = Left;
+            b = LeftCorner;
+            c = RightCorner;
+            d = Right;
             if(x <= a)
                 y = 0.0;
-            else if (x >= a && x < b)
+            else if (x >= a && x <= b)
                 y = (x - a) / (b - a);
-			/*else if (x >= b)
-				y = 1.0;*/
-            else if (x >= b && x <= c)
-                y = (c - x) / (c - b);
+			else if (x >= b && x<=c)
+				y = 1.0;
+            else if (x >= c && x <= d)
+                y = (d - x) / (d - c);
             else
                 y = 0.0;
 
@@ -87,7 +99,7 @@ namespace R04522602許泰源Ass05{
 				return parameters["Left"];
 			}
 			set{
-				if(value<parameters["Middle"]){
+				if(value<parameters["Left Corner"]){
 					parameters["Left"] = value;
 					breakpoints[0].XValue = value;
 					UpdateSeriesPoints();
@@ -101,8 +113,22 @@ namespace R04522602許泰源Ass05{
 				return parameters["Right"];
 			}
 			set{
-				if(value>parameters["Middle"]){
+				if(value>parameters["Right Corner"]){
 					parameters["Right"] = value;
+					breakpoints[3].XValue = value;
+					UpdateSeriesPoints();
+					TriggerEvent();
+				}
+			}
+		}
+		[Category("Parameters")]
+		public double RightCorner{
+			get{
+				return parameters["Right Corner"];
+			}
+			set{
+				if(parameters["Left Corner"]<value&&parameters["Right"]>value){
+					parameters["Right Corner"] = value;
 					breakpoints[2].XValue = value;
 					UpdateSeriesPoints();
 					TriggerEvent();
@@ -110,13 +136,13 @@ namespace R04522602許泰源Ass05{
 			}
 		}
 		[Category("Parameters")]
-		public double Middle{
+		public double LeftCorner{
 			get{
-				return parameters["Middle"];
+				return parameters["Left Corner"];
 			}
 			set{
-				if(parameters["Left"]<value&&parameters["Right"]>value){
-					parameters["Middle"] = value;
+				if(parameters["Right Corner"]>value&&parameters["Left"]<value){
+					parameters["Left Corner"] = value;
 					breakpoints[1].XValue = value;
 					UpdateSeriesPoints();
 					TriggerEvent();

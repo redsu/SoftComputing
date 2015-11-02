@@ -16,7 +16,9 @@ namespace R04522602許泰源Ass05{
 		private const double INFINITY = 1e100, NEG_INFINITY = -1e100;
 		private DataPoint selectedDataPoint = null;
 		private HitTestResult hitResult = null;
-
+		protected static Random rnd = new Random(unchecked(DateTime.Now.Ticks.GetHashCode()));
+		private bool out_exist = false;
+		private FuzzySet conclusion;
 		//Definition of tags of different control points
 		private enum Control_Point : int{
 			tri_L = 0,
@@ -109,6 +111,18 @@ namespace R04522602許泰源Ass05{
 						tree.SelectedNode.Expand();
 						tn.SelectedImageIndex = 4;
 						tn.ImageIndex = 5;
+						if(out_exist){
+							DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
+							col.Name = u.Name;
+							col.HeaderText = u.Name;
+							ifthenrules.Columns.Insert(ifthenrules.Columns.Count-1, col);
+						}
+						else{
+							ifthenrules.Columns.Add(u.Name, u.Name);
+						}
+						conditions.Columns.Add(u.Name, u.Name);
+						if (conditions.Rows.Count<1)
+							conditions.Rows.Add();
 				}catch{
 					MessageBox.Show("Invalid Parameters or Name!!");
 				}
@@ -124,6 +138,9 @@ namespace R04522602許泰源Ass05{
 						tree.SelectedNode.Expand();
 						tn.SelectedImageIndex = 4;
 						tn.ImageIndex = 5;
+						ifthenrules.Columns.Add(u.Name, u.Name);
+						
+						out_exist = true;
 				}catch{
 					MessageBox.Show("Invalid Parameters or Name!!");
 				}
@@ -162,6 +179,10 @@ namespace R04522602許泰源Ass05{
 						case 5:
 							fs = new PI_fuzzy_set(u);
 							break;
+
+						case 6:
+							fs = new Trapezoidal(u);
+							break;
 					}
 					if(fs!=null){
 						TreeNode tn = new TreeNode(fs.Name);
@@ -171,6 +192,8 @@ namespace R04522602許泰源Ass05{
 						tn.Checked = true;
 						tree.SelectedNode.Nodes.Add(tn);
 						tree.SelectedNode.Expand();
+						fs.Display = true;
+						
 						//tree.SelectedNode = tn;
 					}
 				}
@@ -231,12 +254,20 @@ namespace R04522602許泰源Ass05{
 						FuzzySet f = (FuzzySet)tn.Tag;
 						u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 					}
-					Chart_func.ChartAreas[u.tmp_name].Visible = false;
+					Chart_func.ChartAreas[u.Name].Visible = false;
 					tree.SelectedNode.Remove();
 				}
 				else{
 					Universe u = tree.SelectedNode.Parent.Tag as Universe;
-					FuzzySet f = tree.SelectedNode.Tag as FuzzySet;					
+					FuzzySet f = tree.SelectedNode.Tag as FuzzySet;
+					if(FirstFuzzySet.Tag == tree.SelectedNode.Tag){
+						FirstFuzzySet.Tag = null;
+						FirstFuzzySet.Text = "Click to Assign 1st Fuzzy Set";
+					}
+					if(SecondFuzzySet.Tag == tree.SelectedNode.Tag){
+						SecondFuzzySet.Tag = null;
+						SecondFuzzySet.Text = "Click to Assign 2nd Fuzzy Set";
+					}
 					u.hostChart.Series.Remove(u.hostChart.Series.FindByName(f.Name));
 					tree.SelectedNode.Remove();
 				}
@@ -251,17 +282,11 @@ namespace R04522602許泰源Ass05{
 				tree.SelectedNode.Text = e.ChangedItem.Value.ToString();
 				if(tree.SelectedNode.Level == 1){
 					Universe u = tree.SelectedNode.Tag as Universe;
-					Chart_func.ChartAreas[u.tmp_name].AxisX.Title = u.Name;
-					Chart_func.ChartAreas[u.tmp_name].Name = u.Name;
-					u.tmp_name = u.Name;
 					sel_name.Text = "Universe:" + tree.SelectedNode.Text;
 				}
 				else if(tree.SelectedNode.Level == 2){
 					Universe u = tree.SelectedNode.Parent.Tag as Universe;
 					FuzzySet f = tree.SelectedNode.Tag as FuzzySet;					
-					u.hostChart.Series[f.tmp_name].LegendText = f.Name;
-					u.hostChart.Series[f.tmp_name].Name = f.Name;
-					f.tmp_name = f.Name;
 					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
 				}
 				if(FirstFuzzySet.Tag != null)
@@ -277,10 +302,7 @@ namespace R04522602許泰源Ass05{
 							if(treeNode3.Text != ((FuzzySet)treeNode3.Tag).Name){
 								treeNode3.Text = ((FuzzySet)treeNode3.Tag).Name;
 								Universe u = treeNode2.Tag as Universe;
-								FuzzySet f = treeNode3.Tag as FuzzySet;					
-								u.hostChart.Series[f.tmp_name].LegendText = f.Name;
-								u.hostChart.Series[f.tmp_name].Name = f.Name;
-								f.tmp_name = f.Name;
+								FuzzySet f = treeNode3.Tag as FuzzySet;
 							}
 						}
 					}
@@ -297,64 +319,23 @@ namespace R04522602許泰源Ass05{
 					if(u.hostChart.ChartAreas[u.Name].Visible){
 						u.hostChart.ChartAreas[u.Name].Visible = false;
 						foreach(TreeNode tn in tree.SelectedNode.Nodes){
-							if(tn.Tag is triangle_fuzzy_set){
-								triangle_fuzzy_set f = tn.Tag as triangle_fuzzy_set;
-								u.hostChart.Series.FindByName(f.Name).Enabled = false;
-							}
-							if(tn.Tag is gaussian_fuzzy_set){
-								gaussian_fuzzy_set f = tn.Tag as gaussian_fuzzy_set;
-								u.hostChart.Series.FindByName(f.Name).Enabled = false;
-							}
-							if(tn.Tag is bell_fuzzy_set){
-								bell_fuzzy_set f = tn.Tag as bell_fuzzy_set;
-								u.hostChart.Series.FindByName(f.Name).Enabled = false;
-							}
-							if(tn.Tag is sigmoidal_fuzzy_set){
-								sigmoidal_fuzzy_set f = tn.Tag as sigmoidal_fuzzy_set;
-								u.hostChart.Series.FindByName(f.Name).Enabled = false;
-							}
+							FuzzySet f = (FuzzySet)tn.Tag;
+							u.hostChart.Series.FindByName(f.Name).Enabled = false;
 						}
 					}
 					else{
 						u.hostChart.ChartAreas[u.Name].Visible = true;
+						
 						foreach(TreeNode tn in tree.SelectedNode.Nodes){
-							if(tn.Tag is triangle_fuzzy_set){
-								triangle_fuzzy_set f = tn.Tag as triangle_fuzzy_set;
-								u.hostChart.Series.FindByName(f.Name).Enabled = true;
-							}
-							if(tn.Tag is gaussian_fuzzy_set){
-								gaussian_fuzzy_set f = tn.Tag as gaussian_fuzzy_set;
-								u.hostChart.Series.FindByName(f.Name).Enabled = true;
-							}
-							if(tn.Tag is bell_fuzzy_set){
-								bell_fuzzy_set f = tn.Tag as bell_fuzzy_set;
-								u.hostChart.Series.FindByName(f.Name).Enabled = true;
-							}
-							if(tn.Tag is sigmoidal_fuzzy_set){
-								sigmoidal_fuzzy_set f = tn.Tag as sigmoidal_fuzzy_set;
-								u.hostChart.Series.FindByName(f.Name).Enabled = true;
-							}
+							FuzzySet f = (FuzzySet)tn.Tag;
+							u.hostChart.Series.FindByName(f.Name).Enabled = false;
 						}
 					}
 				}
 				else if(tree.SelectedNode.Level==2){
 					u = tree.SelectedNode.Parent.Tag as Universe;
-					if(tree.SelectedNode.Tag is triangle_fuzzy_set){
-						triangle_fuzzy_set f = tree.SelectedNode.Tag as triangle_fuzzy_set;
-						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
-					}
-					if(tree.SelectedNode.Tag is gaussian_fuzzy_set){
-						gaussian_fuzzy_set f = tree.SelectedNode.Tag as gaussian_fuzzy_set;
-						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
-					}
-					if(tree.SelectedNode.Tag is bell_fuzzy_set){
-						bell_fuzzy_set f = tree.SelectedNode.Tag as bell_fuzzy_set;
-						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
-					}
-					if(tree.SelectedNode.Tag is sigmoidal_fuzzy_set){
-						sigmoidal_fuzzy_set f = tree.SelectedNode.Tag as sigmoidal_fuzzy_set;
-						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
-					}
+					FuzzySet f = (FuzzySet)tree.SelectedNode.Tag;
+					u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
 				}
 			}
 		}
@@ -396,6 +377,7 @@ namespace R04522602許泰源Ass05{
 						foreach(TreeNode tn2 in tn1.Nodes){
 							Universe u = tn1.Tag as Universe;
 							if(tn2.Tag.ToString() == hitResult.Series.Name){
+								((FuzzySet)tn2.Tag).Enchant = true;
 								tree.SelectedNode = tn2;
 								if(tn2.Tag is triangle_fuzzy_set){
 									triangle_fuzzy_set f = tn2.Tag as triangle_fuzzy_set;
@@ -454,6 +436,8 @@ namespace R04522602許泰源Ass05{
 										}
 									}
 								}
+								else
+									Ctrl_Pt = -1;
 							}
 						}
 					}
@@ -545,10 +529,10 @@ namespace R04522602許泰源Ass05{
                     op = new ConcentrationOperator();
                     break;
 				case 2: // Cut
-                    op = new CutOperator();
+                    fs = rnd.NextDouble() - operand;
                     break;
 				case 3: // Scale
-                    op = new ScaleOperator();
+                    fs = rnd.NextDouble() * operand;
                     break;
 				case 4: // Yager
                     op = new YagerComplement();
@@ -572,7 +556,7 @@ namespace R04522602許泰源Ass05{
                     op = new Diminish();
                     break;
             }
-			if(OpTypSel.SelectedIndex>0)
+			if(OpTypSel.SelectedIndex!=0 && OpTypSel.SelectedIndex!=2 && OpTypSel.SelectedIndex!=3)
 				fs = new UnaryOperatedFuzzySet(operand, op);
 
             TreeNode tn = new TreeNode(fs.Name);
@@ -581,6 +565,7 @@ namespace R04522602許泰源Ass05{
 			tn.SelectedImageIndex = 6;
 
             tree.SelectedNode.Parent.Nodes.Add(tn);
+			fs.Display = true;
 		}
 
 		//When the cursor hover in the area of Chart_func, change its style to a hand
@@ -593,8 +578,17 @@ namespace R04522602許泰源Ass05{
 		private void FirstFuzzySet_Click(object sender, EventArgs e){
 			if(tree.SelectedNode.Level > 1)
 				if(tree.SelectedNode.Tag != SecondFuzzySet.Tag){
-					FirstFuzzySet.Tag = tree.SelectedNode.Tag;
-					FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+					if(SecondFuzzySet.Tag==null){
+						FirstFuzzySet.Tag = tree.SelectedNode.Tag;
+						FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+					}
+					else if(((FuzzySet)tree.SelectedNode.Tag).TheUniverse == ((FuzzySet)SecondFuzzySet.Tag).TheUniverse){
+						FirstFuzzySet.Tag = tree.SelectedNode.Tag;
+						FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+					}
+					else{
+						MessageBox.Show(string.Format("Two fussy set operands are not defined in the same universe for binary operation."), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+					}
 				}
 				else{
 					MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
@@ -612,8 +606,17 @@ namespace R04522602許泰源Ass05{
 		private void SecondFuzzySet_Click(object sender, EventArgs e){
 			if(tree.SelectedNode.Level > 1)
 				if(tree.SelectedNode.Tag != FirstFuzzySet.Tag){
-					SecondFuzzySet.Tag = tree.SelectedNode.Tag;
-					SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+					if(FirstFuzzySet.Tag==null){
+						SecondFuzzySet.Tag = tree.SelectedNode.Tag;
+						SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+					}
+					else if(((FuzzySet)tree.SelectedNode.Tag).TheUniverse == ((FuzzySet)FirstFuzzySet.Tag).TheUniverse){
+						SecondFuzzySet.Tag = tree.SelectedNode.Tag;
+						SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+					}
+					else{
+						MessageBox.Show(string.Format("Two fussy set operands are not defined in the same universe for binary operation."), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+					}
 				}
 				else{
 					MessageBox.Show(string.Format("The selected fuzzy set {0} has been selected as the other operand.", tree.SelectedNode.Name), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
@@ -705,8 +708,120 @@ namespace R04522602許泰源Ass05{
 				tn.SelectedImageIndex = 6;
 
 				tree.SelectedNode.Parent.Nodes.Add(tn);
+				fs.Display = true;
 			}
 
 		}
+
+		private void area_btn_Click(object sender, EventArgs e){
+			if(tree.SelectedNode.Level>1){
+				FuzzySet fs = (FuzzySet)tree.SelectedNode.Tag;
+				fs.set_style();
+			}
+		}
+
+		private void del_rules_Click(object sender, EventArgs e){
+			
+			if(ifthenrules.RowCount > 0 && ifthenrules.CurrentCell!=null){
+				if(MessageBox.Show("The selected rule will be deleted. Are your sure to delete it?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes){
+					ifthenrules.Rows[ifthenrules.SelectedCells[0].RowIndex].Selected = true;
+					
+					if (ifthenrules.SelectedRows.Count > 0)
+						ifthenrules.Rows.RemoveAt(ifthenrules.SelectedRows.Count-1);
+						//ifthenrules.Rows.RemoveAt(ifthenrules.SelectedRows[0].Index);
+				}
+			}
+		}
+
+		private void ifthenrules_CellClick(object sender, DataGridViewCellEventArgs e){
+			if(e.ColumnIndex>=0 && e.RowIndex>=0)
+				if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_in"){
+					if(e.ColumnIndex == tree.SelectedNode.Parent.Index){
+						ifthenrules.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tree.SelectedNode.Tag;
+					}
+					else
+						MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
+				}
+				else if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_out"){
+					if(e.ColumnIndex == ifthenrules.ColumnCount-1){
+						ifthenrules.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tree.SelectedNode.Tag;
+					}
+					else
+						MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
+				}
+		}
+
+		private void conditions_CellClick(object sender, DataGridViewCellEventArgs e){
+			if(e.ColumnIndex>=0 && e.RowIndex>=0)
+				if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_in"){
+					if(e.ColumnIndex == tree.SelectedNode.Parent.Index){
+						conditions.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tree.SelectedNode.Tag;
+					}
+					else
+						MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
+				}
+		}
+
+		private void add_rules_Click(object sender, EventArgs e){
+			if(ifthenrules.ColumnCount > 0)
+				ifthenrules.Rows.Add();
+		}
+
+		List<IfThenFuzzyRule> allRules = new List<IfThenFuzzyRule>();
+        //FuzzySet finalFS;
+
+        void UpdateAllRules() {
+            allRules.Clear();
+
+            for (int i = 0; i < ifthenrules.Rows.Count; i++){
+                List<FuzzySet> ant = new List<FuzzySet>();
+
+                int j;
+                for ( j = 0; j < ifthenrules.Columns.Count - 1; j++){
+                    ant.Add( (FuzzySet)  ifthenrules.Rows[i].Cells[j].Value);
+                }
+
+                IfThenFuzzyRule arule = new IfThenFuzzyRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut");
+                allRules.Add(arule);
+            }
+        }
+
+		private void inf_btn_Click(object sender, EventArgs e){
+			UpdateAllRules();
+
+			//if (finalFS != null) finalFS.DisplayEnabled = false;
+            //finalFS = null;
+
+            List<FuzzySet> conds = new List<FuzzySet>();
+			for(int i=0; i<conditions.Columns.Count; i++){
+				conds.Add(conditions.Rows[0].Cells[i].Value as FuzzySet);
+			}
+			if(conclusion!=null){
+				conclusion.Display = false;
+				conclusion = null;
+			}
+			conclusion = allRules[0].Inference(conds);
+            for (int i = 1; i < allRules.Count; i++){
+				conclusion |= allRules[i].Inference(conds);
+            }
+
+			conclusion.Name = "Output";
+			
+			conclusion.Display = true;
+			conclusion.set_style();
+
+            //finalFS.DisplayEnabled = true;
+            //finalFS.ShowFuzzyArea = true; // shade the area covered by the fuzzy set
+		}
+
+		private void Cut_check_Click(object sender, EventArgs e){
+			if(Cut_check.Text == "Cut")
+				Cut_check.Text = "Scaled";
+			else
+				Cut_check.Text = "Cut";
+			Cut_check.Checked = true;
+		}
+
+		
     }
 }

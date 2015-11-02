@@ -60,7 +60,20 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.sC01 = new System.Windows.Forms.SplitContainer();
+			this.sC03 = new System.Windows.Forms.SplitContainer();
 			this.sC02 = new System.Windows.Forms.SplitContainer();
+			this.tab = new System.Windows.Forms.TabControl();
+			this.Page01 = new System.Windows.Forms.TabPage();
+			this.area_btn = new System.Windows.Forms.Button();
+			this.Page02 = new System.Windows.Forms.TabPage();
+			this.Cut_check = new System.Windows.Forms.CheckBox();
+			this.inf_btn = new System.Windows.Forms.Button();
+			this.add_rules = new System.Windows.Forms.Button();
+			this.del_rules = new System.Windows.Forms.Button();
+			this.conds = new System.Windows.Forms.Label();
+			this.rules = new System.Windows.Forms.Label();
+			this.conditions = new System.Windows.Forms.DataGridView();
+			this.ifthenrules = new System.Windows.Forms.DataGridView();
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			this.PrimFuzzy.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -69,10 +82,19 @@
 			this.sC01.Panel1.SuspendLayout();
 			this.sC01.Panel2.SuspendLayout();
 			this.sC01.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.sC03)).BeginInit();
+			this.sC03.Panel1.SuspendLayout();
+			this.sC03.Panel2.SuspendLayout();
+			this.sC03.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.sC02)).BeginInit();
 			this.sC02.Panel1.SuspendLayout();
 			this.sC02.Panel2.SuspendLayout();
 			this.sC02.SuspendLayout();
+			this.tab.SuspendLayout();
+			this.Page01.SuspendLayout();
+			this.Page02.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.conditions)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ifthenrules)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// Chart_func
@@ -87,7 +109,7 @@
 			this.Chart_func.Location = new System.Drawing.Point(8, 7);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
-			this.Chart_func.Size = new System.Drawing.Size(459, 668);
+			this.Chart_func.Size = new System.Drawing.Size(459, 645);
 			this.Chart_func.TabIndex = 4;
 			this.Chart_func.Text = "Chart";
 			this.Chart_func.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Chart_func_MouseDown);
@@ -97,12 +119,10 @@
 			// 
 			// save_btn
 			// 
-			this.save_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.save_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.save_btn.Location = new System.Drawing.Point(10, 314);
+			this.save_btn.Location = new System.Drawing.Point(135, 165);
 			this.save_btn.Name = "save_btn";
-			this.save_btn.Size = new System.Drawing.Size(247, 27);
+			this.save_btn.Size = new System.Drawing.Size(118, 27);
 			this.save_btn.TabIndex = 15;
 			this.save_btn.Text = "Save";
 			this.save_btn.UseVisualStyleBackColor = true;
@@ -110,12 +130,10 @@
 			// 
 			// user_guide_btn
 			// 
-			this.user_guide_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.user_guide_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.user_guide_btn.Location = new System.Drawing.Point(10, 380);
+			this.user_guide_btn.Location = new System.Drawing.Point(135, 198);
 			this.user_guide_btn.Name = "user_guide_btn";
-			this.user_guide_btn.Size = new System.Drawing.Size(247, 27);
+			this.user_guide_btn.Size = new System.Drawing.Size(118, 27);
 			this.user_guide_btn.TabIndex = 16;
 			this.user_guide_btn.Text = "User Guide";
 			this.user_guide_btn.UseVisualStyleBackColor = true;
@@ -128,7 +146,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tree.ImageIndex = 0;
 			this.tree.ImageList = this.imageList;
-			this.tree.Location = new System.Drawing.Point(12, 46);
+			this.tree.Location = new System.Drawing.Point(9, 48);
 			this.tree.Name = "tree";
 			treeNode1.ImageIndex = 1;
 			treeNode1.Name = "node_in";
@@ -142,7 +160,7 @@
             treeNode1,
             treeNode2});
 			this.tree.SelectedImageIndex = 0;
-			this.tree.Size = new System.Drawing.Size(228, 629);
+			this.tree.Size = new System.Drawing.Size(228, 236);
 			this.tree.TabIndex = 44;
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 			this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_DoubleClick);
@@ -173,7 +191,8 @@
             "Bell Function",
             "Sigmoidal Function",
             "SFuzzySet",
-            "PiFuzzySet"});
+            "PiFuzzySet",
+            "Trapezoidal"});
 			this.FuncTypSel.Location = new System.Drawing.Point(6, 39);
 			this.FuncTypSel.Name = "FuncTypSel";
 			this.FuncTypSel.Size = new System.Drawing.Size(155, 22);
@@ -182,10 +201,8 @@
 			// 
 			// universe_btn
 			// 
-			this.universe_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.universe_btn.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.universe_btn.Location = new System.Drawing.Point(12, 7);
+			this.universe_btn.Location = new System.Drawing.Point(9, 9);
 			this.universe_btn.Name = "universe_btn";
 			this.universe_btn.Size = new System.Drawing.Size(228, 37);
 			this.universe_btn.TabIndex = 45;
@@ -208,12 +225,10 @@
 			// 
 			// del_btn
 			// 
-			this.del_btn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.del_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.del_btn.Location = new System.Drawing.Point(10, 347);
+			this.del_btn.Location = new System.Drawing.Point(6, 165);
 			this.del_btn.Name = "del_btn";
-			this.del_btn.Size = new System.Drawing.Size(249, 27);
+			this.del_btn.Size = new System.Drawing.Size(120, 27);
 			this.del_btn.TabIndex = 58;
 			this.del_btn.Text = "Delete";
 			this.del_btn.UseVisualStyleBackColor = true;
@@ -225,22 +240,20 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.propertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-			this.propertyGrid.Location = new System.Drawing.Point(10, 452);
+			this.propertyGrid.Location = new System.Drawing.Point(11, 56);
 			this.propertyGrid.Name = "propertyGrid";
-			this.propertyGrid.Size = new System.Drawing.Size(250, 223);
+			this.propertyGrid.Size = new System.Drawing.Size(250, 232);
 			this.propertyGrid.TabIndex = 59;
 			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
 			// 
 			// sel_name
 			// 
 			this.sel_name.AccessibleRole = System.Windows.Forms.AccessibleRole.IpAddress;
-			this.sel_name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.sel_name.BackColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.sel_name.Cursor = System.Windows.Forms.Cursors.Default;
 			this.sel_name.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.sel_name.ForeColor = System.Drawing.Color.Lime;
-			this.sel_name.Location = new System.Drawing.Point(7, 411);
+			this.sel_name.Location = new System.Drawing.Point(11, 6);
 			this.sel_name.Name = "sel_name";
 			this.sel_name.Size = new System.Drawing.Size(250, 38);
 			this.sel_name.TabIndex = 60;
@@ -380,13 +393,11 @@
 			// 
 			// PrimFuzzy
 			// 
-			this.PrimFuzzy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.PrimFuzzy.Controls.Add(this.PFS_l);
 			this.PrimFuzzy.Controls.Add(this.FuncTypSel);
 			this.PrimFuzzy.Controls.Add(this.fs_btn);
 			this.PrimFuzzy.ForeColor = System.Drawing.Color.Navy;
-			this.PrimFuzzy.Location = new System.Drawing.Point(10, 7);
+			this.PrimFuzzy.Location = new System.Drawing.Point(6, 6);
 			this.PrimFuzzy.Name = "PrimFuzzy";
 			this.PrimFuzzy.Size = new System.Drawing.Size(247, 76);
 			this.PrimFuzzy.TabIndex = 68;
@@ -405,13 +416,11 @@
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.OpTypSel);
 			this.groupBox1.Controls.Add(this.us_btn);
 			this.groupBox1.ForeColor = System.Drawing.Color.Navy;
-			this.groupBox1.Location = new System.Drawing.Point(10, 89);
+			this.groupBox1.Location = new System.Drawing.Point(6, 88);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(247, 71);
 			this.groupBox1.TabIndex = 69;
@@ -430,8 +439,6 @@
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox2.Controls.Add(this.label3);
 			this.groupBox2.Controls.Add(this.label2);
 			this.groupBox2.Controls.Add(this.BOpTypSel);
@@ -440,7 +447,7 @@
 			this.groupBox2.Controls.Add(this.SecondFuzzySet);
 			this.groupBox2.Controls.Add(this.FirstFuzzySet);
 			this.groupBox2.ForeColor = System.Drawing.Color.Navy;
-			this.groupBox2.Location = new System.Drawing.Point(10, 166);
+			this.groupBox2.Location = new System.Drawing.Point(259, 6);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(247, 142);
 			this.groupBox2.TabIndex = 70;
@@ -469,22 +476,40 @@
 			// 
 			// sC01
 			// 
-			this.sC01.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.sC01.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.sC01.Location = new System.Drawing.Point(0, 0);
 			this.sC01.Name = "sC01";
 			// 
 			// sC01.Panel1
 			// 
-			this.sC01.Panel1.Controls.Add(this.sC02);
+			this.sC01.Panel1.Controls.Add(this.sC03);
 			// 
 			// sC01.Panel2
 			// 
 			this.sC01.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC01.Panel2.Controls.Add(this.Chart_func);
-			this.sC01.Size = new System.Drawing.Size(998, 684);
+			this.sC01.Size = new System.Drawing.Size(998, 661);
 			this.sC01.SplitterDistance = 518;
 			this.sC01.TabIndex = 71;
+			// 
+			// sC03
+			// 
+			this.sC03.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.sC03.Location = new System.Drawing.Point(0, 0);
+			this.sC03.Name = "sC03";
+			this.sC03.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// sC03.Panel1
+			// 
+			this.sC03.Panel1.Controls.Add(this.sC02);
+			// 
+			// sC03.Panel2
+			// 
+			this.sC03.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.sC03.Panel2.Controls.Add(this.tab);
+			this.sC03.Size = new System.Drawing.Size(518, 661);
+			this.sC03.SplitterDistance = 297;
+			this.sC03.TabIndex = 72;
 			// 
 			// sC02
 			// 
@@ -494,31 +519,179 @@
 			// 
 			// sC02.Panel1
 			// 
-			this.sC02.Panel1.BackColor = System.Drawing.SystemColors.Control;
+			this.sC02.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC02.Panel1.Controls.Add(this.universe_btn);
 			this.sC02.Panel1.Controls.Add(this.tree);
 			// 
 			// sC02.Panel2
 			// 
 			this.sC02.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.sC02.Panel2.Controls.Add(this.PrimFuzzy);
-			this.sC02.Panel2.Controls.Add(this.groupBox2);
-			this.sC02.Panel2.Controls.Add(this.save_btn);
-			this.sC02.Panel2.Controls.Add(this.groupBox1);
-			this.sC02.Panel2.Controls.Add(this.user_guide_btn);
-			this.sC02.Panel2.Controls.Add(this.del_btn);
 			this.sC02.Panel2.Controls.Add(this.sel_name);
 			this.sC02.Panel2.Controls.Add(this.propertyGrid);
-			this.sC02.Size = new System.Drawing.Size(518, 684);
+			this.sC02.Size = new System.Drawing.Size(518, 297);
 			this.sC02.SplitterDistance = 247;
 			this.sC02.TabIndex = 0;
+			// 
+			// tab
+			// 
+			this.tab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tab.Controls.Add(this.Page01);
+			this.tab.Controls.Add(this.Page02);
+			this.tab.Location = new System.Drawing.Point(3, 3);
+			this.tab.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+			this.tab.Name = "tab";
+			this.tab.SelectedIndex = 0;
+			this.tab.Size = new System.Drawing.Size(519, 360);
+			this.tab.TabIndex = 5;
+			// 
+			// Page01
+			// 
+			this.Page01.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.Page01.Controls.Add(this.PrimFuzzy);
+			this.Page01.Controls.Add(this.area_btn);
+			this.Page01.Controls.Add(this.groupBox1);
+			this.Page01.Controls.Add(this.user_guide_btn);
+			this.Page01.Controls.Add(this.save_btn);
+			this.Page01.Controls.Add(this.del_btn);
+			this.Page01.Controls.Add(this.groupBox2);
+			this.Page01.Location = new System.Drawing.Point(4, 23);
+			this.Page01.Name = "Page01";
+			this.Page01.Padding = new System.Windows.Forms.Padding(3);
+			this.Page01.Size = new System.Drawing.Size(511, 333);
+			this.Page01.TabIndex = 0;
+			this.Page01.Text = "Fuzzy Sets";
+			// 
+			// area_btn
+			// 
+			this.area_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.area_btn.Location = new System.Drawing.Point(6, 198);
+			this.area_btn.Name = "area_btn";
+			this.area_btn.Size = new System.Drawing.Size(120, 27);
+			this.area_btn.TabIndex = 71;
+			this.area_btn.Text = "Area";
+			this.area_btn.UseVisualStyleBackColor = true;
+			this.area_btn.Click += new System.EventHandler(this.area_btn_Click);
+			// 
+			// Page02
+			// 
+			this.Page02.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.Page02.Controls.Add(this.Cut_check);
+			this.Page02.Controls.Add(this.inf_btn);
+			this.Page02.Controls.Add(this.add_rules);
+			this.Page02.Controls.Add(this.del_rules);
+			this.Page02.Controls.Add(this.conds);
+			this.Page02.Controls.Add(this.rules);
+			this.Page02.Controls.Add(this.conditions);
+			this.Page02.Controls.Add(this.ifthenrules);
+			this.Page02.Location = new System.Drawing.Point(4, 23);
+			this.Page02.Name = "Page02";
+			this.Page02.Padding = new System.Windows.Forms.Padding(3);
+			this.Page02.Size = new System.Drawing.Size(511, 333);
+			this.Page02.TabIndex = 1;
+			this.Page02.Text = "If-Then Rules";
+			// 
+			// Cut_check
+			// 
+			this.Cut_check.AutoSize = true;
+			this.Cut_check.Checked = true;
+			this.Cut_check.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.Cut_check.Location = new System.Drawing.Point(322, 187);
+			this.Cut_check.Name = "Cut_check";
+			this.Cut_check.Size = new System.Drawing.Size(44, 18);
+			this.Cut_check.TabIndex = 49;
+			this.Cut_check.Text = "Cut";
+			this.Cut_check.UseVisualStyleBackColor = true;
+			this.Cut_check.Click += new System.EventHandler(this.Cut_check_Click);
+			// 
+			// inf_btn
+			// 
+			this.inf_btn.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.inf_btn.Location = new System.Drawing.Point(414, 182);
+			this.inf_btn.Name = "inf_btn";
+			this.inf_btn.Size = new System.Drawing.Size(91, 29);
+			this.inf_btn.TabIndex = 48;
+			this.inf_btn.Text = "Inference";
+			this.inf_btn.UseVisualStyleBackColor = true;
+			this.inf_btn.Click += new System.EventHandler(this.inf_btn_Click);
+			// 
+			// add_rules
+			// 
+			this.add_rules.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.add_rules.Location = new System.Drawing.Point(419, 6);
+			this.add_rules.Name = "add_rules";
+			this.add_rules.Size = new System.Drawing.Size(86, 29);
+			this.add_rules.TabIndex = 47;
+			this.add_rules.Text = "Add Rules";
+			this.add_rules.UseVisualStyleBackColor = true;
+			this.add_rules.Click += new System.EventHandler(this.add_rules_Click);
+			// 
+			// del_rules
+			// 
+			this.del_rules.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.del_rules.Location = new System.Drawing.Point(322, 6);
+			this.del_rules.Name = "del_rules";
+			this.del_rules.Size = new System.Drawing.Size(91, 29);
+			this.del_rules.TabIndex = 46;
+			this.del_rules.Text = "Delete Rules";
+			this.del_rules.UseVisualStyleBackColor = true;
+			this.del_rules.Click += new System.EventHandler(this.del_rules_Click);
+			// 
+			// conds
+			// 
+			this.conds.AutoSize = true;
+			this.conds.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.conds.ForeColor = System.Drawing.Color.Purple;
+			this.conds.Location = new System.Drawing.Point(6, 186);
+			this.conds.Name = "conds";
+			this.conds.Size = new System.Drawing.Size(89, 19);
+			this.conds.TabIndex = 2;
+			this.conds.Text = "Conditions";
+			// 
+			// rules
+			// 
+			this.rules.AutoSize = true;
+			this.rules.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.rules.ForeColor = System.Drawing.Color.Purple;
+			this.rules.Location = new System.Drawing.Point(6, 10);
+			this.rules.Name = "rules";
+			this.rules.Size = new System.Drawing.Size(50, 19);
+			this.rules.TabIndex = 1;
+			this.rules.Text = "Rules";
+			// 
+			// conditions
+			// 
+			this.conditions.AllowUserToAddRows = false;
+			this.conditions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.conditions.Location = new System.Drawing.Point(10, 217);
+			this.conditions.Name = "conditions";
+			this.conditions.ReadOnly = true;
+			this.conditions.RowTemplate.Height = 24;
+			this.conditions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.conditions.Size = new System.Drawing.Size(495, 112);
+			this.conditions.TabIndex = 0;
+			this.conditions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.conditions_CellClick);
+			// 
+			// ifthenrules
+			// 
+			this.ifthenrules.AllowUserToAddRows = false;
+			this.ifthenrules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.ifthenrules.Location = new System.Drawing.Point(10, 41);
+			this.ifthenrules.Name = "ifthenrules";
+			this.ifthenrules.ReadOnly = true;
+			this.ifthenrules.RowTemplate.Height = 24;
+			this.ifthenrules.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.ifthenrules.Size = new System.Drawing.Size(495, 125);
+			this.ifthenrules.TabIndex = 0;
+			this.ifthenrules.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ifthenrules_CellClick);
 			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-			this.ClientSize = new System.Drawing.Size(998, 684);
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.ClientSize = new System.Drawing.Size(998, 661);
 			this.Controls.Add(this.sC01);
 			this.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -538,10 +711,20 @@
 			this.sC01.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.sC01)).EndInit();
 			this.sC01.ResumeLayout(false);
+			this.sC03.Panel1.ResumeLayout(false);
+			this.sC03.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.sC03)).EndInit();
+			this.sC03.ResumeLayout(false);
 			this.sC02.Panel1.ResumeLayout(false);
 			this.sC02.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.sC02)).EndInit();
 			this.sC02.ResumeLayout(false);
+			this.tab.ResumeLayout(false);
+			this.Page01.ResumeLayout(false);
+			this.Page02.ResumeLayout(false);
+			this.Page02.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.conditions)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ifthenrules)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -576,6 +759,19 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.SplitContainer sC01;
 		private System.Windows.Forms.SplitContainer sC02;
+		private System.Windows.Forms.Button area_btn;
+		private System.Windows.Forms.SplitContainer sC03;
+		private System.Windows.Forms.TabControl tab;
+		private System.Windows.Forms.TabPage Page01;
+		private System.Windows.Forms.DataGridView ifthenrules;
+		private System.Windows.Forms.TabPage Page02;
+		private System.Windows.Forms.DataGridView conditions;
+		private System.Windows.Forms.Button add_rules;
+		private System.Windows.Forms.Button del_rules;
+		private System.Windows.Forms.Label conds;
+		private System.Windows.Forms.Label rules;
+		private System.Windows.Forms.CheckBox Cut_check;
+		private System.Windows.Forms.Button inf_btn;
 	}
 }
 

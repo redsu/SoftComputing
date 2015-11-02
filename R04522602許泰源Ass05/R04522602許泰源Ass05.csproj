@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BOperator\BinaryOperator.cs" />
-    <Compile Include="FuzzySets\BinaryOperatedFuzzySet.cs" />
+    <Compile Include="BinaryOperatedFuzzySet.cs" />
     <Compile Include="BOperator\AlgebraicProduct.cs" />
     <Compile Include="BOperator\BoundedProduct.cs" />
     <Compile Include="BOperator\AlgebraicSum.cs" />
@@ -67,6 +67,8 @@
     <Compile Include="BOperator\DrasticProduct.cs" />
     <Compile Include="BOperator\UnionOperator.cs" />
     <Compile Include="BOperator\IntersectOperator.cs" />
+    <Compile Include="FuzzySets\Trapezoidal.cs" />
+    <Compile Include="IfThenFuzzyRule.cs" />
     <Compile Include="Operator\Diminish.cs" />
     <Compile Include="Operator\Extremely.cs" />
     <Compile Include="Operator\Intensify.cs" />
@@ -105,7 +107,7 @@
     <Compile Include="FuzzySets\sigmoidal_fuzzy_set.cs" />
     <Compile Include="FuzzySets\S_fuzzy_set.cs" />
     <Compile Include="FuzzySets\triangle_fuzzy_set.cs" />
-    <Compile Include="FuzzySets\UnaryOperatedFuzzySet.cs" />
+    <Compile Include="UnaryOperatedFuzzySet.cs" />
     <Compile Include="Operator\UnaryOperator.cs" />
     <Compile Include="Universe.cs" />
     <EmbeddedResource Include="Main.resx">

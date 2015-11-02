@@ -9,7 +9,6 @@ namespace R04522602許泰源Ass05{
 	public class Universe{
 		static int count = 1;
 		protected string name;
-		public string tmp_name;
 		double interval;
         public ChartArea area;
         public Chart hostChart;
@@ -18,7 +17,6 @@ namespace R04522602許泰源Ass05{
         public Universe( Chart c ){
             hostChart = c;
             name = "X" + count++.ToString();
-			tmp_name = name;
             area = new ChartArea(name);
             area.AxisX.Minimum = 0.0;
             area.AxisX.Maximum = 10.0;
@@ -77,7 +75,11 @@ namespace R04522602許泰源Ass05{
 				return name;
 			}
 			set{
-				name = value;
+				if(hostChart.ChartAreas.IsUniqueName(value)){
+					name = value;
+					area.Name = name;
+					area.AxisX.Title = name;
+				}
 			}
 		}
 	}

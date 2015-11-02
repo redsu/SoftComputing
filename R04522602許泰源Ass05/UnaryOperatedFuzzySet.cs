@@ -14,7 +14,6 @@ namespace R04522602許泰源Ass05{
             theFuzzySet = f;
             theOperator = o;
             name = theOperator.Name + theFuzzySet.Name + count++.ToString();
-			tmp_name = name;
             theFuzzySet.ParameterChanged += theFuzzySet_ParameterChanged;
 			theFuzzySet.NameChanged += theFuzzySet_NameChanged;
 

@@ -13,7 +13,6 @@ namespace R04522602許泰源Ass05{
         public gaussian_fuzzy_set(Universe u) : base(u){
 			
 			name = "Gaussian" + count++.ToString();
-			tmp_name = name;
 			double mean, sigma;
 			mean = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax-theUniverse.Xmin);
 			sigma = 2.0f;

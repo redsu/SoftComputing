@@ -13,7 +13,6 @@ namespace R04522602許泰源Ass05{
         //Constuctor
 		public bell_fuzzy_set(Universe u) : base(u){
 			name = "Bell" + count++.ToString();
-			tmp_name = name;
 			double hw, slope, center;
 			center = theUniverse.Xmin + rnd.NextDouble()*(theUniverse.Xmax-theUniverse.Xmin);
 			hw = 1.5f;

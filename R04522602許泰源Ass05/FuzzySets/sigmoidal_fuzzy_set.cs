@@ -13,7 +13,6 @@ namespace R04522602許泰源Ass05{
 		//Constuctor
         public sigmoidal_fuzzy_set(Universe u) : base(u){
 			name = "Sigmoidal" + count++.ToString();
-			tmp_name = name;
 			double slope, crossoverpt;
 			slope = 3.0f;
 			crossoverpt = theUniverse.Xmin + rnd.NextDouble()*(theUniverse.Xmax-theUniverse.Xmin);
