@@ -192,7 +192,7 @@ namespace R04522602許泰源Ass05{
 		}
 
 		[Browsable(false)]
-		public double MaxDegree{
+		public virtual double MaxDegree{
 			get{
 				return series.Points.FindMaxByValue("Y1").YValues[0];
 			}

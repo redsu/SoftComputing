@@ -68,19 +68,6 @@ namespace R04522602許泰源Ass05{
             return base.ProcessCmdKey(ref msg, keyData);
         }       
 
-        private void save_btn_Click(object sender, EventArgs e){
-            //If "Save" button is clicked, create a save form.
-			//Metafile f = new Metafile("test");
-            save_win save = new save_win();
-            DialogResult dr = save.ShowDialog();
-            //Get the filename.
-            string sv_name = save.GetMsg();
-            //Save the file of the current image by the filename.
-			//f = Chart_func.Images.
-			
-            Chart_func.SaveImage(sv_name,System.Drawing.Imaging.ImageFormat.Wmf);
-        }
-
         private void user_guide_btn_Click(object sender, EventArgs e){
             //If "User Guide" button is clicked, open readme.txt.
             Process notepad = new Process();
@@ -826,6 +813,33 @@ namespace R04522602許泰源Ass05{
 			Cut_check.Checked = true;
 		}
 
+		private void save_btn_Click(object sender, EventArgs e){
+            //If "Save" button is clicked, create a save form.
+			//Metafile f = new Metafile("test");
+            SaveFileDialog save = new SaveFileDialog();
+			save.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif|Png Image|*.png|Wmf Image|*.wmf";
+            save.Title = "Save an Image File";
+			if(save.ShowDialog()==System.Windows.Forms.DialogResult.OK && save.FileName!=""){
+				switch(save.FilterIndex){
+					case 1:
+						Chart_func.SaveImage(save.FileName,System.Drawing.Imaging.ImageFormat.Jpeg);
+						break;
+					case 2:
+						Chart_func.SaveImage(save.FileName,System.Drawing.Imaging.ImageFormat.Bmp);
+						break;
+					case 3:
+						Chart_func.SaveImage(save.FileName,System.Drawing.Imaging.ImageFormat.Gif);
+						break;
+					case 4:
+						Chart_func.SaveImage(save.FileName,System.Drawing.Imaging.ImageFormat.Png);
+						break;
+					case 5:
+						Chart_func.SaveImage(save.FileName,System.Drawing.Imaging.ImageFormat.Wmf);
+						break;
+				}
+			}
+            
+        }
 		
     }
 }

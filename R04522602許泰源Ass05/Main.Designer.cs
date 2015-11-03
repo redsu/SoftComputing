@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
-			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
+			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
+			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
 			this.Chart_func = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.save_btn = new System.Windows.Forms.Button();
@@ -64,7 +64,6 @@
 			this.sC02 = new System.Windows.Forms.SplitContainer();
 			this.tab = new System.Windows.Forms.TabControl();
 			this.Page01 = new System.Windows.Forms.TabPage();
-			this.area_btn = new System.Windows.Forms.Button();
 			this.Page02 = new System.Windows.Forms.TabPage();
 			this.Cut_check = new System.Windows.Forms.CheckBox();
 			this.inf_btn = new System.Windows.Forms.Button();
@@ -104,8 +103,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Chart_func.BackColor = System.Drawing.Color.MistyRose;
 			this.Chart_func.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalRight;
-			legend1.Name = "Legend1";
-			this.Chart_func.Legends.Add(legend1);
+			legend2.Name = "Legend1";
+			this.Chart_func.Legends.Add(legend2);
 			this.Chart_func.Location = new System.Drawing.Point(8, 7);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
@@ -131,9 +130,9 @@
 			// user_guide_btn
 			// 
 			this.user_guide_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.user_guide_btn.Location = new System.Drawing.Point(135, 198);
+			this.user_guide_btn.Location = new System.Drawing.Point(6, 198);
 			this.user_guide_btn.Name = "user_guide_btn";
-			this.user_guide_btn.Size = new System.Drawing.Size(118, 27);
+			this.user_guide_btn.Size = new System.Drawing.Size(120, 27);
 			this.user_guide_btn.TabIndex = 16;
 			this.user_guide_btn.Text = "User Guide";
 			this.user_guide_btn.UseVisualStyleBackColor = true;
@@ -148,19 +147,19 @@
 			this.tree.ImageList = this.imageList;
 			this.tree.Location = new System.Drawing.Point(9, 48);
 			this.tree.Name = "tree";
-			treeNode1.ImageIndex = 1;
-			treeNode1.Name = "node_in";
-			treeNode1.SelectedImageIndex = 0;
-			treeNode1.Text = "InputUniverses";
-			treeNode2.ImageIndex = 3;
-			treeNode2.Name = "node_out";
-			treeNode2.SelectedImageIndex = 2;
-			treeNode2.Text = "OutputUniverses";
+			treeNode3.ImageIndex = 1;
+			treeNode3.Name = "node_in";
+			treeNode3.SelectedImageIndex = 0;
+			treeNode3.Text = "InputUniverses";
+			treeNode4.ImageIndex = 3;
+			treeNode4.Name = "node_out";
+			treeNode4.SelectedImageIndex = 2;
+			treeNode4.Text = "OutputUniverses";
 			this.tree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
+            treeNode3,
+            treeNode4});
 			this.tree.SelectedImageIndex = 0;
-			this.tree.Size = new System.Drawing.Size(229, 236);
+			this.tree.Size = new System.Drawing.Size(227, 236);
 			this.tree.TabIndex = 44;
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 			this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_DoubleClick);
@@ -242,7 +241,7 @@
 			this.propertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
 			this.propertyGrid.Location = new System.Drawing.Point(11, 56);
 			this.propertyGrid.Name = "propertyGrid";
-			this.propertyGrid.Size = new System.Drawing.Size(253, 232);
+			this.propertyGrid.Size = new System.Drawing.Size(255, 232);
 			this.propertyGrid.TabIndex = 59;
 			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
 			// 
@@ -257,7 +256,7 @@
 			this.sel_name.ForeColor = System.Drawing.Color.Lime;
 			this.sel_name.Location = new System.Drawing.Point(11, 6);
 			this.sel_name.Name = "sel_name";
-			this.sel_name.Size = new System.Drawing.Size(253, 38);
+			this.sel_name.Size = new System.Drawing.Size(255, 38);
 			this.sel_name.TabIndex = 60;
 			this.sel_name.Text = "NAME";
 			this.sel_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -531,7 +530,7 @@
 			this.sC02.Panel2.Controls.Add(this.sel_name);
 			this.sC02.Panel2.Controls.Add(this.propertyGrid);
 			this.sC02.Size = new System.Drawing.Size(522, 297);
-			this.sC02.SplitterDistance = 248;
+			this.sC02.SplitterDistance = 246;
 			this.sC02.TabIndex = 0;
 			// 
 			// tab
@@ -552,7 +551,6 @@
 			// 
 			this.Page01.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.Page01.Controls.Add(this.PrimFuzzy);
-			this.Page01.Controls.Add(this.area_btn);
 			this.Page01.Controls.Add(this.groupBox1);
 			this.Page01.Controls.Add(this.user_guide_btn);
 			this.Page01.Controls.Add(this.save_btn);
@@ -561,20 +559,9 @@
 			this.Page01.Location = new System.Drawing.Point(4, 23);
 			this.Page01.Name = "Page01";
 			this.Page01.Padding = new System.Windows.Forms.Padding(3);
-			this.Page01.Size = new System.Drawing.Size(511, 333);
+			this.Page01.Size = new System.Drawing.Size(515, 333);
 			this.Page01.TabIndex = 0;
 			this.Page01.Text = "Fuzzy Sets";
-			// 
-			// area_btn
-			// 
-			this.area_btn.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.area_btn.Location = new System.Drawing.Point(6, 198);
-			this.area_btn.Name = "area_btn";
-			this.area_btn.Size = new System.Drawing.Size(120, 27);
-			this.area_btn.TabIndex = 71;
-			this.area_btn.Text = "Area";
-			this.area_btn.UseVisualStyleBackColor = true;
-			this.area_btn.Click += new System.EventHandler(this.area_btn_Click);
 			// 
 			// Page02
 			// 
@@ -587,10 +574,10 @@
 			this.Page02.Controls.Add(this.rules);
 			this.Page02.Controls.Add(this.conditions);
 			this.Page02.Controls.Add(this.ifthenrules);
-			this.Page02.Location = new System.Drawing.Point(4, 23);
+			this.Page02.Location = new System.Drawing.Point(4, 22);
 			this.Page02.Name = "Page02";
 			this.Page02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page02.Size = new System.Drawing.Size(515, 333);
+			this.Page02.Size = new System.Drawing.Size(515, 334);
 			this.Page02.TabIndex = 1;
 			this.Page02.Text = "If-Then Rules";
 			// 
@@ -765,7 +752,6 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.SplitContainer sC01;
 		private System.Windows.Forms.SplitContainer sC02;
-		private System.Windows.Forms.Button area_btn;
 		private System.Windows.Forms.SplitContainer sC03;
 		private System.Windows.Forms.TabControl tab;
 		private System.Windows.Forms.TabPage Page01;

@@ -124,7 +124,7 @@ namespace R04522602許泰源Ass05{
 			}
 		}
 		[Browsable(false)]
-		public double MaxDegree{
+		public override double MaxDegree{
 			get{
 				return 1.0;
 			}
