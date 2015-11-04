@@ -8,7 +8,7 @@ namespace R04522602許泰源Ass05{
 	class Diminish : UnaryOperator{
 		double[] parameters;
 		public Diminish() {
-			name = "Diminish";
+			name = "DIM";
 			parameters = new double[1];
 			parameters[0] = rnd.NextDouble();
 		}

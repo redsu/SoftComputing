@@ -22,7 +22,7 @@ namespace R04522602許泰源Ass05{
 			OperandTwo = g;
 
             theOperator = o;
-            name = OperandOne.Name + theOperator.Name + OperandTwo.Name + count++.ToString();
+            name = OperandOne.Name + theOperator.Name + OperandTwo.Name + "(" + count++.ToString() +")";
             OperandOne.ParameterChanged += theFuzzySet_ParameterChanged;
 			OperandTwo.ParameterChanged += theFuzzySet_ParameterChanged;
 

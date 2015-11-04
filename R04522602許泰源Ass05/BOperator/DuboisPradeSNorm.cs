@@ -7,7 +7,7 @@ namespace R04522602許泰源Ass05{
 	public class DuboisPradeSNorm : BinaryOperator{
 		double[] parameters;
 		public DuboisPradeSNorm(){
-			name = "DuboisPradeSNorm";
+			name = "DPSNorm";
 			parameters = new double[1];
 			parameters[0] = rnd.NextDouble();
 		}

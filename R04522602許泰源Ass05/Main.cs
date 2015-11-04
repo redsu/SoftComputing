@@ -133,6 +133,9 @@ namespace R04522602許泰源Ass05{
 					MessageBox.Show("Invalid Parameters or Name!!");
 				}
 			}
+			else{
+				MessageBox.Show("You can't add more than one Universe to OutputUniverses");
+			}
 		}
 
 		//add unary fuzzy set
@@ -778,6 +781,10 @@ namespace R04522602許泰源Ass05{
         }
 
 		private void inf_btn_Click(object sender, EventArgs e){
+			inference();
+		}
+
+		private void inference() {
 			UpdateAllRules();
 
 			//if (finalFS != null) finalFS.DisplayEnabled = false;
@@ -811,6 +818,7 @@ namespace R04522602許泰源Ass05{
 			else
 				Cut_check.Text = "Cut";
 			Cut_check.Checked = true;
+			inference();
 		}
 
 		private void save_btn_Click(object sender, EventArgs e){

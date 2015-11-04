@@ -13,7 +13,7 @@ namespace R04522602許泰源Ass05{
         public UnaryOperatedFuzzySet(FuzzySet f, UnaryOperator o) : base(f.TheUniverse){
             theFuzzySet = f;
             theOperator = o;
-            name = theOperator.Name + theFuzzySet.Name + count++.ToString();
+            name = theOperator.Name + theFuzzySet.Name + "(" + count++.ToString() +")";
             theFuzzySet.ParameterChanged += theFuzzySet_ParameterChanged;
 			theFuzzySet.NameChanged += theFuzzySet_NameChanged;
 

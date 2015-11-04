@@ -12,7 +12,7 @@ namespace R04522602許泰源Ass05{
         //Constuctor
         public PI_fuzzy_set(Universe u) : base(u){
 			
-			name = "PiFuzzySet" + count++.ToString();
+			name = "PiFuzzySet(" + count++.ToString() +")";
 			double left = theUniverse.Xmax, right = theUniverse.Xmin;
 			double middle;
 			double leftcorner, rightcorner;

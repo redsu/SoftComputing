@@ -12,7 +12,7 @@ namespace R04522602許泰源Ass05{
 
 		//Constuctor
         public triangle_fuzzy_set(Universe u) : base(u){
-			name = "Triangle" + count++.ToString();
+			name = "Triangle(" + count++.ToString() +")";
 			double left = theUniverse.Xmax, middle, right = theUniverse.Xmin;
 			middle = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax-theUniverse.Xmin);
 			while(middle <= left)

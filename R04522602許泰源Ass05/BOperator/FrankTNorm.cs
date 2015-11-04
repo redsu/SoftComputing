@@ -7,7 +7,7 @@ namespace R04522602許泰源Ass05{
 	public class FrankTNorm : BinaryOperator{
 		double[] parameters;
 		public FrankTNorm(){
-			name = "FrankTNorm";
+			name = "FTNorm";
 			parameters = new double[1];
 			parameters[0] = -1.0;
 			while(parameters[0]<=0.0)

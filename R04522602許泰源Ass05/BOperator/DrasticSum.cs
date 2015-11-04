@@ -7,7 +7,7 @@ namespace R04522602許泰源Ass05{
 	public class DrasticSum : BinaryOperator{
 		
 		public DrasticSum(){
-			name = "DrasticSum";
+			name = "DS";
 		}
 
         public override double calculateFinalValue(double x, double y){

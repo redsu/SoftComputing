@@ -7,7 +7,7 @@ namespace R04522602許泰源Ass05{
 	public class SugenoTNorm : BinaryOperator{
 		double[] parameters;
 		public SugenoTNorm(){
-			name = "SugenoTNorm";
+			name = "STNorm";
 			parameters = new double[1];
 			parameters[0] = rnd.NextDouble()-1.0;
 		}

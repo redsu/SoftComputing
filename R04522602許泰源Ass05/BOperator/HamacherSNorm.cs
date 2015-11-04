@@ -7,7 +7,7 @@ namespace R04522602許泰源Ass05{
 	public class HamacherSNorm : BinaryOperator{
 		double[] parameters;
 		public HamacherSNorm(){
-			name = "HamacherSNorm";
+			name = "HSNorm";
 			parameters = new double[1];
 			parameters[0] = -1.0;
 			while(parameters[0]<=0.0)

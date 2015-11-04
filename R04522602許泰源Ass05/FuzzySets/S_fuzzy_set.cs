@@ -11,7 +11,7 @@ namespace R04522602許泰源Ass05{
         //Constuctor
         public S_fuzzy_set(Universe u) : base(u){
 			
-			name = "SFuzzySet" + count++.ToString();
+			name = "SFuzzySet(" + count++.ToString() +")";
 			double l, r;
 			l = theUniverse.Xmin + rnd.NextDouble() * (theUniverse.Xmax-theUniverse.Xmin);
 			r = l + rnd.NextDouble() * (theUniverse.Xmax - l);

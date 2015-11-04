@@ -12,7 +12,7 @@ namespace R04522602許泰源Ass05{
 
 		//Constuctor
         public Trapezoidal(Universe u) : base(u){
-			name = "Trapezoidal" + count++.ToString();
+			name = "Trapezoidal(" + count++.ToString() +")";
 			double left = theUniverse.Xmax, right = theUniverse.Xmin;
 			double middle;
 			double leftcorner, rightcorner;

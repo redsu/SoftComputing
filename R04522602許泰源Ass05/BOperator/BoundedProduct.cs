@@ -7,7 +7,7 @@ namespace R04522602許泰源Ass05{
 	public class BoundedProduct : BinaryOperator{
 		
 		public BoundedProduct(){
-			name = "BoundedProduct";
+			name = "BP";
 		}
 
         public override double calculateFinalValue(double x, double y){

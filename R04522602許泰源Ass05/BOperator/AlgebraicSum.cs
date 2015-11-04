@@ -7,7 +7,7 @@ namespace R04522602許泰源Ass05{
 	public class AlgebraicSum : BinaryOperator{
 		
 		public AlgebraicSum(){
-			name = "AlgebraicSum";
+			name = "AS";
 		}
 
         public override double calculateFinalValue(double x, double y){

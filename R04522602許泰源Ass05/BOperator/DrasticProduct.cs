@@ -7,7 +7,7 @@ namespace R04522602許泰源Ass05{
 	public class DrasticProduct : BinaryOperator{
 		
 		public DrasticProduct(){
-			name = "DrasticProduct";
+			name = "DP";
 		}
 
         public override double calculateFinalValue(double x, double y){
