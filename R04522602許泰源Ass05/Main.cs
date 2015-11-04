@@ -19,6 +19,7 @@ namespace R04522602許泰源Ass05{
 		protected static Random rnd = new Random(unchecked(DateTime.Now.Ticks.GetHashCode()));
 		private bool out_exist = false;
 		private FuzzySet conclusion;
+		private TreeNode tmp_node = null;
 		//Definition of tags of different control points
 		private enum Control_Point : int{
 			tri_L = 0,
@@ -572,10 +573,12 @@ namespace R04522602許泰源Ass05{
 					if(SecondFuzzySet.Tag==null){
 						FirstFuzzySet.Tag = tree.SelectedNode.Tag;
 						FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+						tmp_node = tree.SelectedNode;
 					}
 					else if(((FuzzySet)tree.SelectedNode.Tag).TheUniverse == ((FuzzySet)SecondFuzzySet.Tag).TheUniverse){
 						FirstFuzzySet.Tag = tree.SelectedNode.Tag;
 						FirstFuzzySet.Text = FirstFuzzySet.Tag.ToString();
+						tmp_node = tree.SelectedNode;
 					}
 					else{
 						MessageBox.Show(string.Format("Two fussy set operands are not defined in the same universe for binary operation."), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
@@ -600,10 +603,12 @@ namespace R04522602許泰源Ass05{
 					if(FirstFuzzySet.Tag==null){
 						SecondFuzzySet.Tag = tree.SelectedNode.Tag;
 						SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+						tmp_node = tree.SelectedNode;
 					}
 					else if(((FuzzySet)tree.SelectedNode.Tag).TheUniverse == ((FuzzySet)FirstFuzzySet.Tag).TheUniverse){
 						SecondFuzzySet.Tag = tree.SelectedNode.Tag;
 						SecondFuzzySet.Text = SecondFuzzySet.Tag.ToString();
+						tmp_node = tree.SelectedNode;
 					}
 					else{
 						MessageBox.Show(string.Format("Two fussy set operands are not defined in the same universe for binary operation."), "Change Selection Please", MessageBoxButtons.OK, MessageBoxIcon.Hand);
@@ -697,9 +702,17 @@ namespace R04522602許泰源Ass05{
 				tn.Tag = fs;
 				tn.ImageIndex = 7;
 				tn.SelectedImageIndex = 6;
-
-				tree.SelectedNode.Parent.Nodes.Add(tn);
-				fs.Display = true;
+				tmp_node.Parent.Nodes.Add(tn);
+				fs.Display = true;/*
+				if(tree.SelectedNode.Level == 2){
+					tree.SelectedNode.Parent.Nodes.Add(tn);
+					fs.Display = true;
+				}
+				if(tree.SelectedNode.Level == 1){
+					tree.SelectedNode.Nodes.Add(tn);
+					fs.Display = true;
+				}*/
+				
 			}
 
 		}
