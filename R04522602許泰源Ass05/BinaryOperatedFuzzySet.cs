@@ -22,7 +22,7 @@ namespace R04522602許泰源Ass05{
 			OperandTwo = g;
 
             theOperator = o;
-            name = OperandOne.Name + theOperator.Name + OperandTwo.Name + "(" + count++.ToString() +")";
+
 			for(int i=1; ;i++){
 				name = OperandOne.Name + theOperator.Name + OperandTwo.Name + "(" + i.ToString() + ")";
 				if(OperandOne.TheUniverse.hostChart.Series.IsUniqueName(name))
