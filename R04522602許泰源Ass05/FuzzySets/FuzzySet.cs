@@ -39,6 +39,7 @@ namespace R04522602許泰源Ass05{
             }
         }
 
+
 		[Browsable(false)]
         public DataPoint[] BP{
             get {
@@ -51,10 +52,13 @@ namespace R04522602許泰源Ass05{
             return 0.0;
         }
 
+		//Tirgger the ParameterChanged Event
         protected void TriggerEvent(){
             if (ParameterChanged != null)
                 ParameterChanged(this, null);
         }
+
+		//Tirgger the NameChanged Event
 		protected void TriggerEvent_name(){
 			if (NameChanged != null)
                 NameChanged(this, null);
@@ -192,7 +196,7 @@ namespace R04522602許泰源Ass05{
 		}
 
 		
-
+		//Change the line style  between Spline & Area
 		public void set_style(){
 			if(ctype_toggle) {
 				series.ChartType = SeriesChartType.Area;

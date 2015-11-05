@@ -625,6 +625,7 @@ namespace R04522602許泰源Ass05{
 				bs_btn.Enabled = false;
 		}
 
+		//Cancel all contents in FirstFuzzySet&SecondFuzzySet
 		private void Cancel_btn_Click(object sender, EventArgs e){
 			FirstFuzzySet.Tag = null;
 			SecondFuzzySet.Tag = null;
@@ -632,6 +633,7 @@ namespace R04522602許泰源Ass05{
 			SecondFuzzySet.Text = "Click to Assign 2nd Fuzzy Set";
 		}
 
+		//Adding BinaryOperatorFuzzySets
 		private void bs_btn_Click(object sender, EventArgs e){
 			if(FirstFuzzySet.Tag != null && SecondFuzzySet.Tag != null){
 				FuzzySet One = (FuzzySet)FirstFuzzySet.Tag;
@@ -702,20 +704,12 @@ namespace R04522602許泰源Ass05{
 				tn.ImageIndex = 7;
 				tn.SelectedImageIndex = 6;
 				tmp_node.Parent.Nodes.Add(tn);
-				fs.Display = true;/*
-				if(tree.SelectedNode.Level == 2){
-					tree.SelectedNode.Parent.Nodes.Add(tn);
-					fs.Display = true;
-				}
-				if(tree.SelectedNode.Level == 1){
-					tree.SelectedNode.Nodes.Add(tn);
-					fs.Display = true;
-				}*/
-				
+				fs.Display = true;				
 			}
 
 		}
 
+		//Change the selected line's line style
 		private void area_btn_Click(object sender, EventArgs e){
 			if(tree.SelectedNode.Level>1){
 				FuzzySet fs = (FuzzySet)tree.SelectedNode.Tag;
@@ -723,6 +717,7 @@ namespace R04522602許泰源Ass05{
 			}
 		}
 
+		//Delete inference rule
 		private void del_rules_Click(object sender, EventArgs e){
 			
 			if(ifthenrules.RowCount > 0 && ifthenrules.CurrentCell!=null){
@@ -737,6 +732,7 @@ namespace R04522602許泰源Ass05{
 			}
 		}
 
+		//Adding input/output to the ifthenrules datagridview
 		private void ifthenrules_CellClick(object sender, DataGridViewCellEventArgs e){
 			if(e.ColumnIndex>=0 && e.RowIndex>=0)
 				if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_in"){
@@ -755,6 +751,7 @@ namespace R04522602許泰源Ass05{
 				}
 		}
 
+		//Adding input/output to the conditions datagridview
 		private void conditions_CellClick(object sender, DataGridViewCellEventArgs e){
 			if(e.ColumnIndex>=0 && e.RowIndex>=0)
 				if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_in"){
@@ -766,6 +763,7 @@ namespace R04522602許泰源Ass05{
 				}
 		}
 
+		//Adding rules
 		private void add_rules_Click(object sender, EventArgs e){
 			if(ifthenrules.ColumnCount > 0)
 				ifthenrules.Rows.Add();
@@ -774,8 +772,8 @@ namespace R04522602許泰源Ass05{
 		}
 
 		List<IfThenFuzzyRule> allRules = new List<IfThenFuzzyRule>();
-        //FuzzySet finalFS;
 
+		//After click the inference button, update all rules in the ifthenrules
         void UpdateAllRules() {
             allRules.Clear();
 
@@ -792,15 +790,14 @@ namespace R04522602許泰源Ass05{
             }
         }
 
+		//Inference
 		private void inf_btn_Click(object sender, EventArgs e){
 			inference();
 		}
 
+		//Define the steps of inference in void inference()
 		private void inference() {
 			UpdateAllRules();
-
-			//if (finalFS != null) finalFS.DisplayEnabled = false;
-            //finalFS = null;
 
             List<FuzzySet> conds = new List<FuzzySet>();
 			for(int i=0; i<conditions.Columns.Count; i++){
@@ -819,11 +816,9 @@ namespace R04522602許泰源Ass05{
 			
 			conclusion.Display = true;
 			conclusion.set_style();
-
-            //finalFS.DisplayEnabled = true;
-            //finalFS.ShowFuzzyArea = true; // shade the area covered by the fuzzy set
 		}
 
+		//Toggle the checkbox Cut/Scale
 		private void Cut_check_Click(object sender, EventArgs e){
 			if(Cut_check.Text == "Cut")
 				Cut_check.Text = "Scaled";
@@ -833,9 +828,8 @@ namespace R04522602許泰源Ass05{
 			inference();
 		}
 
+		//If "Save" button is clicked, call a SaveFileDialog
 		private void save_btn_Click(object sender, EventArgs e){
-            //If "Save" button is clicked, create a save form.
-			//Metafile f = new Metafile("test");
             SaveFileDialog save = new SaveFileDialog();
 			save.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif|Png Image|*.png|Wmf Image|*.wmf";
             save.Title = "Save an Image File";
