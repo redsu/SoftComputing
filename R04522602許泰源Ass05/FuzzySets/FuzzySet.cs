@@ -183,8 +183,11 @@ namespace R04522602許泰源Ass05{
 		
 
 		public void set_style(){
-			if(ctype_toggle)
+			if(ctype_toggle) {
 				series.ChartType = SeriesChartType.Area;
+				series.BorderColor = series.Color;
+				series.Color = System.Drawing.Color.FromArgb(100, series.Color);
+			}
 			else
 				series.ChartType = SeriesChartType.Spline;
 
