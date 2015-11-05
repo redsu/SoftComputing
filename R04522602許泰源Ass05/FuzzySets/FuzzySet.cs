@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Drawing;
 using System.ComponentModel;
 namespace R04522602許泰源Ass05{
     public class FuzzySet {
@@ -80,6 +81,16 @@ namespace R04522602許泰源Ass05{
 			series.Sort(PointSortOrder.Ascending, "X");
 			
         }
+
+		[Category("Design")]
+		public Color LineColor {
+			get {
+				return series.Color;
+			}
+			set {
+				series.Color = value;
+			}
+		}
 
 		//Highlight the selected line
 		[Browsable(false)]

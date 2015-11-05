@@ -185,7 +185,6 @@ namespace R04522602許泰源Ass05{
 						tree.SelectedNode.Nodes.Add(tn);
 						tree.SelectedNode.Expand();
 						fs.Display = true;
-						
 						//tree.SelectedNode = tn;
 					}
 				}
