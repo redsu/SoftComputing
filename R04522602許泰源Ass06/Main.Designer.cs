@@ -61,10 +61,14 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.sC01 = new System.Windows.Forms.SplitContainer();
 			this.sC03 = new System.Windows.Forms.SplitContainer();
+			this.Tsukamoto = new System.Windows.Forms.RadioButton();
+			this.Sugeno = new System.Windows.Forms.RadioButton();
+			this.Mamdani = new System.Windows.Forms.RadioButton();
+			this.inf_typ = new System.Windows.Forms.Label();
 			this.sC02 = new System.Windows.Forms.SplitContainer();
 			this.tab = new System.Windows.Forms.TabControl();
 			this.Page01 = new System.Windows.Forms.TabPage();
-			this.Page02 = new System.Windows.Forms.TabPage();
+			this.Page03 = new System.Windows.Forms.TabPage();
 			this.Cut_check = new System.Windows.Forms.CheckBox();
 			this.inf_btn = new System.Windows.Forms.Button();
 			this.add_rules = new System.Windows.Forms.Button();
@@ -73,6 +77,10 @@
 			this.rules = new System.Windows.Forms.Label();
 			this.conditions = new System.Windows.Forms.DataGridView();
 			this.ifthenrules = new System.Windows.Forms.DataGridView();
+			this.Page02 = new System.Windows.Forms.TabPage();
+			this.Add_Equ = new System.Windows.Forms.Button();
+			this.equlist = new System.Windows.Forms.ListBox();
+			this.SugOut = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			this.PrimFuzzy.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -91,9 +99,10 @@
 			this.sC02.SuspendLayout();
 			this.tab.SuspendLayout();
 			this.Page01.SuspendLayout();
-			this.Page02.SuspendLayout();
+			this.Page03.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.conditions)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ifthenrules)).BeginInit();
+			this.Page02.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// Chart_func
@@ -159,7 +168,7 @@
             treeNode1,
             treeNode2});
 			this.tree.SelectedImageIndex = 0;
-			this.tree.Size = new System.Drawing.Size(227, 236);
+			this.tree.Size = new System.Drawing.Size(227, 184);
 			this.tree.TabIndex = 44;
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 			this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_DoubleClick);
@@ -241,7 +250,7 @@
 			this.propertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
 			this.propertyGrid.Location = new System.Drawing.Point(11, 56);
 			this.propertyGrid.Name = "propertyGrid";
-			this.propertyGrid.Size = new System.Drawing.Size(255, 232);
+			this.propertyGrid.Size = new System.Drawing.Size(255, 180);
 			this.propertyGrid.TabIndex = 59;
 			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
 			// 
@@ -502,6 +511,10 @@
 			// 
 			// sC03.Panel1
 			// 
+			this.sC03.Panel1.Controls.Add(this.Tsukamoto);
+			this.sC03.Panel1.Controls.Add(this.Sugeno);
+			this.sC03.Panel1.Controls.Add(this.Mamdani);
+			this.sC03.Panel1.Controls.Add(this.inf_typ);
 			this.sC03.Panel1.Controls.Add(this.sC02);
 			// 
 			// sC03.Panel2
@@ -512,10 +525,63 @@
 			this.sC03.SplitterDistance = 297;
 			this.sC03.TabIndex = 72;
 			// 
+			// Tsukamoto
+			// 
+			this.Tsukamoto.AutoSize = true;
+			this.Tsukamoto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+			this.Tsukamoto.Location = new System.Drawing.Point(211, 21);
+			this.Tsukamoto.Name = "Tsukamoto";
+			this.Tsukamoto.Size = new System.Drawing.Size(81, 18);
+			this.Tsukamoto.TabIndex = 64;
+			this.Tsukamoto.TabStop = true;
+			this.Tsukamoto.Text = "Tsukamoto";
+			this.Tsukamoto.UseVisualStyleBackColor = false;
+			this.Tsukamoto.CheckedChanged += new System.EventHandler(this.Mamdani_CheckedChanged);
+			// 
+			// Sugeno
+			// 
+			this.Sugeno.AutoSize = true;
+			this.Sugeno.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+			this.Sugeno.Location = new System.Drawing.Point(111, 21);
+			this.Sugeno.Name = "Sugeno";
+			this.Sugeno.Size = new System.Drawing.Size(63, 18);
+			this.Sugeno.TabIndex = 63;
+			this.Sugeno.TabStop = true;
+			this.Sugeno.Text = "Sugeno";
+			this.Sugeno.UseVisualStyleBackColor = false;
+			this.Sugeno.CheckedChanged += new System.EventHandler(this.Mamdani_CheckedChanged);
+			// 
+			// Mamdani
+			// 
+			this.Mamdani.AutoSize = true;
+			this.Mamdani.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+			this.Mamdani.Location = new System.Drawing.Point(11, 21);
+			this.Mamdani.Name = "Mamdani";
+			this.Mamdani.Size = new System.Drawing.Size(74, 18);
+			this.Mamdani.TabIndex = 62;
+			this.Mamdani.TabStop = true;
+			this.Mamdani.Text = "Mamdani";
+			this.Mamdani.UseVisualStyleBackColor = false;
+			this.Mamdani.CheckedChanged += new System.EventHandler(this.Mamdani_CheckedChanged);
+			// 
+			// inf_typ
+			// 
+			this.inf_typ.AccessibleRole = System.Windows.Forms.AccessibleRole.IpAddress;
+			this.inf_typ.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.inf_typ.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+			this.inf_typ.Cursor = System.Windows.Forms.Cursors.Default;
+			this.inf_typ.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.inf_typ.ForeColor = System.Drawing.Color.Lime;
+			this.inf_typ.Location = new System.Drawing.Point(-1, 0);
+			this.inf_typ.Name = "inf_typ";
+			this.inf_typ.Size = new System.Drawing.Size(523, 54);
+			this.inf_typ.TabIndex = 61;
+			this.inf_typ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// sC02
 			// 
-			this.sC02.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.sC02.Location = new System.Drawing.Point(0, 0);
+			this.sC02.Location = new System.Drawing.Point(0, 52);
 			this.sC02.Name = "sC02";
 			// 
 			// sC02.Panel1
@@ -529,7 +595,7 @@
 			this.sC02.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC02.Panel2.Controls.Add(this.sel_name);
 			this.sC02.Panel2.Controls.Add(this.propertyGrid);
-			this.sC02.Size = new System.Drawing.Size(522, 297);
+			this.sC02.Size = new System.Drawing.Size(522, 245);
 			this.sC02.SplitterDistance = 246;
 			this.sC02.TabIndex = 0;
 			// 
@@ -539,6 +605,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tab.Controls.Add(this.Page01);
+			this.tab.Controls.Add(this.Page03);
 			this.tab.Controls.Add(this.Page02);
 			this.tab.Location = new System.Drawing.Point(3, 3);
 			this.tab.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
@@ -563,23 +630,23 @@
 			this.Page01.TabIndex = 0;
 			this.Page01.Text = "Fuzzy Sets";
 			// 
-			// Page02
+			// Page03
 			// 
-			this.Page02.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.Page02.Controls.Add(this.Cut_check);
-			this.Page02.Controls.Add(this.inf_btn);
-			this.Page02.Controls.Add(this.add_rules);
-			this.Page02.Controls.Add(this.del_rules);
-			this.Page02.Controls.Add(this.conds);
-			this.Page02.Controls.Add(this.rules);
-			this.Page02.Controls.Add(this.conditions);
-			this.Page02.Controls.Add(this.ifthenrules);
-			this.Page02.Location = new System.Drawing.Point(4, 23);
-			this.Page02.Name = "Page02";
-			this.Page02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page02.Size = new System.Drawing.Size(515, 333);
-			this.Page02.TabIndex = 1;
-			this.Page02.Text = "If-Then Rules";
+			this.Page03.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.Page03.Controls.Add(this.Cut_check);
+			this.Page03.Controls.Add(this.inf_btn);
+			this.Page03.Controls.Add(this.add_rules);
+			this.Page03.Controls.Add(this.del_rules);
+			this.Page03.Controls.Add(this.conds);
+			this.Page03.Controls.Add(this.rules);
+			this.Page03.Controls.Add(this.conditions);
+			this.Page03.Controls.Add(this.ifthenrules);
+			this.Page03.Location = new System.Drawing.Point(4, 22);
+			this.Page03.Name = "Page03";
+			this.Page03.Padding = new System.Windows.Forms.Padding(3);
+			this.Page03.Size = new System.Drawing.Size(515, 334);
+			this.Page03.TabIndex = 1;
+			this.Page03.Text = "If-Then Rules";
 			// 
 			// Cut_check
 			// 
@@ -679,6 +746,59 @@
 			this.ifthenrules.TabIndex = 0;
 			this.ifthenrules.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ifthenrules_CellClick);
 			// 
+			// Page02
+			// 
+			this.Page02.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.Page02.Controls.Add(this.Add_Equ);
+			this.Page02.Controls.Add(this.equlist);
+			this.Page02.Controls.Add(this.SugOut);
+			this.Page02.Location = new System.Drawing.Point(4, 22);
+			this.Page02.Name = "Page02";
+			this.Page02.Padding = new System.Windows.Forms.Padding(3);
+			this.Page02.Size = new System.Drawing.Size(515, 334);
+			this.Page02.TabIndex = 2;
+			this.Page02.Text = "Output Equations";
+			// 
+			// Add_Equ
+			// 
+			this.Add_Equ.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Add_Equ.Location = new System.Drawing.Point(365, 32);
+			this.Add_Equ.Name = "Add_Equ";
+			this.Add_Equ.Size = new System.Drawing.Size(106, 41);
+			this.Add_Equ.TabIndex = 47;
+			this.Add_Equ.Text = "Add Equation";
+			this.Add_Equ.UseVisualStyleBackColor = true;
+			// 
+			// equlist
+			// 
+			this.equlist.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.equlist.FormattingEnabled = true;
+			this.equlist.ItemHeight = 14;
+			this.equlist.Items.AddRange(new object[] {
+            "0: Y = 0.1X + 6.4",
+            "1: Y = 0.5X + 4",
+            "2: Y = X - 2",
+            "3: z = -x + y + 1",
+            "4: z = -y + 3",
+            "5: z = -x + 3",
+            "6: z =  x + y + 2"});
+			this.equlist.Location = new System.Drawing.Point(10, 32);
+			this.equlist.Name = "equlist";
+			this.equlist.Size = new System.Drawing.Size(310, 284);
+			this.equlist.TabIndex = 3;
+			// 
+			// SugOut
+			// 
+			this.SugOut.AutoSize = true;
+			this.SugOut.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.SugOut.ForeColor = System.Drawing.Color.Purple;
+			this.SugOut.Location = new System.Drawing.Point(6, 10);
+			this.SugOut.Name = "SugOut";
+			this.SugOut.Size = new System.Drawing.Size(119, 19);
+			this.SugOut.TabIndex = 2;
+			this.SugOut.Text = "Sugeno Output";
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -705,6 +825,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.sC01)).EndInit();
 			this.sC01.ResumeLayout(false);
 			this.sC03.Panel1.ResumeLayout(false);
+			this.sC03.Panel1.PerformLayout();
 			this.sC03.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.sC03)).EndInit();
 			this.sC03.ResumeLayout(false);
@@ -714,10 +835,12 @@
 			this.sC02.ResumeLayout(false);
 			this.tab.ResumeLayout(false);
 			this.Page01.ResumeLayout(false);
-			this.Page02.ResumeLayout(false);
-			this.Page02.PerformLayout();
+			this.Page03.ResumeLayout(false);
+			this.Page03.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.conditions)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.ifthenrules)).EndInit();
+			this.Page02.ResumeLayout(false);
+			this.Page02.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -756,7 +879,7 @@
 		private System.Windows.Forms.TabControl tab;
 		private System.Windows.Forms.TabPage Page01;
 		private System.Windows.Forms.DataGridView ifthenrules;
-		private System.Windows.Forms.TabPage Page02;
+		private System.Windows.Forms.TabPage Page03;
 		private System.Windows.Forms.DataGridView conditions;
 		private System.Windows.Forms.Button add_rules;
 		private System.Windows.Forms.Button del_rules;
@@ -764,6 +887,14 @@
 		private System.Windows.Forms.Label rules;
 		private System.Windows.Forms.CheckBox Cut_check;
 		private System.Windows.Forms.Button inf_btn;
+		private System.Windows.Forms.RadioButton Tsukamoto;
+		private System.Windows.Forms.RadioButton Sugeno;
+		private System.Windows.Forms.RadioButton Mamdani;
+		private System.Windows.Forms.Label inf_typ;
+		private System.Windows.Forms.TabPage Page02;
+		private System.Windows.Forms.Button Add_Equ;
+		private System.Windows.Forms.ListBox equlist;
+		private System.Windows.Forms.Label SugOut;
 	}
 }
 

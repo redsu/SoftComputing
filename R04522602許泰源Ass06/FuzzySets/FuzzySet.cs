@@ -199,6 +199,13 @@ namespace R04522602許泰源Ass06{
 		}
 
 		[Browsable(false)]
+		public virtual double MaxDegreeMember{
+			get{
+				return series.Points.FindMaxByValue("Y1").XValue;
+			}
+		}
+
+		[Browsable(false)]
 		public virtual double COACrispValue{
 			get{
 				if(series.Points.Count == 0)

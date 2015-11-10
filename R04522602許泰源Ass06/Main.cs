@@ -20,6 +20,7 @@ namespace R04522602許泰源Ass06{
 		private bool out_exist = false;
 		private FuzzySet conclusion;
 		private TreeNode tmp_node = null;
+		private TabPage O_Equ;
 		//Definition of tags of different control points
 		private enum Control_Point : int{
 			tri_L = 0,
@@ -52,6 +53,13 @@ namespace R04522602許泰源Ass06{
 			tip.ToolTipTitle = "操作提示";
 			tip.SetToolTip(this.Chart_func,"點拉線圖上的控制點，\n即時調整曲線參數。");
 			tip.ToolTipIcon = ToolTipIcon.Info;
+			
+			O_Equ = tab.TabPages[2];
+			tab.TabPages.RemoveByKey("Page02");
+			IntPtr h = this.tab.Handle;
+			tab.TabPages.Insert(1,O_Equ);
+			tab.Refresh();
+			Mamdani.Checked = true;
 			//Change the language of exception messages into Engilsh.
             System.Threading.Thread.CurrentThread.CurrentCulture = 
                                         new System.Globalization.CultureInfo("en-US");
@@ -861,6 +869,20 @@ namespace R04522602許泰源Ass06{
 			}
             
         }
+
+		private void Mamdani_CheckedChanged(object sender, EventArgs e){
+			if(Mamdani.Checked){
+				tab.TabPages.RemoveByKey("Page02");
+			}
+			else if(Sugeno.Checked){
+				if(!tab.TabPages.Contains(O_Equ))
+					tab.TabPages.Insert(1, O_Equ);
+			}
+			else{
+				tab.TabPages.RemoveByKey("Page02");
+			}
+
+		}
 		
     }
 }
