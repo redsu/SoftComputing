@@ -81,6 +81,12 @@
 			this.Add_Equ = new System.Windows.Forms.Button();
 			this.equlist = new System.Windows.Forms.ListBox();
 			this.SugOut = new System.Windows.Forms.Label();
+			this.sC04 = new System.Windows.Forms.SplitContainer();
+			this.infpage = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			this.PrimFuzzy.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -103,6 +109,13 @@
 			((System.ComponentModel.ISupportInitialize)(this.conditions)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ifthenrules)).BeginInit();
 			this.Page02.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.sC04)).BeginInit();
+			this.sC04.Panel1.SuspendLayout();
+			this.sC04.Panel2.SuspendLayout();
+			this.sC04.SuspendLayout();
+			this.infpage.SuspendLayout();
+			this.tabPage1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// Chart_func
@@ -114,10 +127,10 @@
 			this.Chart_func.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalRight;
 			legend1.Name = "Legend1";
 			this.Chart_func.Legends.Add(legend1);
-			this.Chart_func.Location = new System.Drawing.Point(8, 7);
+			this.Chart_func.Location = new System.Drawing.Point(0, 0);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
-			this.Chart_func.Size = new System.Drawing.Size(455, 645);
+			this.Chart_func.Size = new System.Drawing.Size(472, 462);
 			this.Chart_func.TabIndex = 4;
 			this.Chart_func.Text = "Chart";
 			this.Chart_func.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Chart_func_MouseDown);
@@ -168,7 +181,7 @@
             treeNode1,
             treeNode2});
 			this.tree.SelectedImageIndex = 0;
-			this.tree.Size = new System.Drawing.Size(227, 184);
+			this.tree.Size = new System.Drawing.Size(227, 274);
 			this.tree.TabIndex = 44;
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 			this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_DoubleClick);
@@ -250,7 +263,7 @@
 			this.propertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
 			this.propertyGrid.Location = new System.Drawing.Point(11, 56);
 			this.propertyGrid.Name = "propertyGrid";
-			this.propertyGrid.Size = new System.Drawing.Size(255, 180);
+			this.propertyGrid.Size = new System.Drawing.Size(255, 266);
 			this.propertyGrid.TabIndex = 59;
 			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
 			// 
@@ -496,9 +509,9 @@
 			// 
 			// sC01.Panel2
 			// 
-			this.sC01.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.sC01.Panel2.Controls.Add(this.Chart_func);
-			this.sC01.Size = new System.Drawing.Size(998, 661);
+			this.sC01.Panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.sC01.Panel2.Controls.Add(this.sC04);
+			this.sC01.Size = new System.Drawing.Size(998, 750);
 			this.sC01.SplitterDistance = 522;
 			this.sC01.TabIndex = 71;
 			// 
@@ -521,8 +534,8 @@
 			// 
 			this.sC03.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC03.Panel2.Controls.Add(this.tab);
-			this.sC03.Size = new System.Drawing.Size(522, 661);
-			this.sC03.SplitterDistance = 297;
+			this.sC03.Size = new System.Drawing.Size(522, 750);
+			this.sC03.SplitterDistance = 377;
 			this.sC03.TabIndex = 72;
 			// 
 			// Tsukamoto
@@ -581,6 +594,9 @@
 			// 
 			// sC02
 			// 
+			this.sC02.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.sC02.Location = new System.Drawing.Point(0, 52);
 			this.sC02.Name = "sC02";
 			// 
@@ -595,7 +611,7 @@
 			this.sC02.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC02.Panel2.Controls.Add(this.sel_name);
 			this.sC02.Panel2.Controls.Add(this.propertyGrid);
-			this.sC02.Size = new System.Drawing.Size(522, 245);
+			this.sC02.Size = new System.Drawing.Size(522, 406);
 			this.sC02.SplitterDistance = 246;
 			this.sC02.TabIndex = 0;
 			// 
@@ -611,7 +627,7 @@
 			this.tab.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
 			this.tab.Name = "tab";
 			this.tab.SelectedIndex = 0;
-			this.tab.Size = new System.Drawing.Size(523, 360);
+			this.tab.Size = new System.Drawing.Size(523, 467);
 			this.tab.TabIndex = 5;
 			// 
 			// Page01
@@ -626,7 +642,7 @@
 			this.Page01.Location = new System.Drawing.Point(4, 23);
 			this.Page01.Name = "Page01";
 			this.Page01.Padding = new System.Windows.Forms.Padding(3);
-			this.Page01.Size = new System.Drawing.Size(515, 333);
+			this.Page01.Size = new System.Drawing.Size(515, 440);
 			this.Page01.TabIndex = 0;
 			this.Page01.Text = "Fuzzy Sets";
 			// 
@@ -641,10 +657,10 @@
 			this.Page03.Controls.Add(this.rules);
 			this.Page03.Controls.Add(this.conditions);
 			this.Page03.Controls.Add(this.ifthenrules);
-			this.Page03.Location = new System.Drawing.Point(4, 22);
+			this.Page03.Location = new System.Drawing.Point(4, 23);
 			this.Page03.Name = "Page03";
 			this.Page03.Padding = new System.Windows.Forms.Padding(3);
-			this.Page03.Size = new System.Drawing.Size(515, 334);
+			this.Page03.Size = new System.Drawing.Size(515, 440);
 			this.Page03.TabIndex = 1;
 			this.Page03.Text = "If-Then Rules";
 			// 
@@ -727,7 +743,7 @@
 			this.conditions.ReadOnly = true;
 			this.conditions.RowTemplate.Height = 24;
 			this.conditions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.conditions.Size = new System.Drawing.Size(499, 112);
+			this.conditions.Size = new System.Drawing.Size(503, 112);
 			this.conditions.TabIndex = 0;
 			this.conditions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.conditions_CellClick);
 			// 
@@ -742,7 +758,7 @@
 			this.ifthenrules.ReadOnly = true;
 			this.ifthenrules.RowTemplate.Height = 24;
 			this.ifthenrules.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.ifthenrules.Size = new System.Drawing.Size(499, 125);
+			this.ifthenrules.Size = new System.Drawing.Size(503, 125);
 			this.ifthenrules.TabIndex = 0;
 			this.ifthenrules.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ifthenrules_CellClick);
 			// 
@@ -752,10 +768,10 @@
 			this.Page02.Controls.Add(this.Add_Equ);
 			this.Page02.Controls.Add(this.equlist);
 			this.Page02.Controls.Add(this.SugOut);
-			this.Page02.Location = new System.Drawing.Point(4, 22);
+			this.Page02.Location = new System.Drawing.Point(4, 23);
 			this.Page02.Name = "Page02";
 			this.Page02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page02.Size = new System.Drawing.Size(515, 334);
+			this.Page02.Size = new System.Drawing.Size(515, 440);
 			this.Page02.TabIndex = 2;
 			this.Page02.Text = "Output Equations";
 			// 
@@ -783,9 +799,9 @@
             "4: z = -y + 3",
             "5: z = -x + 3",
             "6: z =  x + y + 2"});
-			this.equlist.Location = new System.Drawing.Point(10, 32);
+			this.equlist.Location = new System.Drawing.Point(10, 33);
 			this.equlist.Name = "equlist";
-			this.equlist.Size = new System.Drawing.Size(310, 284);
+			this.equlist.Size = new System.Drawing.Size(310, 298);
 			this.equlist.TabIndex = 3;
 			// 
 			// SugOut
@@ -799,12 +815,87 @@
 			this.SugOut.TabIndex = 2;
 			this.SugOut.Text = "Sugeno Output";
 			// 
+			// sC04
+			// 
+			this.sC04.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.sC04.Location = new System.Drawing.Point(0, 0);
+			this.sC04.Name = "sC04";
+			this.sC04.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// sC04.Panel1
+			// 
+			this.sC04.Panel1.Controls.Add(this.Chart_func);
+			// 
+			// sC04.Panel2
+			// 
+			this.sC04.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.sC04.Panel2.Controls.Add(this.infpage);
+			this.sC04.Size = new System.Drawing.Size(472, 750);
+			this.sC04.SplitterDistance = 462;
+			this.sC04.TabIndex = 61;
+			// 
+			// infpage
+			// 
+			this.infpage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.infpage.Controls.Add(this.tabPage1);
+			this.infpage.Controls.Add(this.tabPage2);
+			this.infpage.Location = new System.Drawing.Point(0, 0);
+			this.infpage.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+			this.infpage.Name = "infpage";
+			this.infpage.SelectedIndex = 0;
+			this.infpage.Size = new System.Drawing.Size(472, 281);
+			this.infpage.TabIndex = 6;
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.tabPage1.Controls.Add(this.button1);
+			this.tabPage1.Location = new System.Drawing.Point(4, 23);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(464, 254);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "1D Input/Output Map";
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.tabPage2.Controls.Add(this.button2);
+			this.tabPage2.Location = new System.Drawing.Point(4, 23);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage2.Size = new System.Drawing.Size(464, 254);
+			this.tabPage2.TabIndex = 1;
+			this.tabPage2.Text = "2D Input/Output Map";
+			// 
+			// button1
+			// 
+			this.button1.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.Location = new System.Drawing.Point(-1, 0);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(79, 254);
+			this.button1.TabIndex = 49;
+			this.button1.Text = "Inference All Crisp Inputs";
+			this.button1.UseVisualStyleBackColor = true;
+			// 
+			// button2
+			// 
+			this.button2.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.Location = new System.Drawing.Point(-1, 0);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(79, 254);
+			this.button2.TabIndex = 50;
+			this.button2.Text = "Inference All Crisp Inputs";
+			this.button2.UseVisualStyleBackColor = true;
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.ClientSize = new System.Drawing.Size(998, 661);
+			this.ClientSize = new System.Drawing.Size(998, 750);
 			this.Controls.Add(this.sC01);
 			this.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -841,6 +932,13 @@
 			((System.ComponentModel.ISupportInitialize)(this.ifthenrules)).EndInit();
 			this.Page02.ResumeLayout(false);
 			this.Page02.PerformLayout();
+			this.sC04.Panel1.ResumeLayout(false);
+			this.sC04.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.sC04)).EndInit();
+			this.sC04.ResumeLayout(false);
+			this.infpage.ResumeLayout(false);
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -895,6 +993,12 @@
 		private System.Windows.Forms.Button Add_Equ;
 		private System.Windows.Forms.ListBox equlist;
 		private System.Windows.Forms.Label SugOut;
+		private System.Windows.Forms.SplitContainer sC04;
+		private System.Windows.Forms.TabControl infpage;
+		private System.Windows.Forms.TabPage tabPage1;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.TabPage tabPage2;
+		private System.Windows.Forms.Button button2;
 	}
 }
 

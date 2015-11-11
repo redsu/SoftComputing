@@ -205,7 +205,7 @@ namespace R04522602許泰源Ass06{
 			}
 		}
 
-		[Browsable(false)]
+		//[Browsable(false)]
 		public virtual double COACrispValue{
 			get{
 				if(series.Points.Count == 0)
@@ -224,7 +224,7 @@ namespace R04522602許泰源Ass06{
 			}
 		}
 
-		[Browsable(false)]
+		//[Browsable(false)]
 		public virtual double BOACrispValue{
 			get{
 				if(series.Points.Count == 0)
@@ -241,11 +241,11 @@ namespace R04522602許泰源Ass06{
 					if(L>=R)
 						break;
 				}
-				return i;
+				return (series.Points[i].XValue+series.Points[i-1].XValue)/2.0;
 			}
 		}
 
-		[Browsable(false)]
+		//[Browsable(false)]
 		public virtual double MOMCrispValue{
 			get{
 				if(series.Points.Count == 0)
@@ -263,7 +263,7 @@ namespace R04522602許泰源Ass06{
 					if(series.Points[i].YValues[0] == max)
 						cnt++;
 				if(cnt == 1)
-					return mi;
+					return series.Points[mi].XValue;
 				else{
 					if(series.Points[0].YValues[0] == max)
 						L = 0;
@@ -277,16 +277,16 @@ namespace R04522602許泰源Ass06{
 						R = series.Points.Count-1;
 					else
 						for(i=0; i<series.Points.Count-1; i++){
-							if(series.Points[i].YValues[0]!=max&&series.Points[i+1].YValues[0]==max)
+							if(series.Points[i].YValues[0]==max&&series.Points[i+1].YValues[0]!=max)
 								R = i;
 						}
 
-					return (L+R)/2;
+					return (series.Points[L].XValue+series.Points[R].XValue)/2;
 				}
 			}
 		}
 
-		[Browsable(false)]
+		//[Browsable(false)]
 		public virtual double SOMCrispValue{
 			get{
 				if(series.Points.Count == 0)
@@ -304,7 +304,7 @@ namespace R04522602許泰源Ass06{
 					if(series.Points[i].YValues[0] == max)
 						cnt++;
 				if(cnt == 1)
-					return mi;
+					return series.Points[mi].XValue;
 				else{
 					if(series.Points[0].YValues[0] == max)
 						L = 0;
@@ -313,12 +313,12 @@ namespace R04522602許泰源Ass06{
 							if(series.Points[i].YValues[0]==max&&series.Points[i-1].YValues[0]!=max)
 								L = i;
 						}
-					return L;
+					return series.Points[L].XValue;
 				}
 			}
 		}
 
-		[Browsable(false)]
+		//[Browsable(false)]
 		public virtual double LOMCrispValue{
 			get{
 				if(series.Points.Count == 0)
@@ -336,17 +336,17 @@ namespace R04522602許泰源Ass06{
 					if(series.Points[i].YValues[0] == max)
 						cnt++;
 				if(cnt == 1)
-					return mi;
+					return series.Points[mi].XValue;
 				else{
 					if(series.Points[series.Points.Count-1].YValues[0] == max)
 						R = series.Points.Count-1;
 					else
 						for(i=0; i<series.Points.Count-1; i++){
-							if(series.Points[i].YValues[0]!=max&&series.Points[i+1].YValues[0]==max)
+							if(series.Points[i].YValues[0]==max&&series.Points[i+1].YValues[0]!=max)
 								R = i;
 						}
 
-					return R;
+					return series.Points[R].XValue;
 				}
 			}
 		}

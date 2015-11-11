@@ -276,6 +276,7 @@ namespace R04522602許泰源Ass06{
 
 		//Change the name show on the tag of the tree
 		private void propertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e){
+			propertyGrid.Refresh();
 			if(tree.SelectedNode.Tag is FuzzySet)
 				((FuzzySet)tree.SelectedNode.Tag).Enchant = true;
 			if (e.ChangedItem.Label == "Name"){
@@ -869,14 +870,29 @@ namespace R04522602許泰源Ass06{
 			}
             
         }
+		private List<TreeNode> outputFuzzySetNodes = new List<TreeNode>();
+		private List<TreeNode> outputEquationNodes = new List<TreeNode>();
 
 		private void Mamdani_CheckedChanged(object sender, EventArgs e){
 			if(Mamdani.Checked){
 				tab.TabPages.RemoveByKey("Page02");
+				foreach(TreeNode tn0 in outputFuzzySetNodes){
+					if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
+						tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
+				}
+
 			}
 			else if(Sugeno.Checked){
 				if(!tab.TabPages.Contains(O_Equ))
 					tab.TabPages.Insert(1, O_Equ);
+				if(tree.Nodes[1].Nodes.Count>0)
+					if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
+						outputFuzzySetNodes.Clear();
+						foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes){
+							outputFuzzySetNodes.Add(tn0);
+						}
+						tree.Nodes[1].Nodes[0].Nodes.Clear();
+					}
 			}
 			else{
 				tab.TabPages.RemoveByKey("Page02");
