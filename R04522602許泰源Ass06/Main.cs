@@ -21,6 +21,9 @@ namespace R04522602許泰源Ass06{
 		private FuzzySet conclusion;
 		private TreeNode tmp_node = null;
 		private TabPage O_Equ;
+		private TabPage OneDpage;
+		private TabPage TwoDpage;
+		private FuzzyInferenceSystem fis;
 		//Definition of tags of different control points
 		private enum Control_Point : int{
 			tri_L = 0,
@@ -55,7 +58,11 @@ namespace R04522602許泰源Ass06{
 			tip.ToolTipIcon = ToolTipIcon.Info;
 			
 			O_Equ = tab.TabPages[2];
+			OneDpage = infpage.TabPages[0];
+			TwoDpage = infpage.TabPages[1];
 			tab.TabPages.RemoveByKey("Page02");
+			infpage.TabPages.RemoveByKey("Page_01");
+			infpage.TabPages.RemoveByKey("Page_02");
 			IntPtr h = this.tab.Handle;
 			tab.TabPages.Insert(1,O_Equ);
 			tab.Refresh();
@@ -99,27 +106,39 @@ namespace R04522602許泰源Ass06{
 			Universe u;
 			if(tree.SelectedNode.Level == 0 && tree.SelectedNode.Name == "node_in"){
 				try{
-						u = new Universe(Chart_func);
-						TreeNode tn = new TreeNode( u.Name );
-						tn.Tag = u;
-						tn.Checked = true;
-						//tree.Nodes.Add(tn);
-						tree.SelectedNode.Nodes.Add(tn);
-						tree.SelectedNode.Expand();
-						tn.SelectedImageIndex = 4;
-						tn.ImageIndex = 5;
-						if(out_exist){
-							DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
-							col.Name = u.Name;
-							col.HeaderText = u.Name;
-							ifthenrules.Columns.Insert(ifthenrules.Columns.Count-1, col);
-						}
-						else{
-							ifthenrules.Columns.Add(u.Name, u.Name);
-						}
-						conditions.Columns.Add(u.Name, u.Name);
-						if (conditions.Rows.Count<1)
-							conditions.Rows.Add();
+					u = new Universe(Chart_func);
+					TreeNode tn = new TreeNode( u.Name );
+					tn.Tag = u;
+					tn.Checked = true;
+					//tree.Nodes.Add(tn);
+					tree.SelectedNode.Nodes.Add(tn);
+					tree.SelectedNode.Expand();
+					tn.SelectedImageIndex = 4;
+					tn.ImageIndex = 5;
+					if(out_exist){
+						DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
+						col.Name = u.Name;
+						col.HeaderText = u.Name;
+						ifthenrules.Columns.Insert(ifthenrules.Columns.Count-1, col);
+					}
+					else{
+						ifthenrules.Columns.Add(u.Name, u.Name);
+					}
+					conditions.Columns.Add(u.Name, u.Name);
+					if (conditions.Rows.Count<1)
+						conditions.Rows.Add();
+					
+					if(tree.SelectedNode.Nodes.Count == 1){
+						infpage.TabPages.Add(OneDpage);
+					}
+					else if(tree.SelectedNode.Nodes.Count == 2){
+						infpage.TabPages.RemoveByKey("Page_01");
+						infpage.TabPages.Add(TwoDpage);
+					}
+					else if(tree.SelectedNode.Nodes.Count > 2){
+						infpage.TabPages.RemoveByKey("Page_02");
+					}
+					
 				}catch{
 					MessageBox.Show("Invalid Parameters or Name!!");
 				}
@@ -256,6 +275,21 @@ namespace R04522602許泰源Ass06{
 					}
 					Chart_func.ChartAreas[u.Name].Visible = false;
 					tree.SelectedNode.Remove();
+
+					if(tree.Nodes[0].Nodes.Count == 0){
+						infpage.TabPages.RemoveByKey("Page_01");
+					}
+					else if(tree.Nodes[0].Nodes.Count == 1){
+						infpage.TabPages.RemoveByKey("Page_02");
+						infpage.TabPages.Add(OneDpage);
+					}
+					else if(tree.Nodes[0].Nodes.Count == 2){
+						infpage.TabPages.RemoveByKey("Page_01");
+						infpage.TabPages.Add(TwoDpage);
+					}
+					else if(tree.Nodes[0].Nodes.Count > 2){
+						infpage.TabPages.RemoveByKey("Page_02");
+					}
 				}
 				else{
 					Universe u = tree.SelectedNode.Parent.Tag as Universe;
@@ -796,8 +830,8 @@ namespace R04522602許泰源Ass06{
                 for ( j = 0; j < ifthenrules.Columns.Count - 1; j++){
                     ant.Add( (FuzzySet)  ifthenrules.Rows[i].Cells[j].Value);
                 }
-
-                IfThenFuzzyRule arule = new IfThenFuzzyRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut");
+				MamdaniIfThenRule arule = new MamdaniIfThenRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut");
+                //IfThenFuzzyRule arule = new IfThenFuzzyRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut");
                 allRules.Add(arule);
             }
         }
@@ -880,7 +914,6 @@ namespace R04522602許泰源Ass06{
 					if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
 						tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
 				}
-
 			}
 			else if(Sugeno.Checked){
 				if(!tab.TabPages.Contains(O_Equ))
@@ -898,6 +931,37 @@ namespace R04522602許泰源Ass06{
 				tab.TabPages.RemoveByKey("Page02");
 			}
 
+		}
+
+		private void oneDinf_Click(object sender, EventArgs e){
+			UpdateAllRules();
+			if(Mamdani.Checked){
+				fis = new MamdaniFuzzySystem(allRules);
+			}
+			else if(Sugeno.Checked){
+
+			}
+			else if(Tsukamoto.Checked){
+
+			}
+			Universe u0, u1;
+			u0 = (Universe)tree.Nodes[0].Nodes[0].Tag;
+			u1 = (Universe)tree.Nodes[1].Nodes[0].Tag;
+			cht1d.Series[0].Name = string.Format("{0}-{1}", u0.Name, u1.Name);
+			cht1d.ChartAreas[0].AxisX.Title = u0.Name;
+			cht1d.ChartAreas[0].AxisY.Title = u1.Name;
+			List<double> list = new List<double>();
+			list.Add(0.0);
+			cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax;
+			cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin;
+			cht1d.Series[0].Points.Clear();
+			for (double i = u0.Xmin; i <= u0.Xmax; i += u0.Interval)
+			{
+				list[0] = i;
+				double yValue = fis.CrispInCrispOutInferencing(list, DefuzzificationType.COA);
+				cht1d.Series[0].Points.AddXY(i, yValue);
+			}
+			cht1d.Refresh();
 		}
 		
     }

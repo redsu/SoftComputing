@@ -66,7 +66,7 @@ namespace R04522602許泰源Ass06{
 		//Virtual function can be override by new definition if needed
         protected void UpdateSeriesPoints(){
             series.Points.Clear();
-            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
+            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x += theUniverse.Interval){
                 double y = GetFunctionValue( x );
                 series.Points.AddXY(x, y);
             }
@@ -77,6 +77,7 @@ namespace R04522602許泰源Ass06{
 							series.Points.AddXY(pt.XValue, pt.YValues[0]);
 					}
 				}
+			series.Points.AddXY(10.0, GetFunctionValue( 10.0 ));
 			series.Sort(PointSortOrder.Ascending, "X");
 			
         }

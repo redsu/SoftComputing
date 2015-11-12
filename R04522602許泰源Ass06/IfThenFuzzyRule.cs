@@ -16,7 +16,7 @@ namespace R04522602許泰源Ass06{
             useCut = isCut;
         }
 
-        /*public FuzzySet Inference(List<FuzzySet> condition){
+        public FuzzySet Inference(List<FuzzySet> condition){
             double finalStrength = double.MaxValue;
 			double MaxDegree = 0.0;
 
@@ -25,7 +25,7 @@ namespace R04522602許泰源Ass06{
 				finalStrength = finalStrength > MaxDegree ? MaxDegree : finalStrength;
             }
             return useCut ? finalStrength - conclusion : finalStrength * conclusion;
-        }*/
+        }
 
 		public virtual double FuzzyInCrispOutInferencing(List<FuzzySet> condition)
         { throw new Exception("No implementation for FuzzyInCrispOutInferencing()."); }
@@ -36,9 +36,9 @@ namespace R04522602許泰源Ass06{
         public virtual double CrispInCrispOutInferencing(List<double> condition)
         { throw new Exception("No implementation for CrispInCrispOutInferencing()."); }
 
-		internal FuzzySet Inference(List<FuzzySet> conds)
+		/*internal FuzzySet Inference(List<FuzzySet> conds)
 		{
 			throw new NotImplementedException();
-		}
+		}*/
 	}
 }

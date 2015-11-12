@@ -26,14 +26,12 @@ namespace R04522602許泰源Ass06{
             return final;
         }
 
-        public virtual double CrispInCrispOutInferencing(List<double> condition, DefuzzificationType type)
-        {
+        public virtual double CrispInCrispOutInferencing(List<double> condition, DefuzzificationType type){
             FuzzySet final = null;
             final = allRules[0].CrispInFuzzyOutInferencing(condition);
             for (int i = 1; i < allRules.Count; i++)
 				final |= allRules[i].CrispInFuzzyOutInferencing(condition);
-            switch (type)
-            {
+            switch (type){
                 case DefuzzificationType.BOA:
 					return final.BOACrispValue;
                 case DefuzzificationType.COA:
