@@ -181,15 +181,13 @@ namespace R04522602許泰源Ass06{
 			return fs;
 		}
 
-		
-
-		public void set_style(){
-			if(ctype_toggle)
-				series.ChartType = SeriesChartType.Area;
-			else
-				series.ChartType = SeriesChartType.Spline;
-
-			ctype_toggle = !ctype_toggle;
+		[Browsable(false)]
+		public virtual bool DisplayArea{
+			set{
+				if(value){
+					series.ChartType = SeriesChartType.Area;
+				}
+			}
 		}
 
 		[Browsable(false)]

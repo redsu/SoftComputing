@@ -24,6 +24,8 @@ namespace R04522602許泰源Ass06{
 		private TabPage OneDpage;
 		private TabPage TwoDpage;
 		private FuzzyInferenceSystem fis;
+		private double conclusion_value = 0.0;
+		private int last_checked = 0;
 		//Definition of tags of different control points
 		private enum Control_Point : int{
 			tri_L = 0,
@@ -64,7 +66,6 @@ namespace R04522602許泰源Ass06{
 			infpage.TabPages.RemoveByKey("Page_01");
 			infpage.TabPages.RemoveByKey("Page_02");
 			IntPtr h = this.tab.Handle;
-			tab.TabPages.Insert(1,O_Equ);
 			tab.Refresh();
 			Mamdani.Checked = true;
 			//Change the language of exception messages into Engilsh.
@@ -223,7 +224,8 @@ namespace R04522602許泰源Ass06{
 			foreach(TreeNode tn0 in tree.Nodes){
 				foreach(TreeNode tn1 in tn0.Nodes){
 					foreach(TreeNode tn2 in tn1.Nodes){
-						((FuzzySet)tn2.Tag).Enchant = false;
+						if(tn2 is FuzzySet)
+							((FuzzySet)tn2.Tag).Enchant = false;
 					}
 				}
 			}
@@ -233,7 +235,7 @@ namespace R04522602許泰源Ass06{
 			else
 				universe_btn.Enabled = false;
 			
-			if(tree.SelectedNode.Tag is Universe)
+			if(tree.SelectedNode.Tag is Universe && (!Sugeno.Checked||!(tree.SelectedNode.Parent.Name=="node_out")))
 				fs_btn.Enabled = true;
 			else
 				fs_btn.Enabled = false;
@@ -249,7 +251,14 @@ namespace R04522602許泰源Ass06{
 				bs_btn.Enabled = true;
 			else
 				bs_btn.Enabled = false;
-			
+
+			if(tree.SelectedNode.Level>0)
+				if(tree.SelectedNode.Parent.Name == "node_out")
+					Add_Equ.Enabled = true;
+				else
+					Add_Equ.Enabled = false;
+			else
+				Add_Equ.Enabled = false;
 			propertyGrid.SelectedObject = tree.SelectedNode.Tag;
 
 			if(tree.SelectedNode.Level == 0)
@@ -258,8 +267,10 @@ namespace R04522602許泰源Ass06{
 				sel_name.Text = "Universe:" + tree.SelectedNode.Text;
 			}
 			else if(tree.SelectedNode.Level == 2){
-				((FuzzySet)tree.SelectedNode.Tag).Enchant = true;
-				sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
+				if(tree.SelectedNode.Tag is FuzzySet){
+					((FuzzySet)tree.SelectedNode.Tag).Enchant = true;
+					sel_name.Text = "Fuzzy Set:" + tree.SelectedNode.Text;
+				}
 			}
 			
 		}
@@ -354,23 +365,29 @@ namespace R04522602許泰源Ass06{
 					if(u.hostChart.ChartAreas[u.Name].Visible){
 						u.hostChart.ChartAreas[u.Name].Visible = false;
 						foreach(TreeNode tn in tree.SelectedNode.Nodes){
-							FuzzySet f = (FuzzySet)tn.Tag;
-							u.hostChart.Series.FindByName(f.Name).Enabled = false;
+							if(tn.Tag is FuzzySet){
+								FuzzySet f = (FuzzySet)tn.Tag;
+								u.hostChart.Series.FindByName(f.Name).Enabled = false;
+							}
 						}
 					}
 					else{
 						u.hostChart.ChartAreas[u.Name].Visible = true;
 						
 						foreach(TreeNode tn in tree.SelectedNode.Nodes){
-							FuzzySet f = (FuzzySet)tn.Tag;
-							u.hostChart.Series.FindByName(f.Name).Enabled = false;
+							if(tn.Tag is FuzzySet){
+								FuzzySet f = (FuzzySet)tn.Tag;
+								u.hostChart.Series.FindByName(f.Name).Enabled = false;
+							}
 						}
 					}
 				}
 				else if(tree.SelectedNode.Level==2){
 					u = tree.SelectedNode.Parent.Tag as Universe;
-					FuzzySet f = (FuzzySet)tree.SelectedNode.Tag;
-					u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
+					if(tree.SelectedNode.Tag is FuzzySet){
+						FuzzySet f = (FuzzySet)tree.SelectedNode.Tag;
+						u.hostChart.Series.FindByName(f.Name).Enabled = !u.hostChart.Series.FindByName(f.Name).Enabled;
+					}
 				}
 			}
 		}
@@ -763,7 +780,7 @@ namespace R04522602許泰源Ass06{
 		private void area_btn_Click(object sender, EventArgs e){
 			if(tree.SelectedNode.Level>1){
 				FuzzySet fs = (FuzzySet)tree.SelectedNode.Tag;
-				fs.set_style();
+				fs.DisplayArea = true;
 			}
 		}
 
@@ -782,21 +799,39 @@ namespace R04522602許泰源Ass06{
 		}
 
 		private void ifthenrules_CellClick(object sender, DataGridViewCellEventArgs e){
-			if(e.ColumnIndex>=0 && e.RowIndex>=0)
-				if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_in"){
-					if(e.ColumnIndex == tree.SelectedNode.Parent.Index){
-						ifthenrules.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tree.SelectedNode.Tag;
+			if(Mamdani.Checked || Tsukamoto.Checked)
+				if(e.ColumnIndex>=0 && e.RowIndex>=0)
+					if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_in"){
+						if(e.ColumnIndex == tree.SelectedNode.Parent.Index){
+							ifthenrules.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tree.SelectedNode.Tag;
+						}
+						else
+							MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
 					}
-					else
-						MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
-				}
-				else if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_out"){
-					if(e.ColumnIndex == ifthenrules.ColumnCount-1){
-						ifthenrules.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tree.SelectedNode.Tag;
+					else if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_out"){
+						if(e.ColumnIndex == ifthenrules.ColumnCount-1){
+							ifthenrules.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tree.SelectedNode.Tag;
+						}
+						else
+							MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
 					}
-					else
-						MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
-				}
+			else if(Sugeno.Checked)
+						MessageBox.Show("in");
+				if(e.ColumnIndex>=0 && e.RowIndex>=0)
+					if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_in"){
+						if(e.ColumnIndex == tree.SelectedNode.Parent.Index){
+							ifthenrules.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tree.SelectedNode.Tag;
+						}
+						else
+							MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
+					}
+					else if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_out"){
+						if(e.ColumnIndex == ifthenrules.ColumnCount-1){
+							ifthenrules.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tree.SelectedNode.Tag;
+						}
+						else
+							MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
+					}
 		}
 
 		private void conditions_CellClick(object sender, DataGridViewCellEventArgs e){
@@ -823,21 +858,51 @@ namespace R04522602許泰源Ass06{
         void UpdateAllRules() {
             allRules.Clear();
 
-            for (int i = 0; i < ifthenrules.Rows.Count; i++){
-                List<FuzzySet> ant = new List<FuzzySet>();
+			for (int i = 0; i < ifthenrules.Rows.Count; i++){
+				List<FuzzySet> ant = new List<FuzzySet>();
 
-                int j;
-                for ( j = 0; j < ifthenrules.Columns.Count - 1; j++){
-                    ant.Add( (FuzzySet)  ifthenrules.Rows[i].Cells[j].Value);
-                }
-				MamdaniIfThenRule arule = new MamdaniIfThenRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut");
-                //IfThenFuzzyRule arule = new IfThenFuzzyRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut");
-                allRules.Add(arule);
-            }
+				int j;
+				for ( j = 0; j < ifthenrules.Columns.Count - 1; j++){
+					ant.Add( (FuzzySet)  ifthenrules.Rows[i].Cells[j].Value);
+				}
+				if(Mamdani.Checked){
+					MamdaniIfThenRule arule = new MamdaniIfThenRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut");
+				//IfThenFuzzyRule arule = new IfThenFuzzyRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut");
+					allRules.Add(arule);
+				}
+				else if(Sugeno.Checked){
+					SugenoIfThenRule arule = new SugenoIfThenRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut", 0);
+					allRules.Add(arule);
+				}
+				else if(Tsukamoto.Checked){
+					TsukamotoIfThenRule arule = new TsukamotoIfThenRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut");
+					allRules.Add(arule);
+				}
+			}
+			
         }
 
 		private void inf_btn_Click(object sender, EventArgs e){
-			inference();
+			//inference();
+			UpdateAllRules();
+			List<FuzzySet> conds = new List<FuzzySet>();
+			for(int i=0; i<conditions.Columns.Count; i++){
+				conds.Add(conditions.Rows[0].Cells[i].Value as FuzzySet);
+			}
+
+			if(Mamdani.Checked){
+				fis = new MamdaniFuzzySystem(allRules);
+				conclusion = fis.FuzzyInFuzzyOutInferencing(conds);
+				conclusion.Name = "FinalOutput";
+				conclusion.Display = true;
+				conclusion.DisplayArea = true;
+				//conclusion.ShowFuzzyArea = true;
+			}
+			else if(Sugeno.Checked){
+				fis = new SugenoFuzzySystem(allRules);
+				conclusion_value = fis.FuzzyInCrispOutInferencing(conds);
+				MessageBox.Show("The inferencing result is: " + conclusion_value, "Sugeno Inferencing", MessageBoxButtons.OK);
+			}
 		}
 
 		private void inference() {
@@ -862,7 +927,7 @@ namespace R04522602許泰源Ass06{
 			conclusion.Name = "Output";
 			
 			conclusion.Display = true;
-			conclusion.set_style();
+			conclusion.DisplayArea = true;
 
             //finalFS.DisplayEnabled = true;
             //finalFS.ShowFuzzyArea = true; // shade the area covered by the fuzzy set
@@ -904,34 +969,6 @@ namespace R04522602許泰源Ass06{
 			}
             
         }
-		private List<TreeNode> outputFuzzySetNodes = new List<TreeNode>();
-		private List<TreeNode> outputEquationNodes = new List<TreeNode>();
-
-		private void Mamdani_CheckedChanged(object sender, EventArgs e){
-			if(Mamdani.Checked){
-				tab.TabPages.RemoveByKey("Page02");
-				foreach(TreeNode tn0 in outputFuzzySetNodes){
-					if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
-						tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
-				}
-			}
-			else if(Sugeno.Checked){
-				if(!tab.TabPages.Contains(O_Equ))
-					tab.TabPages.Insert(1, O_Equ);
-				if(tree.Nodes[1].Nodes.Count>0)
-					if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
-						outputFuzzySetNodes.Clear();
-						foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes){
-							outputFuzzySetNodes.Add(tn0);
-						}
-						tree.Nodes[1].Nodes[0].Nodes.Clear();
-					}
-			}
-			else{
-				tab.TabPages.RemoveByKey("Page02");
-			}
-
-		}
 
 		private void oneDinf_Click(object sender, EventArgs e){
 			UpdateAllRules();
@@ -939,10 +976,10 @@ namespace R04522602許泰源Ass06{
 				fis = new MamdaniFuzzySystem(allRules);
 			}
 			else if(Sugeno.Checked){
-
+				fis = new SugenoFuzzySystem(allRules);
 			}
 			else if(Tsukamoto.Checked){
-
+				fis = new TsukamotoFuzzySystem(allRules);
 			}
 			Universe u0, u1;
 			u0 = (Universe)tree.Nodes[0].Nodes[0].Tag;
@@ -955,13 +992,94 @@ namespace R04522602許泰源Ass06{
 			cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax;
 			cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin;
 			cht1d.Series[0].Points.Clear();
-			for (double i = u0.Xmin; i <= u0.Xmax; i += u0.Interval)
-			{
+			for (double i = u0.Xmin; i <= u0.Xmax; i += u0.Interval){
 				list[0] = i;
 				double yValue = fis.CrispInCrispOutInferencing(list, DefuzzificationType.COA);
 				cht1d.Series[0].Points.AddXY(i, yValue);
 			}
 			cht1d.Refresh();
+		}
+
+		private void Add_Equ_Click(object sender, EventArgs e){
+			if(equlist.SelectedIndex>=0){
+				TreeNode tn = new TreeNode(equlist.SelectedItem.ToString());
+				tn.Tag = equlist.SelectedItem;
+				tn.ImageIndex = 7;
+				tn.SelectedImageIndex = 6;
+
+				tree.SelectedNode.Nodes.Add(tn);
+				tree.SelectedNode.ExpandAll();
+				//fs.Display = true;
+			}
+		}
+
+		private List<TreeNode> outputFuzzySetNodes = new List<TreeNode>();
+		private List<TreeNode> outputEquationNodes = new List<TreeNode>();
+
+		private void InfSys_CheckedChanged(object sender, EventArgs e){
+			if(Mamdani.Checked){
+				tree.SelectedNode = tree.Nodes[0];
+				tab.TabPages.RemoveByKey("Page02");
+				if(last_checked != 0){
+					ifthenrules.Rows.Clear();
+					ifthenrules.Columns.Clear();
+				}
+				if(last_checked != 0 && last_checked != 2)
+					if(tree.Nodes[1].Nodes.Count>0){
+						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
+							outputEquationNodes.Clear();
+							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes){
+								outputEquationNodes.Add(tn0);
+							}
+							tree.Nodes[1].Nodes[0].Nodes.Clear();
+							foreach(TreeNode tn0 in outputFuzzySetNodes){
+								if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
+									tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
+							}
+						}
+					}
+				last_checked = 0;
+			}
+			else if(Sugeno.Checked){
+				tree.SelectedNode = tree.Nodes[0];
+				if(!tab.TabPages.Contains(O_Equ))
+					tab.TabPages.Insert(1, O_Equ);
+
+				if(last_checked == 0 || last_checked == 2)
+					if(tree.Nodes[1].Nodes.Count>0){
+						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
+							outputFuzzySetNodes.Clear();
+							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes){
+								outputFuzzySetNodes.Add(tn0);
+							}
+							tree.Nodes[1].Nodes[0].Nodes.Clear();
+							foreach(TreeNode tn0 in outputEquationNodes){
+								if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
+									tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
+							}
+						}
+					}
+				last_checked = 1;
+			}
+			else if(Tsukamoto.Checked){
+				tree.SelectedNode = tree.Nodes[0];
+				tab.TabPages.RemoveByKey("Page02");
+				if(last_checked != 0 && last_checked != 2)
+					if(tree.Nodes[1].Nodes.Count>0){
+						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
+							outputEquationNodes.Clear();
+							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes){
+								outputEquationNodes.Add(tn0);
+							}
+							tree.Nodes[1].Nodes[0].Nodes.Clear();
+							foreach(TreeNode tn0 in outputFuzzySetNodes){
+								if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
+									tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
+							}
+						}
+					}
+				last_checked = 2;
+			}
 		}
 		
     }
