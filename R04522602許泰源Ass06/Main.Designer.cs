@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
-			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
+			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.Chart_func = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.save_btn = new System.Windows.Forms.Button();
 			this.user_guide_btn = new System.Windows.Forms.Button();
@@ -132,8 +132,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Chart_func.BackColor = System.Drawing.Color.MistyRose;
 			this.Chart_func.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalRight;
-			legend3.Name = "Legend1";
-			this.Chart_func.Legends.Add(legend3);
+			legend1.Name = "Legend1";
+			this.Chart_func.Legends.Add(legend1);
 			this.Chart_func.Location = new System.Drawing.Point(0, 0);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
@@ -176,17 +176,17 @@
 			this.tree.ImageList = this.imageList;
 			this.tree.Location = new System.Drawing.Point(9, 48);
 			this.tree.Name = "tree";
-			treeNode3.ImageIndex = 1;
-			treeNode3.Name = "node_in";
-			treeNode3.SelectedImageIndex = 0;
-			treeNode3.Text = "InputUniverses";
-			treeNode4.ImageIndex = 3;
-			treeNode4.Name = "node_out";
-			treeNode4.SelectedImageIndex = 2;
-			treeNode4.Text = "OutputUniverses";
+			treeNode1.ImageIndex = 1;
+			treeNode1.Name = "node_in";
+			treeNode1.SelectedImageIndex = 0;
+			treeNode1.Text = "InputUniverses";
+			treeNode2.ImageIndex = 3;
+			treeNode2.Name = "node_out";
+			treeNode2.SelectedImageIndex = 2;
+			treeNode2.Text = "OutputUniverses";
 			this.tree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
+            treeNode1,
+            treeNode2});
 			this.tree.SelectedImageIndex = 0;
 			this.tree.Size = new System.Drawing.Size(223, 269);
 			this.tree.TabIndex = 44;
@@ -809,7 +809,7 @@
             "6: z =  x + y + 2"});
 			this.equlist.Location = new System.Drawing.Point(10, 33);
 			this.equlist.Name = "equlist";
-			this.equlist.Size = new System.Drawing.Size(310, 522);
+			this.equlist.Size = new System.Drawing.Size(310, 508);
 			this.equlist.TabIndex = 3;
 			// 
 			// SugOut
@@ -873,17 +873,17 @@
 			this.cht1d.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			chartArea2.Name = "ChartArea1";
-			this.cht1d.ChartAreas.Add(chartArea2);
-			legend4.Name = "Legend1";
-			this.cht1d.Legends.Add(legend4);
+			chartArea1.Name = "ChartArea1";
+			this.cht1d.ChartAreas.Add(chartArea1);
+			legend2.Name = "Legend1";
+			this.cht1d.Legends.Add(legend2);
 			this.cht1d.Location = new System.Drawing.Point(79, 2);
 			this.cht1d.Name = "cht1d";
-			series2.ChartArea = "ChartArea1";
-			series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-			series2.Legend = "Legend1";
-			series2.Name = "Series1";
-			this.cht1d.Series.Add(series2);
+			series1.ChartArea = "ChartArea1";
+			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+			series1.Legend = "Legend1";
+			series1.Name = "Series1";
+			this.cht1d.Series.Add(series1);
 			this.cht1d.Size = new System.Drawing.Size(376, 304);
 			this.cht1d.TabIndex = 72;
 			this.cht1d.Text = "chart1";

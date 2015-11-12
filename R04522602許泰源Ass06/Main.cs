@@ -224,7 +224,7 @@ namespace R04522602許泰源Ass06{
 			foreach(TreeNode tn0 in tree.Nodes){
 				foreach(TreeNode tn1 in tn0.Nodes){
 					foreach(TreeNode tn2 in tn1.Nodes){
-						if(tn2 is FuzzySet)
+						if(tn2.Tag is FuzzySet)
 							((FuzzySet)tn2.Tag).Enchant = false;
 					}
 				}
@@ -871,7 +871,7 @@ namespace R04522602許泰源Ass06{
 					allRules.Add(arule);
 				}
 				else if(Sugeno.Checked){
-					SugenoIfThenRule arule = new SugenoIfThenRule(ant, (FuzzySet)ifthenrules.Rows[i].Cells[j].Value, Cut_check.Text=="Cut", 0);
+					SugenoIfThenRule arule = new SugenoIfThenRule(ant, null, Cut_check.Text=="Cut", (int)ifthenrules.Rows[ifthenrules.Rows.Count-1].Cells[ifthenrules.Columns.Count-1].Value);
 					allRules.Add(arule);
 				}
 				else if(Tsukamoto.Checked){
@@ -889,7 +889,10 @@ namespace R04522602許泰源Ass06{
 			for(int i=0; i<conditions.Columns.Count; i++){
 				conds.Add(conditions.Rows[0].Cells[i].Value as FuzzySet);
 			}
-
+			if(conclusion!=null){
+				conclusion.Display = false;
+				conclusion = null;
+			}
 			if(Mamdani.Checked){
 				fis = new MamdaniFuzzySystem(allRules);
 				conclusion = fis.FuzzyInFuzzyOutInferencing(conds);
@@ -902,6 +905,11 @@ namespace R04522602許泰源Ass06{
 				fis = new SugenoFuzzySystem(allRules);
 				conclusion_value = fis.FuzzyInCrispOutInferencing(conds);
 				MessageBox.Show("The inferencing result is: " + conclusion_value, "Sugeno Inferencing", MessageBoxButtons.OK);
+			}
+			else if(Tsukamoto.Checked){
+				fis = new TsukamotoFuzzySystem(allRules);
+				conclusion_value = fis.FuzzyInCrispOutInferencing(conds);
+				MessageBox.Show("The inferencing result is: " + conclusion_value, "Tsukamoto Inferencing", MessageBoxButtons.OK);
 			}
 		}
 
@@ -989,8 +997,8 @@ namespace R04522602許泰源Ass06{
 			cht1d.ChartAreas[0].AxisY.Title = u1.Name;
 			List<double> list = new List<double>();
 			list.Add(0.0);
-			cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax;
-			cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin;
+			//cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax;
+			//cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin;
 			cht1d.Series[0].Points.Clear();
 			for (double i = u0.Xmin; i <= u0.Xmax; i += u0.Interval){
 				list[0] = i;
@@ -1003,7 +1011,7 @@ namespace R04522602許泰源Ass06{
 		private void Add_Equ_Click(object sender, EventArgs e){
 			if(equlist.SelectedIndex>=0){
 				TreeNode tn = new TreeNode(equlist.SelectedItem.ToString());
-				tn.Tag = equlist.SelectedItem;
+				tn.Tag = equlist.SelectedIndex;
 				tn.ImageIndex = 7;
 				tn.SelectedImageIndex = 6;
 
@@ -1022,7 +1030,6 @@ namespace R04522602許泰源Ass06{
 				tab.TabPages.RemoveByKey("Page02");
 				if(last_checked != 0){
 					ifthenrules.Rows.Clear();
-					ifthenrules.Columns.Clear();
 				}
 				if(last_checked != 0 && last_checked != 2)
 					if(tree.Nodes[1].Nodes.Count>0){
@@ -1045,6 +1052,10 @@ namespace R04522602許泰源Ass06{
 				if(!tab.TabPages.Contains(O_Equ))
 					tab.TabPages.Insert(1, O_Equ);
 
+				if(last_checked != 1){
+					ifthenrules.Rows.Clear();
+				}
+
 				if(last_checked == 0 || last_checked == 2)
 					if(tree.Nodes[1].Nodes.Count>0){
 						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
@@ -1064,6 +1075,11 @@ namespace R04522602許泰源Ass06{
 			else if(Tsukamoto.Checked){
 				tree.SelectedNode = tree.Nodes[0];
 				tab.TabPages.RemoveByKey("Page02");
+
+				if(last_checked != 2){
+					ifthenrules.Rows.Clear();
+				}
+
 				if(last_checked != 0 && last_checked != 2)
 					if(tree.Nodes[1].Nodes.Count>0){
 						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){

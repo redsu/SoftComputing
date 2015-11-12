@@ -77,7 +77,6 @@ namespace R04522602許泰源Ass06{
 							series.Points.AddXY(pt.XValue, pt.YValues[0]);
 					}
 				}
-			series.Points.AddXY(10.0, GetFunctionValue( 10.0 ));
 			series.Sort(PointSortOrder.Ascending, "X");
 			
         }
@@ -193,6 +192,8 @@ namespace R04522602許泰源Ass06{
 		[Browsable(false)]
 		public virtual double MaxDegree{
 			get{
+				if(series.Points.Count==0)
+					UpdateSeriesPoints();
 				return series.Points.FindMaxByValue("Y1").YValues[0];
 			}
 		}
@@ -216,7 +217,7 @@ namespace R04522602許泰源Ass06{
 					den += series.Points[i].YValues[0] * (series.Points[i].XValue - x);
 				}
 
-				if(den > 0)
+				if(den > 4.94065645841247E-324)
 					return num/den;
 				else
 					return 0.0;
@@ -369,7 +370,7 @@ namespace R04522602許泰源Ass06{
 			for(int i=1; i<series.Points.Count; i++){
 				if((series.Points[i].YValues[0]<degree&&series.Points[i-1].YValues[0]>=degree)||
 				   (series.Points[i].YValues[0]>degree&&series.Points[i-1].YValues[0]<=degree))
-					return series.Points[i].YValues[0];
+					return series.Points[i].XValue;
 			}
 			return 0.0;
 		}
