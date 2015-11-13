@@ -90,9 +90,10 @@
 			this.cht1d = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.oneDinf = new System.Windows.Forms.Button();
 			this.Page_02 = new System.Windows.Forms.TabPage();
-			this.chartController1 = new Steema.TeeChart.ChartController();
-			this.tChart1 = new Steema.TeeChart.TChart();
+			this.chartController = new Steema.TeeChart.ChartController();
 			this.twoDinf = new System.Windows.Forms.Button();
+			this.tChart = new Steema.TeeChart.TChart();
+			this.Inf_Suf = new Steema.TeeChart.Styles.Surface();
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			this.PrimFuzzy.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -137,7 +138,7 @@
 			this.Chart_func.Location = new System.Drawing.Point(0, 0);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
-			this.Chart_func.Size = new System.Drawing.Size(466, 372);
+			this.Chart_func.Size = new System.Drawing.Size(631, 450);
 			this.Chart_func.TabIndex = 4;
 			this.Chart_func.Text = "Chart";
 			this.Chart_func.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Chart_func_MouseDown);
@@ -188,7 +189,7 @@
             treeNode1,
             treeNode2});
 			this.tree.SelectedImageIndex = 0;
-			this.tree.Size = new System.Drawing.Size(223, 269);
+			this.tree.Size = new System.Drawing.Size(225, 269);
 			this.tree.TabIndex = 44;
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
 			this.tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_DoubleClick);
@@ -270,7 +271,7 @@
 			this.propertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
 			this.propertyGrid.Location = new System.Drawing.Point(11, 56);
 			this.propertyGrid.Name = "propertyGrid";
-			this.propertyGrid.Size = new System.Drawing.Size(251, 261);
+			this.propertyGrid.Size = new System.Drawing.Size(256, 261);
 			this.propertyGrid.TabIndex = 59;
 			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
 			// 
@@ -285,7 +286,7 @@
 			this.sel_name.ForeColor = System.Drawing.Color.Lime;
 			this.sel_name.Location = new System.Drawing.Point(11, 6);
 			this.sel_name.Name = "sel_name";
-			this.sel_name.Size = new System.Drawing.Size(251, 38);
+			this.sel_name.Size = new System.Drawing.Size(256, 38);
 			this.sel_name.TabIndex = 60;
 			this.sel_name.Text = "NAME";
 			this.sel_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -518,8 +519,8 @@
 			// 
 			this.sC01.Panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.sC01.Panel2.Controls.Add(this.sC04);
-			this.sC01.Size = new System.Drawing.Size(984, 712);
-			this.sC01.SplitterDistance = 514;
+			this.sC01.Size = new System.Drawing.Size(1156, 712);
+			this.sC01.SplitterDistance = 521;
 			this.sC01.TabIndex = 71;
 			// 
 			// sC03
@@ -541,7 +542,7 @@
 			// 
 			this.sC03.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC03.Panel2.Controls.Add(this.tab);
-			this.sC03.Size = new System.Drawing.Size(514, 712);
+			this.sC03.Size = new System.Drawing.Size(521, 712);
 			this.sC03.SplitterDistance = 372;
 			this.sC03.TabIndex = 72;
 			// 
@@ -595,7 +596,7 @@
 			this.inf_typ.ForeColor = System.Drawing.Color.Lime;
 			this.inf_typ.Location = new System.Drawing.Point(-1, 0);
 			this.inf_typ.Name = "inf_typ";
-			this.inf_typ.Size = new System.Drawing.Size(515, 54);
+			this.inf_typ.Size = new System.Drawing.Size(522, 54);
 			this.inf_typ.TabIndex = 61;
 			this.inf_typ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
@@ -618,8 +619,8 @@
 			this.sC02.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC02.Panel2.Controls.Add(this.sel_name);
 			this.sC02.Panel2.Controls.Add(this.propertyGrid);
-			this.sC02.Size = new System.Drawing.Size(514, 581);
-			this.sC02.SplitterDistance = 242;
+			this.sC02.Size = new System.Drawing.Size(521, 581);
+			this.sC02.SplitterDistance = 244;
 			this.sC02.TabIndex = 0;
 			// 
 			// tab
@@ -634,7 +635,7 @@
 			this.tab.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
 			this.tab.Name = "tab";
 			this.tab.SelectedIndex = 0;
-			this.tab.Size = new System.Drawing.Size(515, 641);
+			this.tab.Size = new System.Drawing.Size(522, 641);
 			this.tab.TabIndex = 5;
 			// 
 			// Page01
@@ -649,7 +650,7 @@
 			this.Page01.Location = new System.Drawing.Point(4, 23);
 			this.Page01.Name = "Page01";
 			this.Page01.Padding = new System.Windows.Forms.Padding(3);
-			this.Page01.Size = new System.Drawing.Size(507, 614);
+			this.Page01.Size = new System.Drawing.Size(514, 614);
 			this.Page01.TabIndex = 0;
 			this.Page01.Text = "Fuzzy Sets";
 			// 
@@ -664,10 +665,10 @@
 			this.Page03.Controls.Add(this.rules);
 			this.Page03.Controls.Add(this.conditions);
 			this.Page03.Controls.Add(this.ifthenrules);
-			this.Page03.Location = new System.Drawing.Point(4, 22);
+			this.Page03.Location = new System.Drawing.Point(4, 23);
 			this.Page03.Name = "Page03";
 			this.Page03.Padding = new System.Windows.Forms.Padding(3);
-			this.Page03.Size = new System.Drawing.Size(507, 615);
+			this.Page03.Size = new System.Drawing.Size(514, 614);
 			this.Page03.TabIndex = 1;
 			this.Page03.Text = "If-Then Rules";
 			// 
@@ -750,7 +751,7 @@
 			this.conditions.ReadOnly = true;
 			this.conditions.RowTemplate.Height = 24;
 			this.conditions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.conditions.Size = new System.Drawing.Size(491, 112);
+			this.conditions.Size = new System.Drawing.Size(498, 112);
 			this.conditions.TabIndex = 0;
 			this.conditions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.conditions_CellClick);
 			// 
@@ -765,7 +766,7 @@
 			this.ifthenrules.ReadOnly = true;
 			this.ifthenrules.RowTemplate.Height = 24;
 			this.ifthenrules.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.ifthenrules.Size = new System.Drawing.Size(491, 101);
+			this.ifthenrules.Size = new System.Drawing.Size(498, 101);
 			this.ifthenrules.TabIndex = 0;
 			this.ifthenrules.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ifthenrules_CellClick);
 			// 
@@ -775,10 +776,10 @@
 			this.Page02.Controls.Add(this.Add_Equ);
 			this.Page02.Controls.Add(this.equlist);
 			this.Page02.Controls.Add(this.SugOut);
-			this.Page02.Location = new System.Drawing.Point(4, 23);
+			this.Page02.Location = new System.Drawing.Point(4, 22);
 			this.Page02.Name = "Page02";
 			this.Page02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page02.Size = new System.Drawing.Size(507, 614);
+			this.Page02.Size = new System.Drawing.Size(514, 615);
 			this.Page02.TabIndex = 2;
 			this.Page02.Text = "Output Equations";
 			// 
@@ -809,7 +810,7 @@
             "6: z =  x + y + 2"});
 			this.equlist.Location = new System.Drawing.Point(10, 33);
 			this.equlist.Name = "equlist";
-			this.equlist.Size = new System.Drawing.Size(310, 508);
+			this.equlist.Size = new System.Drawing.Size(310, 494);
 			this.equlist.TabIndex = 3;
 			// 
 			// SugOut
@@ -838,8 +839,8 @@
 			// 
 			this.sC04.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sC04.Panel2.Controls.Add(this.infpage);
-			this.sC04.Size = new System.Drawing.Size(466, 712);
-			this.sC04.SplitterDistance = 372;
+			this.sC04.Size = new System.Drawing.Size(631, 712);
+			this.sC04.SplitterDistance = 453;
 			this.sC04.TabIndex = 61;
 			// 
 			// infpage
@@ -853,7 +854,7 @@
 			this.infpage.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
 			this.infpage.Name = "infpage";
 			this.infpage.SelectedIndex = 0;
-			this.infpage.Size = new System.Drawing.Size(466, 336);
+			this.infpage.Size = new System.Drawing.Size(631, 255);
 			this.infpage.TabIndex = 6;
 			// 
 			// Page_01
@@ -864,7 +865,7 @@
 			this.Page_01.Location = new System.Drawing.Point(4, 23);
 			this.Page_01.Name = "Page_01";
 			this.Page_01.Padding = new System.Windows.Forms.Padding(3);
-			this.Page_01.Size = new System.Drawing.Size(458, 309);
+			this.Page_01.Size = new System.Drawing.Size(623, 228);
 			this.Page_01.TabIndex = 0;
 			this.Page_01.Text = "1D Input/Output Map";
 			// 
@@ -880,11 +881,11 @@
 			this.cht1d.Location = new System.Drawing.Point(79, 2);
 			this.cht1d.Name = "cht1d";
 			series1.ChartArea = "ChartArea1";
-			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 			series1.Legend = "Legend1";
 			series1.Name = "Series1";
 			this.cht1d.Series.Add(series1);
-			this.cht1d.Size = new System.Drawing.Size(376, 304);
+			this.cht1d.Size = new System.Drawing.Size(376, 223);
 			this.cht1d.TabIndex = 72;
 			this.cht1d.Text = "chart1";
 			// 
@@ -895,7 +896,7 @@
 			this.oneDinf.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.oneDinf.Location = new System.Drawing.Point(-1, 0);
 			this.oneDinf.Name = "oneDinf";
-			this.oneDinf.Size = new System.Drawing.Size(79, 309);
+			this.oneDinf.Size = new System.Drawing.Size(79, 228);
 			this.oneDinf.TabIndex = 49;
 			this.oneDinf.Text = "Inference All Crisp Inputs";
 			this.oneDinf.UseVisualStyleBackColor = true;
@@ -904,65 +905,111 @@
 			// Page_02
 			// 
 			this.Page_02.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.Page_02.Controls.Add(this.chartController1);
-			this.Page_02.Controls.Add(this.tChart1);
+			this.Page_02.Controls.Add(this.tChart);
+			this.Page_02.Controls.Add(this.chartController);
 			this.Page_02.Controls.Add(this.twoDinf);
-			this.Page_02.Location = new System.Drawing.Point(4, 22);
+			this.Page_02.Location = new System.Drawing.Point(4, 23);
 			this.Page_02.Name = "Page_02";
 			this.Page_02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page_02.Size = new System.Drawing.Size(458, 310);
+			this.Page_02.Size = new System.Drawing.Size(623, 228);
 			this.Page_02.TabIndex = 1;
 			this.Page_02.Text = "2D Input/Output Map";
 			// 
-			// chartController1
+			// chartController
 			// 
-			this.chartController1.AutoSize = false;
-			this.chartController1.ButtonSize = Steema.TeeChart.ControllerButtonSize.x16;
-			this.chartController1.Chart = this.tChart1;
-			this.chartController1.Dock = System.Windows.Forms.DockStyle.None;
-			this.chartController1.LabelValues = true;
-			this.chartController1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-			this.chartController1.Location = new System.Drawing.Point(78, 0);
-			this.chartController1.Name = "chartController1";
-			this.chartController1.Size = new System.Drawing.Size(24, 254);
-			this.chartController1.TabIndex = 52;
-			this.chartController1.Text = "chartController1";
-			// 
-			// tChart1
-			// 
-			// 
-			// 
-			// 
-			this.tChart1.Aspect.ZOffset = 0D;
-			this.tChart1.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.tChart1.Location = new System.Drawing.Point(105, 0);
-			this.tChart1.Name = "tChart1";
-			// 
-			// 
-			// 
-			// 
-			// 
-			// 
-			this.tChart1.Panel.Brush.Color = System.Drawing.SystemColors.ControlLight;
-			this.tChart1.Size = new System.Drawing.Size(363, 309);
-			this.tChart1.TabIndex = 51;
+			this.chartController.AutoSize = false;
+			this.chartController.ButtonSize = Steema.TeeChart.ControllerButtonSize.x16;
+			this.chartController.Chart = this.tChart;
+			this.chartController.Dock = System.Windows.Forms.DockStyle.None;
+			this.chartController.LabelValues = true;
+			this.chartController.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+			this.chartController.Location = new System.Drawing.Point(78, 0);
+			this.chartController.Name = "chartController";
+			this.chartController.Size = new System.Drawing.Size(24, 254);
+			this.chartController.TabIndex = 52;
+			this.chartController.Text = "chartController";
 			// 
 			// twoDinf
 			// 
+			this.twoDinf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.twoDinf.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.twoDinf.Location = new System.Drawing.Point(-1, 0);
 			this.twoDinf.Name = "twoDinf";
-			this.twoDinf.Size = new System.Drawing.Size(79, 310);
+			this.twoDinf.Size = new System.Drawing.Size(79, 228);
 			this.twoDinf.TabIndex = 50;
 			this.twoDinf.Text = "Inference All Crisp Inputs";
 			this.twoDinf.UseVisualStyleBackColor = true;
+			this.twoDinf.Click += new System.EventHandler(this.twoDinf_Click);
+			// 
+			// tChart
+			// 
+			this.tChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			// 
+			// 
+			// 
+			this.tChart.Aspect.ZOffset = 0D;
+			this.tChart.BackColor = System.Drawing.SystemColors.ControlLight;
+			// 
+			// 
+			// 
+			this.tChart.Legend.Visible = false;
+			this.tChart.Location = new System.Drawing.Point(105, 0);
+			this.tChart.Name = "tChart";
+			this.tChart.Series.Add(this.Inf_Suf);
+			this.tChart.Size = new System.Drawing.Size(519, 228);
+			this.tChart.TabIndex = 53;
+			// 
+			// Inf_Suf
+			// 
+			// 
+			// 
+			// 
+			this.Inf_Suf.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(102)))), ((int)(((byte)(163)))));
+			this.Inf_Suf.Color = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(102)))), ((int)(((byte)(163)))));
+			this.Inf_Suf.ColorEach = false;
+			// 
+			// 
+			// 
+			// 
+			// 
+			// 
+			this.Inf_Suf.Marks.Callout.ArrowHead = Steema.TeeChart.Styles.ArrowHeadStyles.None;
+			this.Inf_Suf.Marks.Callout.ArrowHeadSize = 8;
+			// 
+			// 
+			// 
+			this.Inf_Suf.Marks.Callout.Brush.Color = System.Drawing.Color.Black;
+			this.Inf_Suf.Marks.Callout.Distance = 0;
+			this.Inf_Suf.Marks.Callout.Draw3D = false;
+			this.Inf_Suf.Marks.Callout.Length = 10;
+			this.Inf_Suf.Marks.Callout.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
+			this.Inf_Suf.Marks.Callout.Visible = false;
+			this.Inf_Suf.PaletteMin = 0D;
+			this.Inf_Suf.PaletteStep = 0D;
+			this.Inf_Suf.PaletteStyle = Steema.TeeChart.Styles.PaletteStyles.Pale;
+			this.Inf_Suf.Title = "surface1";
+			// 
+			// 
+			// 
+			this.Inf_Suf.XValues.DataMember = "X";
+			// 
+			// 
+			// 
+			this.Inf_Suf.YValues.DataMember = "Y";
+			// 
+			// 
+			// 
+			this.Inf_Suf.ZValues.DataMember = "Z";
 			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-			this.ClientSize = new System.Drawing.Size(984, 712);
+			this.ClientSize = new System.Drawing.Size(1156, 712);
 			this.Controls.Add(this.sC01);
 			this.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1067,9 +1114,10 @@
 		private System.Windows.Forms.Button oneDinf;
 		private System.Windows.Forms.TabPage Page_02;
 		private System.Windows.Forms.Button twoDinf;
-		private Steema.TeeChart.TChart tChart1;
-		private Steema.TeeChart.ChartController chartController1;
+		private Steema.TeeChart.ChartController chartController;
 		private System.Windows.Forms.DataVisualization.Charting.Chart cht1d;
+		private Steema.TeeChart.TChart tChart;
+		private Steema.TeeChart.Styles.Surface Inf_Suf;
 	}
 }
 

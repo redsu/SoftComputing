@@ -10,6 +10,11 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Drawing.Imaging;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using Steema.TeeChart;
+using Steema.TeeChart.Styles;
+
 
 namespace R04522602許泰源Ass06{
     public partial class Main : Form{
@@ -43,7 +48,6 @@ namespace R04522602許泰源Ass06{
 		private int Ctrl_Pt = -1;
 		
 		public Main(){
-			
 			InitializeComponent();
 			
 			//tree.CheckBoxes = true;
@@ -135,6 +139,9 @@ namespace R04522602許泰源Ass06{
 					else if(tree.SelectedNode.Nodes.Count == 2){
 						infpage.TabPages.RemoveByKey("Page_01");
 						infpage.TabPages.Add(TwoDpage);
+						tChart.Aspect.Orthogonal = false;
+						tChart.Aspect.Zoom = 60;
+						tChart.Aspect.Chart3DPercent = 100;
 					}
 					else if(tree.SelectedNode.Nodes.Count > 2){
 						infpage.TabPages.RemoveByKey("Page_02");
@@ -286,6 +293,7 @@ namespace R04522602許泰源Ass06{
 					}
 					Chart_func.ChartAreas[u.Name].Visible = false;
 					tree.SelectedNode.Remove();
+					ifthenrules.Columns.Remove(u.Name);
 
 					if(tree.Nodes[0].Nodes.Count == 0){
 						infpage.TabPages.RemoveByKey("Page_01");
@@ -799,7 +807,7 @@ namespace R04522602許泰源Ass06{
 		}
 
 		private void ifthenrules_CellClick(object sender, DataGridViewCellEventArgs e){
-			if(Mamdani.Checked || Tsukamoto.Checked)
+			if(Mamdani.Checked || Tsukamoto.Checked){
 				if(e.ColumnIndex>=0 && e.RowIndex>=0)
 					if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_in"){
 						if(e.ColumnIndex == tree.SelectedNode.Parent.Index){
@@ -815,8 +823,8 @@ namespace R04522602許泰源Ass06{
 						else
 							MessageBox.Show("Please selecte the fuzzyset in the corresponding universe!");
 					}
+			}
 			else if(Sugeno.Checked)
-						MessageBox.Show("in");
 				if(e.ColumnIndex>=0 && e.RowIndex>=0)
 					if(tree.SelectedNode.Level > 1 && tree.SelectedNode.Parent.Parent.Name == "node_in"){
 						if(e.ColumnIndex == tree.SelectedNode.Parent.Index){
@@ -913,41 +921,13 @@ namespace R04522602許泰源Ass06{
 			}
 		}
 
-		private void inference() {
-			UpdateAllRules();
-
-			//if (finalFS != null) finalFS.DisplayEnabled = false;
-            //finalFS = null;
-
-            List<FuzzySet> conds = new List<FuzzySet>();
-			for(int i=0; i<conditions.Columns.Count; i++){
-				conds.Add(conditions.Rows[0].Cells[i].Value as FuzzySet);
-			}
-			if(conclusion!=null){
-				conclusion.Display = false;
-				conclusion = null;
-			}
-			conclusion = allRules[0].Inference(conds);
-            for (int i = 1; i < allRules.Count; i++){
-				conclusion |= allRules[i].Inference(conds);
-            }
-
-			conclusion.Name = "Output";
-			
-			conclusion.Display = true;
-			conclusion.DisplayArea = true;
-
-            //finalFS.DisplayEnabled = true;
-            //finalFS.ShowFuzzyArea = true; // shade the area covered by the fuzzy set
-		}
-
 		private void Cut_check_Click(object sender, EventArgs e){
 			if(Cut_check.Text == "Cut")
 				Cut_check.Text = "Scaled";
 			else
 				Cut_check.Text = "Cut";
 			Cut_check.Checked = true;
-			inference();
+			//inference();
 		}
 
 		private void save_btn_Click(object sender, EventArgs e){
@@ -956,7 +936,7 @@ namespace R04522602許泰源Ass06{
             SaveFileDialog save = new SaveFileDialog();
 			save.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif|Png Image|*.png|Wmf Image|*.wmf";
             save.Title = "Save an Image File";
-			if(save.ShowDialog()==System.Windows.Forms.DialogResult.OK && save.FileName!=""){
+			if(save.ShowDialog()==System.Windows.Forms.DialogResult.OK && save.FileName!="")
 				switch(save.FilterIndex){
 					case 1:
 						Chart_func.SaveImage(save.FileName,System.Drawing.Imaging.ImageFormat.Jpeg);
@@ -973,13 +953,137 @@ namespace R04522602許泰源Ass06{
 					case 5:
 						Chart_func.SaveImage(save.FileName,System.Drawing.Imaging.ImageFormat.Wmf);
 						break;
-				}
-			}
-            
+				}            
         }
+
+		private void Add_Equ_Click(object sender, EventArgs e){
+			if(equlist.SelectedIndex>=0){
+				TreeNode tn = new TreeNode(equlist.SelectedItem.ToString());
+				tn.Tag = equlist.SelectedIndex;
+				tn.ImageIndex = 7;
+				tn.SelectedImageIndex = 6;
+
+				tree.SelectedNode.Nodes.Add(tn);
+				tree.SelectedNode.ExpandAll();
+			}
+		}
+
+		private List<TreeNode> outputFuzzySetNodes = new List<TreeNode>();
+		private List<TreeNode> outputEquationNodes = new List<TreeNode>();
+
+		private void InfSys_CheckedChanged(object sender, EventArgs e){
+			if(Mamdani.Checked){
+				tree.SelectedNode = tree.Nodes[0];
+				tab.TabPages.RemoveByKey("Page02");
+				if(last_checked != 0)
+					ifthenrules.Rows.Clear();
+				
+				if(last_checked != 0 && last_checked != 2)
+					if(tree.Nodes[1].Nodes.Count>=0){
+						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
+							outputEquationNodes.Clear();
+							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes)
+								outputEquationNodes.Add(tn0);
+							
+							tree.Nodes[1].Nodes[0].Nodes.Clear();
+						}
+						if(outputFuzzySetNodes.Count>0)
+							foreach(TreeNode tn0 in outputFuzzySetNodes)
+								if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
+									tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
+							
+					}
+				last_checked = 0;
+			}
+			else if(Sugeno.Checked){
+				tree.SelectedNode = tree.Nodes[0];
+				if(!tab.TabPages.Contains(O_Equ))
+					tab.TabPages.Insert(1, O_Equ);
+
+				if(last_checked != 1)
+					ifthenrules.Rows.Clear();				
+
+				if(last_checked == 0 || last_checked == 2)
+					if(tree.Nodes[1].Nodes.Count>0){
+						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
+							outputFuzzySetNodes.Clear();
+							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes)
+								outputFuzzySetNodes.Add(tn0);
+							
+							tree.Nodes[1].Nodes[0].Nodes.Clear();
+						}
+						if(outputEquationNodes.Count>0)
+							foreach(TreeNode tn0 in outputEquationNodes)
+								if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
+									tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
+					}
+				last_checked = 1;
+			}
+			else if(Tsukamoto.Checked){
+				tree.SelectedNode = tree.Nodes[0];
+				tab.TabPages.RemoveByKey("Page02");
+
+				if(last_checked != 2)
+					ifthenrules.Rows.Clear();
+
+				if(last_checked != 0 && last_checked != 2)
+					if(tree.Nodes[1].Nodes.Count>0){
+						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
+							outputEquationNodes.Clear();
+							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes)
+								outputEquationNodes.Add(tn0);
+
+							tree.Nodes[1].Nodes[0].Nodes.Clear();
+						}
+						if(outputFuzzySetNodes.Count>0)
+							foreach(TreeNode tn0 in outputFuzzySetNodes)
+								if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
+									tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
+					}
+				last_checked = 2;
+			}
+		}
 
 		private void oneDinf_Click(object sender, EventArgs e){
 			UpdateAllRules();
+			if(Mamdani.Checked)
+				fis = new MamdaniFuzzySystem(allRules);
+			else if(Sugeno.Checked)
+				fis = new SugenoFuzzySystem(allRules);
+			else if(Tsukamoto.Checked)
+				fis = new TsukamotoFuzzySystem(allRules);
+
+			Universe u0, u1;
+			u0 = (Universe)tree.Nodes[0].Nodes[0].Tag;
+			u1 = (Universe)tree.Nodes[1].Nodes[0].Tag;
+			cht1d.Series[0].Name = string.Format("{0}-{1}", u0.Name, u1.Name);
+			cht1d.ChartAreas[0].AxisX.Title = u0.Name;
+			cht1d.ChartAreas[0].AxisY.Title = u1.Name;
+
+			List<double> list = new List<double>();
+			list.Add(0.0);
+
+			cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax;
+			cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin;
+			cht1d.Series[0].Points.Clear();
+
+			for (double i = u0.Xmin; i < u0.Xmax; i += u0.Interval){
+				list[0] = i;
+				double yValue = fis.CrispInCrispOutInferencing(list, DefuzzificationType.COA);
+				cht1d.Series[0].Points.AddXY(i, yValue);
+			}
+			cht1d.Series[0].Sort(PointSortOrder.Ascending, "X");
+			cht1d.Refresh();
+		}
+
+		
+
+		private void twoDinf_Click(object sender, EventArgs e){
+			UpdateAllRules();
+			tChart.Axes.Bottom.Title.Text = tree.Nodes[0].Nodes[0].Text;
+			tChart.Axes.Depth.Title.Text = tree.Nodes[0].Nodes[1].Text;
+			tChart.Axes.Left.Title.Text = tree.Nodes[1].Nodes[0].Text;
+			FuzzyInferenceSystem fis = null;
 			if(Mamdani.Checked){
 				fis = new MamdaniFuzzySystem(allRules);
 			}
@@ -991,112 +1095,30 @@ namespace R04522602許泰源Ass06{
 			}
 			Universe u0, u1;
 			u0 = (Universe)tree.Nodes[0].Nodes[0].Tag;
-			u1 = (Universe)tree.Nodes[1].Nodes[0].Tag;
-			cht1d.Series[0].Name = string.Format("{0}-{1}", u0.Name, u1.Name);
-			cht1d.ChartAreas[0].AxisX.Title = u0.Name;
-			cht1d.ChartAreas[0].AxisY.Title = u1.Name;
+			u1 = (Universe)tree.Nodes[0].Nodes[1].Tag;
 			List<double> list = new List<double>();
 			list.Add(0.0);
-			//cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax;
-			//cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin;
-			cht1d.Series[0].Points.Clear();
-			for (double i = u0.Xmin; i <= u0.Xmax; i += u0.Interval){
-				list[0] = i;
-				double yValue = fis.CrispInCrispOutInferencing(list, DefuzzificationType.COA);
-				cht1d.Series[0].Points.AddXY(i, yValue);
-			}
-			cht1d.Refresh();
-		}
+			list.Add(0.0);
+			
+			double interval_x, interval_z, X, Y, Z;
+			interval_x = (u0.Xmax-u0.Xmin)/29.0;
+			interval_z = (u1.Xmax-u1.Xmin)/29.0;
+			
+			Inf_Suf.Clear();
+			Inf_Suf.IrregularGrid = true;
+			Inf_Suf.NumXValues = 30;
+			Inf_Suf.NumZValues = 30;
+			Inf_Suf.Depth = 15;
 
-		private void Add_Equ_Click(object sender, EventArgs e){
-			if(equlist.SelectedIndex>=0){
-				TreeNode tn = new TreeNode(equlist.SelectedItem.ToString());
-				tn.Tag = equlist.SelectedIndex;
-				tn.ImageIndex = 7;
-				tn.SelectedImageIndex = 6;
-
-				tree.SelectedNode.Nodes.Add(tn);
-				tree.SelectedNode.ExpandAll();
-				//fs.Display = true;
-			}
-		}
-
-		private List<TreeNode> outputFuzzySetNodes = new List<TreeNode>();
-		private List<TreeNode> outputEquationNodes = new List<TreeNode>();
-
-		private void InfSys_CheckedChanged(object sender, EventArgs e){
-			if(Mamdani.Checked){
-				tree.SelectedNode = tree.Nodes[0];
-				tab.TabPages.RemoveByKey("Page02");
-				if(last_checked != 0){
-					ifthenrules.Rows.Clear();
+			for(int i=0; i<30; i++){
+				X = list[0] = u0.Xmin + (double)i * interval_x;
+				for(int j=0; j<30; j++){
+					Z = list[1] = u1.Xmin + (double)j * interval_z;
+					Y = fis.CrispInCrispOutInferencing(list, DefuzzificationType.COA);
+					Inf_Suf.Add(X, Y, Z);
 				}
-				if(last_checked != 0 && last_checked != 2)
-					if(tree.Nodes[1].Nodes.Count>0){
-						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
-							outputEquationNodes.Clear();
-							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes){
-								outputEquationNodes.Add(tn0);
-							}
-							tree.Nodes[1].Nodes[0].Nodes.Clear();
-							foreach(TreeNode tn0 in outputFuzzySetNodes){
-								if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
-									tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
-							}
-						}
-					}
-				last_checked = 0;
 			}
-			else if(Sugeno.Checked){
-				tree.SelectedNode = tree.Nodes[0];
-				if(!tab.TabPages.Contains(O_Equ))
-					tab.TabPages.Insert(1, O_Equ);
-
-				if(last_checked != 1){
-					ifthenrules.Rows.Clear();
-				}
-
-				if(last_checked == 0 || last_checked == 2)
-					if(tree.Nodes[1].Nodes.Count>0){
-						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
-							outputFuzzySetNodes.Clear();
-							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes){
-								outputFuzzySetNodes.Add(tn0);
-							}
-							tree.Nodes[1].Nodes[0].Nodes.Clear();
-							foreach(TreeNode tn0 in outputEquationNodes){
-								if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
-									tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
-							}
-						}
-					}
-				last_checked = 1;
-			}
-			else if(Tsukamoto.Checked){
-				tree.SelectedNode = tree.Nodes[0];
-				tab.TabPages.RemoveByKey("Page02");
-
-				if(last_checked != 2){
-					ifthenrules.Rows.Clear();
-				}
-
-				if(last_checked != 0 && last_checked != 2)
-					if(tree.Nodes[1].Nodes.Count>0){
-						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
-							outputEquationNodes.Clear();
-							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes){
-								outputEquationNodes.Add(tn0);
-							}
-							tree.Nodes[1].Nodes[0].Nodes.Clear();
-							foreach(TreeNode tn0 in outputFuzzySetNodes){
-								if(!tree.Nodes[1].Nodes[0].Nodes.Contains(tn0))
-									tree.Nodes[1].Nodes[0].Nodes.Add(tn0);
-							}
-						}
-					}
-				last_checked = 2;
-			}
+			tChart.Refresh();
 		}
-		
     }
 }

@@ -74,7 +74,8 @@ namespace R04522602許泰源Ass06{
 				if(breakpoints.Length!=0){
 					foreach(DataPoint pt in breakpoints){
 						if(pt != null)
-							series.Points.AddXY(pt.XValue, pt.YValues[0]);
+							//series.Points.AddXY(pt.XValue, pt.YValues[0]);
+							series.Points.AddXY(pt.XValue, GetFunctionValue(pt.XValue));
 					}
 				}
 			series.Sort(PointSortOrder.Ascending, "X");
