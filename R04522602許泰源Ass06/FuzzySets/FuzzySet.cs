@@ -216,6 +216,7 @@ namespace R04522602許泰源Ass06{
 				for(int i=1; i<series.Points.Count; i++){
 					num += series.Points[i].YValues[0] * (series.Points[i].XValue - x) * series.Points[i].XValue;
 					den += series.Points[i].YValues[0] * (series.Points[i].XValue - x);
+					x = series.Points[i].XValue;
 				}
 
 				if(den > 4.94065645841247E-324)
@@ -235,14 +236,17 @@ namespace R04522602許泰源Ass06{
 				x = series.Points[0].XValue;
 				for(i=1; i<series.Points.Count; i++){
 					R += series.Points[i].YValues[0] * (series.Points[i].XValue - x);
+					x = series.Points[i].XValue;
 				}
+				x = series.Points[0].XValue;
 				for(i=1; i<series.Points.Count; i++){
 					L += series.Points[i].YValues[0] * (series.Points[i].XValue - x);
 					R -= series.Points[i].YValues[0] * (series.Points[i].XValue - x);
+					x = series.Points[i].XValue;
 					if(L>=R)
 						break;
 				}
-				return (series.Points[i].XValue+series.Points[i-1].XValue)/2.0;
+				return series.Points[i].XValue;
 			}
 		}
 
@@ -263,24 +267,22 @@ namespace R04522602許泰源Ass06{
 				for(i=0; i<series.Points.Count; i++)
 					if(series.Points[i].YValues[0] == max)
 						cnt++;
-				if(cnt == 1)
+				if(cnt <= 1)
 					return series.Points[mi].XValue;
 				else{
-					if(series.Points[0].YValues[0] == max)
-						L = 0;
-					else
-						for(i=1; i<series.Points.Count; i++){
-							if(series.Points[i].YValues[0]==max&&series.Points[i-1].YValues[0]!=max)
-								L = i;
+					for(i=0; i<series.Points.Count; i++){
+						if(series.Points[i].YValues[0]==max){
+							L = i;
+							break;
 						}
+					}
 
-					if(series.Points[series.Points.Count-1].YValues[0] == max)
-						R = series.Points.Count-1;
-					else
-						for(i=0; i<series.Points.Count-1; i++){
-							if(series.Points[i].YValues[0]==max&&series.Points[i+1].YValues[0]!=max)
-								R = i;
+					for(i=series.Points.Count-1; i>=0; i--){
+						if(series.Points[i].YValues[0]==max){
+							R = i;
+							break;
 						}
+					}
 
 					return (series.Points[L].XValue+series.Points[R].XValue)/2;
 				}
@@ -292,7 +294,7 @@ namespace R04522602許泰源Ass06{
 			get{
 				if(series.Points.Count == 0)
 					UpdateSeriesPoints();
-				double x, max = 0.0;
+				double x, max = double.MinValue;
 				int i, mi = 0, cnt = 0, L = 0;
 				x = series.Points[0].XValue;
 				for(i=0; i<series.Points.Count; i++){
@@ -304,16 +306,15 @@ namespace R04522602許泰源Ass06{
 				for(i=0; i<series.Points.Count; i++)
 					if(series.Points[i].YValues[0] == max)
 						cnt++;
-				if(cnt == 1)
+				if(cnt <= 1)
 					return series.Points[mi].XValue;
 				else{
-					if(series.Points[0].YValues[0] == max)
-						L = 0;
-					else
-						for(i=1; i<series.Points.Count; i++){
-							if(series.Points[i].YValues[0]==max&&series.Points[i-1].YValues[0]!=max)
-								L = i;
+					for(i=0; i<series.Points.Count; i++){
+						if(series.Points[i].YValues[0]==max){
+							L = i;
+							break;
 						}
+					}
 					return series.Points[L].XValue;
 				}
 			}
@@ -324,7 +325,7 @@ namespace R04522602許泰源Ass06{
 			get{
 				if(series.Points.Count == 0)
 					UpdateSeriesPoints();
-				double x, max = 0.0;
+				double x, max = double.MinValue;
 				int i, mi = 0, cnt = 0, R = 0;
 				x = series.Points[0].XValue;
 				for(i=0; i<series.Points.Count; i++){
@@ -336,18 +337,20 @@ namespace R04522602許泰源Ass06{
 				for(i=0; i<series.Points.Count; i++)
 					if(series.Points[i].YValues[0] == max)
 						cnt++;
-				if(cnt == 1)
-					return series.Points[mi].XValue;
+				if(max==0.0)
+					return 0;
 				else{
-					if(series.Points[series.Points.Count-1].YValues[0] == max)
-						R = series.Points.Count-1;
-					else
-						for(i=0; i<series.Points.Count-1; i++){
-							if(series.Points[i].YValues[0]==max&&series.Points[i+1].YValues[0]!=max)
+					if(cnt <= 1)
+						return series.Points[mi].XValue;
+					else{
+						for(i=series.Points.Count-1; i>=0; i--){
+							if(series.Points[i].YValues[0]==max){
 								R = i;
+								break;
+							}
 						}
-
-					return series.Points[R].XValue;
+						return series.Points[R].XValue;
+					}
 				}
 			}
 		}

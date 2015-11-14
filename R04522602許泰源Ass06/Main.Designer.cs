@@ -29,13 +29,12 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
 			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
 			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
 			this.Chart_func = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.save_btn = new System.Windows.Forms.Button();
 			this.user_guide_btn = new System.Windows.Forms.Button();
@@ -90,10 +89,11 @@
 			this.cht1d = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.oneDinf = new System.Windows.Forms.Button();
 			this.Page_02 = new System.Windows.Forms.TabPage();
-			this.chartController = new Steema.TeeChart.ChartController();
-			this.twoDinf = new System.Windows.Forms.Button();
 			this.tChart = new Steema.TeeChart.TChart();
 			this.Inf_Suf = new Steema.TeeChart.Styles.Surface();
+			this.chartController = new Steema.TeeChart.ChartController();
+			this.twoDinf = new System.Windows.Forms.Button();
+			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.Chart_func)).BeginInit();
 			this.PrimFuzzy.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -133,8 +133,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Chart_func.BackColor = System.Drawing.Color.MistyRose;
 			this.Chart_func.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalRight;
-			legend1.Name = "Legend1";
-			this.Chart_func.Legends.Add(legend1);
+			legend9.Name = "Legend1";
+			this.Chart_func.Legends.Add(legend9);
 			this.Chart_func.Location = new System.Drawing.Point(0, 0);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
@@ -641,6 +641,7 @@
 			// Page01
 			// 
 			this.Page01.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.Page01.Controls.Add(this.comboBox1);
 			this.Page01.Controls.Add(this.PrimFuzzy);
 			this.Page01.Controls.Add(this.groupBox1);
 			this.Page01.Controls.Add(this.user_guide_btn);
@@ -776,10 +777,10 @@
 			this.Page02.Controls.Add(this.Add_Equ);
 			this.Page02.Controls.Add(this.equlist);
 			this.Page02.Controls.Add(this.SugOut);
-			this.Page02.Location = new System.Drawing.Point(4, 22);
+			this.Page02.Location = new System.Drawing.Point(4, 23);
 			this.Page02.Name = "Page02";
 			this.Page02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page02.Size = new System.Drawing.Size(514, 615);
+			this.Page02.Size = new System.Drawing.Size(514, 614);
 			this.Page02.TabIndex = 2;
 			this.Page02.Text = "Output Equations";
 			// 
@@ -810,7 +811,7 @@
             "6: z =  x + y + 2"});
 			this.equlist.Location = new System.Drawing.Point(10, 33);
 			this.equlist.Name = "equlist";
-			this.equlist.Size = new System.Drawing.Size(310, 494);
+			this.equlist.Size = new System.Drawing.Size(310, 466);
 			this.equlist.TabIndex = 3;
 			// 
 			// SugOut
@@ -874,17 +875,12 @@
 			this.cht1d.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			chartArea1.Name = "ChartArea1";
-			this.cht1d.ChartAreas.Add(chartArea1);
-			legend2.Name = "Legend1";
-			this.cht1d.Legends.Add(legend2);
+			chartArea5.Name = "ChartArea1";
+			this.cht1d.ChartAreas.Add(chartArea5);
+			legend10.Name = "Legend1";
+			this.cht1d.Legends.Add(legend10);
 			this.cht1d.Location = new System.Drawing.Point(79, 2);
 			this.cht1d.Name = "cht1d";
-			series1.ChartArea = "ChartArea1";
-			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series1.Legend = "Legend1";
-			series1.Name = "Series1";
-			this.cht1d.Series.Add(series1);
 			this.cht1d.Size = new System.Drawing.Size(376, 223);
 			this.cht1d.TabIndex = 72;
 			this.cht1d.Text = "chart1";
@@ -908,39 +904,12 @@
 			this.Page_02.Controls.Add(this.tChart);
 			this.Page_02.Controls.Add(this.chartController);
 			this.Page_02.Controls.Add(this.twoDinf);
-			this.Page_02.Location = new System.Drawing.Point(4, 23);
+			this.Page_02.Location = new System.Drawing.Point(4, 22);
 			this.Page_02.Name = "Page_02";
 			this.Page_02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page_02.Size = new System.Drawing.Size(623, 228);
+			this.Page_02.Size = new System.Drawing.Size(623, 229);
 			this.Page_02.TabIndex = 1;
 			this.Page_02.Text = "2D Input/Output Map";
-			// 
-			// chartController
-			// 
-			this.chartController.AutoSize = false;
-			this.chartController.ButtonSize = Steema.TeeChart.ControllerButtonSize.x16;
-			this.chartController.Chart = this.tChart;
-			this.chartController.Dock = System.Windows.Forms.DockStyle.None;
-			this.chartController.LabelValues = true;
-			this.chartController.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-			this.chartController.Location = new System.Drawing.Point(78, 0);
-			this.chartController.Name = "chartController";
-			this.chartController.Size = new System.Drawing.Size(24, 254);
-			this.chartController.TabIndex = 52;
-			this.chartController.Text = "chartController";
-			// 
-			// twoDinf
-			// 
-			this.twoDinf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.twoDinf.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.twoDinf.Location = new System.Drawing.Point(-1, 0);
-			this.twoDinf.Name = "twoDinf";
-			this.twoDinf.Size = new System.Drawing.Size(79, 228);
-			this.twoDinf.TabIndex = 50;
-			this.twoDinf.Text = "Inference All Crisp Inputs";
-			this.twoDinf.UseVisualStyleBackColor = true;
-			this.twoDinf.Click += new System.EventHandler(this.twoDinf_Click);
 			// 
 			// tChart
 			// 
@@ -958,8 +927,15 @@
 			this.tChart.Legend.Visible = false;
 			this.tChart.Location = new System.Drawing.Point(105, 0);
 			this.tChart.Name = "tChart";
+			// 
+			// 
+			// 
+			// 
+			// 
+			// 
+			this.tChart.Panel.Brush.Color = System.Drawing.SystemColors.ControlLight;
 			this.tChart.Series.Add(this.Inf_Suf);
-			this.tChart.Size = new System.Drawing.Size(519, 228);
+			this.tChart.Size = new System.Drawing.Size(519, 227);
 			this.tChart.TabIndex = 53;
 			// 
 			// Inf_Suf
@@ -1003,6 +979,47 @@
 			// 
 			// 
 			this.Inf_Suf.ZValues.DataMember = "Z";
+			// 
+			// chartController
+			// 
+			this.chartController.AutoSize = false;
+			this.chartController.ButtonSize = Steema.TeeChart.ControllerButtonSize.x16;
+			this.chartController.Chart = this.tChart;
+			this.chartController.Dock = System.Windows.Forms.DockStyle.None;
+			this.chartController.LabelValues = true;
+			this.chartController.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+			this.chartController.Location = new System.Drawing.Point(78, 0);
+			this.chartController.Name = "chartController";
+			this.chartController.Size = new System.Drawing.Size(24, 254);
+			this.chartController.TabIndex = 52;
+			this.chartController.Text = "chartController";
+			// 
+			// twoDinf
+			// 
+			this.twoDinf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.twoDinf.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.twoDinf.Location = new System.Drawing.Point(-1, 0);
+			this.twoDinf.Name = "twoDinf";
+			this.twoDinf.Size = new System.Drawing.Size(79, 227);
+			this.twoDinf.TabIndex = 50;
+			this.twoDinf.Text = "Inference All Crisp Inputs";
+			this.twoDinf.UseVisualStyleBackColor = true;
+			this.twoDinf.Click += new System.EventHandler(this.twoDinf_Click);
+			// 
+			// comboBox1
+			// 
+			this.comboBox1.FormattingEnabled = true;
+			this.comboBox1.Items.AddRange(new object[] {
+            "COA",
+            "BOA",
+            "MOM",
+            "SOM",
+            "LOM"});
+			this.comboBox1.Location = new System.Drawing.Point(318, 182);
+			this.comboBox1.Name = "comboBox1";
+			this.comboBox1.Size = new System.Drawing.Size(121, 22);
+			this.comboBox1.TabIndex = 71;
 			// 
 			// Main
 			// 
@@ -1118,6 +1135,7 @@
 		private System.Windows.Forms.DataVisualization.Charting.Chart cht1d;
 		private Steema.TeeChart.TChart tChart;
 		private Steema.TeeChart.Styles.Surface Inf_Suf;
+		private System.Windows.Forms.ComboBox comboBox1;
 	}
 }
 

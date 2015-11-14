@@ -294,6 +294,7 @@ namespace R04522602許泰源Ass06{
 					Chart_func.ChartAreas[u.Name].Visible = false;
 					tree.SelectedNode.Remove();
 					ifthenrules.Columns.Remove(u.Name);
+					conditions.Columns.Remove(u.Name);
 
 					if(tree.Nodes[0].Nodes.Count == 0){
 						infpage.TabPages.RemoveByKey("Page_01");
@@ -979,7 +980,7 @@ namespace R04522602許泰源Ass06{
 					ifthenrules.Rows.Clear();
 				
 				if(last_checked != 0 && last_checked != 2)
-					if(tree.Nodes[1].Nodes.Count>=0){
+					if(tree.Nodes[1].Nodes.Count>0){
 						if(tree.Nodes[1].Nodes[0].Nodes.Count>0){
 							outputEquationNodes.Clear();
 							foreach(TreeNode tn0 in tree.Nodes[1].Nodes[0].Nodes)
@@ -1046,6 +1047,7 @@ namespace R04522602許泰源Ass06{
 
 		private void oneDinf_Click(object sender, EventArgs e){
 			UpdateAllRules();
+			
 			if(Mamdani.Checked)
 				fis = new MamdaniFuzzySystem(allRules);
 			else if(Sugeno.Checked)
@@ -1056,7 +1058,7 @@ namespace R04522602許泰源Ass06{
 			Universe u0, u1;
 			u0 = (Universe)tree.Nodes[0].Nodes[0].Tag;
 			u1 = (Universe)tree.Nodes[1].Nodes[0].Tag;
-			cht1d.Series[0].Name = string.Format("{0}-{1}", u0.Name, u1.Name);
+			
 			cht1d.ChartAreas[0].AxisX.Title = u0.Name;
 			cht1d.ChartAreas[0].AxisY.Title = u1.Name;
 
@@ -1065,14 +1067,36 @@ namespace R04522602許泰源Ass06{
 
 			cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax;
 			cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin;
-			cht1d.Series[0].Points.Clear();
-
-			for (double i = u0.Xmin; i < u0.Xmax; i += u0.Interval){
-				list[0] = i;
-				double yValue = fis.CrispInCrispOutInferencing(list, DefuzzificationType.COA);
-				cht1d.Series[0].Points.AddXY(i, yValue);
-			}
-			cht1d.Series[0].Sort(PointSortOrder.Ascending, "X");
+			int value = comboBox1.SelectedIndex;
+			//foreach(int value in Enum.GetValues(typeof(DefuzzificationType))){
+			cht1d.Series.Clear();
+				System.Windows.Forms.DataVisualization.Charting.Series tmp_series = new System.Windows.Forms.DataVisualization.Charting.Series();
+				tmp_series.Name = string.Format("{0}-{1}", u0.Name, u1.Name);
+				tmp_series.Points.Clear();
+				tmp_series.Name += ((DefuzzificationType)value).ToString();
+				tmp_series.ChartType = SeriesChartType.Line;
+				//cht1d.Series[0].Points.Clear();
+				double min, max;	
+				min = cht1d.ChartAreas[0].AxisX.Minimum = -0.2;
+				max = cht1d.ChartAreas[0].AxisX.Maximum = 10.2;
+				cht1d.ChartAreas[0].AxisY.Minimum = -0.2;
+				cht1d.ChartAreas[0].AxisY.Maximum = 10.2;
+				
+				
+				for (double i = min; i < max; i += u0.Interval){
+					list[0] = i;
+					if(i<u0.Xmin||i>u0.Xmax)
+						tmp_series.Points.AddXY(i, 0.0);
+					else{
+						double yValue = fis.CrispInCrispOutInferencing(list, (DefuzzificationType)value);
+						//double yValue = fis.CrispInCrispOutInferencing(list, DefuzzificationType.COA);
+						tmp_series.Points.AddXY(i, yValue);
+						//MessageBox.Show(i.ToString()+" " + yValue.ToString());
+					}
+				}
+				//tmp_series.Sort(PointSortOrder.Ascending, "X");
+				cht1d.Series.Add(tmp_series);
+			//}
 			cht1d.Refresh();
 		}
 

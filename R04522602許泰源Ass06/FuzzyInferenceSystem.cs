@@ -32,10 +32,10 @@ namespace R04522602許泰源Ass06{
             for (int i = 1; i < allRules.Count; i++)
 				final |= allRules[i].CrispInFuzzyOutInferencing(condition);
             switch (type){
-                case DefuzzificationType.BOA:
-					return final.BOACrispValue;
                 case DefuzzificationType.COA:
-                    return final.COACrispValue;
+					return final.COACrispValue;
+                case DefuzzificationType.BOA:
+                    return final.BOACrispValue;
                 case DefuzzificationType.LOM:
 					return final.LOMCrispValue;
                 case DefuzzificationType.MOM:
