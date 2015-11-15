@@ -259,7 +259,7 @@ namespace R04522602許泰源Ass06{
 				int i, mi = 0, cnt = 0, L = 0, R = 0;
 				x = series.Points[0].XValue;
 				for(i=0; i<series.Points.Count; i++){
-					if(series.Points[i].YValues[0] >= max){
+					if(series.Points[i].YValues[0] > max){
 						max = series.Points[i].YValues[0];
 						mi = i;
 					}
@@ -267,6 +267,8 @@ namespace R04522602許泰源Ass06{
 				for(i=0; i<series.Points.Count; i++)
 					if(series.Points[i].YValues[0] == max)
 						cnt++;
+				if(max==0.0)
+					return 0.0;
 				if(cnt <= 1)
 					return series.Points[mi].XValue;
 				else{
@@ -284,7 +286,6 @@ namespace R04522602許泰源Ass06{
 						}
 					}
 					return (series.Points[L].XValue+series.Points[R].XValue)/2;
-
 				}
 			}
 		}
