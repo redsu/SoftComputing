@@ -246,7 +246,7 @@ namespace R04522602許泰源Ass06{
 					if(L>=R)
 						break;
 				}
-				return series.Points[i].XValue;
+				return (series.Points[i].XValue+series.Points[i-1].XValue)/2;
 			}
 		}
 
@@ -283,8 +283,8 @@ namespace R04522602許泰源Ass06{
 							break;
 						}
 					}
-
 					return (series.Points[L].XValue+series.Points[R].XValue)/2;
+
 				}
 			}
 		}
