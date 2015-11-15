@@ -1185,12 +1185,12 @@ namespace R04522602許泰源Ass06{
 				
 				for (double i = min; i < max; i += u0.Interval){
 					list[0] = i;
-					if(i<u0.Xmin||i>u0.Xmax)
-						tmp_series.Points.AddXY(i, 0.0);
-					else{
+					//if(i<u0.Xmin||i>u0.Xmax)
+					//	tmp_series.Points.AddXY(i, 0.0);
+					//else{
 						double yValue = fis.CrispInCrispOutInferencing(list, (DefuzzificationType)value);
 						tmp_series.Points.AddXY(i, yValue);
-					}
+					//}
 				}
 				cht1d.Series.Add(tmp_series);
 				cht1d.Refresh();

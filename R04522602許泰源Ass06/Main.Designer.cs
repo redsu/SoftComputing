@@ -70,7 +70,6 @@
 			this.sC02 = new System.Windows.Forms.SplitContainer();
 			this.tab = new System.Windows.Forms.TabControl();
 			this.Page01 = new System.Windows.Forms.TabPage();
-			this.defuz_cbb = new System.Windows.Forms.ComboBox();
 			this.Page03 = new System.Windows.Forms.TabPage();
 			this.Cut_check = new System.Windows.Forms.CheckBox();
 			this.inf_btn = new System.Windows.Forms.Button();
@@ -87,6 +86,7 @@
 			this.sC04 = new System.Windows.Forms.SplitContainer();
 			this.infpage = new System.Windows.Forms.TabControl();
 			this.Page_01 = new System.Windows.Forms.TabPage();
+			this.defuz_cbb = new System.Windows.Forms.ComboBox();
 			this.cht1d = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.oneDinf = new System.Windows.Forms.Button();
 			this.Page_02 = new System.Windows.Forms.TabPage();
@@ -654,21 +654,6 @@
 			this.Page01.TabIndex = 0;
 			this.Page01.Text = "Fuzzy Sets";
 			// 
-			// defuz_cbb
-			// 
-			this.defuz_cbb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.defuz_cbb.FormattingEnabled = true;
-			this.defuz_cbb.Items.AddRange(new object[] {
-            "COA",
-            "BOA",
-            "MOM",
-            "SOM",
-            "LOM"});
-			this.defuz_cbb.Location = new System.Drawing.Point(480, 11);
-			this.defuz_cbb.Name = "defuz_cbb";
-			this.defuz_cbb.Size = new System.Drawing.Size(121, 22);
-			this.defuz_cbb.TabIndex = 71;
-			// 
 			// Page03
 			// 
 			this.Page03.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -885,6 +870,22 @@
 			this.Page_01.TabIndex = 0;
 			this.Page_01.Text = "1D Input/Output Map";
 			// 
+			// defuz_cbb
+			// 
+			this.defuz_cbb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.defuz_cbb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.defuz_cbb.FormattingEnabled = true;
+			this.defuz_cbb.Items.AddRange(new object[] {
+            "COA",
+            "BOA",
+            "MOM",
+            "SOM",
+            "LOM"});
+			this.defuz_cbb.Location = new System.Drawing.Point(480, 11);
+			this.defuz_cbb.Name = "defuz_cbb";
+			this.defuz_cbb.Size = new System.Drawing.Size(121, 22);
+			this.defuz_cbb.TabIndex = 71;
+			// 
 			// cht1d
 			// 
 			this.cht1d.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -919,10 +920,10 @@
 			this.Page_02.Controls.Add(this.tChart);
 			this.Page_02.Controls.Add(this.chartController);
 			this.Page_02.Controls.Add(this.twoDinf);
-			this.Page_02.Location = new System.Drawing.Point(4, 23);
+			this.Page_02.Location = new System.Drawing.Point(4, 22);
 			this.Page_02.Name = "Page_02";
 			this.Page_02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page_02.Size = new System.Drawing.Size(623, 228);
+			this.Page_02.Size = new System.Drawing.Size(623, 229);
 			this.Page_02.TabIndex = 1;
 			this.Page_02.Text = "2D Input/Output Map";
 			// 
