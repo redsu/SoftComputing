@@ -222,7 +222,9 @@
             "Sigmoidal Function",
             "SFuzzySet",
             "PiFuzzySet",
-            "Trapezoidal"});
+            "Trapezoidal",
+            "RightUpStep",
+            "LeftUpStep"});
 			this.FuncTypSel.Location = new System.Drawing.Point(6, 39);
 			this.FuncTypSel.Name = "FuncTypSel";
 			this.FuncTypSel.Size = new System.Drawing.Size(155, 22);
@@ -811,7 +813,7 @@
             "6: z =  x + y + 2"});
 			this.equlist.Location = new System.Drawing.Point(10, 33);
 			this.equlist.Name = "equlist";
-			this.equlist.Size = new System.Drawing.Size(310, 452);
+			this.equlist.Size = new System.Drawing.Size(310, 438);
 			this.equlist.TabIndex = 3;
 			// 
 			// SugOut

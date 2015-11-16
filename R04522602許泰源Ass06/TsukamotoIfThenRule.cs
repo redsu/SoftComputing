@@ -31,10 +31,25 @@ namespace R04522602許泰源Ass06{
 
             for( int i = 0; i < antecedent.Count; i++ ){
 				MaxDegree = antecedent[i].GetFunctionValue(condition[i]);
+				//Wi
 				finalStrength = finalStrength > MaxDegree ? MaxDegree : finalStrength;
             }
-            return monotonic.GetMemberByDegree(finalStrength);
+			//Zi*Wi
+            return monotonic.GetMemberByDegree(finalStrength)*finalStrength;
         }
+		public override double Inference(List<double> condition){
+            double finalStrength = double.MaxValue;
+			double MaxDegree = 0.0;
+
+            for( int i = 0; i < antecedent.Count; i++ ){
+				MaxDegree = antecedent[i].GetFunctionValue(condition[i]);
+				//Wi
+				finalStrength = finalStrength > MaxDegree ? MaxDegree : finalStrength;
+            }
+			//Wi
+            return finalStrength;
+        }
+
     }
 }
 

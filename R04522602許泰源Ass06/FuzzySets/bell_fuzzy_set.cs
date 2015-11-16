@@ -49,7 +49,8 @@ namespace R04522602許泰源Ass06{
             a = parameters["Half-width"];
             b = parameters["Slope"];
             c = parameters["Center"];
-            
+            if(x == c)
+				return 1.0;
             y = 1/(1+Math.Pow(Math.Abs((x-c)/a),2.0f*b));
 
             return y;
@@ -65,17 +66,6 @@ namespace R04522602許泰源Ass06{
 		public double GetParameter(string NameOfParameter){
 			return parameters[NameOfParameter];
 		}
-
-		//Override the previous definition to make sure there always exist a point (Center, 1.0)
-		/*protected override void UpdateSeriesPoints(){
-            series.Points.Clear();
-            for (double x = theUniverse.Xmin; x <= theUniverse.Xmax; x = x + theUniverse.Interval){
-                double y = GetFunctionValue( x );
-                series.Points.AddXY(x, y);
-				if(x<=Center && x+theUniverse.Interval>=Center)
-					series.Points.AddXY(Center, 1.0);
-            }
-        }*/
 
 		//Set Parameter of the function.
 		public void SetParameter(string NameOfParameter, double Parameter){

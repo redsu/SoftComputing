@@ -390,7 +390,7 @@ namespace R04522602許泰源Ass06{
 			for(int i=1; i<series.Points.Count; i++){
 				if((series.Points[i].YValues[0]<degree&&series.Points[i-1].YValues[0]>=degree)||
 				   (series.Points[i].YValues[0]>degree&&series.Points[i-1].YValues[0]<=degree))
-					return series.Points[i].XValue;
+					return (series.Points[i].XValue);
 			}
 			return 0.0;
 		}

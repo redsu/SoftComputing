@@ -213,6 +213,14 @@ namespace R04522602許泰源Ass06{
 							case 6:
 								fs = new Trapezoidal(u);
 								break;
+
+							case 7:
+								fs = new RightUpStep(u);
+								break;
+
+							case 8:
+								fs = new LeftUpStep(u);
+								break;
 						}
 						if(fs!=null){
 							TreeNode tn = new TreeNode(fs.Name);
@@ -232,21 +240,59 @@ namespace R04522602許泰源Ass06{
 				if(tree.SelectedNode != null)
 					if(tree.SelectedNode.Tag is Universe){
 						u = (Universe) tree.SelectedNode.Tag;
+						if(tree.SelectedNode.Parent.Name == "node_out")
+							switch (FuncTypSel.SelectedIndex){
+								case 3:
+									fs = new sigmoidal_fuzzy_set(u);
+									break;
 
-						switch (FuncTypSel.SelectedIndex){
-							case 3:
-								fs = new sigmoidal_fuzzy_set(u);
-								break;
+								case 4:
+									fs = new S_fuzzy_set(u);
+									break;
 
-							case 4:
-								fs = new S_fuzzy_set(u);
-								break;
+								case 7:
+									fs = new RightUpStep(u);
+									break;
+
+								case 8:
+									fs = new LeftUpStep(u);
+									break;
 							
-							default:
-								fs = null;
-								MessageBox.Show("You can only use monotonic fuzzysets!!");
-								break;
-						}
+								default:
+									fs = null;
+									MessageBox.Show("You can only use monotonic fuzzysets!!");
+									break;
+							}
+						else
+							switch (FuncTypSel.SelectedIndex){
+								case 0:
+									fs = new triangle_fuzzy_set(u);
+									break;
+
+								case 1:
+									fs = new gaussian_fuzzy_set(u);
+									break;
+
+								case 2:
+									fs = new bell_fuzzy_set(u);
+									break;
+
+								case 3:
+									fs = new sigmoidal_fuzzy_set(u);
+									break;
+
+								case 4:
+									fs = new S_fuzzy_set(u);
+									break;
+
+								case 5:
+									fs = new PI_fuzzy_set(u);
+									break;
+
+								case 6:
+									fs = new Trapezoidal(u);
+									break;
+							}
 						if(fs!=null){
 							TreeNode tn = new TreeNode(fs.Name);
 							tn.Tag = fs;
@@ -837,7 +883,7 @@ namespace R04522602許泰源Ass06{
 					ifthenrules.Rows[ifthenrules.SelectedCells[0].RowIndex].Selected = true;
 					
 					if (ifthenrules.SelectedRows.Count > 0)
-						ifthenrules.Rows.RemoveAt(ifthenrules.SelectedRows.Count-1);
+						ifthenrules.Rows.RemoveAt(ifthenrules.SelectedCells[0].RowIndex);
 					if(ifthenrules.RowCount==0)
 						inf_btn.Enabled = false	;
 				}
@@ -1179,8 +1225,8 @@ namespace R04522602許泰源Ass06{
 				tmp_series.Name += ((DefuzzificationType)value).ToString();
 				tmp_series.ChartType = SeriesChartType.Line;
 				double min, max;	
-				min = cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin-0.2;
-				max = cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax+0.2;
+				min = cht1d.ChartAreas[0].AxisX.Minimum = Math.Round(u0.Xmin)-0.2;
+				max = cht1d.ChartAreas[0].AxisX.Maximum = Math.Round(u0.Xmax)+0.2;
 				
 				
 				

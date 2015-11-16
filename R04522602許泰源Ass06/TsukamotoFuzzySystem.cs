@@ -20,10 +20,26 @@ namespace R04522602許泰源Ass06{
 
 		public override double CrispInCrispOutInferencing(List<double> condition, DefuzzificationType type){
 			double x = 0.0;
+			double w = 0.0;
+			List<double> conditionMirror = condition;
 			for(int i=0; i<allRules.Count; i++){
+				//Wi*Zi
 				x += allRules[i].CrispInCrispOutInferencing(condition);
+				//Wi
+				w += allRules[i].Inference(condition);
 			}
-			return x;
+			if(w>0.00000001)
+				return x/w;
+			else{
+				conditionMirror[0] -= 0.1;
+				for(int i=0; i<allRules.Count; i++){
+					//Wi*Zi
+					x += allRules[i].CrispInCrispOutInferencing(conditionMirror);
+					//Wi
+					w += allRules[i].Inference(conditionMirror);
+				}
+				return x/w;
+			}
 		}
 
 		public override FuzzySet FuzzyInFuzzyOutInferencing(List<FuzzySet> condition){

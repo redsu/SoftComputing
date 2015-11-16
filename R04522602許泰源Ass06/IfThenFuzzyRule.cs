@@ -27,6 +27,12 @@ namespace R04522602許泰源Ass06{
             return useCut ? finalStrength - conclusion : finalStrength * conclusion;
         }
 
+		public List<FuzzySet> Ant{
+			get{
+				return antecedent;
+			}
+		}
+
 		public virtual double FuzzyInCrispOutInferencing(List<FuzzySet> condition)
         { throw new Exception("No implementation for FuzzyInCrispOutInferencing()."); }
         public virtual FuzzySet FuzzyInFuzzyOutInferencing(List<FuzzySet> condition)
@@ -36,9 +42,9 @@ namespace R04522602許泰源Ass06{
         public virtual double CrispInCrispOutInferencing(List<double> condition)
         { throw new Exception("No implementation for CrispInCrispOutInferencing()."); }
 
-		/*internal FuzzySet Inference(List<FuzzySet> conds)
+		public virtual double Inference(List<double> condition)
 		{
 			throw new NotImplementedException();
-		}*/
+		}
 	}
 }
