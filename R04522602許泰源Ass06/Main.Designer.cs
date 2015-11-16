@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
-			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
+			System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("InputUniverses", 1, 0);
+			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("OutputUniverses", 3, 2);
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
 			this.Chart_func = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.save_btn = new System.Windows.Forms.Button();
 			this.user_guide_btn = new System.Windows.Forms.Button();
@@ -133,11 +133,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Chart_func.BackColor = System.Drawing.Color.MistyRose;
 			this.Chart_func.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalRight;
-			legend1.Name = "Legend1";
-			this.Chart_func.Legends.Add(legend1);
+			legend3.Name = "Legend1";
+			this.Chart_func.Legends.Add(legend3);
 			this.Chart_func.Location = new System.Drawing.Point(0, 0);
 			this.Chart_func.Margin = new System.Windows.Forms.Padding(0);
 			this.Chart_func.Name = "Chart_func";
+			this.Chart_func.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
 			this.Chart_func.Size = new System.Drawing.Size(631, 450);
 			this.Chart_func.TabIndex = 4;
 			this.Chart_func.Text = "Chart";
@@ -177,17 +178,17 @@
 			this.tree.ImageList = this.imageList;
 			this.tree.Location = new System.Drawing.Point(9, 48);
 			this.tree.Name = "tree";
-			treeNode1.ImageIndex = 1;
-			treeNode1.Name = "node_in";
-			treeNode1.SelectedImageIndex = 0;
-			treeNode1.Text = "InputUniverses";
-			treeNode2.ImageIndex = 3;
-			treeNode2.Name = "node_out";
-			treeNode2.SelectedImageIndex = 2;
-			treeNode2.Text = "OutputUniverses";
+			treeNode3.ImageIndex = 1;
+			treeNode3.Name = "node_in";
+			treeNode3.SelectedImageIndex = 0;
+			treeNode3.Text = "InputUniverses";
+			treeNode4.ImageIndex = 3;
+			treeNode4.Name = "node_out";
+			treeNode4.SelectedImageIndex = 2;
+			treeNode4.Text = "OutputUniverses";
 			this.tree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
+            treeNode3,
+            treeNode4});
 			this.tree.SelectedImageIndex = 0;
 			this.tree.Size = new System.Drawing.Size(225, 269);
 			this.tree.TabIndex = 44;
@@ -665,10 +666,10 @@
 			this.Page03.Controls.Add(this.rules);
 			this.Page03.Controls.Add(this.conditions);
 			this.Page03.Controls.Add(this.ifthenrules);
-			this.Page03.Location = new System.Drawing.Point(4, 22);
+			this.Page03.Location = new System.Drawing.Point(4, 23);
 			this.Page03.Name = "Page03";
 			this.Page03.Padding = new System.Windows.Forms.Padding(3);
-			this.Page03.Size = new System.Drawing.Size(514, 615);
+			this.Page03.Size = new System.Drawing.Size(514, 614);
 			this.Page03.TabIndex = 1;
 			this.Page03.Text = "If-Then Rules";
 			// 
@@ -677,7 +678,7 @@
 			this.Cut_check.AutoSize = true;
 			this.Cut_check.Checked = true;
 			this.Cut_check.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.Cut_check.Location = new System.Drawing.Point(322, 160);
+			this.Cut_check.Location = new System.Drawing.Point(322, 206);
 			this.Cut_check.Name = "Cut_check";
 			this.Cut_check.Size = new System.Drawing.Size(44, 18);
 			this.Cut_check.TabIndex = 49;
@@ -688,7 +689,7 @@
 			// inf_btn
 			// 
 			this.inf_btn.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.inf_btn.Location = new System.Drawing.Point(411, 155);
+			this.inf_btn.Location = new System.Drawing.Point(411, 201);
 			this.inf_btn.Name = "inf_btn";
 			this.inf_btn.Size = new System.Drawing.Size(91, 29);
 			this.inf_btn.TabIndex = 48;
@@ -723,7 +724,7 @@
 			this.conds.AutoSize = true;
 			this.conds.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.conds.ForeColor = System.Drawing.Color.Purple;
-			this.conds.Location = new System.Drawing.Point(6, 159);
+			this.conds.Location = new System.Drawing.Point(6, 205);
 			this.conds.Name = "conds";
 			this.conds.Size = new System.Drawing.Size(89, 19);
 			this.conds.TabIndex = 2;
@@ -746,12 +747,12 @@
 			this.conditions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.conditions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.conditions.Location = new System.Drawing.Point(10, 190);
+			this.conditions.Location = new System.Drawing.Point(10, 237);
 			this.conditions.Name = "conditions";
 			this.conditions.ReadOnly = true;
 			this.conditions.RowTemplate.Height = 24;
 			this.conditions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.conditions.Size = new System.Drawing.Size(498, 112);
+			this.conditions.Size = new System.Drawing.Size(498, 65);
 			this.conditions.TabIndex = 0;
 			this.conditions.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.conditions_CellClick);
 			// 
@@ -766,7 +767,7 @@
 			this.ifthenrules.ReadOnly = true;
 			this.ifthenrules.RowTemplate.Height = 24;
 			this.ifthenrules.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.ifthenrules.Size = new System.Drawing.Size(498, 101);
+			this.ifthenrules.Size = new System.Drawing.Size(498, 154);
 			this.ifthenrules.TabIndex = 0;
 			this.ifthenrules.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ifthenrules_CellClick);
 			// 
@@ -776,10 +777,10 @@
 			this.Page02.Controls.Add(this.Add_Equ);
 			this.Page02.Controls.Add(this.equlist);
 			this.Page02.Controls.Add(this.SugOut);
-			this.Page02.Location = new System.Drawing.Point(4, 22);
+			this.Page02.Location = new System.Drawing.Point(4, 23);
 			this.Page02.Name = "Page02";
 			this.Page02.Padding = new System.Windows.Forms.Padding(3);
-			this.Page02.Size = new System.Drawing.Size(514, 615);
+			this.Page02.Size = new System.Drawing.Size(514, 614);
 			this.Page02.TabIndex = 2;
 			this.Page02.Text = "Output Equations";
 			// 
@@ -802,7 +803,7 @@
 			this.equlist.ItemHeight = 14;
 			this.equlist.Items.AddRange(new object[] {
             "0: Y = 0.1X + 6.4",
-            "1: Y = 0.5X + 4",
+            "1: Y = -0.5X + 4",
             "2: Y = X - 2",
             "3: z = -x + y + 1",
             "4: z = -y + 3",
@@ -810,7 +811,7 @@
             "6: z =  x + y + 2"});
 			this.equlist.Location = new System.Drawing.Point(10, 33);
 			this.equlist.Name = "equlist";
-			this.equlist.Size = new System.Drawing.Size(310, 466);
+			this.equlist.Size = new System.Drawing.Size(310, 452);
 			this.equlist.TabIndex = 3;
 			// 
 			// SugOut
@@ -891,10 +892,10 @@
 			this.cht1d.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			chartArea1.Name = "ChartArea1";
-			this.cht1d.ChartAreas.Add(chartArea1);
-			legend2.Name = "Legend1";
-			this.cht1d.Legends.Add(legend2);
+			chartArea2.Name = "ChartArea1";
+			this.cht1d.ChartAreas.Add(chartArea2);
+			legend4.Name = "Legend1";
+			this.cht1d.Legends.Add(legend4);
 			this.cht1d.Location = new System.Drawing.Point(79, 2);
 			this.cht1d.Name = "cht1d";
 			this.cht1d.Size = new System.Drawing.Size(376, 223);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.ComponentModel;
+using System.Drawing;
 namespace R04522602許泰源Ass06{
     public class FuzzySet {
         protected static Random rnd = new Random(unchecked(DateTime.Now.Ticks.GetHashCode()));
@@ -29,6 +30,7 @@ namespace R04522602許泰源Ass06{
             //u.hostChart.Series.Add(series);
             series.ChartArea = u.area.Name;
 			series.Legend = theUniverse.Name;
+
         }
 
 		[Browsable(false)]
@@ -44,8 +46,8 @@ namespace R04522602許泰源Ass06{
                 return breakpoints;
             }
         }
-
-        //Virtual function can be override by new definition
+		
+		 //Virtual function can be override by new definition
         public virtual double GetFunctionValue(double x) {
             return 0.0;
         }
@@ -135,6 +137,17 @@ namespace R04522602許泰源Ass06{
 				}
 			}
         }
+
+		[Category("Design")]
+		public Color LineColor{
+			get {
+				return series.Color;
+			}
+			set {
+				series.Color = value;
+			}
+		}
+
 		//Set the width of line in series
 		public void SetWidth(int w){
 			series.BorderWidth = w;
@@ -206,7 +219,7 @@ namespace R04522602許泰源Ass06{
 			}
 		}
 
-		//[Browsable(false)]
+		[Browsable(false)]
 		public virtual double COACrispValue{
 			get{
 				if(series.Points.Count == 0)
@@ -226,7 +239,7 @@ namespace R04522602許泰源Ass06{
 			}
 		}
 
-		//[Browsable(false)]
+		[Browsable(false)]
 		public virtual double BOACrispValue{
 			get{
 				if(series.Points.Count == 0)
@@ -252,7 +265,7 @@ namespace R04522602許泰源Ass06{
 			}
 		}
 
-		//[Browsable(false)]
+		[Browsable(false)]
 		public virtual double MOMCrispValue{
 			get{
 				if(series.Points.Count == 0)
@@ -292,7 +305,7 @@ namespace R04522602許泰源Ass06{
 			}
 		}
 
-		//[Browsable(false)]
+		[Browsable(false)]
 		public virtual double SOMCrispValue{
 			get{
 				if(series.Points.Count == 0)
@@ -323,7 +336,7 @@ namespace R04522602許泰源Ass06{
 			}
 		}
 
-		//[Browsable(false)]
+		[Browsable(false)]
 		public virtual double LOMCrispValue{
 			get{
 				if(series.Points.Count == 0)

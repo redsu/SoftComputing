@@ -917,7 +917,7 @@ namespace R04522602許泰源Ass06{
 					allRules.Add(arule);
 				}
 				else if(Sugeno.Checked){
-					SugenoIfThenRule arule = new SugenoIfThenRule(ant, null, Cut_check.Text=="Cut", (int)ifthenrules.Rows[ifthenrules.Rows.Count-1].Cells[ifthenrules.Columns.Count-1].Value);
+					SugenoIfThenRule arule = new SugenoIfThenRule(ant, null, Cut_check.Text=="Cut", (int)ifthenrules.Rows[i].Cells[j].Value);
 					allRules.Add(arule);
 				}
 				else if(Tsukamoto.Checked){
@@ -1179,10 +1179,9 @@ namespace R04522602許泰源Ass06{
 				tmp_series.Name += ((DefuzzificationType)value).ToString();
 				tmp_series.ChartType = SeriesChartType.Line;
 				double min, max;	
-				min = cht1d.ChartAreas[0].AxisX.Minimum = -0.2;
-				max = cht1d.ChartAreas[0].AxisX.Maximum = 10.2;
-				cht1d.ChartAreas[0].AxisY.Minimum = -0.2;
-				cht1d.ChartAreas[0].AxisY.Maximum = 10.2;
+				min = cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin-0.2;
+				max = cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax+0.2;
+				
 				
 				
 				for (double i = min; i < max; i += u0.Interval){
@@ -1194,6 +1193,8 @@ namespace R04522602許泰源Ass06{
 						tmp_series.Points.AddXY(i, yValue);
 					//}
 				}
+				cht1d.ChartAreas[0].AxisY.Minimum = tmp_series.Points.FindMinByValue("Y1").YValues[0]-0.2;
+				cht1d.ChartAreas[0].AxisY.Maximum = tmp_series.Points.FindMaxByValue("Y1").YValues[0]+0.2;
 				cht1d.Series.Add(tmp_series);
 				cht1d.Refresh();
 			}
