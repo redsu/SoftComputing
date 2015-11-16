@@ -1169,7 +1169,9 @@ namespace R04522602許泰源Ass06{
 
 				cht1d.ChartAreas[0].AxisX.Maximum = u0.Xmax;
 				cht1d.ChartAreas[0].AxisX.Minimum = u0.Xmin;
+				
 				int value = defuz_cbb.SelectedIndex;
+
 				cht1d.Series.Clear();
 				System.Windows.Forms.DataVisualization.Charting.Series tmp_series = new System.Windows.Forms.DataVisualization.Charting.Series();
 				tmp_series.Name = string.Format("{0}-{1}", u0.Name, u1.Name);

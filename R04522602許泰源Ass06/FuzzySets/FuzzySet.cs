@@ -246,6 +246,8 @@ namespace R04522602許泰源Ass06{
 					if(L>=R)
 						break;
 				}
+				if(L==0.0 && R==0.0)
+					return 0.0;
 				return (series.Points[i].XValue+series.Points[i-1].XValue)/2;
 			}
 		}
