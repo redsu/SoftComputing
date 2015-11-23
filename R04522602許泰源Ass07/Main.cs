@@ -31,21 +31,26 @@ namespace R04522602許泰源Ass07{
 			//Initialize the flags and disable solve button
 			loaded = false;
 			slv_btn.Enabled = false;
+
+			//Wake up import_btn_MouseHover
+			import_btn_MouseHover(null, null);
 		}
 		
 		//Swap list[i] and list[k]
 		private int[] Swap(int[] list, int i, int k) {
 			int tmp;
 			int[] tmplist = (int[])list.Clone();
+
 			tmp = tmplist[i];
-			for(int j= i; j>k; j--) {
+			
+			for(int j= i; j>k; j--)
 				tmplist[j] = tmplist[j-1];
-			}
 			tmplist[k] = tmp;
+	
 			return tmplist;
 		}
 
-		//Permutation to get all of the permutations
+		//Get all of the permutations by recursion
 		private void Permutation(int[] list, int k, int m){
 			if(k==m) {
 				string output = "", sol = "";
@@ -95,6 +100,9 @@ namespace R04522602許泰源Ass07{
 
 						//Number of jobs		
 						count = int.Parse(myString);
+						
+						//Show number of jobs
+						noj_num.Text = count.ToString();
 
 						//Initialize the Time matrix with size [count X count]
 						ProcessTime = new double[count, count];
@@ -132,13 +140,16 @@ namespace R04522602許泰源Ass07{
         }
 
 		private void slv_btn_Click(object sender, EventArgs e){
-			//If the data is loaded, calculate the result
-			if(loaded == true){
+			//If the data is loaded and selected page is page No.01, calculate the result and show
+			if(loaded == true && tab.SelectedIndex == 0){
 				//Intitialize the number of solution
 				numofsol = 1;
 				
 				//Initialize the value of best objective to infinity
 				bestobj = double.MaxValue;
+
+				//Clear the result list
+				result_list.Items.Clear();
 
 				//Run Permutation() to try any potential solution.
 				Permutation(jobs, 0, count - 1);
@@ -147,6 +158,21 @@ namespace R04522602許泰源Ass07{
 				BSset.Text = bestsolution;
 				BOval.Text = bestobj.ToString();
 			}
+		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
+            //Detect keypressed events. If ESC was pressed, terminate the application.
+            if (keyData == Keys.Escape) {
+                this.Close();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+		private void import_btn_MouseHover(object sender, EventArgs e){
+			tip.ToolTipTitle = "操作提示";
+			tip.SetToolTip(this.import_btn,"點擊 \"Import File\" 按鈕匯入檔案");
+			tip.ToolTipIcon = ToolTipIcon.Info;
 		}
 	}
 }
