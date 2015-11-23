@@ -89,12 +89,20 @@ namespace R04522602許泰源Ass07{
 					myString = myFile.ReadLine().Trim();
 
 					//Check the first line is not empty
-					if(myString!=""){				
+					if(myString!=""){
+						//Set the loaded flag to true				
+						loaded = true;
+
 						//Number of jobs		
 						count = int.Parse(myString);
 
 						//Initialize the Time matrix with size [count X count]
 						ProcessTime = new double[count, count];
+						//Initialize the Solution set
+						jobs = new int[count];
+
+						for (int i = 0; i < count; i++)
+							jobs[i] = i;
 
 						//Read the Time matrix and save into the 2-D array.
 						for(int i=0; i<count; i++){
@@ -103,16 +111,11 @@ namespace R04522602許泰源Ass07{
 							for(int j=0; j<count; j++) 
 								ProcessTime[i, j] = double.Parse(nums[j]);
 						}
-
-						jobs = new int[count];
-
-						for (int i = 0; i < count; i++)
-							jobs[i] = i;
-
-						loaded = true;
-
+						
+						//Clear the data output area
 						data.Columns.Clear();
 
+						//Show the data on the DatagridView
 						for (int i=0; i<count; i++)
 							data.Columns.Add("m" + i.ToString(), "m" + i.ToString());
 						for (int i = 0; i < count; i++)
@@ -120,6 +123,8 @@ namespace R04522602許泰源Ass07{
 						for (int i = 0; i < count; i++)
 							for (int j = 0; j < count; j++)
 								data.Rows[i].Cells[j].Value = ProcessTime[i, j];
+
+						//Enable the solve button
 						slv_btn.Enabled = true;
 					}
 				}
@@ -127,10 +132,18 @@ namespace R04522602許泰源Ass07{
         }
 
 		private void slv_btn_Click(object sender, EventArgs e){
+			//If the data is loaded, calculate the result
 			if(loaded == true){
+				//Intitialize the number of solution
 				numofsol = 1;
+				
+				//Initialize the value of best objective to infinity
 				bestobj = double.MaxValue;
+
+				//Run Permutation() to try any potential solution.
 				Permutation(jobs, 0, count - 1);
+
+				//Show the optimal solution
 				BSset.Text = bestsolution;
 				BOval.Text = bestobj.ToString();
 			}
