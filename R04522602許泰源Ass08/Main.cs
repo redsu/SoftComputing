@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace R04522602許泰源Ass07{
+namespace R04522602許泰源Ass08{
 	public partial class Main : Form{
 		//Time matrix
 		double[,] ProcessTime;

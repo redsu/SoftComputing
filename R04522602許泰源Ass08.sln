@@ -1,9 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R04522602許泰源Ass07", "R04522602許泰源Ass07\R04522602許泰源Ass07.csproj", "{E6C4AB25-FE99-4D2B-A96F-F181C0095AA5}"
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R04522602許泰源Ass08", "R04522602許泰源Ass08\R04522602許泰源Ass08.csproj", "{E6C4AB25-FE99-4D2B-A96F-F181C0095AA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

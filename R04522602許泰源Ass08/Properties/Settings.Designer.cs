@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace R04522602許泰源Ass07.Properties {
+namespace R04522602許泰源Ass08.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
