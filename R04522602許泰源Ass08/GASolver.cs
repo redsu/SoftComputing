@@ -149,11 +149,19 @@ namespace R04522602許泰源Ass08{
         /// </summary>
         /// <param name="upLimit"></param>
         protected void randomizeIndices(int upLimit){
-            for (int i = 0; i < upLimit; i++) indices[i] = i;
-            for (int i = upLimit - 1; i > 0; i--){
-                //...
+            for(int i = 0; i < upLimit; i++)
+				indices[i] = i;
+            for(int i = upLimit - 1; i > 0; i--){
+                int rndidx = randomizer.Next(i+1);
+				Swap(indices, i, rndidx);
             }
         }
+
+		public void Swap(int[] indices, int i, int j){
+			int tmp = indices[i];
+			indices[i] = indices[j];
+			indices[j] = tmp;
+		}
 
         /// <summary>
         ///  Called in reset function. Overriden by the derived classes to fill-in

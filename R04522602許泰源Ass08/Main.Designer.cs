@@ -41,29 +41,32 @@
 			this.result_list = new System.Windows.Forms.ListBox();
 			this.slv_btn = new System.Windows.Forms.Button();
 			this.ga_pg = new System.Windows.Forms.TabPage();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.BinGA = new System.Windows.Forms.TabPage();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+			this.new_binga = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+			this.button3 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
+			this.button1 = new System.Windows.Forms.Button();
+			this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
 			this.data = new System.Windows.Forms.DataGridView();
 			this.NOJ_lbl = new System.Windows.Forms.Label();
 			this.noj_num = new System.Windows.Forms.Label();
 			this.TM_lbl = new System.Windows.Forms.Label();
 			this.tip = new System.Windows.Forms.ToolTip(this.components);
 			this.tip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.BinGA = new System.Windows.Forms.TabPage();
-			this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
-			this.new_binga = new System.Windows.Forms.Button();
+			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.tab.SuspendLayout();
 			this.bf_pg.SuspendLayout();
 			this.ga_pg.SuspendLayout();
+			this.tabControl1.SuspendLayout();
+			this.BinGA.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -74,8 +77,6 @@
 			this.splitContainer2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
-			this.tabControl1.SuspendLayout();
-			this.BinGA.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// import_btn
@@ -108,6 +109,7 @@
 			// bf_pg
 			// 
 			this.bf_pg.BackColor = System.Drawing.Color.Lavender;
+			this.bf_pg.Controls.Add(this.textBox1);
 			this.bf_pg.Controls.Add(this.BSset);
 			this.bf_pg.Controls.Add(this.BSlbl);
 			this.bf_pg.Controls.Add(this.BOval);
@@ -198,6 +200,26 @@
 			this.ga_pg.TabIndex = 1;
 			this.ga_pg.Text = "Genetic Algorithm";
 			// 
+			// tabControl1
+			// 
+			this.tabControl1.Controls.Add(this.BinGA);
+			this.tabControl1.Location = new System.Drawing.Point(3, 3);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(677, 529);
+			this.tabControl1.TabIndex = 17;
+			// 
+			// BinGA
+			// 
+			this.BinGA.Controls.Add(this.splitContainer1);
+			this.BinGA.Location = new System.Drawing.Point(4, 28);
+			this.BinGA.Name = "BinGA";
+			this.BinGA.Padding = new System.Windows.Forms.Padding(3);
+			this.BinGA.Size = new System.Drawing.Size(669, 497);
+			this.BinGA.TabIndex = 0;
+			this.BinGA.Text = "Binary GA";
+			this.BinGA.UseVisualStyleBackColor = true;
+			// 
 			// splitContainer1
 			// 
 			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -239,8 +261,20 @@
 			// 
 			this.splitContainer2.Panel2.Controls.Add(this.chart1);
 			this.splitContainer2.Size = new System.Drawing.Size(408, 491);
-			this.splitContainer2.SplitterDistance = 227;
+			this.splitContainer2.SplitterDistance = 225;
 			this.splitContainer2.TabIndex = 0;
+			// 
+			// new_binga
+			// 
+			this.new_binga.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.new_binga.ForeColor = System.Drawing.Color.MidnightBlue;
+			this.new_binga.Location = new System.Drawing.Point(259, 10);
+			this.new_binga.Name = "new_binga";
+			this.new_binga.Size = new System.Drawing.Size(142, 31);
+			this.new_binga.TabIndex = 5;
+			this.new_binga.Text = "Create Binary GA";
+			this.new_binga.UseVisualStyleBackColor = true;
+			this.new_binga.Click += new System.EventHandler(this.new_binga_Click);
 			// 
 			// label1
 			// 
@@ -294,9 +328,49 @@
 			this.chart1.Legends.Add(legend1);
 			this.chart1.Location = new System.Drawing.Point(0, -2);
 			this.chart1.Name = "chart1";
-			this.chart1.Size = new System.Drawing.Size(408, 262);
+			this.chart1.Size = new System.Drawing.Size(408, 264);
 			this.chart1.TabIndex = 0;
 			this.chart1.Text = "chart1";
+			// 
+			// button3
+			// 
+			this.button3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button3.ForeColor = System.Drawing.Color.MidnightBlue;
+			this.button3.Location = new System.Drawing.Point(59, 90);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(142, 31);
+			this.button3.TabIndex = 4;
+			this.button3.Text = "Run To End";
+			this.button3.UseVisualStyleBackColor = true;
+			// 
+			// button2
+			// 
+			this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.ForeColor = System.Drawing.Color.MidnightBlue;
+			this.button2.Location = new System.Drawing.Point(59, 53);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(142, 31);
+			this.button2.TabIndex = 3;
+			this.button2.Text = "Run One Iteration";
+			this.button2.UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.ForeColor = System.Drawing.Color.MidnightBlue;
+			this.button1.Location = new System.Drawing.Point(59, 16);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(142, 31);
+			this.button1.TabIndex = 2;
+			this.button1.Text = "Reset";
+			this.button1.UseVisualStyleBackColor = true;
+			// 
+			// propertyGrid1
+			// 
+			this.propertyGrid1.Location = new System.Drawing.Point(3, 167);
+			this.propertyGrid1.Name = "propertyGrid1";
+			this.propertyGrid1.Size = new System.Drawing.Size(245, 321);
+			this.propertyGrid1.TabIndex = 0;
 			// 
 			// data
 			// 
@@ -344,76 +418,12 @@
 			this.TM_lbl.TabIndex = 11;
 			this.TM_lbl.Text = "Time Matrix:";
 			// 
-			// tabControl1
+			// textBox1
 			// 
-			this.tabControl1.Controls.Add(this.BinGA);
-			this.tabControl1.Location = new System.Drawing.Point(3, 3);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(677, 529);
-			this.tabControl1.TabIndex = 17;
-			// 
-			// BinGA
-			// 
-			this.BinGA.Controls.Add(this.splitContainer1);
-			this.BinGA.Location = new System.Drawing.Point(4, 28);
-			this.BinGA.Name = "BinGA";
-			this.BinGA.Padding = new System.Windows.Forms.Padding(3);
-			this.BinGA.Size = new System.Drawing.Size(669, 497);
-			this.BinGA.TabIndex = 0;
-			this.BinGA.Text = "Binary GA";
-			this.BinGA.UseVisualStyleBackColor = true;
-			// 
-			// propertyGrid1
-			// 
-			this.propertyGrid1.Location = new System.Drawing.Point(3, 167);
-			this.propertyGrid1.Name = "propertyGrid1";
-			this.propertyGrid1.Size = new System.Drawing.Size(245, 321);
-			this.propertyGrid1.TabIndex = 0;
-			// 
-			// button1
-			// 
-			this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.ForeColor = System.Drawing.Color.MidnightBlue;
-			this.button1.Location = new System.Drawing.Point(59, 16);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(142, 31);
-			this.button1.TabIndex = 2;
-			this.button1.Text = "Reset";
-			this.button1.UseVisualStyleBackColor = true;
-			// 
-			// button2
-			// 
-			this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.ForeColor = System.Drawing.Color.MidnightBlue;
-			this.button2.Location = new System.Drawing.Point(59, 53);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(142, 31);
-			this.button2.TabIndex = 3;
-			this.button2.Text = "Run One Iteration";
-			this.button2.UseVisualStyleBackColor = true;
-			// 
-			// button3
-			// 
-			this.button3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button3.ForeColor = System.Drawing.Color.MidnightBlue;
-			this.button3.Location = new System.Drawing.Point(59, 90);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(142, 31);
-			this.button3.TabIndex = 4;
-			this.button3.Text = "Run To End";
-			this.button3.UseVisualStyleBackColor = true;
-			// 
-			// new_binga
-			// 
-			this.new_binga.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.new_binga.ForeColor = System.Drawing.Color.MidnightBlue;
-			this.new_binga.Location = new System.Drawing.Point(259, 10);
-			this.new_binga.Name = "new_binga";
-			this.new_binga.Size = new System.Drawing.Size(142, 31);
-			this.new_binga.TabIndex = 5;
-			this.new_binga.Text = "Create Binary GA";
-			this.new_binga.UseVisualStyleBackColor = true;
+			this.textBox1.Location = new System.Drawing.Point(154, 66);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(250, 27);
+			this.textBox1.TabIndex = 13;
 			// 
 			// Main
 			// 
@@ -433,6 +443,8 @@
 			this.bf_pg.ResumeLayout(false);
 			this.bf_pg.PerformLayout();
 			this.ga_pg.ResumeLayout(false);
+			this.tabControl1.ResumeLayout(false);
+			this.BinGA.ResumeLayout(false);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -444,8 +456,6 @@
 			this.splitContainer2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.data)).EndInit();
-			this.tabControl1.ResumeLayout(false);
-			this.BinGA.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -483,6 +493,7 @@
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button new_binga;
+		private System.Windows.Forms.TextBox textBox1;
 	}
 }
 

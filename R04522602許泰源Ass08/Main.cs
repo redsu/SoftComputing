@@ -36,46 +36,78 @@ namespace R04522602許泰源Ass08{
 			import_btn_MouseHover(null, null);
 		}
 		
-		//Swap list[i] and list[k]
-		private int[] Swap(int[] list, int i, int k) {
-			int tmp;
-			int[] tmplist = (int[])list.Clone();
-
-			tmp = tmplist[i];
-			
-			for(int j= i; j>k; j--)
-				tmplist[j] = tmplist[j-1];
-			tmplist[k] = tmp;
-	
-			return tmplist;
+		//Get all of the permutations by recursion
+		private class perm{
+			public int[] list;
+			public int s, layer;
 		}
 
-		//Get all of the permutations by recursion
 		private void Permutation(int[] list, int k, int m){
-			if(k==m) {
-				string output = "", sol = "";
-				double Obj = 0.0;
+			//Stack
+			
+			perm[] stack = new perm[500];
+			int ptr = 0, len, layer, swap;
+			len = list.Length;
 
-				for(int i=0; i<count; i++){
-					Obj += ProcessTime[list[i],i];
-					sol += string.Format("{0} ", list[i]);
-				}
-
-				if (Obj < bestobj){
-					bestobj = Obj;
-					bestsolution = sol;
-				}
-				
-				output = string.Format("No. {0:00000000} Solution: {1}  Obj = {2:.0000}", numofsol, sol, Obj);
-				result_list.Items.Add(output);
-
-				numofsol++;
+			string output = "", sol = "";
+			double Obj = 0.0;
+			int[] tmp = new int[len];
+			int[] stacklist = new int[len];
+			
+			for(int i=0; i<len/2+1; i++){
+				swap = list[i];
+				list[i] = list[len-i-1];
+				list[len-i-1] = swap;
 			}
-			else{
-				for(int i= k; i<= m; i++){
-					int[] tmplist = Swap(list, i, k);
-					Permutation(tmplist, k + 1, m);
+
+			stack[ptr] = new perm();
+
+			stack[ptr].list = list;
+			stack[ptr].s = 0;
+			stack[ptr].layer = 0;
+
+			while(ptr >= 0){
+				layer = stack[ptr].layer;
+				stacklist = (int [])stack[ptr].list.Clone();
+				if(len>layer){
+					for(int i=0; i<len-layer; i++){
+					
+						tmp = (int[])stacklist.Clone();
+						
+						int t = tmp[i+layer];
+					
+						for(int j=layer+i; j>layer; j--)
+							tmp[j] = tmp[j-1]; 
+						tmp[layer] = t;
+
+						stack[ptr] = new perm();
+						stack[ptr].list = new int[len];
+						stack[ptr].list = (int[])tmp.Clone();
+						stack[ptr].layer = layer+1;
+						ptr++;
+					}
+					ptr--;
 				}
+				else{
+					Obj = 0;
+					sol = "";
+					for(int i=0; i<count; i++){
+						Obj += ProcessTime[stack[ptr].list[i],i];
+						sol += string.Format("{0} ", stack[ptr].list[i]);
+					}
+
+					if (Obj < bestobj){
+						bestobj = Obj;
+						bestsolution = sol;
+					}
+				
+					output = string.Format("No. {0:00000000} Solution: {1}  Obj = {2:.0000}", numofsol, sol, Obj);
+					result_list.Items.Add(output);
+
+					numofsol++;
+					ptr--;
+				}
+
 			}
 		}
 			
@@ -141,6 +173,11 @@ namespace R04522602許泰源Ass08{
 
 		private void slv_btn_Click(object sender, EventArgs e){
 			//If the data is loaded and selected page is page No.01, calculate the result and show
+			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+			
+			sw.Reset();//碼表歸零
+			sw.Start();//碼表開始計時
+			
 			if(loaded == true && tab.SelectedIndex == 0){
 				//Intitialize the number of solution
 				numofsol = 1;
@@ -150,6 +187,7 @@ namespace R04522602許泰源Ass08{
 
 				//Clear the result list
 				result_list.Items.Clear();
+				result_list.SuspendLayout();
 
 				//Run Permutation() to try any potential solution.
 				Permutation(jobs, 0, count - 1);
@@ -157,7 +195,12 @@ namespace R04522602許泰源Ass08{
 				//Show the optimal solution
 				BSset.Text = bestsolution;
 				BOval.Text = bestobj.ToString();
+				result_list.ResumeLayout();
+				sw.Stop();//碼錶停止
+
+				textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
 			}
+			
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
@@ -173,6 +216,10 @@ namespace R04522602許泰源Ass08{
 			tip.ToolTipTitle = "操作提示";
 			tip.SetToolTip(this.import_btn,"點擊 \"Import File\" 按鈕匯入檔案");
 			tip.ToolTipIcon = ToolTipIcon.Info;
+		}
+
+		private void new_binga_Click(object sender, EventArgs e){
+
 		}
 	}
 }
