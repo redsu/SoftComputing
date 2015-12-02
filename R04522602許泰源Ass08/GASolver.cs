@@ -410,15 +410,42 @@ namespace R04522602許泰源Ass08{
 					}
 				}
 				Array.Sort<int>(indices, 0, populationSize);
-			
+				int ptr = 0, index = -1;
+				for(int i=0; i<populationSize; i++) {
+					bool remained = false;
+					for(int j=0; j<populationSize; j++) {
+						if(indices[j]==i) {
+							indices[j] = -1;
+							remained = true;
+							break;
+						}
+					}
+
+					if(!remained) {
+
+						for(int j=ptr; j<populationSize; j++) {
+							if(indices[j]>=0) {
+								index = indices[j];
+								ptr=j+1;
+								indices[j] = -1;
+								break;
+							}
+						}
+						for(int j=0; j<numberOfGenes; j++) {
+							chromosomes[i][j] = chromosomes[index][j];
+						}
+						objectiveValues[i] = objectiveValues[index];
+					}
+				}
+
 				//---------------------------------------------//
-				for(int i = 0; i < populationSize; i++)
+				/*for(int i = 0; i < populationSize; i++)
 					for (int j = 0; j < numberOfGenes; j++)
 						chromosomesbuffer[i][j] = chromosomes[indices[i]][j];
 			
 				for(int i = 0; i < populationSize; i++)
 					for (int j = 0; j < numberOfGenes; j++)
-						chromosomes[i][j] = chromosomesbuffer[i][j];
+						chromosomes[i][j] = chromosomesbuffer[i][j];*/
 				
 				// Sort the indices for the front populationSize chromosome indices
  

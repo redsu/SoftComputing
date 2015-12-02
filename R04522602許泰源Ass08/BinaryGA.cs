@@ -51,9 +51,19 @@ namespace R04522602許泰源Ass08{
             // Determine number of mutated genes
             int totalGenes = populationSize * numberOfGenes;
             int numberOfMutatedGenes = (int)(mutationRate * totalGenes);
+			int size = populationSize * 2, len = chromosomes.Length;
             // clean the third part of gene for flagging the mutated genes
+			for(int i=size; i< len; i++) {
+				for (int j = 0; j < numberOfGenes; j++)
+					chromosomes[i][j] = 0;
+			}
  // ...
             // Mark mutated genes
+			for(int i=0; i<numberOfMutatedGenes; i++) {
+				int rand = randomizer.Next(totalGenes);
+				chromosomes[size + rand / numberOfGenes][rand % numberOfGenes] = 1;
+			}
+
  // ...
             // Loop through each chromosome in third part for marks.
             // If a mark is found, a mutated chromosome is duplacted from the corresponding parent and 
@@ -61,10 +71,26 @@ namespace R04522602許泰源Ass08{
             // Notice that mutated chromosomes are adjacent to previously created crossovered offspring.
             // That is the starting index for mutated offspring is   populationSize + numberOfCrossoveredChildren
             numberOfMutatedChildren = 0;
-//            for (int i = start; i < chromosomes.Length; i++)
-//            {
-//// ...
-//            }
+            for (int i = size; i < len; i++){
+				bool mutated = false;
+				for (int j = 0; j < numberOfGenes; j++) {
+					if(chromosomes[i][j] == 1){
+						mutated = true;
+						break;
+					}
+				}
+				if(mutated){
+					int indexOfMutatedParent = i - size;
+					int indexOfMutatedChildren = populationSize + numberOfMutatedChildren + numberOfMutatedChildren;
+					for (int j = 0; j < numberOfGenes; j++){
+						if(chromosomes[indexOfMutatedChildren][j]==1)
+							chromosomes[indexOfMutatedChildren][j] = (byte)(1 - chromosomes[indexOfMutatedParent][j]);
+						else
+							chromosomes[indexOfMutatedChildren][j] = chromosomes[indexOfMutatedParent][j];
+					}
+					indexOfMutatedChildren++;
+				}
+            }
             // Update numberOfMutatedChildren for further reference
         }
 
@@ -81,7 +107,34 @@ namespace R04522602許泰源Ass08{
             // Randomly set cut positions for the n cuts.
             // Check class Array for utility functions: Sort(), Inverset(), ...
            // ...     for (int i = 0; i < cutPos.Length; i++) cutPos[i] = randomizer.Next(numberOfGenes);
- 
+			for(int i=0; i<cutPos.Length; i++)
+				cutPos[i] = randomizer.Next(numberOfGenes);
+			Array.Sort<int>(cutPos);
+			int front = 0, back;
+			for(int i=0; i<=cutPos.Length; i++){
+				
+				if (i == cutPos.Length)
+					back = numberOfGenes;
+				else
+					back = cutPos[i];
+
+				int crossidx1, crossidx2;
+
+				if (i%2==0){
+					crossidx1 = child1Idx;
+					crossidx2 = child2Idx;
+				}
+				else{
+					crossidx1 = child2Idx;
+					crossidx2 = child1Idx;
+				}
+
+				for (int j = front; j < back; j++){
+					this.chromosomes[crossidx1][j] = this.chromosomes[fartherIdx][j];
+					this.chromosomes[crossidx2][j] = this.chromosomes[motherIdx][j];
+				}
+				front = back;
+			}
         }
 
         /// <summary>
@@ -92,6 +145,9 @@ namespace R04522602許泰源Ass08{
             //for (int i = 0; i < populationSize; i++)
             //    for (int j = 0; j < numberOfGenes; j++)
             // ...
+			for(int i=0; i<populationSize; i++)
+				for(int j=0; j<numberOfGenes; j++)
+					chromosomes[i][j] = (byte)(randomizer.Next() % 2);
         }
     }
 
