@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace R04522602許泰源Ass08{
 	public partial class Main : Form{
@@ -25,6 +26,7 @@ namespace R04522602許泰源Ass08{
 		double bestobj;
 		//Best solution set
 		string bestsolution;
+		bool[] Position;
 
 		public Main(){
 			InitializeComponent();
@@ -35,7 +37,36 @@ namespace R04522602許泰源Ass08{
 			//Wake up import_btn_MouseHover
 			import_btn_MouseHover(null, null);
 		}
-		
+
+		/*********************************************/
+		int[] solution;
+		int[] fastbestsolution;
+		private void FastPremutation(int index){			
+			int i, j;
+			double obj;
+			for(i = 0; i < count; i++){
+				if(!Position[i]){
+					solution[i] = index;
+					Position[i] = true;
+					if(index == count-1){
+						obj = 0.0;
+						for(j = 0; j < count; j++){
+							obj += ProcessTime[solution[j],j];
+						}
+						if(obj < bestobj){
+							for(j=0; j<count; j++)
+								fastbestsolution[j] = solution[j];
+							bestobj = obj;
+						}
+					}
+					else
+						FastPremutation(index+1);
+					Position[i] = false;
+				}
+			}
+		}
+		/*********************************************/
+
 		//Get all of the permutations by recursion
 		private class perm{
 			public int[] list;
@@ -110,7 +141,9 @@ namespace R04522602許泰源Ass08{
 
 			}
 		}
-			
+		
+
+		string FILENAME;
 		private void import_btn_Click(object sender, EventArgs e){
 			OpenFileDialog open = new OpenFileDialog();
 			System.IO.StreamReader myFile = null;
@@ -120,7 +153,7 @@ namespace R04522602許泰源Ass08{
 			if (open.ShowDialog()==System.Windows.Forms.DialogResult.OK && open.FileName!=""){
 				//Read the data from file by Streamreader
 				myFile = new System.IO.StreamReader(open.FileName);
-
+				FILENAME = open.FileName;
 				//Check the file is not empty
 				if (myFile != null){
 					myString = myFile.ReadLine().Trim();
@@ -175,9 +208,39 @@ namespace R04522602許泰源Ass08{
 			//If the data is loaded and selected page is page No.01, calculate the result and show
 			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 			
+			Process permu = new Process();
+			permu.StartInfo.FileName = "BFperm.exe";
+			ProcessStartInfo pInfo = new ProcessStartInfo("BFperm.exe");
+            pInfo.Arguments = FILENAME;
+			pInfo.CreateNoWindow = true;
+			permu.StartInfo = pInfo;
+			
 			sw.Reset();//碼表歸零
 			sw.Start();//碼表開始計時
+
+			permu.Start();
+			permu.WaitForExit();
+
+			if (permu != null){
+				textBox1.Text = (permu.TotalProcessorTime.TotalMilliseconds/1000.0).ToString() + " (sec)";
+                permu.Close();
+                permu.Dispose();
+                permu = null;
+                sw.Stop();//碼錶停止            
+            }
+
+			System.IO.StreamReader myFile = null;
+			myFile = new System.IO.StreamReader("Ans.txt");
+			string myString = myFile.ReadLine().Trim();
+			bestobj = double.Parse(myString);
+			myString = myFile.ReadLine();
+			BSset.Text = myString;
+			BOval.Text = bestobj.ToString();
+			textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
+			myString = myFile.ReadLine();
+			myFile.Close();
 			
+			/*
 			if(loaded == true && tab.SelectedIndex == 0){
 				//Intitialize the number of solution
 				numofsol = 1;
@@ -190,17 +253,37 @@ namespace R04522602許泰源Ass08{
 				result_list.SuspendLayout();
 
 				//Run Permutation() to try any potential solution.
-				Permutation(jobs, 0, count - 1);
+				//Permutation(jobs, 0, count - 1);
+
+				//FP
+				Position = new bool[count];
+				fastbestsolution = new int[count];
+				solution = new int[count];
+				for(int i=0; i<count; i++)
+					Position[i] = false;
+
+				sw.Reset();//碼表歸零
+				sw.Start();//碼表開始計時
+
+				FastPremutation(0);
+				
+				sw.Stop();//碼錶停止
+				//CFP
+				
 
 				//Show the optimal solution
+				//BSset.Text = bestsolution;
+				bestsolution = "";
+				for(int i=0; i<count; i++)
+					bestsolution += fastbestsolution[i].ToString() + " ";
 				BSset.Text = bestsolution;
 				BOval.Text = bestobj.ToString();
 				result_list.ResumeLayout();
-				sw.Stop();//碼錶停止
+				
 
 				textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
 			}
-			
+			*/
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
