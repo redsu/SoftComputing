@@ -1,0 +1,9 @@
+C:\Users\LAB\Desktop\SoftComputing\R04522602許泰源Ass08\bin\Release\R04522602許泰源Ass08.exe.config
+C:\Users\LAB\Desktop\SoftComputing\R04522602許泰源Ass08\bin\Release\R04522602許泰源Ass08.exe
+C:\Users\LAB\Desktop\SoftComputing\R04522602許泰源Ass08\bin\Release\R04522602許泰源Ass08.pdb
+C:\Users\LAB\Desktop\SoftComputing\R04522602許泰源Ass08\obj\Release\R04522602許泰源Ass08.Main.resources
+C:\Users\LAB\Desktop\SoftComputing\R04522602許泰源Ass08\obj\Release\R04522602許泰源Ass08.Properties.Resources.resources
+C:\Users\LAB\Desktop\SoftComputing\R04522602許泰源Ass08\obj\Release\R04522602許泰源Ass08.csproj.GenerateResource.Cache
+C:\Users\LAB\Desktop\SoftComputing\R04522602許泰源Ass08\obj\Release\R04522602許泰源Ass08.exe
+C:\Users\LAB\Desktop\SoftComputing\R04522602許泰源Ass08\obj\Release\R04522602許泰源Ass08.pdb
+C:\Users\LAB\Desktop\SoftComputing\R04522602許泰源Ass08\obj\Release\R04522602許泰源Ass08.csprojResolveAssemblyReference.cache

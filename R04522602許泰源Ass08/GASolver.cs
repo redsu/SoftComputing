@@ -32,6 +32,7 @@ namespace R04522602許泰源Ass08{
 
 
         protected T[][] chromosomes;         // Parameterized type, specified by the derived class
+		protected T[][] chromosomesbuffer;
         protected double[] objectiveValues;  // Positive or negative real numbers
         protected double[] fitnessValues;    // Must be positive values
 
@@ -122,6 +123,7 @@ namespace R04522602許泰源Ass08{
         public virtual void reset(){
             // Allocate memory for gene related data
             chromosomes = new T[populationSize * 3][];
+			chromosomesbuffer = new T[populationSize * 3][];
 //...
             // Initialize the initial population
             //initializePopulation();
@@ -222,18 +224,67 @@ namespace R04522602許泰源Ass08{
             int parentPlusChildren = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
             for (int i = 0; i < parentPlusChildren; i++)
                 objectiveValues[i] = GetObjectiveValueFunction(chromosomes[i]);
-            // ...
-
+			// ...
+			int iterationbestindex = -1;
             switch (optimizationType){
                 case OptimizationType.Min:
-                    //...
+					iterationBestObjective = double.MaxValue;
+					iterationAverage = 0.0;
+					for(int i=0; i<parentPlusChildren; i++) {
+						iterationAverage += objectiveValues[i];
+						if (objectiveValues[i] < iterationBestObjective){
+							iterationBestObjective = objectiveValues[i];
+							iterationbestindex = i;
+						}
+					}
+
+					iterationAverage /= (double)parentPlusChildren;
+					if(iterationBestObjective < soFarTheBestObjective) {
+						soFarTheBestObjective = iterationBestObjective;
+						for (int i = 0; i < numberOfGenes; i++)
+							soFarTheBestSolution[i] = chromosomes[iterationbestindex][i];
+					}
+                    //Finished on 12/02
                     break;
                 case OptimizationType.Max:
-                    //...
+					iterationBestObjective = double.MinValue;
+					iterationAverage = 0.0;
+					for(int i=0; i<parentPlusChildren; i++) {
+						iterationAverage += objectiveValues[i];
+						if (objectiveValues[i] > iterationBestObjective){
+							iterationBestObjective = objectiveValues[i];
+							iterationbestindex = i;
+						}
+					}
+
+					iterationAverage /= (double)parentPlusChildren;
+					if(iterationBestObjective > soFarTheBestObjective) {
+						soFarTheBestObjective = iterationBestObjective;
+						for (int i = 0; i < numberOfGenes; i++)
+							soFarTheBestSolution[i] = chromosomes[iterationbestindex][i];
+					}
+                    //Finished on 12/02
                     break;
                 case OptimizationType.Goal:
-                    // ...
+                    iterationBestObjective = double.MinValue;
+					iterationAverage = 0.0;
+					for(int i=0; i<parentPlusChildren; i++) {
+						iterationAverage += objectiveValues[i];
+						if (Math.Abs(this.goalValue - this.objectiveValues[i]) < Math.Abs(this.goalValue - this.iterationBestObjective)){
+							iterationBestObjective = objectiveValues[i];
+							iterationbestindex = i;
+						}
+					}
+
+					iterationAverage /= (double)parentPlusChildren;
+					if(Math.Abs(goalValue - iterationBestObjective) < Math.Abs(goalValue - soFarTheBestObjective)) {
+						soFarTheBestObjective = iterationBestObjective;
+						for (int i = 0; i < numberOfGenes; i++)
+							soFarTheBestSolution[i] = chromosomes[iterationbestindex][i];
+					}
+                    //Finished on 12/02
                     break;
+
             }
         }
 
@@ -253,7 +304,25 @@ namespace R04522602許泰源Ass08{
                 if (objectiveValues[i] < lowest) lowest = objectiveValues[i];
                 if (objectiveValues[i] > upest) upest = objectiveValues[i];
             }
-			//...
+			double basevalue = (upest - lowest) / 100.0;
+			basevalue = 1E-06 > basevalue ? 1E-06 : basevalue;
+
+			switch (optimizationType){
+			case OptimizationType.Min:
+				for (int i = 0; i < total; i++)
+					fitnessValues[i] = basevalue + upest - objectiveValues[i];
+				break;
+
+			case OptimizationType.Max:
+				for (int i = 0; i < total; i++)
+					fitnessValues[i] = basevalue + objectiveValues[i] - lowest;
+				break;
+			case OptimizationType.Goal:
+				for (int i = 0; i < total; i++)
+					fitnessValues[i] = 1.0 / (basevalue + Math.Abs(objectiveValues[i] - goalValue));
+				break;
+			}
+			//Finished on 12/02
 
         }
 
@@ -308,24 +377,92 @@ namespace R04522602許泰源Ass08{
             // Identify the chromosome limit index, including parents, crossovered, and mutated chromosomes.
             int poolSize = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
 
-            if (selectionMode == SelectionMode.Deterministic){
-                // Sort the fitness
-                 // Sort the indices from smallest fitness to the highest one
-                 // Revere the order to have an index list with highest fitness to the lowest
-             }
-            else if (selectionMode == SelectionMode.Stochastic){
-                // Normalize the fitness
-                     // Spin populationSize times roulette wheel to select a chromosome index each time
-                     // ...
-             }
+            if(selectionMode == SelectionMode.Deterministic){
+				// Sort the fitness
+				// Sort the indices from smallest fitness to the highest one
+				// Revere the order to have an index list with highest fitness to the lowest
+				randomizeIndices(poolSize);
+				Array.Sort<double, int>(this.fitnessValues, this.indices, 0, poolSize);
+				Array.Reverse(this.indices, 0, poolSize);
+			}
+            else{
+				// Normalize the fitness
+				// Spin populationSize times roulette wheel to select a chromosome index each time
+				if (selectionMode == SelectionMode.Stochastic){
+					double totalfitness = 0.0;
+					for (int i = 0; i < poolSize; i++)
+						totalfitness += fitnessValues[i];
+					for (int i = 0; i < poolSize; i++)
+						fitnessValues[i] = fitnessValues[i] / totalfitness;
+					for (int i = 1; i < poolSize; i++)
+						fitnessValues[i] = fitnessValues[i - 1];
 
-            // Sort the indices for the front populationSize chromosome indices
+					double threshold;
+					double sumfofitness = 0.0;
+					for (int j = 0; j < populationSize; j++) {
+						threshold = randomizer.NextDouble();
+						for (int i = 0; i < poolSize; i++) {
+							if(sumfofitness > threshold) {
+								indices[j] = i;
+								break;
+							}
+						}
+					}
+				}
+				Array.Sort<int>(indices, 0, populationSize);
+			
+				//---------------------------------------------//
+				for(int i = 0; i < populationSize; i++)
+					for (int j = 0; j < numberOfGenes; j++)
+						chromosomesbuffer[i][j] = chromosomes[indices[i]][j];
+			
+				for(int i = 0; i < populationSize; i++)
+					for (int j = 0; j < numberOfGenes; j++)
+						chromosomes[i][j] = chromosomesbuffer[i][j];
+				
+				// Sort the indices for the front populationSize chromosome indices
  
-            // Reassign population: copy genes of selected chromosmes to the front (populationSize) chromosomes
- // ...
+				// Reassign population: copy genes of selected chromosmes to the front (populationSize) chromosomes
+	 // ...
 
+			}
+		}
+
+		 /// <summary>
+        ///  This function simulate the traditional mutation operation on gene levels.
+        ///  Mutated genes are selcted and corresponding parent is identified.
+        ///  Mutated Parent indices are packed in indices array and the number of mutated
+        ///  parents is returned.
+        /// </summary>
+        /// <returns> number of mutated parents </returns>
+        protected int SimulateMutatedGenesMarkingAndPackParentIndicesReturnBound()
+        {
+            // Determine number of mutated genes
+            int totalGenes = populationSize * numberOfGenes;
+            int num = (int)(mutationRate * totalGenes);
+            // clean the third part of gene for flagging the mutated genes
+            // Mark mutated genes
+            for (int i = 0; i < populationSize; i++) indices[i] = int.MaxValue;
+            for (int i = 0; i < num; i++)
+            {
+                int seq = randomizer.Next(populationSize * numberOfGenes) / numberOfGenes;
+                indices[seq] = seq;
+            }
+            // Pack the mutated parent ids in the front part of the indices array.
+            Array.Sort(indices, 0, populationSize);
+
+            // Loop through indices array to identify number of mutated children to be generated.
+            numberOfMutatedChildren = 0;
+            for (int i = 0; i < populationSize; i++)
+                if (indices[i] > populationSize){
+                    numberOfMutatedChildren = i;
+                    break;
+                }
+            return numberOfMutatedChildren;
         }
     }
+
+
 
 
     /// <summary>

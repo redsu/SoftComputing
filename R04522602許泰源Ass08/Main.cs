@@ -214,31 +214,53 @@ namespace R04522602許泰源Ass08{
             pInfo.Arguments = FILENAME;
 			pInfo.CreateNoWindow = true;
 			permu.StartInfo = pInfo;
+			/*
+			//FP
+				Position = new bool[count];
+				fastbestsolution = new int[count];
+				solution = new int[count];
+				for(int i=0; i<count; i++)
+					Position[i] = false;
+
+				sw.Reset();//碼表歸零
+				sw.Start();//碼表開始計時
+
+				FastPremutation(0);
+				
+				sw.Stop();//碼錶停止
+			textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
+			*/
 			
 			sw.Reset();//碼表歸零
 			sw.Start();//碼表開始計時
-
+			
 			permu.Start();
-			permu.WaitForExit();
+			while(!permu.HasExited) {
+				permu.WaitForExit(33);
+				textBox1.Text = (permu.TotalProcessorTime.TotalMilliseconds/1000.0).ToString() + " (sec)";
+			}
 
 			if (permu != null){
 				textBox1.Text = (permu.TotalProcessorTime.TotalMilliseconds/1000.0).ToString() + " (sec)";
                 permu.Close();
                 permu.Dispose();
                 permu = null;
+				
                 sw.Stop();//碼錶停止            
             }
-
+			
 			System.IO.StreamReader myFile = null;
 			myFile = new System.IO.StreamReader("Ans.txt");
-			string myString = myFile.ReadLine().Trim();
-			bestobj = double.Parse(myString);
-			myString = myFile.ReadLine();
-			BSset.Text = myString;
-			BOval.Text = bestobj.ToString();
-			//textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
-			myString = myFile.ReadLine();
-			myFile.Close();
+			if(myFile!= null) {
+				string myString = myFile.ReadLine().Trim();
+				bestobj = double.Parse(myString);
+				myString = myFile.ReadLine();
+				BSset.Text = myString;
+				BOval.Text = bestobj.ToString();
+				//textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
+				myString = myFile.ReadLine();
+				myFile.Close();
+			}
 			
 			/*
 			if(loaded == true && tab.SelectedIndex == 0){
