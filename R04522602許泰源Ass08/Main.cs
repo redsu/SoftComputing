@@ -18,7 +18,7 @@ namespace R04522602許泰源Ass08{
 		//No. of solution
 		int numofsol = 0;
 		//Number of machines and jobs
-		int count = 0;
+		int numofJobs = 0;
 		//Flag to check if data loaded
 		bool loaded = false;
 		
@@ -27,6 +27,10 @@ namespace R04522602許泰源Ass08{
 		//Best solution set
 		string bestsolution;
 		bool[] Position;
+
+		double Penality = 100.0;
+
+		BinaryGA binarySolver;
 
 		public Main(){
 			InitializeComponent();
@@ -44,17 +48,17 @@ namespace R04522602許泰源Ass08{
 		private void FastPremutation(int index){			
 			int i, j;
 			double obj;
-			for(i = 0; i < count; i++){
+			for(i = 0; i < numofJobs; i++){
 				if(!Position[i]){
 					solution[i] = index;
 					Position[i] = true;
-					if(index == count-1){
+					if(index == numofJobs-1){
 						obj = 0.0;
-						for(j = 0; j < count; j++){
+						for(j = 0; j < numofJobs; j++){
 							obj += ProcessTime[solution[j],j];
 						}
 						if(obj < bestobj){
-							for(j=0; j<count; j++)
+							for(j=0; j<numofJobs; j++)
 								fastbestsolution[j] = solution[j];
 							bestobj = obj;
 						}
@@ -122,7 +126,7 @@ namespace R04522602許泰源Ass08{
 				else{
 					Obj = 0;
 					sol = "";
-					for(int i=0; i<count; i++){
+					for(int i=0; i<numofJobs; i++){
 						Obj += ProcessTime[stack[ptr].list[i],i];
 						sol += string.Format("{0} ", stack[ptr].list[i]);
 					}
@@ -164,24 +168,24 @@ namespace R04522602許泰源Ass08{
 						loaded = true;
 
 						//Number of jobs		
-						count = int.Parse(myString);
+						numofJobs = int.Parse(myString);
 						
 						//Show number of jobs
-						noj_num.Text = count.ToString();
+						noj_num.Text = numofJobs.ToString();
 
 						//Initialize the Time matrix with size [count X count]
-						ProcessTime = new double[count, count];
+						ProcessTime = new double[numofJobs, numofJobs];
 						//Initialize the Solution set
-						jobs = new int[count];
+						jobs = new int[numofJobs];
 
-						for (int i = 0; i < count; i++)
+						for (int i = 0; i < numofJobs; i++)
 							jobs[i] = i;
 
 						//Read the Time matrix and save into the 2-D array.
-						for(int i=0; i<count; i++){
+						for(int i=0; i<numofJobs; i++){
 							myString = myFile.ReadLine().Trim();
 							string[] nums = myString.Split(' ');
-							for(int j=0; j<count; j++) 
+							for(int j=0; j<numofJobs; j++) 
 								ProcessTime[i, j] = double.Parse(nums[j]);
 						}
 						
@@ -189,12 +193,12 @@ namespace R04522602許泰源Ass08{
 						data.Columns.Clear();
 
 						//Show the data on the DatagridView
-						for (int i=0; i<count; i++)
+						for (int i=0; i<numofJobs; i++)
 							data.Columns.Add("m" + i.ToString(), "m" + i.ToString());
-						for (int i = 0; i < count; i++)
+						for (int i = 0; i < numofJobs; i++)
 							data.Rows.Add();
-						for (int i = 0; i < count; i++)
-							for (int j = 0; j < count; j++)
+						for (int i = 0; i < numofJobs; i++)
+							for (int j = 0; j < numofJobs; j++)
 								data.Rows[i].Cells[j].Value = ProcessTime[i, j];
 
 						//Enable the solve button
@@ -324,7 +328,33 @@ namespace R04522602許泰源Ass08{
 		}
 
 		private void new_binga_Click(object sender, EventArgs e){
+			binarySolver = new BinaryGA(numofJobs * numofJobs, OptimizationType.Min, new GASolver<byte>.ObjectiveFunctionDelegate(ComputeTotalSetupTime));
+		}
 
+		private double ComputeTotalSetupTime(byte[] variables){
+			double time = 0.0;
+			for (int i = 0; i < variables.Length; i++){
+				time += this.ProcessTime[i / numofJobs, i % numofJobs] * (double)variables[i];
+			}
+			return time + Penality * (double)GetConstraintCount(variables);
+		}
+
+		private int GetConstraintCount(byte[] variables)
+		{
+			int ConstraintCount = 0, error;
+			for (int i = 0; i < numofJobs; i++){
+				error = 0;
+				for (int j = i * numofJobs; j < i * numofJobs + numofJobs; j++)
+					error += (int)variables[j];
+				ConstraintCount += Math.Abs(error - 1);
+			}
+			for (int i = 0; i < numofJobs; i++){
+				error = 0;
+				for (int j = 0; j < numofJobs; j++)
+					error += (int)variables[j * this.numofJobs + i];
+				ConstraintCount += Math.Abs(error - 1);
+			}
+			return ConstraintCount;
 		}
 	}
 }
