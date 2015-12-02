@@ -1,9 +1,8 @@
 // vim: ts=4 sw=4 et
 #include<stdio.h>
 #include<time.h>
-#include<string.h>
-char solution[30];
-char fastbestsolution[30];
+int solution[30];
+int fastbestsolution[30];
 int count;
 double arr[30][30];
 char Position[30];
@@ -13,12 +12,12 @@ double bestobj = 2147483647.0;
 struct stack{
     int index;
     int position;
-    char solution[30];
+    int solution[30];
 };
 
-void FastPremutation(int index){
+void FastPremutation(){
     
-	int i, j;//, index = 0;
+	int i, j, index = 0;
 	double obj;
     int ptr = 0;
     struct stack stk[1000];
@@ -26,47 +25,43 @@ void FastPremutation(int index){
     stk[ptr].index = 0;
     stk[ptr].position = 0;
 
- //   while(ptr>=0){
-        /*index = stk[ptr].index;
+    while(ptr>=0){
+        index = stk[ptr].index;
         position = stk[ptr].position;
         for(j=0;j<count;j++)
-            solution[j] = stk[ptr].solution[j];*/
+            solution[j] = stk[ptr].solution[j];
 	    for(i = 0; i < count; i++){
 		    if((position>>i)%2==0){
-		    //if(!Position[i]){
-/*		    	for(j=0;j<count;j++)
+		    	for(j=0;j<count;j++)
                     stk[ptr].solution[j] = solution[j];
                 stk[ptr].solution[i] = index;
-		    	//Position[i] = 1;
+
 		    	stk[ptr].position = position|(1<<i);
                 stk[ptr].index = index+1;
-                */
-                solution[i] = index;
-                position|=(1<<i);
+
 
 		    	if(index == count-1){
 		    		obj = 0.0;
 		    		for(j = 0; j < count; j++){
-		    			obj += arr[solution[j]][j];
+		    			obj += arr[stk[ptr].solution[j]][j];
 		    		}
+					
+					/*for(j=0; j<count; j++)
+		    			printf("%d ", stk[ptr].solution[j]);
+					printf("\n");
+					*/
 		    		if(obj < bestobj){
-//                        memcpy ( fastbestsolution, solution, count );
 		    			for(j=0; j<count; j++)
-                    		fastbestsolution[j] = solution[j];
+		    				fastbestsolution[j] = stk[ptr].solution[j];
 		    			bestobj = obj;
 		    		}
-                    //ptr--;
+                    ptr--;
 		    	}
-                else{
-		    		FastPremutation(index+1);
-                }
-                //ptr++;
-		    	//Position[i] = 0;
-		    	position &= ~(1<<i);
+                ptr++;
 	    	}
 	    }
-//        ptr--;
-//    }
+        ptr--;
+    }
 }
 
 int main(int argc, char* argv[]){
@@ -90,12 +85,12 @@ int main(int argc, char* argv[]){
 		Position[30] = 0;
 
 	t1 = clock();
-	FastPremutation(0);
+	FastPremutation();
 	t2 = clock();
-    printf("Best : %lf\n", bestobj);
-	for(i=0; i<n; i++)
-		printf("%d ",fastbestsolution[i]);
-	printf("\n");
+	//printf("Best : %lf\n", bestobj);
+	//for(i=0; i<n; i++)
+	//	printf("%d ",fastbestsolution[i]);
+//	printf("\n");
 	
 	//printf("\n%lf\n", (t2-t1)/(double)(CLOCKS_PER_SEC));
 	fprintf(fout, "%lf\n", bestobj);

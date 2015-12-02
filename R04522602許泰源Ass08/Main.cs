@@ -209,7 +209,7 @@ namespace R04522602許泰源Ass08{
 			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 			
 			Process permu = new Process();
-			permu.StartInfo.FileName = "BFperm.exe";
+			//permu.StartInfo.FileName = "BFperm2.exe";
 			ProcessStartInfo pInfo = new ProcessStartInfo("BFperm.exe");
             pInfo.Arguments = FILENAME;
 			pInfo.CreateNoWindow = true;
@@ -236,7 +236,7 @@ namespace R04522602許泰源Ass08{
 			myString = myFile.ReadLine();
 			BSset.Text = myString;
 			BOval.Text = bestobj.ToString();
-			textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
+			//textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
 			myString = myFile.ReadLine();
 			myFile.Close();
 			
