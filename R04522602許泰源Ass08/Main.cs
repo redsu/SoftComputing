@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace R04522602許泰源Ass08{
 	public partial class Main : Form{
@@ -31,6 +32,7 @@ namespace R04522602許泰源Ass08{
 		double Penality = 100.0;
 
 		BinaryGA binarySolver;
+		PermutationGA permSolver;
 
 		public Main(){
 			InitializeComponent();
@@ -201,8 +203,11 @@ namespace R04522602許泰源Ass08{
 							for (int j = 0; j < numofJobs; j++)
 								data.Rows[i].Cells[j].Value = ProcessTime[i, j];
 
+
+
 						//Enable the solve button
 						slv_btn.Enabled = true;
+						btnCreateBinGA_Click(null, null);
 					}
 				}
 			}
@@ -327,14 +332,17 @@ namespace R04522602許泰源Ass08{
 			tip.ToolTipIcon = ToolTipIcon.Info;
 		}
 
-		private void new_binga_Click(object sender, EventArgs e){
+		private void btnCreateBinGA_Click(object sender, EventArgs e){
 			binarySolver = new BinaryGA(numofJobs * numofJobs, OptimizationType.Min, new GASolver<byte>.ObjectiveFunctionDelegate(ComputeTotalSetupTime));
+			Solver.SelectedObject = binarySolver;
+			buttonReset.Enabled = true;
+			btnCreateBinGA.Enabled = false;
 		}
 
 		private double ComputeTotalSetupTime(byte[] variables){
 			double time = 0.0;
 			for (int i = 0; i < variables.Length; i++){
-				time += this.ProcessTime[i / numofJobs, i % numofJobs] * (double)variables[i];
+				time += this.ProcessTime[(int)(i / numofJobs), i % numofJobs] * (double)variables[i];
 			}
 			return time + Penality * (double)GetConstraintCount(variables);
 		}
@@ -356,5 +364,110 @@ namespace R04522602許泰源Ass08{
 			}
 			return ConstraintCount;
 		}
+
+		private void buttonReset_Click(object sender, EventArgs e){
+			if(tabGA.SelectedTab == BinGA){
+				if(binarySolver == null){
+					iterend.Enabled = iterone.Enabled = false;
+					return ;
+				}
+				binarySolver.reset();
+			}
+			else if(tabGA.SelectedTab == PermGA){
+				if(permSolver == null){
+					iterend.Enabled = iterone.Enabled = false;
+					return ;
+				}
+				permSolver.reset();
+			}
+
+			iterone.Enabled = iterend.Enabled = true;
+			foreach(Series current in chartGA.Series)
+				current.Points.Clear();
+			updateBestInformation();
+			GAobj_lbl.Text = "(NONE)";
+			GAsol_lbl.Text = "(NONE)";
+		}
+
+		private void iterone_Click(object sender, EventArgs e){
+			if(tabGA.SelectedTab == BinGA){
+				if(binarySolver!=null){
+					binarySolver.executeOneIteration();					
+					chartGA.Series[0].Points.AddXY((double)binarySolver.IterationCount, binarySolver.IterationAverage);
+					chartGA.Series[1].Points.AddXY((double)binarySolver.IterationCount, binarySolver.IterationBestObjective);
+					chartGA.Series[2].Points.AddXY((double)binarySolver.IterationCount, binarySolver.SoFarTheBestObjective);
+					updateBestInformation();
+				}
+			}
+			else if(tabGA.SelectedTab == PermGA){
+				if(permSolver!=null){
+					permSolver.executeOneIteration();
+					chartGA.Series[0].Points.AddXY((double)permSolver.IterationCount, permSolver.IterationAverage);
+					chartGA.Series[1].Points.AddXY((double)permSolver.IterationCount, permSolver.IterationBestObjective);
+					chartGA.Series[2].Points.AddXY((double)permSolver.IterationCount, permSolver.SoFarTheBestObjective);
+				}
+			}
+		}
+		
+		private void iterend_Click(object sender, EventArgs e){
+			if(tabGA.SelectedTab == BinGA){
+				if(binarySolver!=null){
+					for (int i = 0; i < binarySolver.IterationLimit; i++)
+						this.iterone_Click(null, null);
+
+				}
+			}
+			else if(tabGA.SelectedTab == PermGA){
+				if(permSolver!=null){
+					permSolver.executeToEnd();
+				}
+			}
+		}
+
+		private void updateBestInformation(){
+			
+			if(tabGA.SelectedTab == BinGA){
+				GAobj_lbl.Text = binarySolver.SoFarTheBestObjective.ToString();
+				//GAsol_lbl.Text = "";
+				/*for(int i=0; i<numofJobs; i++){
+					for(int j=0; j<numofJobs; j++)
+						GAsol_lbl.Text += binarySolver.SoFarTheBestSolution[i*numofJobs+j].ToString();
+					GAsol_lbl.Text += "\n";
+				}*/
+				int num = 0;
+				string text="";
+				while (true)
+				{
+					int num2 = num;
+					BinaryGA expr_86 = this.binarySolver;
+					if (!(num2 < ((expr_86 != null) ? new int?(expr_86.SoFarTheBestSolution.Length) : null)))
+					{
+						break;
+					}
+					text = text + ((num % this.numofJobs == 0) ? "\n" : " ") + this.binarySolver.SoFarTheBestSolution[num].ToString();
+					num2 = num;
+					num = num2 + 1;
+				}
+				GAsol_lbl.Text = text;
+				constrain.Text = GetConstraintCount(binarySolver.SoFarTheBestSolution).ToString();
+			}
+			else if(tabGA.SelectedTab == PermGA){
+				//GAobj_lbl.Text = binarySolver.SoFarTheBestObjective.ToString();
+				//GAsol_lbl.Text = binarySolver.SoFarTheBestSolution.ToString();
+			}
+		}
+
+		private void textpenalty_TextChanged(object sender, EventArgs e){
+			try{
+				Penality = Convert.ToDouble(textpenalty.Text);
+			}
+			catch
+			{
+				Penality = 100.0;
+				textpenalty.Text = Penality.ToString();
+			}
+		}
+
+		
 	}
 }

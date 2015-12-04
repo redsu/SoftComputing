@@ -211,8 +211,7 @@ namespace R04522602許泰源Ass08 {
                 // Copy genes from the targeted parent
 //...
 
-                int pos1, pos2, temp;
-                int i, j;
+                int pos1, pos2;
 
                 // Perform mutation operation on the newly copied child chromosome
                 switch (mutationType)

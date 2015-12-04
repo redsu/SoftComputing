@@ -47,7 +47,7 @@ namespace R04522602許泰源Ass08{
         // Used in stochastic selection operation to store the indices of chosen chromosomes
         protected int[] indices;     // Store indices of chromosome, which are subject to shuffle, sorting, inversing operations
 
-        protected Random randomizer = new Random();  // Shared by all derived classes
+        protected Random randomizer = new Random(DateTime.Now.Millisecond);  // Shared by all derived classes
 
 		
 		#region PropertiesRegion
@@ -62,7 +62,41 @@ namespace R04522602許泰源Ass08{
             }
         }
 
-// ...
+		
+		[Category("GA Setting"), Description("交配率，建議值 0.5~0.9。")]
+		public double CrossoverRate{
+			get{
+				return this.crossoverRate;
+			}
+			set{
+				if(value <= 1.0 && value >= 0.0){
+					this.crossoverRate = value;
+				}
+			}
+		}
+
+		[Category("GA Setting"), Description("以基因個數為基的突變率，建議值 0.01~0.10。")]
+		public double MutationRate{
+			get{
+				return mutationRate;
+			}
+			set{
+				if(value <= 0.5 && value >= 0.0){
+					this.mutationRate = value;
+				}
+			}
+		}
+
+		[Category("GA Setting"), Description("")]
+		public SelectionMode SelectionMode{
+			get{
+				return selectionMode;
+			}
+			set{
+				selectionMode = value;
+
+			}
+		}
 
         [Browsable(false)]
         public double SoFarTheBestObjective{
@@ -97,6 +131,18 @@ namespace R04522602許泰源Ass08{
             }
         }
 
+		public double IterationAverage{
+            get{
+                return iterationAverage;
+            }
+        }
+
+		public double IterationBestObjective{
+            get{
+                return iterationBestObjective;
+            }
+        }
+
         #endregion
 
 
@@ -112,6 +158,7 @@ namespace R04522602許泰源Ass08{
             optimizationType = opType;
             if (objectFunction == null) throw new Exception("You must prepare an objective function.");
             GetObjectiveValueFunction = objectFunction;
+			SoFarTheBestSolution = new T[numberOfGenes];
         }
 
 
@@ -126,16 +173,22 @@ namespace R04522602許泰源Ass08{
 			chromosomesbuffer = new T[populationSize * 3][];
 //...
             // Initialize the initial population
-            //initializePopulation();
+            
 			int len = chromosomes.Length;
-			for(int i=0; i<len; i++)
+			for(int i=0; i<len; i++){
 				chromosomes[i] = new T[numberOfGenes];
+				chromosomesbuffer[i] = new T[numberOfGenes];
+			}
 
-			soFarTheBestSolution = new T[numberOfGenes];
 			objectiveValues = new double[len];
 			fitnessValues   = new double[len];
 			indices = new int[len];
-			
+
+			initializePopulation();
+
+			for (int j = 0; j < this.populationSize; j++)
+				objectiveValues[j] = GetObjectiveValueFunction(this.chromosomes[j]);
+							
 			// Reset computation realted variables
             iterationCount = 0;
             soFarTheBestObjective = optimizationType == OptimizationType.Min ? double.MaxValue : double.MinValue;
@@ -153,17 +206,14 @@ namespace R04522602許泰源Ass08{
         protected void randomizeIndices(int upLimit){
             for(int i = 0; i < upLimit; i++)
 				indices[i] = i;
+			int rndidx, tmp;
             for(int i = upLimit - 1; i > 0; i--){
-                int rndidx = randomizer.Next(i+1);
-				Swap(indices, i, rndidx);
+                rndidx = randomizer.Next(i+1);
+				tmp = indices[i];
+				indices[i] = indices[rndidx];
+				indices[rndidx] = tmp;
             }
         }
-
-		public void Swap(int[] indices, int i, int j){
-			int tmp = indices[i];
-			indices[i] = indices[j];
-			indices[j] = tmp;
-		}
 
         /// <summary>
         ///  Called in reset function. Overriden by the derived classes to fill-in
@@ -199,18 +249,44 @@ namespace R04522602許泰源Ass08{
         /// </summary>
         public virtual void executeOneIteration(){
             // Crossover operation
+			//Debug();
             performCrossoverOperation();
+			
             // Mutation operation
             performMutateOperation();
             // Evaluate all objectives 
             computeObjectiveValues();
             // Transform objectives to fitness values
             setFitnessFromObjectives();
+			
             // Selection
             performSelectionOperation();
 
+			
             iterationCount++;
         }
+
+		public void Debug(){
+			
+			for(int i=0; i<populationSize*3; i++){
+				if(indices[i] >= 0){
+					for(int j=0; j<numberOfGenes; j++){
+						Console.Write(chromosomes[indices[i]][j]+" ");
+					}
+				//Console.Write(indices[i].ToString()+" ");
+				Console.WriteLine(GetObjectiveValueFunction(chromosomes[indices[i]]).ToString());
+				}
+				if(i==populationSize-1)
+					Console.WriteLine("pop "+populationSize.ToString());
+				if(i==numberOfCrossoveredChildren+populationSize-1)
+					Console.WriteLine("cro "+numberOfCrossoveredChildren.ToString());
+				if(i==numberOfCrossoveredChildren+populationSize+numberOfMutatedChildren-1)
+					Console.WriteLine("mut "+numberOfMutatedChildren.ToString());
+
+			}Console.WriteLine("-------------------------------{0}", numberOfMutatedChildren+numberOfCrossoveredChildren+populationSize);
+			for(int i=0; i<populationSize; i++)
+				Console.Write(indices[i].ToString()+" "+objectiveValues[i].ToString()+" "+fitnessValues[i].ToString()+"\n");
+		}
 
 
         /// <summary>
@@ -308,19 +384,19 @@ namespace R04522602許泰源Ass08{
 			basevalue = 1E-06 > basevalue ? 1E-06 : basevalue;
 
 			switch (optimizationType){
-			case OptimizationType.Min:
-				for (int i = 0; i < total; i++)
-					fitnessValues[i] = basevalue + upest - objectiveValues[i];
-				break;
+				case OptimizationType.Min:
+					for (int i = 0; i < total; i++)
+						fitnessValues[i] = basevalue + upest - objectiveValues[i];
+					break;
 
-			case OptimizationType.Max:
-				for (int i = 0; i < total; i++)
-					fitnessValues[i] = basevalue + objectiveValues[i] - lowest;
-				break;
-			case OptimizationType.Goal:
-				for (int i = 0; i < total; i++)
-					fitnessValues[i] = 1.0 / (basevalue + Math.Abs(objectiveValues[i] - goalValue));
-				break;
+				case OptimizationType.Max:
+					for (int i = 0; i < total; i++)
+						fitnessValues[i] = basevalue + objectiveValues[i] - lowest;
+					break;
+				case OptimizationType.Goal:
+					for (int i = 0; i < total; i++)
+						fitnessValues[i] = 1.0 / (basevalue + Math.Abs(objectiveValues[i] - goalValue));
+					break;
 			}
 			//Finished on 12/02
 
@@ -335,7 +411,7 @@ namespace R04522602許泰源Ass08{
         /// </summary>
         public virtual void performCrossoverOperation(){
             // Calculate the number of crossovered chromosomes (must be even number)
-            numberOfCrossoveredChildren = (int)(mutationRate * populationSize);
+            numberOfCrossoveredChildren = (int)(crossoverRate * populationSize);
             if (numberOfCrossoveredChildren % 2 == 1) numberOfCrossoveredChildren++;
             if (numberOfCrossoveredChildren > populationSize) numberOfCrossoveredChildren = populationSize;
             // Randomly sort the parent indices to select the parents for pair-wise crossover
@@ -377,13 +453,18 @@ namespace R04522602許泰源Ass08{
             // Identify the chromosome limit index, including parents, crossovered, and mutated chromosomes.
             int poolSize = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
 
-            if(selectionMode == SelectionMode.Deterministic){
+			if(selectionMode == SelectionMode.Deterministic){
 				// Sort the fitness
 				// Sort the indices from smallest fitness to the highest one
 				// Revere the order to have an index list with highest fitness to the lowest
-				randomizeIndices(poolSize);
+				//randomizeIndices(poolSize);
+				for(int i=0;i<poolSize;i++)
+					indices[i] = i;
+
+
 				Array.Sort<double, int>(this.fitnessValues, this.indices, 0, poolSize);
 				Array.Reverse(this.indices, 0, poolSize);
+				
 			}
             else{
 				// Normalize the fitness
@@ -395,57 +476,33 @@ namespace R04522602許泰源Ass08{
 					for (int i = 0; i < poolSize; i++)
 						fitnessValues[i] = fitnessValues[i] / totalfitness;
 					for (int i = 1; i < poolSize; i++)
-						fitnessValues[i] = fitnessValues[i - 1];
+						fitnessValues[i] += fitnessValues[i - 1];
 
 					double threshold;
-					double sumfofitness = 0.0;
 					for (int j = 0; j < populationSize; j++) {
 						threshold = randomizer.NextDouble();
 						for (int i = 0; i < poolSize; i++) {
-							if(sumfofitness > threshold) {
+							if(fitnessValues[i] > threshold) {
 								indices[j] = i;
 								break;
 							}
 						}
 					}
 				}
-				Array.Sort<int>(indices, 0, populationSize);
-				int ptr = 0, index = -1;
-				for(int i=0; i<populationSize; i++) {
-					bool remained = false;
-					for(int j=0; j<populationSize; j++) {
-						if(indices[j]==i) {
-							indices[j] = -1;
-							remained = true;
-							break;
-						}
-					}
+				
+				/*
+				Console.WriteLine("******************************************");
+				for(int i=0; i<poolSize; i++){
+					for(int j=0; j<numberOfGenes; j++)
+						Console.Write(chromosomes[indices[i]][j].ToString()+" ");
 
-					if(!remained) {
-
-						for(int j=ptr; j<populationSize; j++) {
-							if(indices[j]>=0) {
-								index = indices[j];
-								ptr=j+1;
-								indices[j] = -1;
-								break;
-							}
-						}
-						for(int j=0; j<numberOfGenes; j++) {
-							chromosomes[i][j] = chromosomes[index][j];
-						}
-						objectiveValues[i] = objectiveValues[index];
-					}
+					Console.WriteLine(objectiveValues[indices[i]].ToString());
 				}
-
+				Console.WriteLine("******************************************");
+				*/
+				
 				//---------------------------------------------//
-				/*for(int i = 0; i < populationSize; i++)
-					for (int j = 0; j < numberOfGenes; j++)
-						chromosomesbuffer[i][j] = chromosomes[indices[i]][j];
-			
-				for(int i = 0; i < populationSize; i++)
-					for (int j = 0; j < numberOfGenes; j++)
-						chromosomes[i][j] = chromosomesbuffer[i][j];*/
+				
 				
 				// Sort the indices for the front populationSize chromosome indices
  
@@ -453,6 +510,59 @@ namespace R04522602許泰源Ass08{
 	 // ...
 
 			}
+			/*
+			for(int i = 0; i < poolSize; i++){
+				for (int j = 0; j < numberOfGenes; j++){
+					Console.Write(chromosomes[i][j].ToString()+" ");
+				}
+			 	Console.WriteLine(objectiveValues[i].ToString());
+			}
+			Console.WriteLine("-----------------------------------------");*/
+			Array.Sort<int>(indices, 0, populationSize);
+
+			int ptr = 0, index = -1;
+			for(int i=0; i<populationSize; i++) {
+				bool remained = false;
+				for(int j=0; j<populationSize; j++) {
+					if(indices[j]==i) {
+						indices[j] = -1;
+						remained = true;
+						break;
+					}
+				}
+
+				if(!remained) {
+
+					for(int j=ptr; j<populationSize; j++) {
+						if(indices[j]>=0) {
+							index = indices[j];
+							ptr=j+1;
+							indices[j] = -1;
+							break;
+						}
+					}
+					for(int j=0; j<numberOfGenes; j++) {
+						chromosomes[i][j] = chromosomes[index][j];
+					}
+					objectiveValues[i] = objectiveValues[index];
+				}
+			}
+			/*
+			for(int i = 0; i < populationSize; i++)
+					for (int j = 0; j < numberOfGenes; j++)
+						chromosomesbuffer[i][j] = chromosomes[indices[i]][j];
+			
+				for(int i = 0; i < populationSize; i++){
+					for (int j = 0; j < numberOfGenes; j++){
+						chromosomes[i][j] = chromosomesbuffer[i][j];
+						Console.Write(chromosomes[i][j].ToString()+" ");
+					}
+			 		Console.WriteLine(objectiveValues[indices[i]].ToString());
+				}
+			*/
+			
+			
+			
 		}
 
 		 /// <summary>

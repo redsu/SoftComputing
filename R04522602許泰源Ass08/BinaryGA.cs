@@ -81,14 +81,14 @@ namespace R04522602許泰源Ass08{
 				}
 				if(mutated){
 					int indexOfMutatedParent = i - size;
-					int indexOfMutatedChildren = populationSize + numberOfMutatedChildren + numberOfMutatedChildren;
+					int indexOfMutatedChildren = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
 					for (int j = 0; j < numberOfGenes; j++){
 						if(chromosomes[indexOfMutatedChildren][j]==1)
 							chromosomes[indexOfMutatedChildren][j] = (byte)(1 - chromosomes[indexOfMutatedParent][j]);
 						else
 							chromosomes[indexOfMutatedChildren][j] = chromosomes[indexOfMutatedParent][j];
 					}
-					indexOfMutatedChildren++;
+					numberOfMutatedChildren++;
 				}
             }
             // Update numberOfMutatedChildren for further reference
@@ -142,12 +142,14 @@ namespace R04522602許泰源Ass08{
         ///  Randomly fill in 0 or 1 value to each gene of each parent chromosome.
         /// </summary>
         public override void initializePopulation(){
-            //for (int i = 0; i < populationSize; i++)
-            //    for (int j = 0; j < numberOfGenes; j++)
-            // ...
-			for(int i=0; i<populationSize; i++)
-				for(int j=0; j<numberOfGenes; j++)
-					chromosomes[i][j] = (byte)(randomizer.Next() % 2);
+			for(int i=0; i<populationSize; i++){
+				for(int j=0; j<numberOfGenes; j++){
+					chromosomes[i][j] = (byte)(randomizer.Next() % 2 == 0 ? 1 : 0);
+					//Console.Write(chromosomes[i][j].ToString() + " ");
+				}
+				//Console.WriteLine("");
+			}
+			//Console.WriteLine("");
         }
     }
 
