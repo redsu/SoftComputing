@@ -72,9 +72,10 @@ namespace R04522602許泰源Ass08 {
         /// <param name="motherIdx"> mother index on the chromosome array </param>
         /// <param name="child1Idx"> the first child index on the chromosome array </param>
         /// <param name="child2Idx"> the second child index on the chromosome array </param>
-        public override void generateAPairOfCrossoveredOffspring(int fartherIdx, int motherIdx, int child1Idx, int child2Idx)
+        public override void generateAPairOfCrossoveredOffspring(int fatherIdx, int motherIdx, int child1Idx, int child2Idx)
         {
             int pos1, pos2, temp, j, k, p, q, start1, start2, aSource, aTarget, numberOfPairs, index;
+			int ptr1, ptr2;
             bool done;
 
             // Perform different crossover operations
@@ -95,8 +96,8 @@ namespace R04522602許泰源Ass08 {
                     while(j < numberOfGenes) {
 						if(j>=pos1&&j<=pos2) {
 							chromosomes[child1Idx][j] = chromosomes[motherIdx][j];
-							chromosomes[child2Idx][j] = chromosomes[fartherIdx][j];
-							if(chromosomes[fartherIdx][j]!=chromosomes[motherIdx][j]) {
+							chromosomes[child2Idx][j] = chromosomes[fatherIdx][j];
+							if(chromosomes[fatherIdx][j]!=chromosomes[motherIdx][j]) {
 								pos1 = pos2 = -1;
 								for(int i=0;i<numberOfPairs;i++)
 									if(p1[i] == chromosomes[motherIdx][j]) {
@@ -104,7 +105,7 @@ namespace R04522602許泰源Ass08 {
 										break;
                                     }
 								for(int i=0;i<numberOfPairs;i++)
-									if(p2[i] == chromosomes[fartherIdx][j]) {
+									if(p2[i] == chromosomes[fatherIdx][j]) {
 										pos2 = i;
 										break;
                                     }
@@ -136,12 +137,12 @@ namespace R04522602許泰源Ass08 {
 							}
 							else{
 								if(pos1>=0)
-									p1[pos1] = chromosomes[fartherIdx][j];
+									p1[pos1] = chromosomes[fatherIdx][j];
 								else {
 									if(pos2>=0)
 										p2[pos2] = chromosomes[motherIdx][j];
 									else{
-										p1[numberOfPairs] = chromosomes[fartherIdx][j];
+										p1[numberOfPairs] = chromosomes[fatherIdx][j];
 										p2[numberOfPairs] = chromosomes[motherIdx][j];
 										numberOfPairs++;
 									}
@@ -149,7 +150,7 @@ namespace R04522602許泰源Ass08 {
 							}
 						}
 						else {
-							chromosomes[child1Idx][j] = chromosomes[fartherIdx][j];
+							chromosomes[child1Idx][j] = chromosomes[fatherIdx][j];
 							chromosomes[child2Idx][j] = chromosomes[motherIdx][j];
 						}
 					}
@@ -167,6 +168,46 @@ namespace R04522602許泰源Ass08 {
 
                     break;
                 case PermutationCrossover.OrderX:
+					int first, second, tmp;
+					
+					for(int i = 0; i < numberOfGenes; i++)
+						p1[i] = p2[i] = 0;
+					
+					first = randomizer.Next(numberOfGenes);
+					do{	
+						second = randomizer.Next(numberOfGenes);
+					} while (first==second);
+
+					if(first > second) {
+						tmp = first;
+						first = second;
+						second = tmp;
+					}
+
+					for(int i = 0; i < numberOfGenes; i++) {
+						if(i<=first&&i<=second) {
+							chromosomes[child1Idx][i] = chromosomes[fatherIdx][i];
+							chromosomes[child2Idx][i] = chromosomes[motherIdx][i];
+						}
+						else{
+							p1[chromosomes[motherIdx][i]] = 1;
+							p2[chromosomes[fatherIdx][i]] = 1;
+						}
+					}
+					ptr1 = ptr2 = 0;
+					if(ptr1 >= first) {
+						ptr1 = ptr2 = second + 1;
+					}
+					for(int i=0; i<numberOfGenes; i++) {
+						if (p1[chromosomes[motherIdx][i]] == 1) {
+							chromosomes[child1Idx][ptr1] = chromosomes[motherIdx][i];
+							ptr1++;
+						}
+						if (p1[chromosomes[fatherIdx][i]] == 1) {
+							chromosomes[child2Idx][i] = chromosomes[fatherIdx][i];
+						}
+					}
+
 
 // ...
                     break;

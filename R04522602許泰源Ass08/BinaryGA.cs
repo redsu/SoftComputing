@@ -50,8 +50,8 @@ namespace R04522602許泰源Ass08{
         public override void performMutateOperation(){
             // Determine number of mutated genes
             int totalGenes = populationSize * numberOfGenes;
-            int numberOfMutatedGenes = (int)(mutationRate * totalGenes);
-			int size = populationSize * 2, len = chromosomes.Length;
+            int numberOfMutatedGenes = (int)(mutationRate * (double)totalGenes);
+			int size = populationSize + populationSize, len = chromosomes.Length;
             // clean the third part of gene for flagging the mutated genes
 			for(int i=size; i< len; i++) {
 				for (int j = 0; j < numberOfGenes; j++)
@@ -83,7 +83,7 @@ namespace R04522602許泰源Ass08{
 					int indexOfMutatedParent = i - size;
 					int indexOfMutatedChildren = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
 					for (int j = 0; j < numberOfGenes; j++){
-						if(chromosomes[indexOfMutatedChildren][j]==1)
+						if(chromosomes[i][j]==1)
 							chromosomes[indexOfMutatedChildren][j] = (byte)(1 - chromosomes[indexOfMutatedParent][j]);
 						else
 							chromosomes[indexOfMutatedChildren][j] = chromosomes[indexOfMutatedParent][j];

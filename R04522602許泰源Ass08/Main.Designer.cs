@@ -49,6 +49,7 @@
 			this.splitContainer2 = new System.Windows.Forms.SplitContainer();
 			this.tabGA = new System.Windows.Forms.TabControl();
 			this.BinGA = new System.Windows.Forms.TabPage();
+			this.constrain = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.textpenalty = new System.Windows.Forms.TextBox();
 			this.btnCreateBinGA = new System.Windows.Forms.Button();
@@ -68,7 +69,14 @@
 			this.TM_lbl = new System.Windows.Forms.Label();
 			this.tip = new System.Windows.Forms.ToolTip(this.components);
 			this.tip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.constrain = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.button1 = new System.Windows.Forms.Button();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
 			this.tab.SuspendLayout();
 			this.bf_pg.SuspendLayout();
 			this.ga_pg.SuspendLayout();
@@ -82,6 +90,7 @@
 			this.splitContainer2.SuspendLayout();
 			this.tabGA.SuspendLayout();
 			this.BinGA.SuspendLayout();
+			this.PermGA.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.chartGA)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
 			this.SuspendLayout();
@@ -110,7 +119,7 @@
 			this.tab.Location = new System.Drawing.Point(306, 12);
 			this.tab.Name = "tab";
 			this.tab.SelectedIndex = 0;
-			this.tab.Size = new System.Drawing.Size(691, 567);
+			this.tab.Size = new System.Drawing.Size(779, 567);
 			this.tab.TabIndex = 1;
 			// 
 			// bf_pg
@@ -210,7 +219,7 @@
 			this.ga_pg.Location = new System.Drawing.Point(4, 28);
 			this.ga_pg.Name = "ga_pg";
 			this.ga_pg.Padding = new System.Windows.Forms.Padding(3);
-			this.ga_pg.Size = new System.Drawing.Size(683, 535);
+			this.ga_pg.Size = new System.Drawing.Size(771, 535);
 			this.ga_pg.TabIndex = 1;
 			this.ga_pg.Text = "Genetic Algorithm";
 			// 
@@ -231,8 +240,8 @@
 			this.splitContainer1.Panel2.Controls.Add(this.iterone);
 			this.splitContainer1.Panel2.Controls.Add(this.buttonReset);
 			this.splitContainer1.Panel2.Controls.Add(this.Solver);
-			this.splitContainer1.Size = new System.Drawing.Size(677, 529);
-			this.splitContainer1.SplitterDistance = 441;
+			this.splitContainer1.Size = new System.Drawing.Size(765, 529);
+			this.splitContainer1.SplitterDistance = 498;
 			this.splitContainer1.TabIndex = 16;
 			// 
 			// splitContainer2
@@ -250,7 +259,7 @@
 			// splitContainer2.Panel2
 			// 
 			this.splitContainer2.Panel2.Controls.Add(this.chartGA);
-			this.splitContainer2.Size = new System.Drawing.Size(441, 529);
+			this.splitContainer2.Size = new System.Drawing.Size(498, 529);
 			this.splitContainer2.SplitterDistance = 268;
 			this.splitContainer2.TabIndex = 0;
 			// 
@@ -258,10 +267,11 @@
 			// 
 			this.tabGA.Controls.Add(this.BinGA);
 			this.tabGA.Controls.Add(this.PermGA);
-			this.tabGA.Location = new System.Drawing.Point(3, 3);
+			this.tabGA.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabGA.Location = new System.Drawing.Point(0, 0);
 			this.tabGA.Name = "tabGA";
 			this.tabGA.SelectedIndex = 0;
-			this.tabGA.Size = new System.Drawing.Size(435, 262);
+			this.tabGA.Size = new System.Drawing.Size(498, 268);
 			this.tabGA.TabIndex = 17;
 			// 
 			// BinGA
@@ -277,16 +287,26 @@
 			this.BinGA.Location = new System.Drawing.Point(4, 28);
 			this.BinGA.Name = "BinGA";
 			this.BinGA.Padding = new System.Windows.Forms.Padding(3);
-			this.BinGA.Size = new System.Drawing.Size(427, 230);
+			this.BinGA.Size = new System.Drawing.Size(490, 236);
 			this.BinGA.TabIndex = 0;
 			this.BinGA.Text = "Binary GA";
 			this.BinGA.UseVisualStyleBackColor = true;
+			// 
+			// constrain
+			// 
+			this.constrain.AutoSize = true;
+			this.constrain.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.constrain.Location = new System.Drawing.Point(338, 127);
+			this.constrain.Name = "constrain";
+			this.constrain.Size = new System.Drawing.Size(58, 19);
+			this.constrain.TabIndex = 16;
+			this.constrain.Text = "(NONE)";
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(275, 56);
+			this.label1.Location = new System.Drawing.Point(338, 56);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(101, 19);
 			this.label1.TabIndex = 15;
@@ -294,7 +314,7 @@
 			// 
 			// textpenalty
 			// 
-			this.textpenalty.Location = new System.Drawing.Point(279, 79);
+			this.textpenalty.Location = new System.Drawing.Point(342, 79);
 			this.textpenalty.Name = "textpenalty";
 			this.textpenalty.Size = new System.Drawing.Size(142, 27);
 			this.textpenalty.TabIndex = 14;
@@ -305,7 +325,7 @@
 			// 
 			this.btnCreateBinGA.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnCreateBinGA.ForeColor = System.Drawing.Color.MidnightBlue;
-			this.btnCreateBinGA.Location = new System.Drawing.Point(279, 13);
+			this.btnCreateBinGA.Location = new System.Drawing.Point(342, 13);
 			this.btnCreateBinGA.Name = "btnCreateBinGA";
 			this.btnCreateBinGA.Size = new System.Drawing.Size(142, 31);
 			this.btnCreateBinGA.TabIndex = 5;
@@ -355,10 +375,18 @@
 			// 
 			// PermGA
 			// 
+			this.PermGA.Controls.Add(this.label2);
+			this.PermGA.Controls.Add(this.label3);
+			this.PermGA.Controls.Add(this.textBox2);
+			this.PermGA.Controls.Add(this.button1);
+			this.PermGA.Controls.Add(this.label4);
+			this.PermGA.Controls.Add(this.label5);
+			this.PermGA.Controls.Add(this.label6);
+			this.PermGA.Controls.Add(this.label7);
 			this.PermGA.Location = new System.Drawing.Point(4, 28);
 			this.PermGA.Name = "PermGA";
 			this.PermGA.Padding = new System.Windows.Forms.Padding(3);
-			this.PermGA.Size = new System.Drawing.Size(427, 230);
+			this.PermGA.Size = new System.Drawing.Size(490, 236);
 			this.PermGA.TabIndex = 1;
 			this.PermGA.Text = "Permutation GA";
 			this.PermGA.UseVisualStyleBackColor = true;
@@ -371,6 +399,7 @@
 			this.chartGA.BackColor = System.Drawing.Color.Lavender;
 			chartArea1.Name = "ChartArea1";
 			this.chartGA.ChartAreas.Add(chartArea1);
+			legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
 			legend1.Name = "Legend1";
 			this.chartGA.Legends.Add(legend1);
 			this.chartGA.Location = new System.Drawing.Point(0, -2);
@@ -378,19 +407,19 @@
 			series1.ChartArea = "ChartArea1";
 			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 			series1.Legend = "Legend1";
-			series1.Name = "Series1";
+			series1.Name = "Iteration Average";
 			series2.ChartArea = "ChartArea1";
 			series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 			series2.Legend = "Legend1";
-			series2.Name = "Series2";
+			series2.Name = "Iteration Best";
 			series3.ChartArea = "ChartArea1";
 			series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 			series3.Legend = "Legend1";
-			series3.Name = "Series3";
+			series3.Name = "So Far The Best";
 			this.chartGA.Series.Add(series1);
 			this.chartGA.Series.Add(series2);
 			this.chartGA.Series.Add(series3);
-			this.chartGA.Size = new System.Drawing.Size(441, 259);
+			this.chartGA.Size = new System.Drawing.Size(498, 259);
 			this.chartGA.TabIndex = 0;
 			this.chartGA.Text = "chart1";
 			// 
@@ -402,7 +431,7 @@
 			this.iterend.ForeColor = System.Drawing.Color.MidnightBlue;
 			this.iterend.Location = new System.Drawing.Point(3, 87);
 			this.iterend.Name = "iterend";
-			this.iterend.Size = new System.Drawing.Size(226, 31);
+			this.iterend.Size = new System.Drawing.Size(257, 31);
 			this.iterend.TabIndex = 4;
 			this.iterend.Text = "Run To End";
 			this.iterend.UseVisualStyleBackColor = true;
@@ -416,7 +445,7 @@
 			this.iterone.ForeColor = System.Drawing.Color.MidnightBlue;
 			this.iterone.Location = new System.Drawing.Point(3, 50);
 			this.iterone.Name = "iterone";
-			this.iterone.Size = new System.Drawing.Size(226, 31);
+			this.iterone.Size = new System.Drawing.Size(257, 31);
 			this.iterone.TabIndex = 3;
 			this.iterone.Text = "Run One Iteration";
 			this.iterone.UseVisualStyleBackColor = true;
@@ -430,7 +459,7 @@
 			this.buttonReset.ForeColor = System.Drawing.Color.MidnightBlue;
 			this.buttonReset.Location = new System.Drawing.Point(3, 13);
 			this.buttonReset.Name = "buttonReset";
-			this.buttonReset.Size = new System.Drawing.Size(226, 31);
+			this.buttonReset.Size = new System.Drawing.Size(257, 31);
 			this.buttonReset.TabIndex = 2;
 			this.buttonReset.Text = "Reset";
 			this.buttonReset.UseVisualStyleBackColor = true;
@@ -440,9 +469,10 @@
 			// 
 			this.Solver.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.Solver.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
 			this.Solver.Location = new System.Drawing.Point(3, 134);
 			this.Solver.Name = "Solver";
-			this.Solver.Size = new System.Drawing.Size(225, 392);
+			this.Solver.Size = new System.Drawing.Size(256, 392);
 			this.Solver.TabIndex = 0;
 			// 
 			// data
@@ -491,22 +521,91 @@
 			this.TM_lbl.TabIndex = 11;
 			this.TM_lbl.Text = "Time Matrix:";
 			// 
-			// constrain
+			// label2
 			// 
-			this.constrain.AutoSize = true;
-			this.constrain.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.constrain.Location = new System.Drawing.Point(275, 127);
-			this.constrain.Name = "constrain";
-			this.constrain.Size = new System.Drawing.Size(58, 19);
-			this.constrain.TabIndex = 16;
-			this.constrain.Text = "(NONE)";
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(338, 127);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(58, 19);
+			this.label2.TabIndex = 24;
+			this.label2.Text = "(NONE)";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(338, 56);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(101, 19);
+			this.label3.TabIndex = 23;
+			this.label3.Text = "Penalty Value:";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Location = new System.Drawing.Point(342, 79);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(142, 27);
+			this.textBox2.TabIndex = 22;
+			this.textBox2.Text = "100.0";
+			// 
+			// button1
+			// 
+			this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.ForeColor = System.Drawing.Color.MidnightBlue;
+			this.button1.Location = new System.Drawing.Point(342, 13);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(142, 31);
+			this.button1.TabIndex = 17;
+			this.button1.Text = "Create Binary GA";
+			this.button1.UseVisualStyleBackColor = true;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(6, 19);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(108, 19);
+			this.label4.TabIndex = 18;
+			this.label4.Text = "Best Objective:";
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Location = new System.Drawing.Point(120, 49);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(58, 19);
+			this.label5.TabIndex = 21;
+			this.label5.Text = "(NONE)";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.Location = new System.Drawing.Point(120, 19);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(58, 19);
+			this.label6.TabIndex = 19;
+			this.label6.Text = "(NONE)";
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label7.Location = new System.Drawing.Point(6, 49);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(98, 19);
+			this.label7.TabIndex = 20;
+			this.label7.Text = "Best Solution:";
 			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.LightGray;
-			this.ClientSize = new System.Drawing.Size(1001, 586);
+			this.ClientSize = new System.Drawing.Size(1089, 586);
 			this.Controls.Add(this.TM_lbl);
 			this.Controls.Add(this.noj_num);
 			this.Controls.Add(this.NOJ_lbl);
@@ -530,6 +629,8 @@
 			this.tabGA.ResumeLayout(false);
 			this.BinGA.ResumeLayout(false);
 			this.BinGA.PerformLayout();
+			this.PermGA.ResumeLayout(false);
+			this.PermGA.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.chartGA)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.data)).EndInit();
 			this.ResumeLayout(false);
@@ -574,6 +675,14 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textpenalty;
 		private System.Windows.Forms.Label constrain;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label label7;
 	}
 }
 

@@ -428,26 +428,13 @@ namespace R04522602許泰源Ass08{
 			
 			if(tabGA.SelectedTab == BinGA){
 				GAobj_lbl.Text = binarySolver.SoFarTheBestObjective.ToString();
-				//GAsol_lbl.Text = "";
-				/*for(int i=0; i<numofJobs; i++){
-					for(int j=0; j<numofJobs; j++)
-						GAsol_lbl.Text += binarySolver.SoFarTheBestSolution[i*numofJobs+j].ToString();
-					GAsol_lbl.Text += "\n";
-				}*/
-				int num = 0;
 				string text="";
-				while (true)
-				{
-					int num2 = num;
-					BinaryGA expr_86 = this.binarySolver;
-					if (!(num2 < ((expr_86 != null) ? new int?(expr_86.SoFarTheBestSolution.Length) : null)))
-					{
-						break;
-					}
-					text = text + ((num % this.numofJobs == 0) ? "\n" : " ") + this.binarySolver.SoFarTheBestSolution[num].ToString();
-					num2 = num;
-					num = num2 + 1;
+				for(int i=0; i<numofJobs; i++){
+					for(int j=0; j<numofJobs; j++)
+						text += binarySolver.SoFarTheBestSolution[i*numofJobs+j].ToString() + " ";
+					text += "\n";
 				}
+
 				GAsol_lbl.Text = text;
 				constrain.Text = GetConstraintCount(binarySolver.SoFarTheBestSolution).ToString();
 			}

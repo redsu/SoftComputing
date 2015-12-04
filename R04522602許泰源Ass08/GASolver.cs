@@ -209,9 +209,9 @@ namespace R04522602許泰源Ass08{
 			int rndidx, tmp;
             for(int i = upLimit - 1; i > 0; i--){
                 rndidx = randomizer.Next(i+1);
-				tmp = indices[i];
-				indices[i] = indices[rndidx];
-				indices[rndidx] = tmp;
+				tmp = indices[rndidx];
+				indices[rndidx] = indices[i];
+				indices[i] = tmp;
             }
         }
 
@@ -261,7 +261,7 @@ namespace R04522602許泰源Ass08{
 			
             // Selection
             performSelectionOperation();
-
+			//Debug();
 			
             iterationCount++;
         }
@@ -269,12 +269,12 @@ namespace R04522602許泰源Ass08{
 		public void Debug(){
 			
 			for(int i=0; i<populationSize*3; i++){
-				if(indices[i] >= 0){
+				if(i >= 0){
 					for(int j=0; j<numberOfGenes; j++){
-						Console.Write(chromosomes[indices[i]][j]+" ");
+						Console.Write(chromosomes[i][j]+" ");
 					}
 				//Console.Write(indices[i].ToString()+" ");
-				Console.WriteLine(GetObjectiveValueFunction(chromosomes[indices[i]]).ToString());
+				Console.WriteLine(GetObjectiveValueFunction(chromosomes[i]).ToString());
 				}
 				if(i==populationSize-1)
 					Console.WriteLine("pop "+populationSize.ToString());
@@ -375,7 +375,8 @@ namespace R04522602許泰源Ass08{
             // Develop your own procedure to accomplish this task
 
             int total = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
-            double lowest = double.MaxValue; double upest = double.MinValue;
+            double lowest = double.MaxValue;
+			double upest  = double.MinValue;
             for (int i = 0; i < total; i++){
                 if (objectiveValues[i] < lowest) lowest = objectiveValues[i];
                 if (objectiveValues[i] > upest) upest = objectiveValues[i];
@@ -458,10 +459,12 @@ namespace R04522602許泰源Ass08{
 				// Sort the indices from smallest fitness to the highest one
 				// Revere the order to have an index list with highest fitness to the lowest
 				//randomizeIndices(poolSize);
-				for(int i=0;i<poolSize;i++)
+				/*
+				for (int i=0;i<poolSize;i++)
 					indices[i] = i;
+				*/
 
-
+				randomizeIndices(poolSize);
 				Array.Sort<double, int>(this.fitnessValues, this.indices, 0, poolSize);
 				Array.Reverse(this.indices, 0, poolSize);
 				
@@ -487,7 +490,7 @@ namespace R04522602許泰源Ass08{
 								break;
 							}
 						}
-					}
+					}					
 				}
 				
 				/*
@@ -507,17 +510,18 @@ namespace R04522602許泰源Ass08{
 				// Sort the indices for the front populationSize chromosome indices
  
 				// Reassign population: copy genes of selected chromosmes to the front (populationSize) chromosomes
-	 // ...
+				 // ...
 
 			}
-			/*
-			for(int i = 0; i < poolSize; i++){
+			
+			/*for(int i = 0; i < poolSize; i++){
 				for (int j = 0; j < numberOfGenes; j++){
 					Console.Write(chromosomes[i][j].ToString()+" ");
 				}
 			 	Console.WriteLine(objectiveValues[i].ToString());
 			}
 			Console.WriteLine("-----------------------------------------");*/
+
 			Array.Sort<int>(indices, 0, populationSize);
 
 			int ptr = 0, index = -1;
@@ -532,7 +536,7 @@ namespace R04522602許泰源Ass08{
 				}
 
 				if(!remained) {
-
+					index = -1;
 					for(int j=ptr; j<populationSize; j++) {
 						if(indices[j]>=0) {
 							index = indices[j];
