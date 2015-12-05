@@ -207,7 +207,9 @@ namespace R04522602許泰源Ass08{
 
 						//Enable the solve button
 						slv_btn.Enabled = true;
-						btnCreateBinGA_Click(null, null);
+						//btnCreateBinGA_Click(null, null);
+						permSolver = null;
+						binarySolver = null;
 					}
 				}
 			}
@@ -384,7 +386,7 @@ namespace R04522602許泰源Ass08{
 			iterone.Enabled = iterend.Enabled = true;
 			foreach(Series current in chartGA.Series)
 				current.Points.Clear();
-			updateBestInformation();
+			//updateBestInformation();
 			GAobj_lbl.Text = "(NONE)";
 			GAsol_lbl.Text = "(NONE)";
 		}
@@ -405,6 +407,7 @@ namespace R04522602許泰源Ass08{
 					chartGA.Series[0].Points.AddXY((double)permSolver.IterationCount, permSolver.IterationAverage);
 					chartGA.Series[1].Points.AddXY((double)permSolver.IterationCount, permSolver.IterationBestObjective);
 					chartGA.Series[2].Points.AddXY((double)permSolver.IterationCount, permSolver.SoFarTheBestObjective);
+					updateBestInformation();
 				}
 			}
 		}
@@ -419,28 +422,36 @@ namespace R04522602許泰源Ass08{
 			}
 			else if(tabGA.SelectedTab == PermGA){
 				if(permSolver!=null){
-					permSolver.executeToEnd();
+					for (int i = 0; i < permSolver.IterationLimit; i++)
+						this.iterone_Click(null, null);
 				}
 			}
 		}
 
 		private void updateBestInformation(){
 			
-			if(tabGA.SelectedTab == BinGA){
-				GAobj_lbl.Text = binarySolver.SoFarTheBestObjective.ToString();
+			if(tabGA.SelectedTab == BinGA){				
 				string text="";
 				for(int i=0; i<numofJobs; i++){
 					for(int j=0; j<numofJobs; j++)
 						text += binarySolver.SoFarTheBestSolution[i*numofJobs+j].ToString() + " ";
 					text += "\n";
 				}
-
+				
 				GAsol_lbl.Text = text;
+				text=binarySolver.SoFarTheBestObjective.ToString();
+
+				GAobj_lbl.Text = text;
 				constrain.Text = GetConstraintCount(binarySolver.SoFarTheBestSolution).ToString();
 			}
 			else if(tabGA.SelectedTab == PermGA){
-				//GAobj_lbl.Text = binarySolver.SoFarTheBestObjective.ToString();
-				//GAsol_lbl.Text = binarySolver.SoFarTheBestSolution.ToString();
+				Console.WriteLine("Update");
+				PGAobj_lbl.Text = permSolver.SoFarTheBestObjective.ToString();
+				string text = "";
+				for(int i=0; i<numofJobs; i++){
+						text += permSolver.SoFarTheBestSolution[i].ToString() + " ";
+				}
+				PGAsol_lbl.Text = text;
 			}
 		}
 
@@ -455,6 +466,25 @@ namespace R04522602許泰源Ass08{
 			}
 		}
 
-		
+		private void btnCreatePerGA_Click(object sender, EventArgs e){
+			permSolver = new PermutationGA(numofJobs, OptimizationType.Min, new GASolver<int>.ObjectiveFunctionDelegate(ComputeTotalSetupTime));
+			Solver.SelectedObject = this.permSolver;
+			buttonReset.Enabled = true;
+		}
+
+		private double ComputeTotalSetupTime(int[] variables){
+			double time = 0.0;
+			for (int i = 0; i < this.numofJobs; i++)
+				time += this.ProcessTime[variables[i], i];
+
+			return time;
+		}
+
+		private void tabGA_SelectedIndexChanged(object sender, EventArgs e){
+			if(tabGA.SelectedTab == BinGA)
+				Solver.SelectedObject = binarySolver;
+			else if(tabGA.SelectedTab == PermGA)
+				Solver.SelectedObject = permSolver;
+		}
 	}
 }

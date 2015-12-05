@@ -29,11 +29,11 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.import_btn = new System.Windows.Forms.Button();
 			this.tab = new System.Windows.Forms.TabControl();
 			this.bf_pg = new System.Windows.Forms.TabPage();
@@ -58,6 +58,14 @@
 			this.GAobj_lbl = new System.Windows.Forms.Label();
 			this.BSGA = new System.Windows.Forms.Label();
 			this.PermGA = new System.Windows.Forms.TabPage();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.btnCreatePerGA = new System.Windows.Forms.Button();
+			this.label4 = new System.Windows.Forms.Label();
+			this.PGAsol_lbl = new System.Windows.Forms.Label();
+			this.PGAobj_lbl = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
 			this.chartGA = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.iterend = new System.Windows.Forms.Button();
 			this.iterone = new System.Windows.Forms.Button();
@@ -69,14 +77,6 @@
 			this.TM_lbl = new System.Windows.Forms.Label();
 			this.tip = new System.Windows.Forms.ToolTip(this.components);
 			this.tip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
-			this.label7 = new System.Windows.Forms.Label();
 			this.tab.SuspendLayout();
 			this.bf_pg.SuspendLayout();
 			this.ga_pg.SuspendLayout();
@@ -135,7 +135,7 @@
 			this.bf_pg.Location = new System.Drawing.Point(4, 28);
 			this.bf_pg.Name = "bf_pg";
 			this.bf_pg.Padding = new System.Windows.Forms.Padding(3);
-			this.bf_pg.Size = new System.Drawing.Size(683, 535);
+			this.bf_pg.Size = new System.Drawing.Size(771, 535);
 			this.bf_pg.TabIndex = 0;
 			this.bf_pg.Text = "Brute Force";
 			// 
@@ -273,6 +273,7 @@
 			this.tabGA.SelectedIndex = 0;
 			this.tabGA.Size = new System.Drawing.Size(498, 268);
 			this.tabGA.TabIndex = 17;
+			this.tabGA.SelectedIndexChanged += new System.EventHandler(this.tabGA_SelectedIndexChanged);
 			// 
 			// BinGA
 			// 
@@ -296,7 +297,7 @@
 			// 
 			this.constrain.AutoSize = true;
 			this.constrain.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.constrain.Location = new System.Drawing.Point(338, 127);
+			this.constrain.Location = new System.Drawing.Point(338, 136);
 			this.constrain.Name = "constrain";
 			this.constrain.Size = new System.Drawing.Size(58, 19);
 			this.constrain.TabIndex = 16;
@@ -306,7 +307,7 @@
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(338, 56);
+			this.label1.Location = new System.Drawing.Point(338, 65);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(101, 19);
 			this.label1.TabIndex = 15;
@@ -314,7 +315,7 @@
 			// 
 			// textpenalty
 			// 
-			this.textpenalty.Location = new System.Drawing.Point(342, 79);
+			this.textpenalty.Location = new System.Drawing.Point(342, 88);
 			this.textpenalty.Name = "textpenalty";
 			this.textpenalty.Size = new System.Drawing.Size(142, 27);
 			this.textpenalty.TabIndex = 14;
@@ -325,9 +326,9 @@
 			// 
 			this.btnCreateBinGA.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnCreateBinGA.ForeColor = System.Drawing.Color.MidnightBlue;
-			this.btnCreateBinGA.Location = new System.Drawing.Point(342, 13);
+			this.btnCreateBinGA.Location = new System.Drawing.Point(342, 6);
 			this.btnCreateBinGA.Name = "btnCreateBinGA";
-			this.btnCreateBinGA.Size = new System.Drawing.Size(142, 31);
+			this.btnCreateBinGA.Size = new System.Drawing.Size(142, 56);
 			this.btnCreateBinGA.TabIndex = 5;
 			this.btnCreateBinGA.Text = "Create Binary GA";
 			this.btnCreateBinGA.UseVisualStyleBackColor = true;
@@ -346,20 +347,20 @@
 			// GAsol_lbl
 			// 
 			this.GAsol_lbl.AutoSize = true;
-			this.GAsol_lbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.GAsol_lbl.Location = new System.Drawing.Point(120, 49);
+			this.GAsol_lbl.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.GAsol_lbl.Location = new System.Drawing.Point(120, 52);
 			this.GAsol_lbl.Name = "GAsol_lbl";
-			this.GAsol_lbl.Size = new System.Drawing.Size(58, 19);
+			this.GAsol_lbl.Size = new System.Drawing.Size(46, 15);
 			this.GAsol_lbl.TabIndex = 11;
 			this.GAsol_lbl.Text = "(NONE)";
 			// 
 			// GAobj_lbl
 			// 
 			this.GAobj_lbl.AutoSize = true;
-			this.GAobj_lbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.GAobj_lbl.Location = new System.Drawing.Point(120, 19);
+			this.GAobj_lbl.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.GAobj_lbl.Location = new System.Drawing.Point(120, 23);
 			this.GAobj_lbl.Name = "GAobj_lbl";
-			this.GAobj_lbl.Size = new System.Drawing.Size(58, 19);
+			this.GAobj_lbl.Size = new System.Drawing.Size(46, 15);
 			this.GAobj_lbl.TabIndex = 9;
 			this.GAobj_lbl.Text = "(NONE)";
 			// 
@@ -378,10 +379,10 @@
 			this.PermGA.Controls.Add(this.label2);
 			this.PermGA.Controls.Add(this.label3);
 			this.PermGA.Controls.Add(this.textBox2);
-			this.PermGA.Controls.Add(this.button1);
+			this.PermGA.Controls.Add(this.btnCreatePerGA);
 			this.PermGA.Controls.Add(this.label4);
-			this.PermGA.Controls.Add(this.label5);
-			this.PermGA.Controls.Add(this.label6);
+			this.PermGA.Controls.Add(this.PGAsol_lbl);
+			this.PermGA.Controls.Add(this.PGAobj_lbl);
 			this.PermGA.Controls.Add(this.label7);
 			this.PermGA.Location = new System.Drawing.Point(4, 28);
 			this.PermGA.Name = "PermGA";
@@ -391,34 +392,114 @@
 			this.PermGA.Text = "Permutation GA";
 			this.PermGA.UseVisualStyleBackColor = true;
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(338, 136);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(58, 19);
+			this.label2.TabIndex = 24;
+			this.label2.Text = "(NONE)";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(338, 65);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(101, 19);
+			this.label3.TabIndex = 23;
+			this.label3.Text = "Penalty Value:";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Location = new System.Drawing.Point(342, 88);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(142, 27);
+			this.textBox2.TabIndex = 22;
+			this.textBox2.Text = "100.0";
+			// 
+			// btnCreatePerGA
+			// 
+			this.btnCreatePerGA.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnCreatePerGA.ForeColor = System.Drawing.Color.MidnightBlue;
+			this.btnCreatePerGA.Location = new System.Drawing.Point(342, 6);
+			this.btnCreatePerGA.Name = "btnCreatePerGA";
+			this.btnCreatePerGA.Size = new System.Drawing.Size(142, 56);
+			this.btnCreatePerGA.TabIndex = 17;
+			this.btnCreatePerGA.Text = "Create Permutation GA";
+			this.btnCreatePerGA.UseVisualStyleBackColor = true;
+			this.btnCreatePerGA.Click += new System.EventHandler(this.btnCreatePerGA_Click);
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(6, 19);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(108, 19);
+			this.label4.TabIndex = 18;
+			this.label4.Text = "Best Objective:";
+			// 
+			// PGAsol_lbl
+			// 
+			this.PGAsol_lbl.AutoSize = true;
+			this.PGAsol_lbl.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.PGAsol_lbl.Location = new System.Drawing.Point(120, 52);
+			this.PGAsol_lbl.Name = "PGAsol_lbl";
+			this.PGAsol_lbl.Size = new System.Drawing.Size(46, 15);
+			this.PGAsol_lbl.TabIndex = 21;
+			this.PGAsol_lbl.Text = "(NONE)";
+			// 
+			// PGAobj_lbl
+			// 
+			this.PGAobj_lbl.AutoSize = true;
+			this.PGAobj_lbl.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.PGAobj_lbl.Location = new System.Drawing.Point(120, 23);
+			this.PGAobj_lbl.Name = "PGAobj_lbl";
+			this.PGAobj_lbl.Size = new System.Drawing.Size(46, 15);
+			this.PGAobj_lbl.TabIndex = 19;
+			this.PGAobj_lbl.Text = "(NONE)";
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label7.Location = new System.Drawing.Point(6, 49);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(98, 19);
+			this.label7.TabIndex = 20;
+			this.label7.Text = "Best Solution:";
+			// 
 			// chartGA
 			// 
 			this.chartGA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.chartGA.BackColor = System.Drawing.Color.Lavender;
-			chartArea1.Name = "ChartArea1";
-			this.chartGA.ChartAreas.Add(chartArea1);
-			legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-			legend1.Name = "Legend1";
-			this.chartGA.Legends.Add(legend1);
+			chartArea2.Name = "ChartArea1";
+			this.chartGA.ChartAreas.Add(chartArea2);
+			legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+			legend2.Name = "Legend1";
+			this.chartGA.Legends.Add(legend2);
 			this.chartGA.Location = new System.Drawing.Point(0, -2);
 			this.chartGA.Name = "chartGA";
-			series1.ChartArea = "ChartArea1";
-			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series1.Legend = "Legend1";
-			series1.Name = "Iteration Average";
-			series2.ChartArea = "ChartArea1";
-			series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series2.Legend = "Legend1";
-			series2.Name = "Iteration Best";
-			series3.ChartArea = "ChartArea1";
-			series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series3.Legend = "Legend1";
-			series3.Name = "So Far The Best";
-			this.chartGA.Series.Add(series1);
-			this.chartGA.Series.Add(series2);
-			this.chartGA.Series.Add(series3);
+			series4.ChartArea = "ChartArea1";
+			series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series4.Legend = "Legend1";
+			series4.Name = "Iteration Average";
+			series5.ChartArea = "ChartArea1";
+			series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series5.Legend = "Legend1";
+			series5.Name = "Iteration Best";
+			series6.ChartArea = "ChartArea1";
+			series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series6.Legend = "Legend1";
+			series6.Name = "So Far The Best";
+			this.chartGA.Series.Add(series4);
+			this.chartGA.Series.Add(series5);
+			this.chartGA.Series.Add(series6);
 			this.chartGA.Size = new System.Drawing.Size(498, 259);
 			this.chartGA.TabIndex = 0;
 			this.chartGA.Text = "chart1";
@@ -521,85 +602,6 @@
 			this.TM_lbl.TabIndex = 11;
 			this.TM_lbl.Text = "Time Matrix:";
 			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(338, 127);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(58, 19);
-			this.label2.TabIndex = 24;
-			this.label2.Text = "(NONE)";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(338, 56);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(101, 19);
-			this.label3.TabIndex = 23;
-			this.label3.Text = "Penalty Value:";
-			// 
-			// textBox2
-			// 
-			this.textBox2.Location = new System.Drawing.Point(342, 79);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(142, 27);
-			this.textBox2.TabIndex = 22;
-			this.textBox2.Text = "100.0";
-			// 
-			// button1
-			// 
-			this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.ForeColor = System.Drawing.Color.MidnightBlue;
-			this.button1.Location = new System.Drawing.Point(342, 13);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(142, 31);
-			this.button1.TabIndex = 17;
-			this.button1.Text = "Create Binary GA";
-			this.button1.UseVisualStyleBackColor = true;
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.Location = new System.Drawing.Point(6, 19);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(108, 19);
-			this.label4.TabIndex = 18;
-			this.label4.Text = "Best Objective:";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(120, 49);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(58, 19);
-			this.label5.TabIndex = 21;
-			this.label5.Text = "(NONE)";
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.Location = new System.Drawing.Point(120, 19);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(58, 19);
-			this.label6.TabIndex = 19;
-			this.label6.Text = "(NONE)";
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.Location = new System.Drawing.Point(6, 49);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(98, 19);
-			this.label7.TabIndex = 20;
-			this.label7.Text = "Best Solution:";
-			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -678,10 +680,10 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button btnCreatePerGA;
 		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label PGAsol_lbl;
+		private System.Windows.Forms.Label PGAobj_lbl;
 		private System.Windows.Forms.Label label7;
 	}
 }

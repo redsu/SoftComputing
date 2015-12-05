@@ -251,18 +251,20 @@ namespace R04522602許泰源Ass08{
             // Crossover operation
 			//Debug();
             performCrossoverOperation();
-			
+			Console.WriteLine("Crossover Finished");
             // Mutation operation
             performMutateOperation();
+			Console.WriteLine("Mutation Finished");
             // Evaluate all objectives 
             computeObjectiveValues();
+			Console.WriteLine("Compute Finished");
             // Transform objectives to fitness values
             setFitnessFromObjectives();
-			
+			Console.WriteLine("Fitness Finished");
             // Selection
             performSelectionOperation();
 			//Debug();
-			
+			Console.WriteLine("Selection Finished");
             iterationCount++;
         }
 
@@ -419,6 +421,7 @@ namespace R04522602許泰源Ass08{
             randomizeIndices(populationSize);
             // For a pair of parent indices, prepare the successive children indices, 
             // call  generateAPairOfCrossoveredOffspring() to produce crossobered offspring
+			
             for (int i = 0; i < numberOfCrossoveredChildren; i += 2){
                 generateAPairOfCrossoveredOffspring(indices[i], indices[i + 1], populationSize + i, populationSize + i + 1);
             }
