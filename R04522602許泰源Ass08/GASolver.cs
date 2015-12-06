@@ -131,12 +131,14 @@ namespace R04522602許泰源Ass08{
             }
         }
 
+		[Browsable(false)]
 		public double IterationAverage{
             get{
                 return iterationAverage;
             }
         }
 
+		[Browsable(false)]
 		public double IterationBestObjective{
             get{
                 return iterationBestObjective;
@@ -251,20 +253,20 @@ namespace R04522602許泰源Ass08{
             // Crossover operation
 			//Debug();
             performCrossoverOperation();
-			Console.WriteLine("Crossover Finished");
+			//Console.WriteLine("Crossover Finished");
             // Mutation operation
             performMutateOperation();
-			Console.WriteLine("Mutation Finished");
+			//Console.WriteLine("Mutation Finished");
             // Evaluate all objectives 
             computeObjectiveValues();
-			Console.WriteLine("Compute Finished");
+			//Console.WriteLine("Compute Finished");
             // Transform objectives to fitness values
             setFitnessFromObjectives();
-			Console.WriteLine("Fitness Finished");
+			//Console.WriteLine("Fitness Finished");
             // Selection
             performSelectionOperation();
 			//Debug();
-			Console.WriteLine("Selection Finished");
+			//Console.WriteLine("Selection Finished");
             iterationCount++;
         }
 
@@ -579,17 +581,15 @@ namespace R04522602許泰源Ass08{
         ///  parents is returned.
         /// </summary>
         /// <returns> number of mutated parents </returns>
-        protected int SimulateMutatedGenesMarkingAndPackParentIndicesReturnBound()
-        {
+        protected int SimulateMutatedGenesMarkingAndPackParentIndicesReturnBound(){
             // Determine number of mutated genes
             int totalGenes = populationSize * numberOfGenes;
-            int num = (int)(mutationRate * totalGenes);
+            int mutatedgene = (int)(mutationRate * totalGenes);
             // clean the third part of gene for flagging the mutated genes
             // Mark mutated genes
             for (int i = 0; i < populationSize; i++) indices[i] = int.MaxValue;
-            for (int i = 0; i < num; i++)
-            {
-                int seq = randomizer.Next(populationSize * numberOfGenes) / numberOfGenes;
+            for (int i = 0; i < mutatedgene; i++){
+                int seq = randomizer.Next(totalGenes) / numberOfGenes;
                 indices[seq] = seq;
             }
             // Pack the mutated parent ids in the front part of the indices array.

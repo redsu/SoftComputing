@@ -29,14 +29,16 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.import_btn = new System.Windows.Forms.Button();
 			this.tab = new System.Windows.Forms.TabControl();
 			this.bf_pg = new System.Windows.Forms.TabPage();
+			this.show_chk = new System.Windows.Forms.CheckBox();
+			this.recursive_type = new System.Windows.Forms.ComboBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.BSset = new System.Windows.Forms.Label();
 			this.BSlbl = new System.Windows.Forms.Label();
@@ -125,6 +127,8 @@
 			// bf_pg
 			// 
 			this.bf_pg.BackColor = System.Drawing.Color.Lavender;
+			this.bf_pg.Controls.Add(this.show_chk);
+			this.bf_pg.Controls.Add(this.recursive_type);
 			this.bf_pg.Controls.Add(this.textBox1);
 			this.bf_pg.Controls.Add(this.BSset);
 			this.bf_pg.Controls.Add(this.BSlbl);
@@ -138,6 +142,31 @@
 			this.bf_pg.Size = new System.Drawing.Size(771, 535);
 			this.bf_pg.TabIndex = 0;
 			this.bf_pg.Text = "Brute Force";
+			// 
+			// show_chk
+			// 
+			this.show_chk.AutoSize = true;
+			this.show_chk.Location = new System.Drawing.Point(582, 68);
+			this.show_chk.Name = "show_chk";
+			this.show_chk.Size = new System.Drawing.Size(146, 23);
+			this.show_chk.TabIndex = 15;
+			this.show_chk.Text = "Show All Solutions";
+			this.show_chk.UseVisualStyleBackColor = true;
+			// 
+			// recursive_type
+			// 
+			this.recursive_type.DisplayMember = "0";
+			this.recursive_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.recursive_type.FormattingEnabled = true;
+			this.recursive_type.Items.AddRange(new object[] {
+            "Permutation",
+            "FastPermutation",
+            "TurboPermutation"});
+			this.recursive_type.Location = new System.Drawing.Point(410, 66);
+			this.recursive_type.Name = "recursive_type";
+			this.recursive_type.Size = new System.Drawing.Size(162, 27);
+			this.recursive_type.TabIndex = 14;
+			this.recursive_type.SelectedIndexChanged += new System.EventHandler(this.recursive_type_SelectedIndexChanged);
 			// 
 			// textBox1
 			// 
@@ -478,31 +507,31 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.chartGA.BackColor = System.Drawing.Color.Lavender;
-			chartArea2.Name = "ChartArea1";
-			this.chartGA.ChartAreas.Add(chartArea2);
-			legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-			legend2.Name = "Legend1";
-			this.chartGA.Legends.Add(legend2);
+			chartArea1.Name = "ChartArea1";
+			this.chartGA.ChartAreas.Add(chartArea1);
+			legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+			legend1.Name = "Legend1";
+			this.chartGA.Legends.Add(legend1);
 			this.chartGA.Location = new System.Drawing.Point(0, -2);
 			this.chartGA.Name = "chartGA";
-			series4.ChartArea = "ChartArea1";
-			series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series4.Legend = "Legend1";
-			series4.Name = "Iteration Average";
-			series5.ChartArea = "ChartArea1";
-			series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series5.Legend = "Legend1";
-			series5.Name = "Iteration Best";
-			series6.ChartArea = "ChartArea1";
-			series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series6.Legend = "Legend1";
-			series6.Name = "So Far The Best";
-			this.chartGA.Series.Add(series4);
-			this.chartGA.Series.Add(series5);
-			this.chartGA.Series.Add(series6);
+			series1.ChartArea = "ChartArea1";
+			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series1.Legend = "Legend1";
+			series1.Name = "Iteration Average";
+			series2.ChartArea = "ChartArea1";
+			series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series2.Legend = "Legend1";
+			series2.Name = "Iteration Best";
+			series3.ChartArea = "ChartArea1";
+			series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series3.Legend = "Legend1";
+			series3.Name = "So Far The Best";
+			this.chartGA.Series.Add(series1);
+			this.chartGA.Series.Add(series2);
+			this.chartGA.Series.Add(series3);
 			this.chartGA.Size = new System.Drawing.Size(498, 259);
 			this.chartGA.TabIndex = 0;
-			this.chartGA.Text = "chart1";
+			this.chartGA.Text = "ChartGA";
 			// 
 			// iterend
 			// 
@@ -685,6 +714,8 @@
 		private System.Windows.Forms.Label PGAsol_lbl;
 		private System.Windows.Forms.Label PGAobj_lbl;
 		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.ComboBox recursive_type;
+		private System.Windows.Forms.CheckBox show_chk;
 	}
 }
 
