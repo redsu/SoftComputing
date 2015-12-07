@@ -119,7 +119,7 @@ namespace R04522602許泰源Ass08{
             }
         }
 
-		[Category("GA Setting"), Description("")]
+		[Category("GA Setting"), Description("Heuristic for OptimizationType.Min only.")]
         public OptimizationType OptimizationType{
             get{
                 return optimizationType;
@@ -538,10 +538,9 @@ namespace R04522602許泰源Ass08{
                 }
             return numberOfMutatedChildren;
         }
+
+		
     }
-
-
-
 
     //  Type of optimization problem.
     public enum OptimizationType { Min, Max, Goal }

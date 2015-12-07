@@ -302,6 +302,10 @@ namespace R04522602許泰源Ass08 {
 
 
         //  Overriden mutation operations on permutation encoding GA
+		int[] pos;
+		int[] val;
+		int index;
+		int numofmutgene;
 		public override void performMutateOperation(){
             // Perform silimar binary encoded GA mutation operation to identify number of parents
             // subject to mutation operation and the parent idices are stored in indices array
@@ -312,14 +316,21 @@ namespace R04522602許泰源Ass08 {
            	numberOfMutatedChildren = SimulateMutatedGenesMarkingAndPackParentIndicesReturnBound();
 			int size = populationSize + numberOfCrossoveredChildren;
 			int position;
-			int index;
+			
 			int first, second, temp;
+			pos = new int[numberOfGenes];
+			val = new int[numberOfGenes];
+
 			for (int i = 0; i < numberOfMutatedChildren; i++){
 				
 				index = size + i;
-				for (int j = 0; j < numberOfGenes; j++)
+				int check = 0;
+				for (int j = 0; j < numberOfGenes; j++){
 					chromosomes[index][j] = chromosomes[indices[i]][j];
-				
+					check += chromosomes[index][j];
+				}
+				if(check != (0+numberOfGenes-1)*numberOfGenes/2)
+					continue;
 				switch (mutationType){
 						
 					case PermutationMutation.Inversion:
@@ -402,14 +413,85 @@ namespace R04522602許泰源Ass08 {
 						chromosomes[index][first] = chromosomes[index][second];
 						chromosomes[index][second] = temp;
 						break;
-					
+
+					case PermutationMutation.Heuristic:
+						//For OptimizationType.Min only.
+						int selectlimit = numberOfGenes > 8 ? 4 : numberOfGenes/2;
+						do{
+							numofmutgene = randomizer.Next(numberOfGenes+1);
+						}while(numofmutgene > selectlimit || numofmutgene == 0);
+						
+						int[] list = new int[numofmutgene];
+						
+						for(int j=0; j<numberOfGenes; j++){
+							pos[j] = val[j] = -1;
+						}
+						for(int j=0; j<numofmutgene; j++){
+							temp = randomizer.Next(numberOfGenes);
+							if(val[chromosomes[index][temp]]==-1){
+								pos[chromosomes[index][temp]] = temp;
+								val[chromosomes[index][temp]] = 1;
+								list[j] = chromosomes[index][temp];
+							}
+							else
+								j--;
+						}
+						bestmutation = new int[numberOfGenes];
+						currentmutation = new int[numberOfGenes];
+						bestobj = double.MaxValue;
+						Array.Sort<int>(list);
+						FastPermutation(ref list,0,numofmutgene-1);
+						for(int j=0; j<numberOfGenes; j++)
+							chromosomes[index][j] = bestmutation[j];
+						
+						break;
 				}
 			}
         }
 
+		double bestobj, obj;
+		int[] bestmutation, currentmutation;
+		private void FastPermutation(ref int[] list, int k, int m){
+			int temp, ptr;
+			if(k==m) {
+				for(int i=0; i<numberOfGenes; i++)
+					currentmutation[i] = chromosomes[index][i];
+
+				ptr = 0;
+
+				for(int i=0; i<numberOfGenes; i++){
+					if(val[chromosomes[index][i]]!=-1){
+						currentmutation[i] = list[ptr];
+						ptr++;
+					}
+					if(ptr==numofmutgene)
+						break;
+				}
+				obj = GetObjectiveValueFunction(currentmutation);
+				
+				if(obj <= bestobj){
+					for(int j=0; j<numberOfGenes; j++)
+						bestmutation[j] = currentmutation[j];
+					bestobj = obj;
+				}
+			}
+			else{
+				for(int i= k; i<= m; i++){
+					temp = list[i];
+					for(int j=i; j>k; j--)
+						list[j] = list[j-1];
+					list[k] = temp;
+					FastPermutation(ref list, k + 1, m);
+					temp = list[k];
+					for(int j=k; j<i; j++)
+						list[j] = list[j+1];
+					list[i] = temp;
+				}
+			}
+		}
     }
 
     // Newly defined enumeration for flagging the types of mutations and crossover operation on permutation-encoded GA
     public enum PermutationCrossover { PartialMapX, OrderX, PositionBasedX, OrderBasedX, CycleX, SubtourX }
-    public enum PermutationMutation {  Inversion, Swapped, Insertion, Displacement, ReciprocalExchange }
+    public enum PermutationMutation {  Inversion, Heuristic, Insertion, Displacement, ReciprocalExchange }
 }

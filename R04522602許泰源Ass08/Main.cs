@@ -60,7 +60,7 @@ namespace R04522602許泰源Ass08{
 		//Time Complexity of Permutation() is about O(N^N)
 		int[] solution;
 		int[] fastbestsolution;
-		private void Permutation(ref int index){			
+		private void Permutation(int index){			
 			int i, j;
 			double obj;
 			for(i = 0; i < numofJobs; i++){
@@ -89,7 +89,7 @@ namespace R04522602許泰源Ass08{
 					}
 					else{
 						index++;
-						Permutation(ref index);
+						Permutation(index);
 						index--;
 					}
 					Position[i] = false;
@@ -247,7 +247,7 @@ namespace R04522602許泰源Ass08{
 				switch(recursive_type.SelectedIndex){
 					case 0:		//Permutation
 						
-						Permutation(ref start);
+						Permutation(start);
 						sw.Stop();
 						timer.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
 
@@ -389,6 +389,9 @@ namespace R04522602許泰源Ass08{
 					return ;
 				}
 				binarySolver.reset();
+				GAobj_lbl.Text = "(NONE)";
+				GAsol_lbl.Text = "(NONE)";
+				constrain.Text = "(NONE)";
 			}
 			else if(tabGA.SelectedTab == PermGA){
 				if(permSolver == null){
@@ -396,15 +399,13 @@ namespace R04522602許泰源Ass08{
 					return ;
 				}
 				permSolver.reset();
+				PGAobj_lbl.Text = "(NONE)";
+				PGAsol_lbl.Text = "(NONE)";
 			}
 
 			iterone.Enabled = iterend.Enabled = true;
 
 			reset_chart();
-
-			GAobj_lbl.Text = "(NONE)";
-			GAsol_lbl.Text = "(NONE)";
-			constrain.Text = "(NONE)";
 		}
 
 		private void iterone_Click(object sender, EventArgs e){
@@ -475,7 +476,7 @@ namespace R04522602許泰源Ass08{
 			}
 			else if(tabGA.SelectedTab == PermGA){
 				PGAobj_lbl.Text = permSolver.SoFarTheBestObjective.ToString();
-				string text = "\n";
+				string text = "";
 				for(int i=0; i<numofJobs; i++){
 						text += permSolver.SoFarTheBestSolution[i].ToString() + " ";
 				}

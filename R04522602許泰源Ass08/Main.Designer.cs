@@ -29,11 +29,11 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-			System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.import_btn = new System.Windows.Forms.Button();
 			this.tab = new System.Windows.Forms.TabControl();
 			this.bf_pg = new System.Windows.Forms.TabPage();
@@ -467,7 +467,7 @@
 			// 
 			this.PGAsol_lbl.AutoSize = true;
 			this.PGAsol_lbl.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.PGAsol_lbl.Location = new System.Drawing.Point(120, 52);
+			this.PGAsol_lbl.Location = new System.Drawing.Point(7, 75);
 			this.PGAsol_lbl.Name = "PGAsol_lbl";
 			this.PGAsol_lbl.Size = new System.Drawing.Size(46, 15);
 			this.PGAsol_lbl.TabIndex = 21;
@@ -499,28 +499,28 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.chartGA.BackColor = System.Drawing.Color.Lavender;
-			chartArea1.Name = "ChartArea1";
-			this.chartGA.ChartAreas.Add(chartArea1);
-			legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-			legend1.Name = "Legend1";
-			this.chartGA.Legends.Add(legend1);
+			chartArea2.Name = "ChartArea1";
+			this.chartGA.ChartAreas.Add(chartArea2);
+			legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+			legend2.Name = "Legend1";
+			this.chartGA.Legends.Add(legend2);
 			this.chartGA.Location = new System.Drawing.Point(0, -2);
 			this.chartGA.Name = "chartGA";
-			series1.ChartArea = "ChartArea1";
-			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series1.Legend = "Legend1";
-			series1.Name = "Iteration Average";
-			series2.ChartArea = "ChartArea1";
-			series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series2.Legend = "Legend1";
-			series2.Name = "Iteration Best";
-			series3.ChartArea = "ChartArea1";
-			series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-			series3.Legend = "Legend1";
-			series3.Name = "So Far The Best";
-			this.chartGA.Series.Add(series1);
-			this.chartGA.Series.Add(series2);
-			this.chartGA.Series.Add(series3);
+			series4.ChartArea = "ChartArea1";
+			series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series4.Legend = "Legend1";
+			series4.Name = "Iteration Average";
+			series5.ChartArea = "ChartArea1";
+			series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series5.Legend = "Legend1";
+			series5.Name = "Iteration Best";
+			series6.ChartArea = "ChartArea1";
+			series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series6.Legend = "Legend1";
+			series6.Name = "So Far The Best";
+			this.chartGA.Series.Add(series4);
+			this.chartGA.Series.Add(series5);
+			this.chartGA.Series.Add(series6);
 			this.chartGA.Size = new System.Drawing.Size(498, 259);
 			this.chartGA.TabIndex = 0;
 			this.chartGA.Text = "ChartGA";
