@@ -38,23 +38,26 @@ namespace R04522602許泰源Ass08{
 
 		public Main(){
 			InitializeComponent();
-			//Initialize the flags and disable solve button
+			//Initialize the flags and disable all unused button.
 			loaded = false;
 			slv_btn.Enabled = false;
-
-			//Wake up import_btn_MouseHover
-			import_btn_MouseHover(null, null);
-
-			//
 			buttonReset.Enabled = false;
 			iterone.Enabled = false;
 			iterend.Enabled = false;
 			btnCreateBinGA.Enabled = false;
 			btnCreatePerGA.Enabled = false;
+
+			//Setup the dfault value of combobox
 			recursive_type.SelectedIndex = 0;
+
+			//Wake up import_btn_MouseHover
+			import_btn_MouseHover(null, null);
+
+			
 		}
 
-		/*********************************************/
+		/*Original Brute Force Permutaion*/
+		//Time Complexity of Permutation() is about O(N^N)
 		int[] solution;
 		int[] fastbestsolution;
 		private void Permutation(ref int index){			
@@ -93,10 +96,9 @@ namespace R04522602許泰源Ass08{
 				}
 			}
 		}
-		/*********************************************/
 
-		//Get all of the permutations by recursion
-
+		/*Fast Brute Force Permutaion*/
+		//Time Complexity of Permutation() is about O(N!)
 		string output = "", sol = "";
 		private void FastPermutation(int[] list, int k, int m){
 			if(k==m) {
@@ -106,7 +108,6 @@ namespace R04522602許泰源Ass08{
 
 				for(int i=0; i<numofJobs; i++)
 					Obj += ProcessTime[list[i],i];
-
 
 				if(Obj < bestobj){
 					for(int j=0; j<numofJobs; j++)
@@ -195,117 +196,122 @@ namespace R04522602許泰源Ass08{
 
 
 
-						//Enable the solve button
+						//Reset chart
 						reset_chart();
 
+						GAobj_lbl.Text = "(NONE)";
+						GAsol_lbl.Text = "(NONE)";
+						constrain.Text = "(NONE)";
+
+						//Reset all the buttons and solvers
 						slv_btn.Enabled = true;
-						btnCreateBinGA.Enabled = btnCreatePerGA.Enabled = true;
-						
+						btnCreateBinGA.Enabled = btnCreatePerGA.Enabled = true;						
 						buttonReset.Enabled = false;
 						iterone.Enabled = false;
 						iterend.Enabled = false;
+
 						permSolver = null;
 						binarySolver = null;
+						Solver.SelectedObject = null;
 					}
 				}
 			}
         }
 
 		private void slv_btn_Click(object sender, EventArgs e){
-			//If the data is loaded and selected page is page No.01, calculate the result and show
-			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-			//Intitialize the number of solution
-			numofsol = 1;
-			int start = 0;
-			//Initialize the value of best objective to infinity
-			bestobj = double.MaxValue;
+			if(loaded){
+				//If the data is loaded and selected page is page No.01, calculate the result and show
+				System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+				//Intitialize the number of solution and the first element in permutations
+				numofsol = 1;
+				int start = 0;
 
-			Position = new bool[numofJobs];
-			fastbestsolution = new int[numofJobs];
-			solution = new int[numofJobs];
-			for(int i=0; i<numofJobs; i++)
-				Position[i] = false;
+				//Initialize the value of best objective to infinity
+				bestobj = double.MaxValue;
 
-			//Clear the result list
-			result_list.Items.Clear();
-			result_list.SuspendLayout();
-			/*
-			 Permutation
-			 FastPermutation
-			 TurboPermutation
-			*/
-			
-			switch(recursive_type.SelectedIndex){
-				case 0:
-					sw.Reset();//碼表歸零
-					sw.Start();//碼表開始計時
-					Permutation(ref start);
-					sw.Stop();
-					textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
+				//Initialize the arrays may be used
+				Position = new bool[numofJobs];
+				fastbestsolution = new int[numofJobs];
+				solution = new int[numofJobs];
+				for(int i=0; i<numofJobs; i++)
+					Position[i] = false;
 
-					bestsolution = "";
-					for(int i=0; i<numofJobs; i++)
-						bestsolution += fastbestsolution[i].ToString() + " ";
-					BSset.Text = bestsolution;
-					BOval.Text = bestobj.ToString();
-					result_list.ResumeLayout();
+				//Clear the result list
+				result_list.Items.Clear();
+				result_list.SuspendLayout();
 
-					break;
+				//Setup the stopwatch
+				sw.Reset();
+				sw.Start();
 
-				case 1:
-					sw.Reset();//碼表歸零
-					sw.Start();//碼表開始計時
-					FastPermutation(jobs, start, numofJobs-1);
-					sw.Stop();
-					textBox1.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
+				switch(recursive_type.SelectedIndex){
+					case 0:		//Permutation
+						
+						Permutation(ref start);
+						sw.Stop();
+						timer.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
 
-					bestsolution = "";
-					for(int i=0; i<numofJobs; i++)
-						bestsolution += fastbestsolution[i].ToString() + " ";
-					BSset.Text = bestsolution;
-					BOval.Text = bestobj.ToString();
-					result_list.ResumeLayout();
-
-					break;
-
-				case 2:
-					Process permu = new Process();
-					ProcessStartInfo pInfo = new ProcessStartInfo("BFperm.exe");
-					pInfo.Arguments = FILENAME;
-					pInfo.CreateNoWindow = true;
-					permu.StartInfo = pInfo;
-					sw.Reset();//碼表歸零
-					sw.Start();//碼表開始計時
-
-					permu.Start();
-
-					while(!permu.HasExited) {
-						permu.WaitForExit(33);
-						textBox1.Text = (permu.TotalProcessorTime.TotalMilliseconds/1000.0).ToString() + " (sec)";
-					}
-
-					if (permu != null){
-						sw.Stop();//碼錶停止
-						textBox1.Text = (permu.TotalProcessorTime.TotalMilliseconds/1000.0).ToString() + " (sec)";
-						permu.Close();
-						permu.Dispose();
-						permu = null;						            
-					}
-				
-					System.IO.StreamReader myFile = null;
-					myFile = new System.IO.StreamReader("Ans.txt");
-					if(myFile!= null) {
-						string myString = myFile.ReadLine().Trim();
-						bestobj = double.Parse(myString);
-						myString = myFile.ReadLine();
-						BSset.Text = myString;
+						bestsolution = "";
+						for(int i=0; i<numofJobs; i++)
+							bestsolution += fastbestsolution[i].ToString() + " ";
+						BSset.Text = bestsolution;
 						BOval.Text = bestobj.ToString();
-						myString = myFile.ReadLine();
-						myFile.Close();
-					}
-					break;
-			}			
+						result_list.ResumeLayout();
 
+						break;
+
+					case 1:		//FastPermutation
+
+						FastPermutation(jobs, start, numofJobs-1);
+						sw.Stop();
+						timer.Text = (sw.Elapsed.TotalMilliseconds/1000.0).ToString() + " (sec)";
+
+						bestsolution = "";
+						for(int i=0; i<numofJobs; i++)
+							bestsolution += fastbestsolution[i].ToString() + " ";
+						BSset.Text = bestsolution;
+						BOval.Text = bestobj.ToString();
+						result_list.ResumeLayout();
+
+						break;
+
+					case 2:		//TurboPermutation
+						//Since that C program is more efficient than C#, in this case, call out BFperm.exe to help us. 
+						Process permu = new Process();
+						ProcessStartInfo pInfo = new ProcessStartInfo("BFperm.exe");
+						pInfo.Arguments = FILENAME;
+						pInfo.CreateNoWindow = true;
+						permu.StartInfo = pInfo;
+
+						permu.Start();
+
+						while(!permu.HasExited) {
+							permu.WaitForExit(33);
+							timer.Text = (permu.TotalProcessorTime.TotalMilliseconds/1000.0).ToString() + " (sec)";
+						}
+
+						if (permu != null){
+							sw.Stop();
+							timer.Text = (permu.TotalProcessorTime.TotalMilliseconds/1000.0).ToString() + " (sec)";
+							permu.Close();
+							permu.Dispose();
+							permu = null;						            
+						}
+				
+						System.IO.StreamReader myFile = null;
+						myFile = new System.IO.StreamReader("Ans.txt");
+						if(myFile!= null) {
+							string myString = myFile.ReadLine().Trim();
+							bestobj = double.Parse(myString);
+							myString = myFile.ReadLine();
+							BSset.Text = myString;
+							BOval.Text = bestobj.ToString();
+							myString = myFile.ReadLine();
+							myFile.Close();
+						}
+						break;
+				}
+			}
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
@@ -324,23 +330,42 @@ namespace R04522602許泰源Ass08{
 		}
 
 		private void btnCreateBinGA_Click(object sender, EventArgs e){
+			//Create binarySolver
 			binarySolver = new BinaryGA(numofJobs * numofJobs, OptimizationType.Min, new GASolver<byte>.ObjectiveFunctionDelegate(ComputeTotalSetupTime));
 			Solver.SelectedObject = binarySolver;
 			buttonReset.Enabled = true;
 			btnCreateBinGA.Enabled = false;
 		}
-
-		private double ComputeTotalSetupTime(byte[] variables){
-			double time = 0.0;
-			for (int i = 0; i < variables.Length; i++){
-				time += this.ProcessTime[(int)(i / numofJobs), i % numofJobs] * (double)variables[i];
-			}
-			return time + Penality * (double)GetConstraintCount(variables);
+		
+		private void btnCreatePerGA_Click(object sender, EventArgs e){
+			//Create permSolver
+			permSolver = new PermutationGA(numofJobs, OptimizationType.Min, new GASolver<int>.ObjectiveFunctionDelegate(ComputeTotalSetupTime));
+			Solver.SelectedObject = this.permSolver;
+			buttonReset.Enabled = true;
 		}
 
-		private int GetConstraintCount(byte[] variables)
-		{
+		private double ComputeTotalSetupTime(byte[] variables){
+			//ComputeTotalSetupTime for binarySolver
+			double time = 0.0;
+			for (int i = 0; i < variables.Length; i++){
+				time += ProcessTime[(int)(i / numofJobs), i % numofJobs] * (double)variables[i];
+			}
+
+			return time + Penality * (double)GetConstraintCount(variables);
+		}
+		
+		private double ComputeTotalSetupTime(int[] variables){
+			//ComputeTotalSetupTime for permSolver
+			double time = 0.0;
+			for (int i = 0; i < numofJobs; i++)
+				time += ProcessTime[variables[i], i];
+
+			return time;
+		}
+
+		private int GetConstraintCount(byte[] variables){
 			int ConstraintCount = 0, error;
+			//GetConstraintCount for binarySolver
 			for (int i = 0; i < numofJobs; i++){
 				error = 0;
 				for (int j = i * numofJobs; j < i * numofJobs + numofJobs; j++)
@@ -357,6 +382,7 @@ namespace R04522602許泰源Ass08{
 		}
 
 		private void buttonReset_Click(object sender, EventArgs e){
+			//Reset all the objects
 			if(tabGA.SelectedTab == BinGA){
 				if(binarySolver == null){
 					iterend.Enabled = iterone.Enabled = false;
@@ -378,9 +404,11 @@ namespace R04522602許泰源Ass08{
 
 			GAobj_lbl.Text = "(NONE)";
 			GAsol_lbl.Text = "(NONE)";
+			constrain.Text = "(NONE)";
 		}
 
 		private void iterone_Click(object sender, EventArgs e){
+			//Run one time of GA
 			if(tabGA.SelectedTab == BinGA){
 				if(binarySolver!=null){
 					binarySolver.executeOneIteration();					
@@ -399,9 +427,11 @@ namespace R04522602許泰源Ass08{
 					updateBestInformation();
 				}
 			}
+			Solver.Refresh();
 		}
 		
 		private void iterend_Click(object sender, EventArgs e){
+			//Run preset times of GA
 			if(tabGA.SelectedTab == BinGA){
 				if(binarySolver!=null){
 					for (int i = 0; i < binarySolver.IterationLimit; i++){
@@ -428,7 +458,7 @@ namespace R04522602許泰源Ass08{
 		}
 
 		private void updateBestInformation(){
-			
+			//Update all the information 
 			if(tabGA.SelectedTab == BinGA){				
 				string text="\n";
 				for(int i=0; i<numofJobs; i++){
@@ -454,6 +484,7 @@ namespace R04522602許泰源Ass08{
 		}
 
 		private void textpenalty_TextChanged(object sender, EventArgs e){
+			//Set the penalty
 			try{
 				Penality = Convert.ToDouble(textpenalty.Text);
 			}
@@ -463,28 +494,20 @@ namespace R04522602許泰源Ass08{
 				textpenalty.Text = Penality.ToString();
 			}
 		}
-
-		private void btnCreatePerGA_Click(object sender, EventArgs e){
-			permSolver = new PermutationGA(numofJobs, OptimizationType.Min, new GASolver<int>.ObjectiveFunctionDelegate(ComputeTotalSetupTime));
-			Solver.SelectedObject = this.permSolver;
-			buttonReset.Enabled = true;
-		}
-
-		private double ComputeTotalSetupTime(int[] variables){
-			double time = 0.0;
-			for (int i = 0; i < this.numofJobs; i++)
-				time += this.ProcessTime[variables[i], i];
-
-			return time;
-		}
-
+		
 		private void tabGA_SelectedIndexChanged(object sender, EventArgs e){
+			//reset chart and handle the event when tabpage changed
 			reset_chart();
 			if(tabGA.SelectedTab == BinGA){
 				if(binarySolver == null){
 					buttonReset.Enabled = false;
 					iterone.Enabled = false;
 					iterend.Enabled = false;
+				}
+				else{
+					buttonReset.Enabled = true;
+					iterone.Enabled = true;
+					iterend.Enabled = true;
 				}
 				Solver.SelectedObject = binarySolver;
 			}
@@ -494,11 +517,17 @@ namespace R04522602許泰源Ass08{
 					iterone.Enabled = false;
 					iterend.Enabled = false;
 				}
+				else{
+					buttonReset.Enabled = true;
+					iterone.Enabled = true;
+					iterend.Enabled = true;
+				}
 				Solver.SelectedObject = permSolver;
 			}
 		}
 
 		private void recursive_type_SelectedIndexChanged(object sender, EventArgs e){
+			//All solutions won't be shown when call BFperm.exe
 			if(recursive_type.SelectedIndex == 2){
 				show_chk.Checked = false;
 				show_chk.Enabled = false;
@@ -509,6 +538,7 @@ namespace R04522602許泰源Ass08{
 		}
 
 		private void reset_chart(){
+			//Reset Chart
 			chartGA.Series.Dispose();
 			chartGA.Series.Clear();
 			chartGA.Series.Dispose();

@@ -39,7 +39,7 @@
 			this.bf_pg = new System.Windows.Forms.TabPage();
 			this.show_chk = new System.Windows.Forms.CheckBox();
 			this.recursive_type = new System.Windows.Forms.ComboBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.timer = new System.Windows.Forms.TextBox();
 			this.BSset = new System.Windows.Forms.Label();
 			this.BSlbl = new System.Windows.Forms.Label();
 			this.BOval = new System.Windows.Forms.Label();
@@ -60,7 +60,6 @@
 			this.GAobj_lbl = new System.Windows.Forms.Label();
 			this.BSGA = new System.Windows.Forms.Label();
 			this.PermGA = new System.Windows.Forms.TabPage();
-			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.btnCreatePerGA = new System.Windows.Forms.Button();
@@ -79,6 +78,8 @@
 			this.TM_lbl = new System.Windows.Forms.Label();
 			this.tip = new System.Windows.Forms.ToolTip(this.components);
 			this.tip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.constrains = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
 			this.tab.SuspendLayout();
 			this.bf_pg.SuspendLayout();
 			this.ga_pg.SuspendLayout();
@@ -129,7 +130,7 @@
 			this.bf_pg.BackColor = System.Drawing.Color.Lavender;
 			this.bf_pg.Controls.Add(this.show_chk);
 			this.bf_pg.Controls.Add(this.recursive_type);
-			this.bf_pg.Controls.Add(this.textBox1);
+			this.bf_pg.Controls.Add(this.timer);
 			this.bf_pg.Controls.Add(this.BSset);
 			this.bf_pg.Controls.Add(this.BSlbl);
 			this.bf_pg.Controls.Add(this.BOval);
@@ -168,12 +169,12 @@
 			this.recursive_type.TabIndex = 14;
 			this.recursive_type.SelectedIndexChanged += new System.EventHandler(this.recursive_type_SelectedIndexChanged);
 			// 
-			// textBox1
+			// timer
 			// 
-			this.textBox1.Location = new System.Drawing.Point(154, 66);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(250, 27);
-			this.textBox1.TabIndex = 13;
+			this.timer.Location = new System.Drawing.Point(154, 66);
+			this.timer.Name = "timer";
+			this.timer.Size = new System.Drawing.Size(250, 27);
+			this.timer.TabIndex = 13;
 			// 
 			// BSset
 			// 
@@ -306,6 +307,8 @@
 			// 
 			// BinGA
 			// 
+			this.BinGA.Controls.Add(this.label2);
+			this.BinGA.Controls.Add(this.constrains);
 			this.BinGA.Controls.Add(this.constrain);
 			this.BinGA.Controls.Add(this.label1);
 			this.BinGA.Controls.Add(this.textpenalty);
@@ -326,7 +329,7 @@
 			// 
 			this.constrain.AutoSize = true;
 			this.constrain.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.constrain.Location = new System.Drawing.Point(338, 136);
+			this.constrain.Location = new System.Drawing.Point(399, 156);
 			this.constrain.Name = "constrain";
 			this.constrain.Size = new System.Drawing.Size(58, 19);
 			this.constrain.TabIndex = 16;
@@ -405,7 +408,6 @@
 			// 
 			// PermGA
 			// 
-			this.PermGA.Controls.Add(this.label2);
 			this.PermGA.Controls.Add(this.label3);
 			this.PermGA.Controls.Add(this.textBox2);
 			this.PermGA.Controls.Add(this.btnCreatePerGA);
@@ -420,16 +422,6 @@
 			this.PermGA.TabIndex = 1;
 			this.PermGA.Text = "Permutation GA";
 			this.PermGA.UseVisualStyleBackColor = true;
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(338, 136);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(58, 19);
-			this.label2.TabIndex = 24;
-			this.label2.Text = "(NONE)";
 			// 
 			// label3
 			// 
@@ -631,6 +623,26 @@
 			this.TM_lbl.TabIndex = 11;
 			this.TM_lbl.Text = "Time Matrix:";
 			// 
+			// constrains
+			// 
+			this.constrains.AutoSize = true;
+			this.constrains.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.constrains.Location = new System.Drawing.Point(338, 127);
+			this.constrains.Name = "constrains";
+			this.constrains.Size = new System.Drawing.Size(133, 19);
+			this.constrains.TabIndex = 17;
+			this.constrains.Text = "Constrain Violation";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(338, 156);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(55, 19);
+			this.label2.TabIndex = 18;
+			this.label2.Text = "Count :";
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -689,7 +701,7 @@
 		private System.Windows.Forms.Button slv_btn;
 		private System.Windows.Forms.TabControl tabGA;
 		private System.Windows.Forms.TabPage BinGA;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox timer;
 		private System.Windows.Forms.TabPage PermGA;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.SplitContainer splitContainer2;
@@ -706,7 +718,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textpenalty;
 		private System.Windows.Forms.Label constrain;
-		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textBox2;
 		private System.Windows.Forms.Button btnCreatePerGA;
@@ -716,6 +727,8 @@
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.ComboBox recursive_type;
 		private System.Windows.Forms.CheckBox show_chk;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label constrains;
 	}
 }
 

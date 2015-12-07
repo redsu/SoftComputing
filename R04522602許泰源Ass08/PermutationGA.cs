@@ -40,15 +40,7 @@ namespace R04522602許泰源Ass08 {
             selected = new int[numberOfGenes];
         }
 
-        // Properties of a permutation GA
-        //[Category("GA Setting")]
-        //[Category("GA Setting")]
-
-  
-
-        /// <summary>
-        ///  Overriden function that randomly assign sequencing gene values to the population
-        /// </summary>
+        //  Overriden function that randomly assign sequencing gene values to the population
         public override void initializePopulation(){
             for( int i = 0; i < populationSize; i++ ){
 				for (int j = 0; j < this.numberOfGenes; j++)
@@ -58,10 +50,7 @@ namespace R04522602許泰源Ass08 {
         }
 
         
-        /// <summary>
-        ///  Helping function that randomly shuffles the given array of permutation encoded integral array.
-        /// </summary>
-        /// <param name="array"> the list of ingegers </param>
+        //  Helping function that randomly shuffles the given array of permutation encoded integral array.
         private void shuffle(int[] array){
             for( int i = numberOfGenes-1; i> 0; i-- ){
                 int index = this.randomizer.Next(i + 1);
@@ -72,9 +61,7 @@ namespace R04522602許泰源Ass08 {
         }
 
 
-        /// <summary>
-        ///  Perform regular crossover operation on a pair of parents and set gene values to a pair of children
-        /// </summary>
+        //  Perform regular crossover operation on a pair of parents and set gene values to a pair of children
         /// <param name="fartherIdx"> farther index on the chromosome array </param>
         /// <param name="motherIdx"> mother index on the chromosome array </param>
         /// <param name="child1Idx"> the first child index on the chromosome array </param>
@@ -87,7 +74,7 @@ namespace R04522602許泰源Ass08 {
 			table1 = new int[numberOfGenes];
 			table2 = new int[numberOfGenes];
 			rand   = new int[numberOfGenes];
-			//Console.WriteLine(crossoverType.ToString());
+			
             // Perform different crossover operations
             switch (crossoverType){
                 case PermutationCrossover.PartialMapX:
@@ -141,14 +128,7 @@ namespace R04522602許泰源Ass08 {
                     break;
                 case PermutationCrossover.OrderX:
 					int first, second, tmp;
-					/*
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[fatherIdx][i].ToString()+" ");
-					Console.WriteLine();
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[motherIdx][i].ToString()+" ");
-					Console.WriteLine("\n--------------------------------------");
-					*/
+					
 					for(i = 0; i < numberOfGenes; i++)
 						p1[i] = p2[i] = 0;
 					
@@ -162,7 +142,7 @@ namespace R04522602許泰源Ass08 {
 						first = second;
 						second = tmp;
 					}
-					//Console.WriteLine(first.ToString()+" "+second.ToString());
+					
 				
 					for(i = 0; i < numberOfGenes; i++) {
 						if(i>=first&&i<=second) {
@@ -174,12 +154,7 @@ namespace R04522602許泰源Ass08 {
 							p2[chromosomes[motherIdx][i]] = 1;
 						}
 					}
-					/*for(i=0;i<numberOfGenes; i++)
-						Console.Write(p1[i].ToString()+" ");
-					Console.WriteLine();
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(p2[i].ToString()+" ");
-					Console.WriteLine("\n--------------------------------------");*/
+					
 					ptr1 = ptr2 = 0;
 					for(i=0; i<numberOfGenes; i++) {
 						if(i<first || i >second){
@@ -201,14 +176,7 @@ namespace R04522602許泰源Ass08 {
 							}
 						}
 					}
-					/*
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[child1Idx][i].ToString()+" ");
-					Console.WriteLine();
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[child2Idx][i].ToString()+" ");
-					Console.WriteLine("\n===================================");
-					*/
+					
                     break;
 
                 case PermutationCrossover.CycleX:
@@ -227,6 +195,7 @@ namespace R04522602許泰源Ass08 {
 						index = table1[p1[index]];
 						
 					}//Constuct the cycle
+
 					for(i=0; i<numberOfGenes; i++){
 						if(p1[i]>=0){
 							chromosomes[child1Idx][i] = chromosomes[fatherIdx][i];
@@ -240,12 +209,7 @@ namespace R04522602許泰源Ass08 {
                     break;
 
                 case PermutationCrossover.PositionBasedX:
-					/*for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[fatherIdx][i].ToString()+" ");
-					Console.WriteLine();
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[motherIdx][i].ToString()+" ");
-					Console.WriteLine("\n--------------------------------------");*/
+					
 					for(i=0; i<numberOfGenes; i++){
 						p1[i] = p2[i] = 1;
 						table1[i] = 1;
@@ -268,16 +232,7 @@ namespace R04522602許泰源Ass08 {
 							i--;
 						i++;
 					}
-					/*
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(rand[i].ToString()+" ");
-					Console.WriteLine();
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(table1[i].ToString()+" ");
-					Console.WriteLine();
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(table2[i].ToString()+" ");
-					Console.WriteLine();*/
+					
 					ptr1 = ptr2 = 0;
 					for(i=0; i<numberOfGenes; i++){
 						if(rand[i]==-1){
@@ -299,26 +254,12 @@ namespace R04522602許泰源Ass08 {
 							}
 						}
 					}
-					/*for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[child1Idx][i].ToString()+" ");
-					Console.WriteLine();
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[child2Idx][i].ToString()+" ");
-					Console.WriteLine("\n===================================");
-
-					*/
+					
                     break;
 
                 case PermutationCrossover.OrderBasedX:
 					ptr1 = ptr2 = 0;
-					/*
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[fatherIdx][i].ToString()+" ");
-					Console.WriteLine();
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[motherIdx][i].ToString()+" ");
-					Console.WriteLine("\n--------------------------------------");
-					*/
+					
 					for(i=0; i<numberOfGenes; i++){
 						temp = randomizer.Next(2);
 						if(temp == 1)
@@ -326,11 +267,7 @@ namespace R04522602許泰源Ass08 {
 						else
 							rand[chromosomes[fatherIdx][i]] = 0;
 					}
-					/*
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(rand[i].ToString()+" ");
-					Console.WriteLine();
-					*/
+					
 					for(i=0; i<numberOfGenes; i++){
 						if(rand[chromosomes[motherIdx][i]] == 1){
 							while(true){
@@ -358,33 +295,19 @@ namespace R04522602許泰源Ass08 {
 						else
 							chromosomes[child2Idx][i] = chromosomes[fatherIdx][i];
 					}
-					/*
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[child1Idx][i].ToString()+" ");
-					Console.WriteLine();
-					for(i=0;i<numberOfGenes; i++)
-						Console.Write(chromosomes[child2Idx][i].ToString()+" ");
-					Console.WriteLine("\n===================================");
-					*/
+					
                     break;
             }
         }
 
 
-        /// <summary>
-        ///  Overriden mutation operations on permutation encoding GA
-        /// </summary>
-        public override void performMutateOperation()
-        {/*
+        //  Overriden mutation operations on permutation encoding GA
+		public override void performMutateOperation(){
             // Perform silimar binary encoded GA mutation operation to identify number of parents
             // subject to mutation operation and the parent idices are stored in indices array
-            numberOfMutatedChildren = SimulateMutatedGenesMarkingAndPackParentIndicesReturnBound();
 
             // Set the first mutated chromosome index
-            int start = populationSize + numberOfCrossoveredChildren;
-
             // One by one generated mutated child chromosome
-		  * */
 			
            	numberOfMutatedChildren = SimulateMutatedGenesMarkingAndPackParentIndicesReturnBound();
 			int size = populationSize + numberOfCrossoveredChildren;
@@ -479,19 +402,7 @@ namespace R04522602許泰源Ass08 {
 						chromosomes[index][first] = chromosomes[index][second];
 						chromosomes[index][second] = temp;
 						break;
-					/*
-					case PermutationMutation.Swapped:
-						first = randomizer.Next(numberOfGenes);
-						do{
-							second = randomizer.Next(numberOfGenes);
-						}while(first==second);
-
-						temp = chromosomes[index][first];
-						chromosomes[index][first] = chromosomes[index][second];
-						chromosomes[index][second] = temp;
-
-						break;
-					 * */
+					
 				}
 			}
         }

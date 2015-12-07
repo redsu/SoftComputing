@@ -5,10 +5,8 @@ using System.Linq;
 using System.Text;
 
 namespace R04522602許泰源Ass08{
-    /// <summary>
-    ///  A generic GA solver, where T is the data type of genes defined in derived classes
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
+	//  A generic GA solver, where T is the data type of genes defined in derived classes
+
     public class GASolver<T>{
         // A nested delegate (data Type) declaration defining a function returning a double value 
         // while taking an argument of an array of type T
@@ -98,6 +96,40 @@ namespace R04522602許泰源Ass08{
 			}
 		}
 
+		[Category("GA Setting"), Description("")]
+        public int IterationLimit{
+            get{
+                return iterationLimit;
+            }
+
+            set{
+                iterationLimit = value;
+            }
+        }
+
+		[Category("GA Setting"), Description("")]
+        public double GoalValue{
+            get{
+                return goalValue;
+            }
+
+            set{
+				if(value>=0)
+					goalValue = value;
+            }
+        }
+
+		[Category("GA Setting"), Description("")]
+        public OptimizationType OptimizationType{
+            get{
+                return optimizationType;
+            }
+
+            set{
+				optimizationType = value;
+            }
+        }
+
         [Browsable(false)]
         public double SoFarTheBestObjective{
             get{
@@ -121,16 +153,6 @@ namespace R04522602許泰源Ass08{
             }
         }
 
-        public int IterationLimit{
-            get{
-                return iterationLimit;
-            }
-
-            set{
-                iterationLimit = value;
-            }
-        }
-
 		[Browsable(false)]
 		public double IterationAverage{
             get{
@@ -148,13 +170,11 @@ namespace R04522602許泰源Ass08{
         #endregion
 
 
-        /// <summary>
-        ///  To employ a GA solver, user must provide the number of variables, the optimization type, and a function delegate
-        ///  that compute and return the objective value for a given solution.
-        /// </summary>
-        /// <param name="numberOfVariables"> Number of variables of the problem</param>
-        /// <param name="opType"> The optimization problem type </param>
-        /// <param name="objectFunction"> The function delegate that computer the objective value for a given solution </param>
+        //  To employ a GA solver, user must provide the number of variables, the optimization type, and a function delegate
+        //  that compute and return the objective value for a given solution.
+        // <param name="numberOfVariables"> Number of variables of the problem</param>
+        // <param name="opType"> The optimization problem type </param>
+        // <param name="objectFunction"> The function delegate that computer the objective value for a given solution </param>
         public GASolver(int numberOfVariables, OptimizationType opType, GASolver<T>.ObjectiveFunctionDelegate objectFunction){
             numberOfGenes = numberOfVariables;
             optimizationType = opType;
@@ -164,16 +184,13 @@ namespace R04522602許泰源Ass08{
         }
 
 
-        /// <summary>
-        ///  This function reallocate memeory for the GA computation subject to newly
-        ///  specified properties; e.g, population size. In addition, the initial population
-        ///  of chromosomes are initialized.
-        /// </summary>
+        //  This function reallocate memeory for the GA computation subject to newly
+        //  specified properties; e.g, population size. In addition, the initial population
+        //  of chromosomes are initialized.
         public virtual void reset(){
             // Allocate memory for gene related data
             chromosomes = new T[populationSize * 3][];
 			chromosomesbuffer = new T[populationSize * 3][];
-//...
             // Initialize the initial population
             
 			int len = chromosomes.Length;
@@ -197,14 +214,12 @@ namespace R04522602許泰源Ass08{
         }
 
 
-        /// <summary>
-        ///  This function setup the indices from 0 to upLimit-1 in indice array (int[] indices).
-        ///  Then, shuffle their orders randomly. 
-        ///  This function is called to shuffle the indice orders of parent population to support 
-        ///  pair-wise crossover operation. If x pairs of parents are to be crossovered, then
-        ///  the first 2x indices are the chromosome indices of the x pair parents.
-        /// </summary>
-        /// <param name="upLimit"></param>
+        //  This function setup the indices from 0 to upLimit-1 in indice array (int[] indices).
+        //  Then, shuffle their orders randomly. 
+        //  This function is called to shuffle the indice orders of parent population to support 
+        //  pair-wise crossover operation. If x pairs of parents are to be crossovered, then
+        //  the first 2x indices are the chromosome indices of the x pair parents.
+       
         protected void randomizeIndices(int upLimit){
             for(int i = 0; i < upLimit; i++)
 				indices[i] = i;
@@ -217,59 +232,43 @@ namespace R04522602許泰源Ass08{
             }
         }
 
-        /// <summary>
-        ///  Called in reset function. Overriden by the derived classes to fill-in
-        ///  populationSize chromosomes with gene values of their data types.
-        /// </summary>
+        //  Called in reset function. Overriden by the derived classes to fill-in
+        //  populationSize chromosomes with gene values of their data types.
         public virtual void initializePopulation(){
 
         }
 
-
-        /// <summary>
-        ///  Default method that carryout the whole GA computation without any interruption.
-        /// </summary>
+        //  Default method that carryout the whole GA computation without any interruption.
         public virtual void executeToEnd(){
             do{
                 executeOneIteration();
             } while (!terminationConditionMet());
         }
 
-        /// <summary>
-        ///  A function that determine wether stopping condition is met. By default, the iteration 
-        ///  limit is used and checked for termination. Derived calles can override it.
-        /// </summary>
-        /// <returns></returns>
+        //  A function that determine wether stopping condition is met. By default, the iteration 
+        //  limit is used and checked for termination. Derived calles can override it.
         public virtual bool terminationConditionMet(){
             if (iterationCount < iterationLimit) return false;
             else return true;
         }
 
 
-        /// <summary>
-        ///  Standard GA computation procedure. However, derived classes may override it.
-        /// </summary>
+        //  Standard GA computation procedure. However, derived classes may override it.
         public virtual void executeOneIteration(){
             // Crossover operation
-			//Debug();
             performCrossoverOperation();
-			//Console.WriteLine("Crossover Finished");
             // Mutation operation
             performMutateOperation();
-			//Console.WriteLine("Mutation Finished");
             // Evaluate all objectives 
             computeObjectiveValues();
-			//Console.WriteLine("Compute Finished");
             // Transform objectives to fitness values
             setFitnessFromObjectives();
-			//Console.WriteLine("Fitness Finished");
             // Selection
             performSelectionOperation();
-			//Debug();
-			//Console.WriteLine("Selection Finished");
-            iterationCount++;
+			iterationCount++;
         }
 
+		//Debug Function
 		public void Debug(){
 			
 			for(int i=0; i<populationSize*3; i++){
@@ -292,19 +291,16 @@ namespace R04522602許泰源Ass08{
 				Console.Write(indices[i].ToString()+" "+objectiveValues[i].ToString()+" "+fitnessValues[i].ToString()+"\n");
 		}
 
-
-        /// <summary>
-        ///  Standard function that evaluates original objective values for parent and children chromosomes.
-        ///  During the computation, iteration best is identified and checked with the so far the best.
-        ///  The so far the best objective and solution will be updated, if the iteration best surpass its value.
-        ///  Specifically, this function calls the user-supplied objective value evalution function delegate to
-        ///  evaluate each chromosome and put value to objectiveValues array. 
-        /// </summary>
+        //  Standard function that evaluates original objective values for parent and children chromosomes.
+        //  During the computation, iteration best is identified and checked with the so far the best.
+        //  The so far the best objective and solution will be updated, if the iteration best surpass its value.
+        //  Specifically, this function calls the user-supplied objective value evalution function delegate to
+        //  evaluate each chromosome and put value to objectiveValues array. 
         public virtual void computeObjectiveValues(){
             int parentPlusChildren = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
             for (int i = 0; i < parentPlusChildren; i++)
                 objectiveValues[i] = GetObjectiveValueFunction(chromosomes[i]);
-			// ...
+
 			int iterationbestindex = -1;
             switch (optimizationType){
                 case OptimizationType.Min:
@@ -324,8 +320,8 @@ namespace R04522602許泰源Ass08{
 						for (int i = 0; i < numberOfGenes; i++)
 							soFarTheBestSolution[i] = chromosomes[iterationbestindex][i];
 					}
-                    //Finished on 12/02
                     break;
+
                 case OptimizationType.Max:
 					iterationBestObjective = double.MinValue;
 					iterationAverage = 0.0;
@@ -343,8 +339,8 @@ namespace R04522602許泰源Ass08{
 						for (int i = 0; i < numberOfGenes; i++)
 							soFarTheBestSolution[i] = chromosomes[iterationbestindex][i];
 					}
-                    //Finished on 12/02
                     break;
+
                 case OptimizationType.Goal:
                     iterationBestObjective = double.MinValue;
 					iterationAverage = 0.0;
@@ -362,19 +358,16 @@ namespace R04522602許泰源Ass08{
 						for (int i = 0; i < numberOfGenes; i++)
 							soFarTheBestSolution[i] = chromosomes[iterationbestindex][i];
 					}
-                    //Finished on 12/02
                     break;
 
             }
         }
 
-        /// <summary>
-        ///  This function convert original objective values into positive fitness values, such that
-        ///  the better chromosome receives the larger amount of fitness. Notice that the worest one
-        ///  still receive the least amount of positive fitness value.
-        ///  Sepcifically, the function transform each value in objectiveValues array to the value in
-        ///  fitnessValues array.
-        /// </summary>
+        //  This function convert original objective values into positive fitness values, such that
+        //  the better chromosome receives the larger amount of fitness. Notice that the worest one
+        //  still receive the least amount of positive fitness value.
+        //  Sepcifically, the function transform each value in objectiveValues array to the value in
+        //  fitnessValues array.
         public void setFitnessFromObjectives(){
             // Develop your own procedure to accomplish this task
 
@@ -403,17 +396,13 @@ namespace R04522602許泰源Ass08{
 						fitnessValues[i] = 1.0 / (basevalue + Math.Abs(objectiveValues[i] - goalValue));
 					break;
 			}
-			//Finished on 12/02
-
         }
 
-        /// <summary>
-        ///  Standard crossover operation in a GA iteration. With the help of a shuffled index array (indices array)
-        ///  parent chromosomes are paired for crossover operation.
-        ///  This standard function calls derived class overriden generateAPairOfCrossoveredOffspring() function to 
-        ///  let that function access parent chromosome (via indices) and set gene values for the children chromosome
-        ///  (via indices).
-        /// </summary>
+        //  Standard crossover operation in a GA iteration. With the help of a shuffled index array (indices array)
+        //  parent chromosomes are paired for crossover operation.
+        //  This standard function calls derived class overriden generateAPairOfCrossoveredOffspring() function to 
+        //  let that function access parent chromosome (via indices) and set gene values for the children chromosome
+        //  (via indices).
         public virtual void performCrossoverOperation(){
             // Calculate the number of crossovered chromosomes (must be even number)
             numberOfCrossoveredChildren = (int)(crossoverRate * populationSize);
@@ -430,31 +419,25 @@ namespace R04522602許泰源Ass08{
         }
 
 
-        /// <summary>
-        ///  Given two parent indices, and two children indices, this function perform crossover operation. The gene values 
-        ///  of the children will be set by this function. This function must be overriden by the derived classes.
-        /// </summary>
-        /// <param name="fartherIdx"> index of farther chromosome </param>
-        /// <param name="motherIdx"> index of mother chromosome  </param>
-        /// <param name="child1Idx"> index of child 1 chromosome </param>
-        /// <param name="child2Idx"> index of child 2 chromosome </param>
+        //  Given two parent indices, and two children indices, this function perform crossover operation. The gene values 
+        //  of the children will be set by this function. This function must be overriden by the derived classes.
+        // <param name="fartherIdx"> index of farther chromosome </param>
+        // <param name="motherIdx"> index of mother chromosome  </param>
+        // <param name="child1Idx"> index of child 1 chromosome </param>
+        // <param name="child2Idx"> index of child 2 chromosome </param>
         public virtual void generateAPairOfCrossoveredOffspring(int fartherIdx, int motherIdx, int child1Idx, int child2Idx){
         }
 
-        /// <summary>
-        ///  This function conducts one of the primary operaion in GA compution. Since different GA codings had different
-        ///  mutation operations, no standard mutation operation is available.
-        ///  Derived class must override this function.
-        /// </summary>
+        //  This function conducts one of the primary operaion in GA compution. Since different GA codings had different
+        //  mutation operations, no standard mutation operation is available.
+        //  Derived class must override this function.
         public virtual void performMutateOperation(){
 
         }
 
 
-        /// <summary>
-        ///  This function provide standard GA selection operation. However, it allowed derived classes to override it.
-        ///  Two selection modes are provided in this funciton: deterministic and stochastic.
-        /// </summary>
+        //  This function provide standard GA selection operation. However, it allowed derived classes to override it.
+        //  Two selection modes are provided in this funciton: deterministic and stochastic.
         public virtual void performSelectionOperation(){
             // Identify the chromosome limit index, including parents, crossovered, and mutated chromosomes.
             int poolSize = populationSize + numberOfCrossoveredChildren + numberOfMutatedChildren;
@@ -463,13 +446,10 @@ namespace R04522602許泰源Ass08{
 				// Sort the fitness
 				// Sort the indices from smallest fitness to the highest one
 				// Revere the order to have an index list with highest fitness to the lowest
-				//randomizeIndices(poolSize);
-				/*
+				
 				for (int i=0;i<poolSize;i++)
 					indices[i] = i;
-				*/
 
-				randomizeIndices(poolSize);
 				Array.Sort<double, int>(this.fitnessValues, this.indices, 0, poolSize);
 				Array.Reverse(this.indices, 0, poolSize);
 				
@@ -497,35 +477,7 @@ namespace R04522602許泰源Ass08{
 						}
 					}					
 				}
-				
-				/*
-				Console.WriteLine("******************************************");
-				for(int i=0; i<poolSize; i++){
-					for(int j=0; j<numberOfGenes; j++)
-						Console.Write(chromosomes[indices[i]][j].ToString()+" ");
-
-					Console.WriteLine(objectiveValues[indices[i]].ToString());
-				}
-				Console.WriteLine("******************************************");
-				*/
-				
-				//---------------------------------------------//
-				
-				
-				// Sort the indices for the front populationSize chromosome indices
- 
-				// Reassign population: copy genes of selected chromosmes to the front (populationSize) chromosomes
-				 // ...
-
 			}
-			
-			/*for(int i = 0; i < poolSize; i++){
-				for (int j = 0; j < numberOfGenes; j++){
-					Console.Write(chromosomes[i][j].ToString()+" ");
-				}
-			 	Console.WriteLine(objectiveValues[i].ToString());
-			}
-			Console.WriteLine("-----------------------------------------");*/
 
 			Array.Sort<int>(indices, 0, populationSize);
 
@@ -556,31 +508,13 @@ namespace R04522602許泰源Ass08{
 					objectiveValues[i] = objectiveValues[index];
 				}
 			}
-			/*
-			for(int i = 0; i < populationSize; i++)
-					for (int j = 0; j < numberOfGenes; j++)
-						chromosomesbuffer[i][j] = chromosomes[indices[i]][j];
-			
-				for(int i = 0; i < populationSize; i++){
-					for (int j = 0; j < numberOfGenes; j++){
-						chromosomes[i][j] = chromosomesbuffer[i][j];
-						Console.Write(chromosomes[i][j].ToString()+" ");
-					}
-			 		Console.WriteLine(objectiveValues[indices[i]].ToString());
-				}
-			*/
-			
-			
-			
 		}
 
-		 /// <summary>
-        ///  This function simulate the traditional mutation operation on gene levels.
-        ///  Mutated genes are selcted and corresponding parent is identified.
-        ///  Mutated Parent indices are packed in indices array and the number of mutated
-        ///  parents is returned.
-        /// </summary>
-        /// <returns> number of mutated parents </returns>
+        //  This function simulate the traditional mutation operation on gene levels.
+        //  Mutated genes are selcted and corresponding parent is identified.
+        //  Mutated Parent indices are packed in indices array and the number of mutated
+        //  parents is returned.
+        // <returns> number of mutated parents </returns>
         protected int SimulateMutatedGenesMarkingAndPackParentIndicesReturnBound(){
             // Determine number of mutated genes
             int totalGenes = populationSize * numberOfGenes;
@@ -609,13 +543,9 @@ namespace R04522602許泰源Ass08{
 
 
 
-    /// <summary>
-    ///  Type of optimization problem.
-    /// </summary>
+    //  Type of optimization problem.
     public enum OptimizationType { Min, Max, Goal }
 
-    /// <summary>
-    ///  Type of GA selection procedure
-    /// </summary>
+    //  Type of GA selection procedure
     public enum SelectionMode { Deterministic, Stochastic }
 }
