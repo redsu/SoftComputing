@@ -1,0 +1,252 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GASolverLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:GASolverLibrary.BinaryGA">
+            <summary>
+             BinaryGA uses byte type to store 0 or 1 values for a binary-coded GA representation
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.BinaryGA.CrossoverCuts">
+            <summary>
+             Number of cuts in crossover operation
+            </summary>
+                   
+        </member>
+        <member name="M:GASolverLibrary.BinaryGA.#ctor(System.Int32,GASolverLibrary.OptimizationType,GASolverLibrary.GASolver{System.Byte}.ObjectiveFunctionDelegate)">
+            <summary>
+             Constructor for an binary coded GA solver.
+            </summary>
+            <param name="numberOfVariables"> number of variables </param>
+            <param name="opType"> optimization type </param>
+            <param name="objectFunction"> the function delegate computing the objective value </param>
+        </member>
+        <member name="M:GASolverLibrary.BinaryGA.performMutateOperation">
+            <summary>
+             Own procedure that generated mutated offspring
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.BinaryGA.generateAPairOfCrossoveredOffspring(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+             Own crossover operation procedure to generate and set gene values for a pair of 
+             crossovered offspring by referring to a given pair of parent indices 
+            </summary>
+            <param name="fartherIdx"> index of farther chromosome </param>
+            <param name="motherIdx"> index of mother chromosome  </param>
+            <param name="child1Idx"> index of child 1 chromosome </param>
+            <param name="child2Idx"> index of child 2 chromosome </param>
+        </member>
+        <member name="M:GASolverLibrary.BinaryGA.initializePopulation">
+            <summary>
+             Own implementation of population initialization, which will be called in reset function.
+             Randomly fill in 0 or 1 value to each gene of each parent chromosome.
+            </summary>
+        </member>
+        <member name="T:GASolverLibrary.GASolver`1">
+            <summary>
+             A generic GA solver, where T is the data type of genes defined in derived classes
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.PopulationSize">
+            <summary>
+             The number of chromosomes deployed
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.CrossoverRate">
+            <summary>
+             Crossover rate 
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.MutationRate">
+            <summary>
+             The mutation rate based on total gene number
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.IterationLimit">
+            <summary>
+             The iteration limit for stopping condition setting
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.SelectionMode">
+            <summary>
+             The GA selection mode Deterministic or Stochastic
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.IterationBestObjective">
+            <summary>
+             The computed iteration best objective vluse at the current iteration.
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.IterationAverage">
+            <summary>
+             The computed iteration objective average of the current iteration
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.SoFarTheBestObjective">
+            <summary>
+             The computed so far the best objective value
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.SoFarTheBestSolution">
+            <summary>
+             The computed so far the bset solution
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.IterationCount">
+            <summary>
+             The current iteration index
+            </summary>
+        </member>
+        <member name="P:GASolverLibrary.GASolver`1.Chromosomes">
+            <summary>
+             The chromosome array
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.#ctor(System.Int32,GASolverLibrary.OptimizationType,GASolverLibrary.GASolver{`0}.ObjectiveFunctionDelegate)">
+            <summary>
+             To employ a GA solver, user must provide the number of variables, the optimization type, and a function delegate
+             that compute and return the objective value for a given solution.
+            </summary>
+            <param name="numberOfVariables"> Number of variables of the problem</param>
+            <param name="opType"> The optimization problem type </param>
+            <param name="objectFunction"> The function delegate that computer the objective value for a given solution </param>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.reset">
+            <summary>
+             This function reallocate memeory for the GA computation subject to newly
+             specified properties; e.g, population size. In addition, the initial population
+             of chromosomes are initialized.
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.randomizeIndices(System.Int32)">
+            <summary>
+             This function setup the indices from 0 to upLimit-1 in indice array (int[] indices).
+             Then, shuffle their orders randomly. 
+             This function is called to shuffle the indice orders of parent population to support 
+             pair-wise crossover operation. If x pairs of parents are to be crossovered, then
+             the first 2x indices are the chromosome indices of the x pair parents.
+            </summary>
+            <param name="upLimit"></param>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.initializePopulation">
+            <summary>
+             Called in reset function. Overriden by the derived classes to fill-in
+             populationSize chromosomes with gene values of their data types.
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.executeToEnd">
+            <summary>
+             Default method that carryout the whole GA computation without any interruption.
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.terminationConditionMet">
+            <summary>
+             A function that determine wether stopping condition is met. By default, the iteration 
+             limit is used and checked for termination. Derived calles can override it.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.executeOneIteration">
+            <summary>
+             Standard GA computation procedure. However, derived classes may override it.
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.computeObjectiveValues">
+            <summary>
+             Standard function that evaluates original objective values for parent and children chromosomes.
+             During the computation, iteration best is identified and checked with the so far the best.
+             The so far the best objective and solution will be updated, if the iteration best surpass its value.
+             Specifically, this function calls the user-supplied objective value evalution function delegate to
+             evaluate each chromosome and put value to objectiveValues array. 
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.setFitnessFromObjectives">
+            <summary>
+             This function convert original objective values into positive fitness values, such that
+             the better chromosome receives the larger amount of fitness. Notice that the worest one
+             still receive the least amount of positive fitness value.
+             Sepcifically, the function transform each value in objectiveValues array to the value in
+             fitnessValues array.
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.performCrossoverOperation">
+            <summary>
+             Standard crossover operation in a GA iteration. With the help of a shuffled index array (indices array)
+             parent chromosomes are paired for crossover operation.
+             This standard function calls derived class overriden generateAPairOfCrossoveredOffspring() function to 
+             let that function access parent chromosome (via indices) and set gene values for the children chromosome
+             (via indices).
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.SimulateMutatedGenesMarkingAndPackParentIndicesReturnBound">
+            <summary>
+             This function simulate the traditional mutation operation on gene levels.
+             Mutated genes are selcted and corresponding parent is identified.
+             Mutated Parent indices are packed in indices array and the number of mutated
+             parents is returned.
+            </summary>
+            <returns> number of mutated parents </returns>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.generateAPairOfCrossoveredOffspring(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+             Given two parent indices, and two children indices, this function perform crossover operation. The gene values 
+             of the children will be set by this function. This function must be overriden by the derived classes.
+            </summary>
+            <param name="fartherIdx"> index of farther chromosome </param>
+            <param name="motherIdx"> index of mother chromosome  </param>
+            <param name="child1Idx"> index of child 1 chromosome </param>
+            <param name="child2Idx"> index of child 2 chromosome </param>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.performMutateOperation">
+            <summary>
+             This function conducts one of the primary operaion in GA compution. Since different GA codings had different
+             mutation operations, no standard mutation operation is available.
+             Derived class must override this function.
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.GASolver`1.performSelectionOperation">
+            <summary>
+             This function provide standard GA selection operation. However, it allowed derived classes to override it.
+             Two selection modes are provided in this funciton: deterministic and stochastic.
+            </summary>
+        </member>
+        <member name="T:GASolverLibrary.OptimizationType">
+            <summary>
+             Type of optimization problem.
+            </summary>
+        </member>
+        <member name="T:GASolverLibrary.SelectionMode">
+            <summary>
+             Type of GA selection procedure
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.PermutationGA.initializePopulation">
+            <summary>
+             Overriden function that randomly assign sequencing gene values to the population
+            </summary>
+        </member>
+        <member name="M:GASolverLibrary.PermutationGA.shuffle(System.Int32[])">
+            <summary>
+             Helping function that randomly shuffles the given array of permutation encoded integral array.
+            </summary>
+            <param name="array"> the list of ingegers </param>
+        </member>
+        <member name="M:GASolverLibrary.PermutationGA.generateAPairOfCrossoveredOffspring(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+             Perform regular crossover operation on a pair of parents and set gene values to a pair of children
+            </summary>
+            <param name="fartherIdx"> farther index on the chromosome array </param>
+            <param name="motherIdx"> mother index on the chromosome array </param>
+            <param name="child1Idx"> the first child index on the chromosome array </param>
+            <param name="child2Idx"> the second child index on the chromosome array </param>
+        </member>
+        <member name="M:GASolverLibrary.PermutationGA.performMutateOperation">
+            <summary>
+             Overriden mutation operations on permutation encoding GA
+            </summary>
+        </member>
+    </members>
+</doc>
