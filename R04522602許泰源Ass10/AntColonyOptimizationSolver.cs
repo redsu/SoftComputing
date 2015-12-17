@@ -29,11 +29,12 @@ namespace R04522602許泰源Ass10{
         protected double soFarTheBestObjective;   // The best objective value obtained so far
         protected double iterationBestObjective;  // The best objective value in current iteration
         protected double iterationAverage;   // Objecive value avarage of the current iteration
+		protected double greedyBestObjective;  // The best objective value in current greedy
 
         protected double pheromoneFactor = 1.0;  // Power factor for pheromone value in computing probabilities of candidate elements
         protected double heuristicFactor = 3.0;  // Power factor for heuristic value in computing probabilities of candidate elements
         protected double evaporationRate = 0.01; // Pheromone evaporation rate
-        protected int deterministricPercentage = 0; // Value range from 0-100, 0 for pure stochastic selection, 100 for pur deterministic selection 
+        protected double deterministricPercentage = 0; // Value range from 0-100, 0 for pure stochastic selection, 100 for pur deterministic selection 
 
         protected int iterationCount = 0;        // The current iteration index
         protected int iterationLimit = 500;     // Iteration limit for stopping
@@ -43,6 +44,8 @@ namespace R04522602許泰源Ass10{
         protected OptimizationType optimizationType = OptimizationType.Min; // Optimization type
         protected PheromoneDropStragegy pheromoneDropMode = PheromoneDropStragegy.AllAnts; // Pheromone dropping stragegy
         protected Random randomizer = new Random(); // Random number generator
+		protected K_Optimization_Type k_Optimization = K_Optimization_Type.NONE;
+		protected bool local_update = false;
 
         // Properties Definition
 
@@ -72,6 +75,23 @@ namespace R04522602許泰源Ass10{
             set { heuristicFactor = value; }
         }
 
+		/// <summary>
+        ///  K-Optimization
+        /// </summary>
+        [Category("ACO Setting"), Description("K-Opt")]
+        public K_Optimization_Type K_Optimization{
+            get { return k_Optimization; }
+            set { k_Optimization = value; }
+        }
+
+		/// <summary>
+        /// Local_update
+        /// </summary>
+        [Category("ACO Setting"), Description("Turn On/Off Local Update")]
+        public bool Local_update{
+            get { return local_update; }
+            set { local_update = value; }
+        }
 		
         /// <summary>
         ///  Power of pheromone value in selection probability calculation
@@ -81,6 +101,16 @@ namespace R04522602許泰源Ass10{
         public double PheromoneFactor{
             get { return pheromoneFactor; }
             set { pheromoneFactor = value; }
+        }
+
+		/// <summary>
+        ///  The objective avarage of the current iteration 
+        /// </summary>
+		/// 
+        [Browsable(false)]
+        public double GreedyShortest{
+            get { return greedyBestObjective; }
+			set { greedyBestObjective = value; }
         }
 
         /// <summary>
@@ -146,7 +176,7 @@ namespace R04522602許泰源Ass10{
         }
 
         [Category("ACO Setting"), Description("確定型選擇百分比，100: 確定型；0: 隨機型； x: 百分之x 使用確定型，百分之(100-x)使用隨機型 percentage of using deterministic selection instead of using stochastic one ")]
-        public int DeterministricPercentage{
+        public double DeterministricPercentage{
             get { return deterministricPercentage; }
             set { deterministricPercentage = value; }
         }
@@ -189,19 +219,24 @@ namespace R04522602許泰源Ass10{
             // the specified function delegate
             if (squarePheromone){
                 pheromone = new double[numberOfVariables, numberOfVariables];
-                heuristicValues = new double[numberOfVariables, numberOfVariables];
+				//if numberofcities larger than 200, it cost a lot of time to build the table.
+				//only if number of ants larger than numberofcities, it works better.
+
+                /*heuristicValues = new double[numberOfVariables, numberOfVariables];
                 for (int r = 0; r < numberOfVariables; r++)
                     for (int c = 0; c < numberOfVariables; c++)
-                        heuristicValues[r, c] = getHeuristicValue(r, c);
+                        heuristicValues[r, c] = getHeuristicValue(r, c);*/
             }
             else{
                 pheromone = new double[numberOfGroups, numberOfVariables];
-                heuristicValues = new double[numberOfGroups, numberOfVariables];
+				//if numberofcities larger than 200, it cost a lot of time to build the table.
+				//only if number of ants larger than numberofcities, it works better.
+                
+				/*heuristicValues = new double[numberOfGroups, numberOfVariables];
                 for (int r = 0; r < numberOfGroups; r++)
                     for (int c = 0; c < numberOfVariables; c++)
-                        heuristicValues[r, c] = getHeuristicValue(r, c);
+                        heuristicValues[r, c] = getHeuristicValue(r, c);*/
             }
-
             // Allocate memory for the arries used in ACO, whose length is 
             // depend on the number of variables. In contrast, those arraies 
             // with length depending on the number of ants are allocated in 
@@ -369,26 +404,27 @@ namespace R04522602許泰源Ass10{
             int start, next;
 			double P_x;
 			
-            if (deterministricPercentage == 100) isDeterministic = true;
-            else if (deterministricPercentage == 0) isDeterministic = false;
-            else{
-                if (randomizer.Next(101) <= deterministricPercentage) isDeterministic = true;
+            if (deterministricPercentage == 1.0) isDeterministic = true;
+            else if (deterministricPercentage == 0.0) isDeterministic = false;
+            else
+                if (randomizer.NextDouble() <= deterministricPercentage) isDeterministic = true;
                 else isDeterministic = false;
-            }
+            double mindis;
 
             // Loop through each ant to construt each solution
             for (int i = 0; i < numberOfAnts; i++){
                 // Prepare candidate set, using indicesOfVariables array.
-				for(int j=0; j<numberOfVariables; j++){
-					indicesOfVariables[j] = -1;
-					solutions[i][j] = -1;
-				}
+				for(int j=0; j<numberOfVariables; j++)
+					indicesOfVariables[j] = solutions[i][j] = -1;
+				
 
 				start = randomizer.Next(numberOfVariables);
-				indicesOfVariables[start] = start;
-				solutions[i][0] = start;
+				indicesOfVariables[start] = solutions[i][0] = start;
+				double B = TSPBenchmark.MinimalTourDistance / TSPBenchmark.NumberOfCities;
+				if (TSPBenchmark.HasOptimalObjective)  B = TSPBenchmark.MinimalTourDistance / TSPBenchmark.NumberOfCities;
+				else B = TSPBenchmark.AverageDistance / 5.0;
 
-                if (isDeterministic){
+                if (isDeterministic)
                     // Repeatly select the next element to succeed the previous one, until the solution is completed.
                     // Deterministic method, find the best candidate, by evaluating their selection probability
                     for (int j = 1; j < numberOfVariables; j++){
@@ -397,8 +433,11 @@ namespace R04522602許泰源Ass10{
 						P_x = double.MinValue;
 						next = -1;
                         for(int k = 0; k < numberOfVariables; k++){
+
+							mindis = TSPBenchmark.FromToDistanceMatrix[solutions[i][j-1],k];
+
 							if(indicesOfVariables[k]==-1)
-								probabilities[k] = Math.Pow(pheromone[solutions[i][j-1],k], pheromoneFactor) * Math.Pow(heuristicValues[solutions[i][j-1],k], heuristicFactor) + 0.000001;
+								probabilities[k] = Math.Pow(pheromone[solutions[i][j-1],k], pheromoneFactor) * Math.Pow(mindis < 0.000001 ? 0.0 : B / mindis + 0.0000001, heuristicFactor) + 0.000001;
 							else
 								probabilities[k] = 0.0;
 
@@ -411,8 +450,12 @@ namespace R04522602許泰源Ass10{
 						// The candidate reduced by one
 						solutions[i][j] = next;
 						indicesOfVariables[next] = next;
+
+						if(local_update){
+							pheromone[solutions[i][j-1],next] *= (1-evaporationRate);
+							pheromone[solutions[i][j-1],next] += evaporationRate * dropPheromone * dropMultiplier / greedyBestObjective;
+						}
                     }
-                }
                 else{
                     // Repeatly select the next element to succeed the previous one, until the solution is completed.
                     // Stochastic method, probability of all candidates are computed first. Then stochastic selection
@@ -422,9 +465,12 @@ namespace R04522602許泰源Ass10{
                     for (int j = 1; j < numberOfVariables; j++){
                         // Compute the probabilities for each candidate that succeeds the previous element
 						totalprobability = 0.0;
-                        for(int k = 0; k < numberOfVariables; k++){
+                        for(int k = 0; k < numberOfVariables; k++){							
+
+							mindis = TSPBenchmark.FromToDistanceMatrix[solutions[i][j-1],k];
+
 							if(indicesOfVariables[k]==-1)
-								probabilities[k] = Math.Pow(pheromone[solutions[i][j-1],k], pheromoneFactor) * Math.Pow(heuristicValues[solutions[i][j-1],k], heuristicFactor) + 0.000001;
+								probabilities[k] = Math.Pow(pheromone[solutions[i][j-1],k], pheromoneFactor) * Math.Pow(mindis < 0.000001 ? 0.0 : B / mindis + 0.0000001, heuristicFactor) + 0.000001;
 							else
 								probabilities[k] = 0.0;
 
@@ -454,6 +500,25 @@ namespace R04522602許泰源Ass10{
 							}
                     }
                 }
+				
+				if(k_Optimization == K_Optimization_Type.Two_Opt){
+					int first, second, tmp;
+					double tObjective = getObjectiveValue(solutions[i]);
+					first = randomizer.Next(numberOfVariables);
+					do{
+						second = randomizer.Next(numberOfVariables);
+					}while(first == second);
+					
+					tmp = solutions[i][first];
+					solutions[i][first] = solutions[i][second];
+					solutions[i][second] = tmp;
+
+					if(getObjectiveValue(solutions[i])> tObjective){
+						tmp = solutions[i][first];
+						solutions[i][first] = solutions[i][second];
+						solutions[i][second] = tmp;
+					}
+				}				
             }
         }
 
@@ -481,4 +546,5 @@ namespace R04522602許泰源Ass10{
     public delegate double ObjectiveFunction(int[] aSolution);
     public delegate double HeuristicFunction(int first, int second);
     public enum PheromoneDropStragegy { AllAnts, SoFarTheBestOnly };
+	public enum K_Optimization_Type{ NONE, Two_Opt};
 }

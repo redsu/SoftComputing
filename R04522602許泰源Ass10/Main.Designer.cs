@@ -57,14 +57,15 @@
 			this.tab_ACO = new System.Windows.Forms.TabPage();
 			this.btn_createACO = new System.Windows.Forms.Button();
 			this.tabGA = new System.Windows.Forms.TabPage();
+			this.btn_createGA = new System.Windows.Forms.Button();
 			this.Solver = new System.Windows.Forms.PropertyGrid();
 			this.btnEnd = new System.Windows.Forms.Button();
 			this.btnExeone = new System.Windows.Forms.Button();
 			this.btnReset = new System.Windows.Forms.Button();
+			this.pBar = new System.Windows.Forms.ProgressBar();
 			this.openfile = new System.Windows.Forms.ToolStrip();
 			this.tsbtn_open = new System.Windows.Forms.ToolStripButton();
-			this.pBar = new System.Windows.Forms.ProgressBar();
-			this.btn_createGA = new System.Windows.Forms.Button();
+			this.updateperiteration = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.sCouter1)).BeginInit();
 			this.sCouter1.Panel1.SuspendLayout();
 			this.sCouter1.Panel2.SuspendLayout();
@@ -105,7 +106,6 @@
 			// sCouter1.Panel1
 			// 
 			this.sCouter1.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.sCouter1.Panel1.Controls.Add(this.pBar);
 			this.sCouter1.Panel1.Controls.Add(this.rtxBenchmark);
 			this.sCouter1.Panel1.Controls.Add(this.lbl_sl);
 			this.sCouter1.Panel1.Controls.Add(this.lbl_noc);
@@ -114,16 +114,19 @@
 			// sCouter1.Panel2
 			// 
 			this.sCouter1.Panel2.Controls.Add(this.sCouter2);
-			this.sCouter1.Size = new System.Drawing.Size(1089, 480);
+			this.sCouter1.Size = new System.Drawing.Size(1089, 453);
 			this.sCouter1.SplitterDistance = 213;
 			this.sCouter1.TabIndex = 0;
 			// 
 			// rtxBenchmark
 			// 
+			this.rtxBenchmark.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.rtxBenchmark.Location = new System.Drawing.Point(12, 69);
 			this.rtxBenchmark.Name = "rtxBenchmark";
 			this.rtxBenchmark.ReadOnly = true;
-			this.rtxBenchmark.Size = new System.Drawing.Size(189, 151);
+			this.rtxBenchmark.Size = new System.Drawing.Size(189, 380);
 			this.rtxBenchmark.TabIndex = 5;
 			this.rtxBenchmark.Text = "";
 			// 
@@ -173,7 +176,7 @@
 			// sCouter2.Panel2
 			// 
 			this.sCouter2.Panel2.Controls.Add(this.sCouter4);
-			this.sCouter2.Size = new System.Drawing.Size(872, 480);
+			this.sCouter2.Size = new System.Drawing.Size(872, 453);
 			this.sCouter2.SplitterDistance = 427;
 			this.sCouter2.TabIndex = 0;
 			// 
@@ -193,8 +196,8 @@
 			// 
 			this.sCouter3.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.sCouter3.Panel2.Controls.Add(this.tab_display);
-			this.sCouter3.Size = new System.Drawing.Size(427, 480);
-			this.sCouter3.SplitterDistance = 224;
+			this.sCouter3.Size = new System.Drawing.Size(427, 453);
+			this.sCouter3.SplitterDistance = 211;
 			this.sCouter3.TabIndex = 0;
 			// 
 			// chart
@@ -222,7 +225,7 @@
 			this.chart.Series.Add(series1);
 			this.chart.Series.Add(series2);
 			this.chart.Series.Add(series3);
-			this.chart.Size = new System.Drawing.Size(427, 224);
+			this.chart.Size = new System.Drawing.Size(427, 211);
 			this.chart.TabIndex = 0;
 			this.chart.Text = "chart1";
 			// 
@@ -234,7 +237,7 @@
 			this.tab_display.Location = new System.Drawing.Point(0, 0);
 			this.tab_display.Name = "tab_display";
 			this.tab_display.SelectedIndex = 0;
-			this.tab_display.Size = new System.Drawing.Size(427, 252);
+			this.tab_display.Size = new System.Drawing.Size(427, 238);
 			this.tab_display.TabIndex = 0;
 			// 
 			// tab_route
@@ -242,7 +245,7 @@
 			this.tab_route.Location = new System.Drawing.Point(4, 22);
 			this.tab_route.Name = "tab_route";
 			this.tab_route.Padding = new System.Windows.Forms.Padding(3);
-			this.tab_route.Size = new System.Drawing.Size(419, 226);
+			this.tab_route.Size = new System.Drawing.Size(419, 212);
 			this.tab_route.TabIndex = 0;
 			this.tab_route.Text = "Cities & Routes";
 			this.tab_route.UseVisualStyleBackColor = true;
@@ -254,7 +257,7 @@
 			this.tabPhenSol.Location = new System.Drawing.Point(4, 22);
 			this.tabPhenSol.Name = "tabPhenSol";
 			this.tabPhenSol.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPhenSol.Size = new System.Drawing.Size(413, 224);
+			this.tabPhenSol.Size = new System.Drawing.Size(419, 212);
 			this.tabPhenSol.TabIndex = 1;
 			this.tabPhenSol.Text = "Pheromone & Solutions";
 			this.tabPhenSol.UseVisualStyleBackColor = true;
@@ -274,8 +277,8 @@
 			// 
 			this.splitContainer5.Panel2.Controls.Add(this.lsbSolutions);
 			this.splitContainer5.Panel2.Controls.Add(this.ckbShowSolutions);
-			this.splitContainer5.Size = new System.Drawing.Size(407, 218);
-			this.splitContainer5.SplitterDistance = 194;
+			this.splitContainer5.Size = new System.Drawing.Size(413, 206);
+			this.splitContainer5.SplitterDistance = 196;
 			this.splitContainer5.TabIndex = 1;
 			// 
 			// lsbPheromone
@@ -286,7 +289,7 @@
 			this.lsbPheromone.Location = new System.Drawing.Point(4, 36);
 			this.lsbPheromone.Name = "lsbPheromone";
 			this.lsbPheromone.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-			this.lsbPheromone.Size = new System.Drawing.Size(144, 143);
+			this.lsbPheromone.Size = new System.Drawing.Size(146, 131);
 			this.lsbPheromone.TabIndex = 2;
 			this.lsbPheromone.Text = "";
 			this.lsbPheromone.WordWrap = false;
@@ -309,7 +312,7 @@
 			this.lsbSolutions.Location = new System.Drawing.Point(3, 36);
 			this.lsbSolutions.Name = "lsbSolutions";
 			this.lsbSolutions.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-			this.lsbSolutions.Size = new System.Drawing.Size(203, 176);
+			this.lsbSolutions.Size = new System.Drawing.Size(207, 164);
 			this.lsbSolutions.TabIndex = 3;
 			this.lsbSolutions.Text = "";
 			this.lsbSolutions.WordWrap = false;
@@ -341,12 +344,13 @@
 			// sCouter4.Panel2
 			// 
 			this.sCouter4.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.sCouter4.Panel2.Controls.Add(this.updateperiteration);
 			this.sCouter4.Panel2.Controls.Add(this.Solver);
 			this.sCouter4.Panel2.Controls.Add(this.btnEnd);
 			this.sCouter4.Panel2.Controls.Add(this.btnExeone);
 			this.sCouter4.Panel2.Controls.Add(this.btnReset);
-			this.sCouter4.Size = new System.Drawing.Size(441, 480);
-			this.sCouter4.SplitterDistance = 198;
+			this.sCouter4.Size = new System.Drawing.Size(441, 453);
+			this.sCouter4.SplitterDistance = 186;
 			this.sCouter4.TabIndex = 0;
 			// 
 			// lbl_sofarslen
@@ -371,15 +375,14 @@
 			// 
 			// tabHeur
 			// 
-			this.tabHeur.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.tabHeur.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabHeur.Controls.Add(this.tab_ACO);
 			this.tabHeur.Controls.Add(this.tabGA);
 			this.tabHeur.Location = new System.Drawing.Point(3, 3);
 			this.tabHeur.Name = "tabHeur";
 			this.tabHeur.SelectedIndex = 0;
-			this.tabHeur.Size = new System.Drawing.Size(435, 88);
+			this.tabHeur.Size = new System.Drawing.Size(435, 76);
 			this.tabHeur.TabIndex = 1;
 			// 
 			// tab_ACO
@@ -388,7 +391,7 @@
 			this.tab_ACO.Location = new System.Drawing.Point(4, 22);
 			this.tab_ACO.Name = "tab_ACO";
 			this.tab_ACO.Padding = new System.Windows.Forms.Padding(3);
-			this.tab_ACO.Size = new System.Drawing.Size(427, 62);
+			this.tab_ACO.Size = new System.Drawing.Size(427, 50);
 			this.tab_ACO.TabIndex = 0;
 			this.tab_ACO.Text = "ACO Algorithm";
 			this.tab_ACO.UseVisualStyleBackColor = true;
@@ -413,10 +416,24 @@
 			this.tabGA.Location = new System.Drawing.Point(4, 22);
 			this.tabGA.Name = "tabGA";
 			this.tabGA.Padding = new System.Windows.Forms.Padding(3);
-			this.tabGA.Size = new System.Drawing.Size(427, 62);
+			this.tabGA.Size = new System.Drawing.Size(427, 50);
 			this.tabGA.TabIndex = 1;
 			this.tabGA.Text = "Genetic Algorithm";
 			this.tabGA.UseVisualStyleBackColor = true;
+			// 
+			// btn_createGA
+			// 
+			this.btn_createGA.BackColor = System.Drawing.SystemColors.InactiveCaption;
+			this.btn_createGA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btn_createGA.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+			this.btn_createGA.ForeColor = System.Drawing.Color.DarkBlue;
+			this.btn_createGA.Location = new System.Drawing.Point(6, 6);
+			this.btn_createGA.Name = "btn_createGA";
+			this.btn_createGA.Size = new System.Drawing.Size(149, 35);
+			this.btn_createGA.TabIndex = 2;
+			this.btn_createGA.Text = "Create GA Solver";
+			this.btn_createGA.UseVisualStyleBackColor = false;
+			this.btn_createGA.Click += new System.EventHandler(this.btn_createGA_Click);
 			// 
 			// Solver
 			// 
@@ -425,7 +442,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Solver.Location = new System.Drawing.Point(175, 3);
 			this.Solver.Name = "Solver";
-			this.Solver.Size = new System.Drawing.Size(265, 282);
+			this.Solver.Size = new System.Drawing.Size(265, 267);
 			this.Solver.TabIndex = 6;
 			// 
 			// btnEnd
@@ -439,6 +456,7 @@
 			this.btnEnd.Size = new System.Drawing.Size(155, 23);
 			this.btnEnd.TabIndex = 4;
 			this.btnEnd.Text = "Run To End";
+			this.btnEnd.UseVisualStyleBackColor = false;
 			this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
 			// 
 			// btnExeone
@@ -452,6 +470,7 @@
 			this.btnExeone.Size = new System.Drawing.Size(155, 23);
 			this.btnExeone.TabIndex = 3;
 			this.btnExeone.Text = "Execute One Iteration";
+			this.btnExeone.UseVisualStyleBackColor = false;
 			this.btnExeone.Click += new System.EventHandler(this.btnExeone_Click);
 			// 
 			// btnReset
@@ -467,6 +486,15 @@
 			this.btnReset.Text = "Reset";
 			this.btnReset.UseVisualStyleBackColor = false;
 			this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+			// 
+			// pBar
+			// 
+			this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.pBar.Location = new System.Drawing.Point(0, 487);
+			this.pBar.Name = "pBar";
+			this.pBar.Size = new System.Drawing.Size(1089, 23);
+			this.pBar.TabIndex = 6;
 			// 
 			// openfile
 			// 
@@ -487,26 +515,17 @@
 			this.tsbtn_open.Text = "OpenFile";
 			this.tsbtn_open.Click += new System.EventHandler(this.import_btn_Click);
 			// 
-			// pBar
+			// updateperiteration
 			// 
-			this.pBar.Location = new System.Drawing.Point(12, 444);
-			this.pBar.Name = "pBar";
-			this.pBar.Size = new System.Drawing.Size(189, 23);
-			this.pBar.TabIndex = 6;
-			// 
-			// btn_createGA
-			// 
-			this.btn_createGA.BackColor = System.Drawing.SystemColors.InactiveCaption;
-			this.btn_createGA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btn_createGA.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-			this.btn_createGA.ForeColor = System.Drawing.Color.DarkBlue;
-			this.btn_createGA.Location = new System.Drawing.Point(6, 6);
-			this.btn_createGA.Name = "btn_createGA";
-			this.btn_createGA.Size = new System.Drawing.Size(149, 35);
-			this.btn_createGA.TabIndex = 2;
-			this.btn_createGA.Text = "Create GA Solver";
-			this.btn_createGA.UseVisualStyleBackColor = false;
-			this.btn_createGA.Click += new System.EventHandler(this.btn_createGA_Click);
+			this.updateperiteration.AutoSize = true;
+			this.updateperiteration.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+			this.updateperiteration.ForeColor = System.Drawing.Color.DarkRed;
+			this.updateperiteration.Location = new System.Drawing.Point(7, 115);
+			this.updateperiteration.Name = "updateperiteration";
+			this.updateperiteration.Size = new System.Drawing.Size(151, 21);
+			this.updateperiteration.TabIndex = 7;
+			this.updateperiteration.Text = "Update Per Iteration";
+			this.updateperiteration.UseVisualStyleBackColor = true;
 			// 
 			// Main
 			// 
@@ -514,6 +533,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.LightBlue;
 			this.ClientSize = new System.Drawing.Size(1089, 507);
+			this.Controls.Add(this.pBar);
 			this.Controls.Add(this.openfile);
 			this.Controls.Add(this.sCouter1);
 			this.Name = "Main";
@@ -542,6 +562,7 @@
 			this.splitContainer5.ResumeLayout(false);
 			this.sCouter4.Panel1.ResumeLayout(false);
 			this.sCouter4.Panel2.ResumeLayout(false);
+			this.sCouter4.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.sCouter4)).EndInit();
 			this.sCouter4.ResumeLayout(false);
 			this.tabHeur.ResumeLayout(false);
@@ -587,6 +608,7 @@
 		private System.Windows.Forms.RichTextBox rtxBenchmark;
 		private System.Windows.Forms.ProgressBar pBar;
 		private System.Windows.Forms.Button btn_createGA;
+		private System.Windows.Forms.CheckBox updateperiteration;
 
 	}
 }

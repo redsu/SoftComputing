@@ -18,8 +18,7 @@ namespace R04522602許泰源Ass10{
 		//
 		int[] SoFarTheBestSolution;
 		double SoFarTheBestObjective;
-
-		double Penality = 100.0;
+		bool loaded = false;
 
 		PermutationGA permSolver;
 		PermutationACS ACOSolver;
@@ -31,8 +30,8 @@ namespace R04522602許泰源Ass10{
 			btnReset.Enabled = false;
 			btnExeone.Enabled = false;
 			btnEnd.Enabled = false;
-			//btnCreateBinGA.Enabled = false;
-			//btnCreatePerGA.Enabled = false;
+			btn_createACO.Enabled = false;
+			loaded = false;
 
 			//Setup the dfault value of combobox
 			
@@ -104,8 +103,6 @@ namespace R04522602許泰源Ass10{
                 return;
             }
 
-
-
             lbl_title.Text = "Title : " + TSPBenchmark.Title;
             lbl_sl.Text = "Shorest Length : " + (TSPBenchmark.HasOptimalObjective ? TSPBenchmark.GlobalShorestLength4TSP.ToString("0.0000") : "n/a");
             lbl_noc.Text = "Number of Cities : " + TSPBenchmark.NumberOfCities.ToString();
@@ -118,7 +115,9 @@ namespace R04522602許泰源Ass10{
 			Solver.SelectedObject = null;
 			ACOSolver = null;
 			btnReset.Enabled = btnExeone.Enabled = btnEnd.Enabled = false;
-        }
+			btn_createACO.Enabled = true;
+			loaded = true;
+		}
 		
 		private void Draw_Route_and_Vertex(object sender, PaintEventArgs e){
             if (SoFarTheBestSolution != null && TSPBenchmark.BenchmarkIsReady )
@@ -148,7 +147,6 @@ namespace R04522602許泰源Ass10{
 					chart.Series[0].Points.AddXY((double)ACOSolver.IterationCount, ACOSolver.IterationAverage);
 					chart.Series[1].Points.AddXY((double)ACOSolver.IterationCount, ACOSolver.IterationBestObjective);
 					chart.Series[2].Points.AddXY((double)ACOSolver.IterationCount, ACOSolver.SoFarTheBestObjective);
-					//Console.WriteLine(ACOSolver.SoFarTheBestObjective.ToString());
 					SoFarTheBestSolution = ACOSolver.SoFarTheBestSoluiton;
 					updateBestInformation();
 					sCouter3.Panel2.Refresh();
@@ -160,7 +158,9 @@ namespace R04522602許泰源Ass10{
 					chart.Series[0].Points.AddXY((double)permSolver.IterationCount, permSolver.IterationAverage);
 					chart.Series[1].Points.AddXY((double)permSolver.IterationCount, permSolver.IterationBestObjective);
 					chart.Series[2].Points.AddXY((double)permSolver.IterationCount, permSolver.SoFarTheBestObjective);
+					SoFarTheBestSolution = permSolver.SoFarTheBestSolution;
 					updateBestInformation();
+					sCouter3.Panel2.Refresh();
 				}
 			}
 			Solver.Refresh();
@@ -179,9 +179,11 @@ namespace R04522602許泰源Ass10{
 						chart.Series[0].Points.AddXY((double)ACOSolver.IterationCount, ACOSolver.IterationAverage);
 						chart.Series[1].Points.AddXY((double)ACOSolver.IterationCount, ACOSolver.IterationBestObjective);
 						chart.Series[2].Points.AddXY((double)ACOSolver.IterationCount, ACOSolver.SoFarTheBestObjective);
-						//Console.WriteLine(ACOSolver.SoFarTheBestObjective.ToString());
 						SoFarTheBestSolution = ACOSolver.SoFarTheBestSoluiton;
-						
+						SoFarTheBestObjective = ACOSolver.SoFarTheBestObjective;
+						if(updateperiteration.Checked){
+							sCouter3.Panel2.Refresh();
+						}
 					}
 					updateBestInformation();
 					sCouter3.Panel2.Refresh();
@@ -189,13 +191,23 @@ namespace R04522602許泰源Ass10{
 			}
 			else if(tabHeur.SelectedTab == tabGA){
 				if(permSolver!=null){
+					pBar.Minimum = 0;
+					pBar.Maximum = permSolver.IterationLimit;
+					pBar.Value = 0;
 					for (int i = 0; i < permSolver.IterationLimit; i++){
+						pBar.Value++;
 						permSolver.executeOneIteration();
 						chart.Series[0].Points.AddXY((double)permSolver.IterationCount, permSolver.IterationAverage);
 						chart.Series[1].Points.AddXY((double)permSolver.IterationCount, permSolver.IterationBestObjective);
 						chart.Series[2].Points.AddXY((double)permSolver.IterationCount, permSolver.SoFarTheBestObjective);
+						SoFarTheBestSolution = (int[])permSolver.SoFarTheBestSolution;
+						SoFarTheBestObjective = permSolver.SoFarTheBestObjective;
+						if(updateperiteration.Checked){
+							sCouter3.Panel2.Refresh();
+						}
 					}
 					updateBestInformation();
+					sCouter3.Panel2.Refresh();
 				}
 			}
 			Solver.Refresh();
@@ -203,39 +215,38 @@ namespace R04522602許泰源Ass10{
 
 		private void updateBestInformation(){
 			//Update all the information 
-			string text = "So Far The Best Solution : \n";
-			for(int i=0; i<TSPBenchmark.NumberOfCities; i++){
-				//if((i+1)%10 == 0)
-				//	text += ACOSolver.SoFarTheBestSoluiton[i].ToString() + "\n";
-				//else
+	
+			if(tabHeur.SelectedTab == tab_ACO){
+				string text = "So Far The Best Solution : \n";
+
+				for(int i=0; i<TSPBenchmark.NumberOfCities; i++)
 					text += ACOSolver.SoFarTheBestSoluiton[i].ToString() + " ";
+
+				lbl_sofarsol.Text = text;
+
+				text = "So Far The Best Objective : ";
+				text += ACOSolver.SoFarTheBestObjective.ToString();
+				lbl_sofarslen.Text = text;
 			}
+			else if(tabHeur.SelectedTab == tabGA){
+				string text = "So Far The Best Solution : \n";
 
-			lbl_sofarsol.Text = text;
+				for(int i=0; i<TSPBenchmark.NumberOfCities; i++)
+					text += permSolver.SoFarTheBestSolution[i].ToString() + " ";
+				
 
-			text = "So Far The Best Objective : ";
-			text += ACOSolver.SoFarTheBestObjective.ToString();
-			lbl_sofarslen.Text = text;
+				lbl_sofarsol.Text = text;
 
+				text = "So Far The Best Objective : ";
+				text += permSolver.SoFarTheBestObjective.ToString();
+				lbl_sofarslen.Text = text;
+			}
 		}
 
 		private void tabGA_SelectedIndexChanged(object sender, EventArgs e){
 			//reset chart and handle the event when tabpage changed
 			reset_chart();
 			if(tabHeur.SelectedTab == tabGA){
-				if(binarySolver == null){
-					btnReset.Enabled = false;
-					btnExeone.Enabled = false;
-					btnEnd.Enabled = false;
-				}
-				else{
-					btnReset.Enabled = true;
-					btnExeone.Enabled = true;
-					btnEnd.Enabled = true;
-				}
-				Solver.SelectedObject = binarySolver;
-			}
-			else if(tabHeur.SelectedTab == tabGA){
 				if(permSolver == null){
 					btnReset.Enabled = false;
 					btnExeone.Enabled = false;
@@ -289,37 +300,58 @@ namespace R04522602許泰源Ass10{
 
 			double mindis = TSPBenchmark.FromToDistanceMatrix[i, j];
 
-			for(int k=0; k<TSPBenchmark.NumberOfCities; k++)
-				for(int l=0; l<TSPBenchmark.NumberOfCities; l++)
-					if(l!=k&&l!=i&&l!=j&&k!=i&&k!=j)
-						if(TSPBenchmark.FromToDistanceMatrix[i, k] + TSPBenchmark.FromToDistanceMatrix[k, l] + TSPBenchmark.FromToDistanceMatrix[l, j] <= mindis && k!=i&&k!=j)
-							mindis = TSPBenchmark.FromToDistanceMatrix[i, k] + TSPBenchmark.FromToDistanceMatrix[k, j];
-
-            return mindis < 0.000001 ? 0.0 : Math.Sqrt(B / Math.Pow(mindis,1.5) + 0.0000001);
+			return mindis < 0.000001 ? 0.0 : B / mindis + 0.0000001;
         }
 
 		private void btnReset_Click(object sender, EventArgs e){
-			ACOSolver.reset();
-			reset_chart();
-			string text = "So Far The Best Solution : (NONE)";
+			if(tabHeur.SelectedTab == tab_ACO){
+				ACOSolver.reset();
+				reset_chart();
+				string text = "So Far The Best Solution : (NONE)";
 
-			lbl_sofarsol.Text = text;
+				lbl_sofarsol.Text = text;
 
-			text = "So Far The Best Objective : (NONE)";
+				text = "So Far The Best Objective : (NONE)";
 
-			lbl_sofarslen.Text = text;
+				lbl_sofarslen.Text = text;
 
-			btnExeone.Enabled = btnEnd.Enabled = true;
+				btnExeone.Enabled = btnEnd.Enabled = true;
 
-			ACOSolver.SoFarTheBestSoluiton = (int[])SoFarTheBestSolution.Clone();
-			ACOSolver.SoFarTheBestObjective = TSPBenchmark.ComputeObjectiveValue(SoFarTheBestSolution);
-			ACOSolver.DropMultiplier = ACOSolver.SoFarTheBestObjective;
 
-			Solver.Refresh();
+				ACOSolver.SoFarTheBestSoluiton = (int[])SoFarTheBestSolution.Clone();
+				ACOSolver.SoFarTheBestObjective = TSPBenchmark.ComputeObjectiveValue(SoFarTheBestSolution);
+				ACOSolver.GreedyShortest = TSPBenchmark.ComputeObjectiveValue(SoFarTheBestSolution);
+				ACOSolver.DropMultiplier = ACOSolver.SoFarTheBestObjective;
+
+				Solver.Refresh();
+			}
+			else{
+				if(permSolver == null){
+					btnEnd.Enabled = btnExeone.Enabled = false;
+					return ;
+				}
+				permSolver.reset();
+
+				string text = "So Far The Best Solution : (NONE)";
+
+				lbl_sofarsol.Text = text;
+
+				text = "So Far The Best Objective : (NONE)";
+
+				lbl_sofarslen.Text = text;
+
+				btnEnd.Enabled = btnExeone.Enabled = true;
+
+				reset_chart();
+			}
 		}
 
 		private void btn_createGA_Click(object sender, EventArgs e){
-
+			//Create permSolver
+			permSolver = new PermutationGA(TSPBenchmark.NumberOfCities, OptimizationType.Min, new GASolver<int>.ObjectiveFunctionDelegate(TSPBenchmark.ComputeObjectiveValue));
+			Solver.SelectedObject = permSolver;
+			btnReset.Enabled = true;
+            btnEnd.Enabled = btnExeone.Enabled = false;
 		}
 
 	}
