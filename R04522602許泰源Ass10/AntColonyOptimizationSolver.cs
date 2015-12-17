@@ -415,8 +415,7 @@ namespace R04522602許泰源Ass10{
             for (int i = 0; i < numberOfAnts; i++){
                 // Prepare candidate set, using indicesOfVariables array.
 				for(int j=0; j<numberOfVariables; j++)
-					indicesOfVariables[j] = solutions[i][j] = -1;
-				
+					indicesOfVariables[j] = solutions[i][j] = -1;				
 
 				start = randomizer.Next(numberOfVariables);
 				indicesOfVariables[start] = solutions[i][0] = start;

@@ -58,6 +58,7 @@
 			this.btn_createACO = new System.Windows.Forms.Button();
 			this.tabGA = new System.Windows.Forms.TabPage();
 			this.btn_createGA = new System.Windows.Forms.Button();
+			this.updateperiteration = new System.Windows.Forms.CheckBox();
 			this.Solver = new System.Windows.Forms.PropertyGrid();
 			this.btnEnd = new System.Windows.Forms.Button();
 			this.btnExeone = new System.Windows.Forms.Button();
@@ -65,7 +66,6 @@
 			this.pBar = new System.Windows.Forms.ProgressBar();
 			this.openfile = new System.Windows.Forms.ToolStrip();
 			this.tsbtn_open = new System.Windows.Forms.ToolStripButton();
-			this.updateperiteration = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.sCouter1)).BeginInit();
 			this.sCouter1.Panel1.SuspendLayout();
 			this.sCouter1.Panel2.SuspendLayout();
@@ -435,6 +435,18 @@
 			this.btn_createGA.UseVisualStyleBackColor = false;
 			this.btn_createGA.Click += new System.EventHandler(this.btn_createGA_Click);
 			// 
+			// updateperiteration
+			// 
+			this.updateperiteration.AutoSize = true;
+			this.updateperiteration.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+			this.updateperiteration.ForeColor = System.Drawing.Color.DarkRed;
+			this.updateperiteration.Location = new System.Drawing.Point(7, 115);
+			this.updateperiteration.Name = "updateperiteration";
+			this.updateperiteration.Size = new System.Drawing.Size(151, 21);
+			this.updateperiteration.TabIndex = 7;
+			this.updateperiteration.Text = "Update Per Iteration";
+			this.updateperiteration.UseVisualStyleBackColor = true;
+			// 
 			// Solver
 			// 
 			this.Solver.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -514,18 +526,6 @@
 			this.tsbtn_open.Size = new System.Drawing.Size(79, 22);
 			this.tsbtn_open.Text = "OpenFile";
 			this.tsbtn_open.Click += new System.EventHandler(this.import_btn_Click);
-			// 
-			// updateperiteration
-			// 
-			this.updateperiteration.AutoSize = true;
-			this.updateperiteration.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-			this.updateperiteration.ForeColor = System.Drawing.Color.DarkRed;
-			this.updateperiteration.Location = new System.Drawing.Point(7, 115);
-			this.updateperiteration.Name = "updateperiteration";
-			this.updateperiteration.Size = new System.Drawing.Size(151, 21);
-			this.updateperiteration.TabIndex = 7;
-			this.updateperiteration.Text = "Update Per Iteration";
-			this.updateperiteration.UseVisualStyleBackColor = true;
 			// 
 			// Main
 			// 

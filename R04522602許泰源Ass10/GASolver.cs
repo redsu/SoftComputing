@@ -537,9 +537,7 @@ namespace R04522602許泰源Ass10{
                     break;
                 }
             return numberOfMutatedChildren;
-        }
-
-		
+        }		
     }
 
     //  Type of optimization problem.

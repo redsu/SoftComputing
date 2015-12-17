@@ -120,8 +120,9 @@ namespace R04522602許泰源Ass10{
 		}
 		
 		private void Draw_Route_and_Vertex(object sender, PaintEventArgs e){
-            if (SoFarTheBestSolution != null && TSPBenchmark.BenchmarkIsReady )
+			if (SoFarTheBestSolution != null && TSPBenchmark.BenchmarkIsReady )
                 TSPBenchmark.DrawCitiesOptimalRouteAndARoute(e.Graphics, e.ClipRectangle.Width, e.ClipRectangle.Height, SoFarTheBestSolution);
+			
         }
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
@@ -183,6 +184,9 @@ namespace R04522602許泰源Ass10{
 						SoFarTheBestObjective = ACOSolver.SoFarTheBestObjective;
 						if(updateperiteration.Checked){
 							sCouter3.Panel2.Refresh();
+							chart.Update();
+							updateBestInformation();
+							Solver.Refresh();
 						}
 					}
 					updateBestInformation();
@@ -204,6 +208,9 @@ namespace R04522602許泰源Ass10{
 						SoFarTheBestObjective = permSolver.SoFarTheBestObjective;
 						if(updateperiteration.Checked){
 							sCouter3.Panel2.Refresh();
+							chart.Update();
+							updateBestInformation();
+							Solver.Refresh();
 						}
 					}
 					updateBestInformation();
@@ -241,6 +248,8 @@ namespace R04522602許泰源Ass10{
 				text += permSolver.SoFarTheBestObjective.ToString();
 				lbl_sofarslen.Text = text;
 			}
+			lbl_sofarslen.Refresh();
+			lbl_sofarsol.Refresh();
 		}
 
 		private void tabGA_SelectedIndexChanged(object sender, EventArgs e){
@@ -317,7 +326,7 @@ namespace R04522602許泰源Ass10{
 
 				btnExeone.Enabled = btnEnd.Enabled = true;
 
-
+				SetGreedyRoute();
 				ACOSolver.SoFarTheBestSoluiton = (int[])SoFarTheBestSolution.Clone();
 				ACOSolver.SoFarTheBestObjective = TSPBenchmark.ComputeObjectiveValue(SoFarTheBestSolution);
 				ACOSolver.GreedyShortest = TSPBenchmark.ComputeObjectiveValue(SoFarTheBestSolution);
@@ -325,7 +334,7 @@ namespace R04522602許泰源Ass10{
 
 				Solver.Refresh();
 			}
-			else{
+			else if(tabHeur.SelectedTab == tabGA){
 				if(permSolver == null){
 					btnEnd.Enabled = btnExeone.Enabled = false;
 					return ;
