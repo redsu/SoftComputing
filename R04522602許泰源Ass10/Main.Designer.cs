@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
 			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
 			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -66,6 +67,7 @@
 			this.pBar = new System.Windows.Forms.ProgressBar();
 			this.openfile = new System.Windows.Forms.ToolStrip();
 			this.tsbtn_open = new System.Windows.Forms.ToolStripButton();
+			this.tip = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.sCouter1)).BeginInit();
 			this.sCouter1.Panel1.SuspendLayout();
 			this.sCouter1.Panel2.SuspendLayout();
@@ -234,6 +236,7 @@
 			this.tab_display.Controls.Add(this.tab_route);
 			this.tab_display.Controls.Add(this.tabPhenSol);
 			this.tab_display.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tab_display.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
 			this.tab_display.Location = new System.Drawing.Point(0, 0);
 			this.tab_display.Name = "tab_display";
 			this.tab_display.SelectedIndex = 0;
@@ -242,10 +245,11 @@
 			// 
 			// tab_route
 			// 
-			this.tab_route.Location = new System.Drawing.Point(4, 22);
+			this.tab_route.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.tab_route.Location = new System.Drawing.Point(4, 26);
 			this.tab_route.Name = "tab_route";
 			this.tab_route.Padding = new System.Windows.Forms.Padding(3);
-			this.tab_route.Size = new System.Drawing.Size(419, 212);
+			this.tab_route.Size = new System.Drawing.Size(419, 208);
 			this.tab_route.TabIndex = 0;
 			this.tab_route.Text = "Cities & Routes";
 			this.tab_route.UseVisualStyleBackColor = true;
@@ -254,10 +258,10 @@
 			// tabPhenSol
 			// 
 			this.tabPhenSol.Controls.Add(this.splitContainer5);
-			this.tabPhenSol.Location = new System.Drawing.Point(4, 22);
+			this.tabPhenSol.Location = new System.Drawing.Point(4, 26);
 			this.tabPhenSol.Name = "tabPhenSol";
 			this.tabPhenSol.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPhenSol.Size = new System.Drawing.Size(419, 212);
+			this.tabPhenSol.Size = new System.Drawing.Size(419, 208);
 			this.tabPhenSol.TabIndex = 1;
 			this.tabPhenSol.Text = "Pheromone & Solutions";
 			this.tabPhenSol.UseVisualStyleBackColor = true;
@@ -277,8 +281,8 @@
 			// 
 			this.splitContainer5.Panel2.Controls.Add(this.lsbSolutions);
 			this.splitContainer5.Panel2.Controls.Add(this.ckbShowSolutions);
-			this.splitContainer5.Size = new System.Drawing.Size(413, 206);
-			this.splitContainer5.SplitterDistance = 196;
+			this.splitContainer5.Size = new System.Drawing.Size(413, 202);
+			this.splitContainer5.SplitterDistance = 204;
 			this.splitContainer5.TabIndex = 1;
 			// 
 			// lsbPheromone
@@ -286,10 +290,10 @@
 			this.lsbPheromone.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.lsbPheromone.Location = new System.Drawing.Point(4, 36);
+			this.lsbPheromone.Location = new System.Drawing.Point(3, 36);
 			this.lsbPheromone.Name = "lsbPheromone";
 			this.lsbPheromone.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-			this.lsbPheromone.Size = new System.Drawing.Size(146, 131);
+			this.lsbPheromone.Size = new System.Drawing.Size(197, 160);
 			this.lsbPheromone.TabIndex = 2;
 			this.lsbPheromone.Text = "";
 			this.lsbPheromone.WordWrap = false;
@@ -297,9 +301,11 @@
 			// ckbShowPheromone
 			// 
 			this.ckbShowPheromone.AutoSize = true;
+			this.ckbShowPheromone.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+			this.ckbShowPheromone.ForeColor = System.Drawing.Color.DarkRed;
 			this.ckbShowPheromone.Location = new System.Drawing.Point(3, 8);
 			this.ckbShowPheromone.Name = "ckbShowPheromone";
-			this.ckbShowPheromone.Size = new System.Drawing.Size(106, 16);
+			this.ckbShowPheromone.Size = new System.Drawing.Size(136, 21);
 			this.ckbShowPheromone.TabIndex = 0;
 			this.ckbShowPheromone.Text = "Show Pehromone";
 			this.ckbShowPheromone.UseVisualStyleBackColor = true;
@@ -312,7 +318,7 @@
 			this.lsbSolutions.Location = new System.Drawing.Point(3, 36);
 			this.lsbSolutions.Name = "lsbSolutions";
 			this.lsbSolutions.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-			this.lsbSolutions.Size = new System.Drawing.Size(207, 164);
+			this.lsbSolutions.Size = new System.Drawing.Size(199, 160);
 			this.lsbSolutions.TabIndex = 3;
 			this.lsbSolutions.Text = "";
 			this.lsbSolutions.WordWrap = false;
@@ -320,9 +326,11 @@
 			// ckbShowSolutions
 			// 
 			this.ckbShowSolutions.AutoSize = true;
+			this.ckbShowSolutions.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+			this.ckbShowSolutions.ForeColor = System.Drawing.Color.DarkRed;
 			this.ckbShowSolutions.Location = new System.Drawing.Point(3, 8);
 			this.ckbShowSolutions.Name = "ckbShowSolutions";
-			this.ckbShowSolutions.Size = new System.Drawing.Size(96, 16);
+			this.ckbShowSolutions.Size = new System.Drawing.Size(124, 21);
 			this.ckbShowSolutions.TabIndex = 0;
 			this.ckbShowSolutions.Text = "Show Solutions";
 			this.ckbShowSolutions.UseVisualStyleBackColor = true;
@@ -379,19 +387,21 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabHeur.Controls.Add(this.tab_ACO);
 			this.tabHeur.Controls.Add(this.tabGA);
+			this.tabHeur.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
 			this.tabHeur.Location = new System.Drawing.Point(3, 3);
 			this.tabHeur.Name = "tabHeur";
 			this.tabHeur.SelectedIndex = 0;
 			this.tabHeur.Size = new System.Drawing.Size(435, 76);
 			this.tabHeur.TabIndex = 1;
+			this.tabHeur.SelectedIndexChanged += new System.EventHandler(this.tabHeur_SelectedIndexChanged);
 			// 
 			// tab_ACO
 			// 
 			this.tab_ACO.Controls.Add(this.btn_createACO);
-			this.tab_ACO.Location = new System.Drawing.Point(4, 22);
+			this.tab_ACO.Location = new System.Drawing.Point(4, 26);
 			this.tab_ACO.Name = "tab_ACO";
 			this.tab_ACO.Padding = new System.Windows.Forms.Padding(3);
-			this.tab_ACO.Size = new System.Drawing.Size(427, 50);
+			this.tab_ACO.Size = new System.Drawing.Size(427, 46);
 			this.tab_ACO.TabIndex = 0;
 			this.tab_ACO.Text = "ACO Algorithm";
 			this.tab_ACO.UseVisualStyleBackColor = true;
@@ -585,7 +595,6 @@
 		private System.Windows.Forms.SplitContainer sCouter2;
 		private System.Windows.Forms.SplitContainer sCouter3;
 		private System.Windows.Forms.DataVisualization.Charting.Chart chart;
-		private System.Windows.Forms.TabControl tab_display;
 		private System.Windows.Forms.TabPage tab_route;
 		private System.Windows.Forms.TabPage tabPhenSol;
 		private System.Windows.Forms.SplitContainer splitContainer5;
@@ -609,6 +618,8 @@
 		private System.Windows.Forms.ProgressBar pBar;
 		private System.Windows.Forms.Button btn_createGA;
 		private System.Windows.Forms.CheckBox updateperiteration;
+		private System.Windows.Forms.ToolTip tip;
+		private System.Windows.Forms.TabControl tab_display;
 
 	}
 }

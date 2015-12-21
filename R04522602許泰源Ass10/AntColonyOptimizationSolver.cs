@@ -150,6 +150,33 @@ namespace R04522602許泰源Ass10{
 			set { soFarTheBestSoluiton = value; }
         }
 
+		/// <summary>
+        ///  Pheromone table
+        /// </summary>
+
+		[Browsable(false)]
+        public double[,] Pheromone{
+            get { return pheromone; }
+		}
+
+		/// <summary>
+        ///  Solution table
+        /// </summary>
+
+		[Browsable(false)]
+        public int[][] Solutions{
+            get { return solutions; }
+		}
+
+		/// <summary>
+        ///  Solution table
+        /// </summary>
+
+		[Browsable(false)]
+        public int NumberOfAnts{
+            get { return numberOfAnts; }
+		}
+
         /// <summary>
         ///  Pheromone value set in the very begining
         /// </summary>
@@ -207,7 +234,7 @@ namespace R04522602許泰源Ass10{
         /// <param name="numGrps"> the number of groups involved for grouping problems </param>
         public AntColonyOptimizationSolver(int numVars, OptimizationType optType, ObjectiveFunction objFunction, HeuristicFunction heuristicFunction,
             bool isSquare = true, int numGrps = 1){
-            getObjectiveValue = objFunction;
+            getObjectiveValue = GetObjVal;
             getHeuristicValue = heuristicFunction;
             optimizationType = optType;
             squarePheromone = isSquare;
@@ -403,23 +430,26 @@ namespace R04522602許泰源Ass10{
             bool isDeterministic = false;
             int start, next;
 			double P_x;
-			
-            if (deterministricPercentage == 1.0) isDeterministic = true;
-            else if (deterministricPercentage == 0.0) isDeterministic = false;
-            else
-                if (randomizer.NextDouble() <= deterministricPercentage) isDeterministic = true;
-                else isDeterministic = false;
+			double B;
             double mindis;
-
+			deterministricPercentage /= 100.0;
             // Loop through each ant to construt each solution
             for (int i = 0; i < numberOfAnts; i++){
+
+				//deterministricPercentage is a threshold to determine the method applying on edge selection.
+				if (deterministricPercentage == 1.0) isDeterministic = true;
+				else if (deterministricPercentage == 0.0) isDeterministic = false;
+				else
+					if (randomizer.NextDouble() <= deterministricPercentage) isDeterministic = true;
+					else isDeterministic = false;
+
                 // Prepare candidate set, using indicesOfVariables array.
 				for(int j=0; j<numberOfVariables; j++)
 					indicesOfVariables[j] = solutions[i][j] = -1;				
 
 				start = randomizer.Next(numberOfVariables);
 				indicesOfVariables[start] = solutions[i][0] = start;
-				double B = TSPBenchmark.MinimalTourDistance / TSPBenchmark.NumberOfCities;
+				B = TSPBenchmark.MinimalTourDistance / TSPBenchmark.NumberOfCities;
 				if (TSPBenchmark.HasOptimalObjective)  B = TSPBenchmark.MinimalTourDistance / TSPBenchmark.NumberOfCities;
 				else B = TSPBenchmark.AverageDistance / 5.0;
 
@@ -499,7 +529,8 @@ namespace R04522602許泰源Ass10{
 							}
                     }
                 }
-				
+
+				//Do K-Opt when set.
 				if(k_Optimization == K_Optimization_Type.Two_Opt){
 					int first, second, tmp;
 					double tObjective = getObjectiveValue(solutions[i]);
@@ -539,8 +570,17 @@ namespace R04522602許泰源Ass10{
                 executeOneIteration();
             } while (!terminationConditionMet());
         }
-    }
 
+		public double GetObjVal(int[] solution){
+			int len = solution.Length;
+			double Obj = TSPBenchmark.FromToDistanceMatrix[solution[len-1], solution[0]];
+			for(int i=0; i<len-1; i++)
+				Obj += TSPBenchmark.FromToDistanceMatrix[solution[i], solution[i+1]];
+			return Obj;
+		}
+    }
+	
+	
 
     public delegate double ObjectiveFunction(int[] aSolution);
     public delegate double HeuristicFunction(int first, int second);

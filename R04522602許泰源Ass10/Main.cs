@@ -31,6 +31,7 @@ namespace R04522602許泰源Ass10{
 			btnExeone.Enabled = false;
 			btnEnd.Enabled = false;
 			btn_createACO.Enabled = false;
+			btn_createGA.Enabled = false;
 			loaded = false;
 
 			//Setup the dfault value of combobox
@@ -50,6 +51,7 @@ namespace R04522602許泰源Ass10{
 			reset_chart();
 		}
 
+		//Find a solution by Greedy Algorithm.
 		private void SetGreedyRoute(){
             int noc = TSPBenchmark.NumberOfCities;
 			int k = randomizer.Next(noc);
@@ -90,6 +92,7 @@ namespace R04522602許泰源Ass10{
 			SoFarTheBestObjective = greedylength;
         }
 
+		//Import the data
 		private void import_btn_Click(object sender, EventArgs e){
 			int i = TSPBenchmark.ImportATSPFile(true, true);
             lsbSolutions.Clear();
@@ -116,13 +119,14 @@ namespace R04522602許泰源Ass10{
 			ACOSolver = null;
 			btnReset.Enabled = btnExeone.Enabled = btnEnd.Enabled = false;
 			btn_createACO.Enabled = true;
+			btn_createGA.Enabled = true;
 			loaded = true;
 		}
-		
+
+		//Update and redraw the best solution
 		private void Draw_Route_and_Vertex(object sender, PaintEventArgs e){
 			if (SoFarTheBestSolution != null && TSPBenchmark.BenchmarkIsReady )
                 TSPBenchmark.DrawCitiesOptimalRouteAndARoute(e.Graphics, e.ClipRectangle.Width, e.ClipRectangle.Height, SoFarTheBestSolution);
-			
         }
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
@@ -135,13 +139,13 @@ namespace R04522602許泰源Ass10{
         }
 
 		private void import_btn_MouseHover(object sender, EventArgs e){
-			///tip.ToolTipTitle = "操作提示";
-			///tip.SetToolTip(import_btn,"點擊 \"Import File\" 按鈕匯入檔案");
-			///tip.ToolTipIcon = ToolTipIcon.Info;
+			tip.ToolTipTitle = "操作提示";
+			tip.SetToolTip(openfile,"點擊 \"OpenFile\" 按鈕匯入檔案");
+			tip.ToolTipIcon = ToolTipIcon.Info;
 		}
 
 		private void btnExeone_Click(object sender, EventArgs e){
-			//Run one time of GA
+			//Run one time of GA or ACO
 			if(tabHeur.SelectedTab == tab_ACO){
 				if(ACOSolver!=null){
 					ACOSolver.executeOneIteration();					
@@ -151,6 +155,27 @@ namespace R04522602許泰源Ass10{
 					SoFarTheBestSolution = ACOSolver.SoFarTheBestSoluiton;
 					updateBestInformation();
 					sCouter3.Panel2.Refresh();
+				}
+				if(ckbShowPheromone.Checked){
+					string text = "";
+					double[,] table_phe = ACOSolver.Pheromone;
+					for(int i=0; i<TSPBenchmark.NumberOfCities; i++){
+						for(int j=0; j<TSPBenchmark.NumberOfCities; j++)
+							text += Math.Round((table_phe[i,j]),5).ToString("f5") + " ";
+						text += "\n";
+					}
+					lsbPheromone.Text = text;
+				}
+				if(ckbShowSolutions.Checked){
+					string text = "";
+					int[][] table_phe = ACOSolver.Solutions;
+					for(int i=0; i<ACOSolver.NumberOfAnts; i++){
+						text += "Solution " + (i+1).ToString("0000") + " : ";
+						for(int j=0; j<TSPBenchmark.NumberOfCities; j++)
+							text += table_phe[i][j].ToString()+" ";
+						text += "\n";
+					}
+					lsbSolutions.Text = text;
 				}
 			}
 			else if(tabHeur.SelectedTab == tabGA){
@@ -168,7 +193,7 @@ namespace R04522602許泰源Ass10{
 		}
 		
 		private void btnEnd_Click(object sender, EventArgs e){
-			//Run preset times of GA
+			//Run preset times of GA or ACO
 			if(tabHeur.SelectedTab == tab_ACO){
 				if(ACOSolver!=null){
 					pBar.Minimum = 0;
@@ -252,7 +277,7 @@ namespace R04522602許泰源Ass10{
 			lbl_sofarsol.Refresh();
 		}
 
-		private void tabGA_SelectedIndexChanged(object sender, EventArgs e){
+		private void tabHeur_SelectedIndexChanged(object sender, EventArgs e){
 			//reset chart and handle the event when tabpage changed
 			reset_chart();
 			if(tabHeur.SelectedTab == tabGA){
@@ -267,10 +292,23 @@ namespace R04522602許泰源Ass10{
 					btnEnd.Enabled = true;
 				}
 				Solver.SelectedObject = permSolver;
+				Solver.Refresh();
 			}
-		}
-
-		
+			else if(tabHeur.SelectedTab == tab_ACO){
+				if(permSolver == null){
+					btnReset.Enabled = false;
+					btnExeone.Enabled = false;
+					btnEnd.Enabled = false;
+				}
+				else{
+					btnReset.Enabled = true;
+					btnExeone.Enabled = true;
+					btnEnd.Enabled = true;
+				}
+				Solver.SelectedObject = ACOSolver;
+				Solver.Refresh();
+			}
+		}		
 
 		private void reset_chart(){
 			//Reset Chart
@@ -302,6 +340,7 @@ namespace R04522602許泰源Ass10{
 			ACOSolver.SoFarTheBestObjective = TSPBenchmark.ComputeObjectiveValue(SoFarTheBestSolution);			
 		}
 
+		//Heuristic function use to build Heuristic table but unused in this version because of low efficiency
 		public double DistanceInverseHeuristic(int i, int j){
             double B = TSPBenchmark.MinimalTourDistance / TSPBenchmark.NumberOfCities;
             if (TSPBenchmark.HasOptimalObjective)  B = TSPBenchmark.MinimalTourDistance / TSPBenchmark.NumberOfCities;
@@ -312,6 +351,7 @@ namespace R04522602許泰源Ass10{
 			return mindis < 0.000001 ? 0.0 : B / mindis + 0.0000001;
         }
 
+		//Reset
 		private void btnReset_Click(object sender, EventArgs e){
 			if(tabHeur.SelectedTab == tab_ACO){
 				ACOSolver.reset();
