@@ -18,17 +18,21 @@ namespace R04522602許泰源Ass11{
 		double[][] solutions;
 		double[] objectiveValues;
 
+		double[] gradientVetor;
+
 		double soFarTheBestObjective = 0.0;
 		double goal = 0.0;
 		double c1 = 1.0, c2 = 1.0;
+		double iterationBest;
+		double iterationAverage;
 
 		OptimizationType optimizationType = OptimizationType.Min;
 		LearningType learningType = LearningType.Random;
 
-		int iteration_count = 0;
 		int iteration_limit = 100;
 		int numberOfVariables = 0;
 		int numberOfParticles = 20;
+		int iteration_count = 0;
 
 		#region PropertiesRegion
 			[Category("PSO Setting"), Description("")]
@@ -92,6 +96,21 @@ namespace R04522602許泰源Ass11{
 			public double[] SoFarTheBestSolution{
 				get {return soFarTheBestSolution; }
 			}
+
+			[Browsable(false)]
+			public int Iteration_count{
+				get {return iteration_count; }
+			}
+
+			[Browsable(false)]
+			public double IterationAverage{
+				get {return iterationAverage; }
+			}
+
+			[Browsable(false)]
+			public double IterationBest{
+				get {return iterationBest; }
+			}
 		#endregion
 		
 //		public PSOSolver(int dim, ObjectiveFunctionDelegate ObjFunc, double[] upper, double[] lower, OptimizationType opt_type){
@@ -104,11 +123,12 @@ namespace R04522602許泰源Ass11{
 			optimizationType = opt_type;
 
 			soFarTheBestSolution = new double[numberOfVariables];
+			iteration_count = 0;
 		}
 
 		public void Reset(){
 			int i;
-
+			iteration_count = 0;
 			individualBestSolution = new double[numberOfParticles][];
 			solutions = new double[numberOfParticles][];
 
@@ -119,9 +139,9 @@ namespace R04522602許泰源Ass11{
 
 			objectiveValues = new double[numberOfParticles];
 			individualBestValues = new double[numberOfParticles];
+			gradientVetor = new double[numberOfVariables];
 
 			Initialization();
-			iteration_count = 0;
 		}
 
 		private void Initialization(){
@@ -174,6 +194,14 @@ namespace R04522602許泰源Ass11{
 			double alpha = 1.0, beta = 1.0; //cognition and social learning factors
 			double normalization = 1.0;
 			double tempObj = 0.0;			
+			if(optimizationType == OptimizationType.Min){
+				iterationBest = double.MaxValue;
+			}
+			else{
+				iterationBest = double.MinValue;
+			}
+
+			iterationAverage = 0.0;
 
 			for(i=0; i<numberOfParticles; i++){
 				switch(learningType){
@@ -195,14 +223,20 @@ namespace R04522602許泰源Ass11{
 							alpha = randomizer.NextDouble() * c1;
 							beta  = randomizer.NextDouble() * c2;
 						}
+						break;
 
+					case LearningType.Gradient:
+						gradientVetor = Gradient(solutions[i]);
+						for(j=0; j<numberOfVariables; j++)
+							solutions[i][j] += gradientVetor[j];
 						break;
 				}
-				for(j=0; j<numberOfVariables; j++){
-					solutions[i][j] += alpha * (individualBestSolution[i][j] - solutions[i][j]) + beta * (soFarTheBestSolution[j] - solutions[i][j]);
-					/*if(j>=2)
-						solutions[i][j] = 0;*/
-				}
+				if(learningType!=LearningType.Gradient)
+					for(j=0; j<numberOfVariables; j++){
+						solutions[i][j] += alpha * (individualBestSolution[i][j] - solutions[i][j]) + beta * (soFarTheBestSolution[j] - solutions[i][j]);
+						/*if(j>=2)
+							solutions[i][j] = 0;*/
+					}
 				//Update Best Solution
 				tempObj = objectiveValues[i] = GetObjectiveValue(solutions[i]);
 				if(tempObj == soFarTheBestObjective){
@@ -210,7 +244,8 @@ namespace R04522602許泰源Ass11{
 					double[] tempsolution = new double[numberOfVariables];
 					double gv_factor = randomizer.NextDouble();
 					gradient_vector = COP_Problem.GetGradientVector(solutions[i]);
-					if(gradient_vector!=null){
+					
+					if(COP_Problem.GradientComputationCode != ""){
 						for(j=0; j<numberOfVariables; j++)
 							tempsolution[j] = solutions[i][j] - gradient_vector[j] * gv_factor;
 					
@@ -224,9 +259,19 @@ namespace R04522602許泰源Ass11{
 							}
 						}
 					}
+					else{
+						gradientVetor = Gradient(solutions[i]);
+						for(j=0; j<numberOfVariables; j++)
+							solutions[i][j] += gradientVetor[j];
+					}
 				}
 				switch(optimizationType){
 					case OptimizationType.Min:
+						if(tempObj < iterationBest)
+							iterationBest = tempObj;
+						
+						iterationAverage += tempObj;
+	
 						if(tempObj < individualBestValues[i]){
 							individualBestValues[i] = tempObj;
 							for(j=0; j<numberOfVariables; j++)
@@ -266,20 +311,56 @@ namespace R04522602許泰源Ass11{
 						break;
 				}
 			}
-        }
-
-        public void UpdateTheBestPositions(){
-            // Evaluate objectives; find iteration best, update individual best
-
-            // Check if so far the best can be updated
-			;
+			iterationAverage /= (double)numberOfParticles;
         }
 
 		public void RunOneIteration(){
 			MoveParticlesToNewPositions_AND_UpdateTheBestPositions();
+			iteration_count ++;
+		}
+
+		public double[] Gradient(double[] solution){
+			double[] Grad = new double[numberOfVariables];
+			double dx = 1.0, df = 100.0, fv1 = 0.0, fv2 = 0.0, fv0 = 0.0;
+			int i;
+			bool found;
+			for(i=0; i<numberOfVariables; i++){
+				df = 5.0;
+				found = false;			
+				fv1 = fv2 = double.MaxValue;
+				Grad[i] = 0.0;
+				fv0 = GetObjectiveValue(solution);
+				do{
+					dx = (upperbound[i]-lowerbound[i])/df;
+					solution[i] += dx;
+					if(solution[i]<=upperbound[i])
+						fv1 = GetObjectiveValue(solution);
+					solution[i] -= dx*2;
+					if(solution[i]>=lowerbound[i])
+						fv2 = GetObjectiveValue(solution);
+					solution[i] += dx;
+					
+					if(fv1 < (fv0<fv2?fv0:fv2)){
+						Grad[i] = dx;
+						found = true;
+					}
+					else if(fv2 < (fv0<fv1?fv0:fv1)){
+						Grad[i] = -dx;
+						found = true;
+					}
+					else{
+						Grad[i] = 0.0;
+						df *= 10.0;
+					}
+
+					if(dx < 0.000001)
+						found = true;
+				}while(!found);
+			}
+			return Grad;
 		}
 	}
 
 	public delegate double ObjectiveFunctionDelegate(double[] aSolution);
-	public enum LearningType { Random, Heuristic};
+	public enum LearningType { Random, Heuristic, Gradient};
 }

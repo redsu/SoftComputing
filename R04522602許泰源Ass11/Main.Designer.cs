@@ -30,16 +30,21 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.sCouter1 = new System.Windows.Forms.SplitContainer();
 			this.sCouter2 = new System.Windows.Forms.SplitContainer();
+			this.chartController = new Steema.TeeChart.ChartController();
+			this.tChart = new Steema.TeeChart.TChart();
 			this.sCouter4 = new System.Windows.Forms.SplitContainer();
 			this.lbl_sofarsol = new System.Windows.Forms.Label();
 			this.lbl_sofarobj = new System.Windows.Forms.Label();
 			this.tabHeur = new System.Windows.Forms.TabControl();
 			this.tab_ACO = new System.Windows.Forms.TabPage();
 			this.btn_createPSO = new System.Windows.Forms.Button();
-			this.tabGA = new System.Windows.Forms.TabPage();
-			this.btn_createGA = new System.Windows.Forms.Button();
 			this.updateperiteration = new System.Windows.Forms.CheckBox();
 			this.Solver = new System.Windows.Forms.PropertyGrid();
 			this.btnEnd = new System.Windows.Forms.Button();
@@ -49,8 +54,8 @@
 			this.openfile = new System.Windows.Forms.ToolStrip();
 			this.tsbtn_open = new System.Windows.Forms.ToolStripButton();
 			this.tip = new System.Windows.Forms.ToolTip(this.components);
-			this.tChart = new Steema.TeeChart.TChart();
-			this.chartController = new Steema.TeeChart.ChartController();
+			this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+			this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			((System.ComponentModel.ISupportInitialize)(this.sCouter1)).BeginInit();
 			this.sCouter1.Panel2.SuspendLayout();
 			this.sCouter1.SuspendLayout();
@@ -64,8 +69,9 @@
 			this.sCouter4.SuspendLayout();
 			this.tabHeur.SuspendLayout();
 			this.tab_ACO.SuspendLayout();
-			this.tabGA.SuspendLayout();
 			this.openfile.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// sCouter1
@@ -83,7 +89,7 @@
 			// sCouter1.Panel2
 			// 
 			this.sCouter1.Panel2.Controls.Add(this.sCouter2);
-			this.sCouter1.Size = new System.Drawing.Size(1089, 453);
+			this.sCouter1.Size = new System.Drawing.Size(1089, 567);
 			this.sCouter1.SplitterDistance = 313;
 			this.sCouter1.TabIndex = 0;
 			// 
@@ -96,15 +102,56 @@
 			// sCouter2.Panel1
 			// 
 			this.sCouter2.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.sCouter2.Panel1.Controls.Add(this.chart);
 			this.sCouter2.Panel1.Controls.Add(this.chartController);
 			this.sCouter2.Panel1.Controls.Add(this.tChart);
 			// 
 			// sCouter2.Panel2
 			// 
 			this.sCouter2.Panel2.Controls.Add(this.sCouter4);
-			this.sCouter2.Size = new System.Drawing.Size(772, 453);
+			this.sCouter2.Size = new System.Drawing.Size(772, 567);
 			this.sCouter2.SplitterDistance = 378;
 			this.sCouter2.TabIndex = 0;
+			// 
+			// chartController
+			// 
+			this.chartController.ButtonSize = Steema.TeeChart.ControllerButtonSize.x16;
+			this.chartController.Chart = this.tChart;
+			this.chartController.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.chartController.LabelValues = true;
+			this.chartController.Location = new System.Drawing.Point(0, 542);
+			this.chartController.Name = "chartController";
+			this.chartController.Size = new System.Drawing.Size(378, 25);
+			this.chartController.TabIndex = 1;
+			this.chartController.Text = "chartController1";
+			// 
+			// tChart
+			// 
+			this.tChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			// 
+			// 
+			// 
+			this.tChart.Aspect.ZOffset = 0D;
+			this.tChart.BackColor = System.Drawing.SystemColors.ControlLight;
+			// 
+			// 
+			// 
+			this.tChart.Header.Lines = new string[] {
+        "Surface"};
+			this.tChart.Location = new System.Drawing.Point(0, 268);
+			this.tChart.Name = "tChart";
+			// 
+			// 
+			// 
+			// 
+			// 
+			// 
+			this.tChart.Panel.Brush.Color = System.Drawing.SystemColors.ControlLight;
+			this.tChart.Size = new System.Drawing.Size(378, 271);
+			this.tChart.TabIndex = 0;
+			this.tChart.Click += new System.EventHandler(this.tChart1_Click);
 			// 
 			// sCouter4
 			// 
@@ -128,8 +175,8 @@
 			this.sCouter4.Panel2.Controls.Add(this.btnEnd);
 			this.sCouter4.Panel2.Controls.Add(this.btnExeone);
 			this.sCouter4.Panel2.Controls.Add(this.btnReset);
-			this.sCouter4.Size = new System.Drawing.Size(390, 453);
-			this.sCouter4.SplitterDistance = 186;
+			this.sCouter4.Size = new System.Drawing.Size(390, 567);
+			this.sCouter4.SplitterDistance = 232;
 			this.sCouter4.TabIndex = 0;
 			// 
 			// lbl_sofarsol
@@ -157,14 +204,12 @@
 			this.tabHeur.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabHeur.Controls.Add(this.tab_ACO);
-			this.tabHeur.Controls.Add(this.tabGA);
 			this.tabHeur.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
 			this.tabHeur.Location = new System.Drawing.Point(3, 3);
 			this.tabHeur.Name = "tabHeur";
 			this.tabHeur.SelectedIndex = 0;
 			this.tabHeur.Size = new System.Drawing.Size(384, 76);
 			this.tabHeur.TabIndex = 1;
-			this.tabHeur.SelectedIndexChanged += new System.EventHandler(this.tabHeur_SelectedIndexChanged);
 			// 
 			// tab_ACO
 			// 
@@ -174,7 +219,7 @@
 			this.tab_ACO.Padding = new System.Windows.Forms.Padding(3);
 			this.tab_ACO.Size = new System.Drawing.Size(376, 46);
 			this.tab_ACO.TabIndex = 0;
-			this.tab_ACO.Text = "ACO Algorithm";
+			this.tab_ACO.Text = "PSO Algorithm";
 			this.tab_ACO.UseVisualStyleBackColor = true;
 			// 
 			// btn_createPSO
@@ -190,31 +235,6 @@
 			this.btn_createPSO.Text = "Create PSO Solver";
 			this.btn_createPSO.UseVisualStyleBackColor = false;
 			this.btn_createPSO.Click += new System.EventHandler(this.btn_createPSO_Click);
-			// 
-			// tabGA
-			// 
-			this.tabGA.Controls.Add(this.btn_createGA);
-			this.tabGA.Location = new System.Drawing.Point(4, 26);
-			this.tabGA.Name = "tabGA";
-			this.tabGA.Padding = new System.Windows.Forms.Padding(3);
-			this.tabGA.Size = new System.Drawing.Size(376, 46);
-			this.tabGA.TabIndex = 1;
-			this.tabGA.Text = "Genetic Algorithm";
-			this.tabGA.UseVisualStyleBackColor = true;
-			// 
-			// btn_createGA
-			// 
-			this.btn_createGA.BackColor = System.Drawing.SystemColors.InactiveCaption;
-			this.btn_createGA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btn_createGA.Font = new System.Drawing.Font("Microsoft JhengHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-			this.btn_createGA.ForeColor = System.Drawing.Color.DarkBlue;
-			this.btn_createGA.Location = new System.Drawing.Point(6, 6);
-			this.btn_createGA.Name = "btn_createGA";
-			this.btn_createGA.Size = new System.Drawing.Size(149, 35);
-			this.btn_createGA.TabIndex = 2;
-			this.btn_createGA.Text = "Create GA Solver";
-			this.btn_createGA.UseVisualStyleBackColor = false;
-			this.btn_createGA.Click += new System.EventHandler(this.btn_createGA_Click);
 			// 
 			// updateperiteration
 			// 
@@ -235,7 +255,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Solver.Location = new System.Drawing.Point(175, 3);
 			this.Solver.Name = "Solver";
-			this.Solver.Size = new System.Drawing.Size(214, 267);
+			this.Solver.Size = new System.Drawing.Size(214, 335);
 			this.Solver.TabIndex = 6;
 			// 
 			// btnEnd
@@ -284,7 +304,7 @@
 			// 
 			this.pBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.pBar.Location = new System.Drawing.Point(0, 487);
+			this.pBar.Location = new System.Drawing.Point(0, 601);
 			this.pBar.Name = "pBar";
 			this.pBar.Size = new System.Drawing.Size(1089, 23);
 			this.pBar.TabIndex = 6;
@@ -308,39 +328,41 @@
 			this.tsbtn_open.Text = "OpenFile";
 			this.tsbtn_open.Click += new System.EventHandler(this.import_btn_Click);
 			// 
-			// tChart
+			// chart
 			// 
-			this.tChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			// 
-			// 
-			// 
-			this.tChart.Aspect.ZOffset = 0D;
-			this.tChart.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.tChart.Location = new System.Drawing.Point(0, 29);
-			this.tChart.Name = "tChart";
-			this.tChart.Size = new System.Drawing.Size(378, 425);
-			this.tChart.TabIndex = 0;
-			this.tChart.Click += new System.EventHandler(this.tChart1_Click);
-			// 
-			// chartController
-			// 
-			this.chartController.ButtonSize = Steema.TeeChart.ControllerButtonSize.x16;
-			this.chartController.Chart = this.tChart;
-			this.chartController.LabelValues = true;
-			this.chartController.Location = new System.Drawing.Point(0, 0);
-			this.chartController.Name = "chartController";
-			this.chartController.Size = new System.Drawing.Size(378, 25);
-			this.chartController.TabIndex = 1;
-			this.chartController.Text = "chartController1";
+			chartArea2.Name = "ChartArea1";
+			this.chart.ChartAreas.Add(chartArea2);
+			legend2.Name = "Legend1";
+			this.chart.Legends.Add(legend2);
+			this.chart.Location = new System.Drawing.Point(0, 0);
+			this.chart.Name = "chart";
+			series4.ChartArea = "ChartArea1";
+			series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series4.Legend = "Legend1";
+			series4.Name = "SoFarTheBest";
+			series5.ChartArea = "ChartArea1";
+			series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series5.Legend = "Legend1";
+			series5.Name = "IterationAverage";
+			series6.ChartArea = "ChartArea1";
+			series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			series6.Legend = "Legend1";
+			series6.Name = "IterationBest";
+			this.chart.Series.Add(series4);
+			this.chart.Series.Add(series5);
+			this.chart.Series.Add(series6);
+			this.chart.Size = new System.Drawing.Size(378, 277);
+			this.chart.TabIndex = 2;
+			this.chart.Text = "OptimizationCurve";
 			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.LightBlue;
-			this.ClientSize = new System.Drawing.Size(1089, 507);
+			this.ClientSize = new System.Drawing.Size(1089, 621);
 			this.Controls.Add(this.pBar);
 			this.Controls.Add(this.openfile);
 			this.Controls.Add(this.sCouter1);
@@ -362,9 +384,10 @@
 			this.sCouter4.ResumeLayout(false);
 			this.tabHeur.ResumeLayout(false);
 			this.tab_ACO.ResumeLayout(false);
-			this.tabGA.ResumeLayout(false);
 			this.openfile.ResumeLayout(false);
 			this.openfile.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -380,19 +403,19 @@
 		private System.Windows.Forms.TabControl tabHeur;
 		private System.Windows.Forms.TabPage tab_ACO;
 		private System.Windows.Forms.Button btn_createPSO;
-		private System.Windows.Forms.TabPage tabGA;
 		private System.Windows.Forms.PropertyGrid Solver;
 		private System.Windows.Forms.Button btnEnd;
 		private System.Windows.Forms.Button btnExeone;
 		private System.Windows.Forms.Button btnReset;
 		private System.Windows.Forms.ToolStripButton tsbtn_open;
 		private System.Windows.Forms.ProgressBar pBar;
-		private System.Windows.Forms.Button btn_createGA;
 		private System.Windows.Forms.CheckBox updateperiteration;
 		private System.Windows.Forms.ToolTip tip;
 		private System.Windows.Forms.Label lbl_sofarsol;
 		private Steema.TeeChart.TChart tChart;
 		private Steema.TeeChart.ChartController chartController;
+		private System.Windows.Forms.BindingSource bindingSource1;
+		private System.Windows.Forms.DataVisualization.Charting.Chart chart;
 
 	}
 }
