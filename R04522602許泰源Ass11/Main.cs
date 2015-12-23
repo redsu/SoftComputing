@@ -53,12 +53,10 @@ namespace R04522602許泰源Ass11{
 			points.Title  = "SoFarSolutionParticles";
 		}
 
-		//Find a solution by Greedy Algorithm.
-		
-
 		//Import the data
 		private void import_btn_Click(object sender, EventArgs e){
 			COP_Problem = COPBenchmark.LoadAProblemFromAFile();
+			
 			if(COP_Problem != null){
 				COP_Problem.DisplayOnPanel(sCouter1.Panel1);
 				double[] variables = new double[COP_Problem.Dimension];
@@ -69,13 +67,13 @@ namespace R04522602許泰源Ass11{
 				btnReset.Enabled = btnExeone.Enabled = btnEnd.Enabled = false;
 				btn_createPSO.Enabled = true;
 				tChart.Series.Clear();
-				tChart.Series.Add(surface);
-				tChart.Series.Add(points);
+				surface.Clear();
+				points.Clear();
 				for(int i=0; i<COP_Problem.Dimension; i++)
 					variables[i] = 0;
 
-				for(double i=COP_Problem.LowerBound[0]; i<COP_Problem.UpperBound[0]; i+=(COP_Problem.UpperBound[0]-COP_Problem.LowerBound[0])/100){
-					for(double j=COP_Problem.LowerBound[1]; j<COP_Problem.UpperBound[1]; j+=(COP_Problem.UpperBound[1]-COP_Problem.LowerBound[1])/100){
+				for(double i=COP_Problem.LowerBound[0]; i<COP_Problem.UpperBound[0]; i+=(COP_Problem.UpperBound[0]-COP_Problem.LowerBound[0])/500){
+					for(double j=COP_Problem.LowerBound[1]; j<COP_Problem.UpperBound[1]; j+=(COP_Problem.UpperBound[1]-COP_Problem.LowerBound[1])/500){
 					
 						for(int k=0; k<COP_Problem.Dimension; k++)
 							variables[k] = (COP_Problem.UpperBound[0]-COP_Problem.LowerBound[0])/100*(k-COP_Problem.Dimension/2);
@@ -85,6 +83,14 @@ namespace R04522602許泰源Ass11{
 						surface.Add(variables[0], COP_Problem.GetObjectiveValue(variables), variables[1]);
 					}
 				}
+				tChart.Series.Add(surface);
+				tChart.Series.Add(points);
+
+				tChart.Axes.Bottom.Maximum = COP_Problem.UpperBound[0];
+				tChart.Axes.Bottom.Minimum = COP_Problem.LowerBound[0];
+				tChart.Axes.Depth.Maximum = COP_Problem.UpperBound[0];
+				tChart.Axes.Depth.Minimum = COP_Problem.LowerBound[0];
+				reset_chart();
 			}
 		}
 
@@ -116,7 +122,10 @@ namespace R04522602許泰源Ass11{
 		
 		private void btnEnd_Click(object sender, EventArgs e){
 			int i, j;
-			
+			pBar.Minimum = 0;
+			pBar.Maximum = PSO_Solver.Iteration_Limit;
+			pBar.Value = 0;
+
 			for(i=0; i<PSO_Solver.Iteration_Limit; i++){
 				PSO_Solver.RunOneIteration();
 				updateBestInformation();
@@ -126,7 +135,10 @@ namespace R04522602許泰源Ass11{
 					for(j=0; j<PSO_Solver.NumberOfParticles; j++)
 						points.Add(PSO_Solver.Solutions[j][0], PSO_Solver.ObjectiveValues[j], PSO_Solver.Solutions[j][1]);
 					sCouter2.Panel1.Refresh();
+					lbl_sofarsol.Refresh();
+					lbl_sofarobj.Refresh();
 				}
+				pBar.Value = i+1;
 			}
 			points.Clear();
 			for(i=0; i<PSO_Solver.NumberOfParticles; i++)
@@ -136,7 +148,6 @@ namespace R04522602許泰源Ass11{
 		}
 		private void updateBestInformation(){
 			int i;
-			double obj = 0.0;
 			string text = "So Far The Best Objective : ";
 			text += PSO_Solver.SoFarTheBestObjective.ToString("F5");
 			lbl_sofarobj.Text = text;
@@ -164,8 +175,7 @@ namespace R04522602許泰源Ass11{
 			btnExeone.Enabled = true;
 			btnEnd.Enabled = true;
 			points.Clear();
-			for(i=0; i<chart.Series.Count; i++)
-				chart.Series[i].Points.Clear();
+			reset_chart();
 			for(i=0; i<PSO_Solver.NumberOfParticles; i++)
 				points.Add(PSO_Solver.Solutions[i][0], COP_Problem.GetObjectiveValue(PSO_Solver.Solutions[i]) ,PSO_Solver.Solutions[i][1]);
 			
@@ -176,8 +186,10 @@ namespace R04522602許泰源Ass11{
 			lbl_sofarsol.Text = text;
 		}
 
-		private void btn_createGA_Click(object sender, EventArgs e){
-
+		private void reset_chart(){
+			int i;
+			for(i=0; i<chart.Series.Count; i++)
+				chart.Series[i].Points.Clear();
 		}
 
 		private void tChart1_Click(object sender, EventArgs e){

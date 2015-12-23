@@ -18,7 +18,7 @@ namespace R04522602許泰源Ass11{
 		double[][] solutions;
 		double[] objectiveValues;
 
-		double[] gradientVetor;
+		double[] gradient_vector;
 
 		double soFarTheBestObjective = 0.0;
 		double goal = 0.0;
@@ -74,7 +74,12 @@ namespace R04522602許泰源Ass11{
 			[Category("PSO Setting"), Description("")]
 			public LearningType Learning_Type{
 				get { return learningType; }
-				set { learningType = value; }
+				set { 
+					if(value == LearningType.Gradient && (optimizationType == OptimizationType.Max || optimizationType == OptimizationType.Goal))
+						learningType = learningType;
+					else
+						learningType = value;
+				}
 			}
 
 			[Browsable(false)]
@@ -113,7 +118,6 @@ namespace R04522602許泰源Ass11{
 			}
 		#endregion
 		
-//		public PSOSolver(int dim, ObjectiveFunctionDelegate ObjFunc, double[] upper, double[] lower, OptimizationType opt_type){
 		public PSOSolver(COPBenchmark COP_Problem, OptimizationType opt_type){
 			this.COP_Problem = COP_Problem;
 			numberOfVariables = COP_Problem.Dimension;
@@ -139,7 +143,6 @@ namespace R04522602許泰源Ass11{
 
 			objectiveValues = new double[numberOfParticles];
 			individualBestValues = new double[numberOfParticles];
-			gradientVetor = new double[numberOfVariables];
 
 			Initialization();
 		}
@@ -152,11 +155,9 @@ namespace R04522602許泰源Ass11{
 				soFarTheBestObjective = double.MinValue;
 
 			for(i=0; i<numberOfParticles; i++){
-				for(j=0; j<numberOfVariables; j++){
+				for(j=0; j<numberOfVariables; j++)
 					solutions[i][j] = individualBestSolution[i][j] = lowerbound[j] + randomizer.NextDouble() * (upperbound[j]-lowerbound[j]);
-					/*if(j>=2)
-						solutions[i][j] = 0;*/
-				}
+				
 				individualBestValues[i] = objectiveValues[i] = GetObjectiveValue(individualBestSolution[i]);
 				
 				switch(optimizationType){
@@ -223,46 +224,100 @@ namespace R04522602許泰源Ass11{
 							alpha = randomizer.NextDouble() * c1;
 							beta  = randomizer.NextDouble() * c2;
 						}
+						double normalizationa = 0.0, normalizationb = 0.0;
+						gradient_vector = new double[numberOfVariables];
+						for(j=0; j<numberOfVariables; j++){
+							gradient_vector[j] = (individualBestSolution[i][j] - solutions[i][j]);
+							normalizationa += gradient_vector[j]*gradient_vector[j];
+							gradient_vector[j] = (soFarTheBestSolution[j] - solutions[i][j]);
+							normalizationb += gradient_vector[j]*gradient_vector[j];
+						}
+						normalizationa = Math.Sqrt(normalizationa);
+						normalizationb = Math.Sqrt(normalizationb);
+						
+						if(normalizationa > 0.000001 && normalizationb > 0.000001)
+							for(j=0; j<numberOfVariables; j++)
+								solutions[i][j] += alpha * (individualBestSolution[i][j] - solutions[i][j])/normalizationa + beta * (soFarTheBestSolution[j] - solutions[i][j])/normalizationb;
+						else
+							for(j=0; j<numberOfVariables; j++)
+								solutions[i][j] += alpha * (individualBestSolution[i][j] - solutions[i][j]) + beta * (soFarTheBestSolution[j] - solutions[i][j]);
 						break;
 
 					case LearningType.Gradient:
-						gradientVetor = Gradient(solutions[i]);
-						for(j=0; j<numberOfVariables; j++)
-							solutions[i][j] += gradientVetor[j];
+						gradient_vector = Gradient(solutions[i]);
+						if(optimizationType == OptimizationType.Min)
+							for(j=0; j<numberOfVariables; j++){
+								solutions[i][j] += gradient_vector[j];
+								if(solutions[i][j] >= upperbound[j])
+									solutions[i][j] = upperbound[j];
+								if(solutions[i][j] <= lowerbound[j])
+									solutions[i][j] = lowerbound[j];
+							}
+						else if(optimizationType == OptimizationType.Max)
+							for(j=0; j<numberOfVariables; j++){
+								solutions[i][j] -= gradient_vector[j];
+								if(solutions[i][j] >= upperbound[j])
+									solutions[i][j] = upperbound[j];
+								if(solutions[i][j] <= lowerbound[j])
+									solutions[i][j] = lowerbound[j];
+							}
 						break;
 				}
-				if(learningType!=LearningType.Gradient)
-					for(j=0; j<numberOfVariables; j++){
+				if(learningType!=LearningType.Gradient || learningType!=LearningType.Heuristic)
+					for(j=0; j<numberOfVariables; j++)
 						solutions[i][j] += alpha * (individualBestSolution[i][j] - solutions[i][j]) + beta * (soFarTheBestSolution[j] - solutions[i][j]);
-						/*if(j>=2)
-							solutions[i][j] = 0;*/
-					}
+					
 				//Update Best Solution
 				tempObj = objectiveValues[i] = GetObjectiveValue(solutions[i]);
+				
+				
 				if(tempObj == soFarTheBestObjective){
-					double[] gradient_vector;
 					double[] tempsolution = new double[numberOfVariables];
 					double gv_factor = randomizer.NextDouble();
 					gradient_vector = COP_Problem.GetGradientVector(solutions[i]);
 					
 					if(COP_Problem.GradientComputationCode != ""){
-						for(j=0; j<numberOfVariables; j++)
-							tempsolution[j] = solutions[i][j] - gradient_vector[j] * gv_factor;
-					
+						if(optimizationType == OptimizationType.Min)
+							for(j=0; j<numberOfVariables; j++)
+								tempsolution[j] = solutions[i][j] - gradient_vector[j] * gv_factor;
+						else if(optimizationType == OptimizationType.Max)
+							for(j=0; j<numberOfVariables; j++)
+								tempsolution[j] = solutions[i][j] + gradient_vector[j] * gv_factor;
+
 						tempObj = GetObjectiveValue(tempsolution);
-						if(tempObj < objectiveValues[i]){
-							objectiveValues[i] = tempObj;
-							for(j=0; j<numberOfVariables; j++){
-								solutions[i][j] = tempsolution[j];
-								/*if(j>=2)
-									solutions[i][j] = 0;*/
+						
+						if(optimizationType == OptimizationType.Min)
+							if(tempObj < objectiveValues[i]){
+								objectiveValues[i] = tempObj;
+								for(j=0; j<numberOfVariables; j++)
+									solutions[i][j] = tempsolution[j];
 							}
-						}
+						else if(optimizationType == OptimizationType.Max)
+								if(tempObj > objectiveValues[i]){
+								objectiveValues[i] = tempObj;
+								for(j=0; j<numberOfVariables; j++)
+									solutions[i][j] = tempsolution[j];
+							}
 					}
 					else{
-						gradientVetor = Gradient(solutions[i]);
-						for(j=0; j<numberOfVariables; j++)
-							solutions[i][j] += gradientVetor[j];
+						gradient_vector = Gradient(solutions[i]);
+						if(optimizationType == OptimizationType.Min)
+							for(j=0; j<numberOfVariables; j++){
+								solutions[i][j] += gradient_vector[j];
+								if(solutions[i][j] >= upperbound[j])
+									solutions[i][j] = upperbound[j];
+								if(solutions[i][j] <= lowerbound[j])
+									solutions[i][j] = lowerbound[j];
+							}
+						else if(optimizationType == OptimizationType.Max)
+							for(j=0; j<numberOfVariables; j++){
+								solutions[i][j] -= gradient_vector[j];
+								if(solutions[i][j] >= upperbound[j])
+									solutions[i][j] = upperbound[j];
+								if(solutions[i][j] <= lowerbound[j])
+									solutions[i][j] = lowerbound[j];
+							}
+
 					}
 				}
 				switch(optimizationType){
@@ -285,6 +340,11 @@ namespace R04522602許泰源Ass11{
 						break;
 
 					case OptimizationType.Max:
+						if(tempObj > iterationBest)
+							iterationBest = tempObj;
+						
+						iterationAverage += tempObj;
+
 						if(tempObj > individualBestValues[i]){
 							individualBestValues[i] = tempObj;
 							for(j=0; j<numberOfVariables; j++)
@@ -298,6 +358,11 @@ namespace R04522602許泰源Ass11{
 						break;
 
 					case OptimizationType.Goal:
+						if(Math.Abs(tempObj - goal) < Math.Abs(iterationBest - goal))
+							iterationBest = tempObj;
+						
+						iterationAverage += tempObj;
+
 						if(Math.Abs(tempObj-goal) < Math.Abs(individualBestValues[i]-goal)){
 							individualBestValues[i] = tempObj;
 							for(j=0; j<numberOfVariables; j++)
@@ -340,23 +405,30 @@ namespace R04522602許泰源Ass11{
 						fv2 = GetObjectiveValue(solution);
 					solution[i] += dx;
 					
+
 					if(fv1 < (fv0<fv2?fv0:fv2)){
 						Grad[i] = dx;
 						found = true;
+						if(solution[i]+Grad[i] > upperbound[i])
+							Grad[i] = upperbound[i] - solution[i];
 					}
 					else if(fv2 < (fv0<fv1?fv0:fv1)){
 						Grad[i] = -dx;
 						found = true;
+						if(solution[i]+Grad[i] < lowerbound[i])
+							Grad[i] = lowerbound[i] - solution[i];
 					}
-					else{
+					
+					if(!found){
 						Grad[i] = 0.0;
-						df *= 10.0;
+						df *= 2.0;
 					}
 
 					if(dx < 0.000001)
 						found = true;
 				}while(!found);
 			}
+
 			return Grad;
 		}
 	}
