@@ -21,7 +21,7 @@ namespace R04522602許泰源Ass11{
 		PSOSolver PSO_Solver = null;
 		Surface surface = new Surface();
 		Points3D points = new Points3D();
-
+		Points3D knownOpt = new Points3D();
 		int[] SoFarTheBestSolution;
 		
 
@@ -51,6 +51,7 @@ namespace R04522602許泰源Ass11{
 
 			surface.Title = "Function";
 			points.Title  = "SoFarSolutionParticles";
+			knownOpt.Title  = "KnownSolution";
 		}
 
 		//Import the data
@@ -60,7 +61,6 @@ namespace R04522602許泰源Ass11{
 			if(COP_Problem != null){
 				COP_Problem.DisplayOnPanel(sCouter1.Panel1);
 				double[] variables = new double[COP_Problem.Dimension];
-			
 				SoFarTheBestSolution = new int[COP_Problem.Dimension];
 			
 				Solver.SelectedObject = null;
@@ -83,9 +83,17 @@ namespace R04522602許泰源Ass11{
 						surface.Add(variables[0], COP_Problem.GetObjectiveValue(variables), variables[1]);
 					}
 				}
+
+				knownOpt.Clear();
+				for(int i=0; i<COP_Problem.OptimalSolutions.GetLength(0); i++){
+					for(int j=0; j<COP_Problem.OptimalSolutions.GetLength(1); j++)
+						variables[j] = COP_Problem.OptimalSolutions[i,j];
+					knownOpt.Add(variables[0], COP_Problem.GetObjectiveValue(variables), variables[1]);
+				}
 				tChart.Series.Add(surface);
 				tChart.Series.Add(points);
-
+				tChart.Series.Add(knownOpt);
+				int c = knownOpt.Count;
 				tChart.Axes.Bottom.Maximum = COP_Problem.UpperBound[0];
 				tChart.Axes.Bottom.Minimum = COP_Problem.LowerBound[0];
 				tChart.Axes.Depth.Maximum = COP_Problem.UpperBound[0];
