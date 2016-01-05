@@ -45,6 +45,15 @@ namespace R04522602許泰源Ass12 {
 			InitWeights();
 		}
 
+		public void Reset(){
+			perceptrons = new double[Din];
+			epsilons    = new double[Din];
+			weights = new double[Din][];
+			for(int i=0; i<Din; i++)
+				weights[i] = new double[Dout];
+			InitWeights();
+		}
+
 		public void InitWeights(){
 			//Bug, need to add one more dimension for x0
 			//But we can do it on the input data before it send in;
@@ -52,6 +61,7 @@ namespace R04522602許泰源Ass12 {
 			for(int i=0; i<Din; i++)
 				for(int j=0; j<Dout; j++)
 					weights[i][j] = (rand.NextDouble()-0.5)*2;
+					//weights[i][j] = (rand.NextDouble());
 		}
 
 		public double[] Output(){
@@ -102,6 +112,10 @@ namespace R04522602許泰源Ass12 {
 			for(int i=0; i<Dout; i++)
 				for(int j=0; j<Din; j++)
 					((ListBox)sender).Items.Add(String.Format("w[{0}][{2}][{1}] = {3:F4}",d,j,i,weights[j][i]));
+		}
+
+		public override string ToString() {
+			return (Din-1).ToString();
 		}
 	}
 }

@@ -16,7 +16,7 @@ namespace R04522602許泰源Ass12
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Form1());
+			Application.Run(new NeuralNetworkSystem());
 		}
 	}
 }
